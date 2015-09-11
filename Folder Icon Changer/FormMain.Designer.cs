@@ -40,6 +40,8 @@
             this.CBCopyIconToFolder = new System.Windows.Forms.CheckBox();
             this.bIconFromImage = new System.Windows.Forms.Button();
             this.BBrowseIcon = new System.Windows.Forms.Button();
+            this.contextMSBrowseIconFShell32 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemShell32 = new System.Windows.Forms.ToolStripMenuItem();
             this.TBCurrentIconIndex = new System.Windows.Forms.TextBox();
             this.TBCurrentIcon = new System.Windows.Forms.TextBox();
             this.LabelCurrentIcon = new System.Windows.Forms.Label();
@@ -56,14 +58,12 @@
             this.tBTargetFolder = new Ezz_Helper.WinForms.EditControls.TextBoxEzz();
             this.nUpDownIconIndex = new Ezz_Helper.WinForms.EditControls.NumericUpDownEx();
             this.TBNewIcon = new Ezz_Helper.WinForms.EditControls.TextBoxEzz();
-            this.contextMSBrowseIconFShell32 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItemShell32 = new System.Windows.Forms.ToolStripMenuItem();
             this.gBNewIcon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBNew)).BeginInit();
+            this.contextMSBrowseIconFShell32.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBCurrent)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUpDownIconIndex)).BeginInit();
-            this.contextMSBrowseIconFShell32.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -172,7 +172,7 @@
             this.bIconFromImage.TabIndex = 7;
             this.bIconFromImage.Text = "IconFromImage";
             this.bIconFromImage.UseVisualStyleBackColor = true;
-            this.bIconFromImage.Visible = false;
+            this.bIconFromImage.Click += new System.EventHandler(this.bIconFromImage_Click);
             // 
             // BBrowseIcon
             // 
@@ -185,6 +185,20 @@
             this.BBrowseIcon.Text = "---";
             this.BBrowseIcon.UseVisualStyleBackColor = true;
             this.BBrowseIcon.Click += new System.EventHandler(this.BBrowseIcon_Click);
+            // 
+            // contextMSBrowseIconFShell32
+            // 
+            this.contextMSBrowseIconFShell32.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemShell32});
+            this.contextMSBrowseIconFShell32.Name = "contextMSBrowseIconFShell32";
+            this.contextMSBrowseIconFShell32.Size = new System.Drawing.Size(213, 26);
+            // 
+            // toolStripMenuItemShell32
+            // 
+            this.toolStripMenuItemShell32.Name = "toolStripMenuItemShell32";
+            this.toolStripMenuItemShell32.Size = new System.Drawing.Size(212, 22);
+            this.toolStripMenuItemShell32.Text = "Browse to system shell file";
+            this.toolStripMenuItemShell32.Click += new System.EventHandler(this.toolStripMenuItemShell32_Click);
             // 
             // TBCurrentIconIndex
             // 
@@ -333,8 +347,6 @@
             this.tBTargetFolder.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tBTargetFolder.FreeInputForCalculating = false;
             this.tBTargetFolder.Location = new System.Drawing.Point(95, 67);
-            this.tBTargetFolder.MaxNumber = 1.7976931348623157E+308D;
-            this.tBTargetFolder.MinNumber = -1.7976931348623157E+308D;
             this.tBTargetFolder.Name = "tBTargetFolder";
             this.tBTargetFolder.NumericType = Ezz_Helper.WinForms.EditControls.TextBoxEzz.NumericTypes.AcceptAny;
             this.tBTargetFolder.Size = new System.Drawing.Size(362, 23);
@@ -364,27 +376,11 @@
             this.TBNewIcon.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TBNewIcon.FreeInputForCalculating = false;
             this.TBNewIcon.Location = new System.Drawing.Point(62, 19);
-            this.TBNewIcon.MaxNumber = 1.7976931348623157E+308D;
-            this.TBNewIcon.MinNumber = -1.7976931348623157E+308D;
             this.TBNewIcon.Name = "TBNewIcon";
             this.TBNewIcon.NumericType = Ezz_Helper.WinForms.EditControls.TextBoxEzz.NumericTypes.AcceptAny;
             this.TBNewIcon.ReadOnly = true;
             this.TBNewIcon.Size = new System.Drawing.Size(235, 23);
             this.TBNewIcon.TabIndex = 16;
-            // 
-            // contextMSBrowseIconFShell32
-            // 
-            this.contextMSBrowseIconFShell32.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemShell32});
-            this.contextMSBrowseIconFShell32.Name = "contextMSBrowseIconFShell32";
-            this.contextMSBrowseIconFShell32.Size = new System.Drawing.Size(213, 48);
-            // 
-            // toolStripMenuItemShell32
-            // 
-            this.toolStripMenuItemShell32.Name = "toolStripMenuItemShell32";
-            this.toolStripMenuItemShell32.Size = new System.Drawing.Size(212, 22);
-            this.toolStripMenuItemShell32.Text = "Browse to system shell file";
-            this.toolStripMenuItemShell32.Click += new System.EventHandler(this.toolStripMenuItemShell32_Click);
             // 
             // FormMain
             // 
@@ -420,11 +416,11 @@
             this.gBNewIcon.ResumeLayout(false);
             this.gBNewIcon.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBNew)).EndInit();
+            this.contextMSBrowseIconFShell32.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBCurrent)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUpDownIconIndex)).EndInit();
-            this.contextMSBrowseIconFShell32.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

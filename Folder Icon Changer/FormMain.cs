@@ -10,6 +10,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Windows.Forms;
 using Ezz_Helper;
+using Ezz_Helper.Drawing;
 using Ezz_Helper.WinForms.IconsManager;
 using Ezz_Helper.Drawing.IconsManager;
 using Folder_Icon_Changer.Properties;
@@ -100,7 +101,8 @@ namespace Folder_Icon_Changer
             {
                 FIInfo = Ezz_Helper.Files.GetInfo.GetDirectoryInfo.GetFolderIconInfo(tBTargetFolder.Text);
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.ToString());
             }
 
@@ -179,7 +181,7 @@ namespace Folder_Icon_Changer
         {
             if (nUpDownIconIndex.Enabled)
             {
-               ctrsNewIEnabled(false);
+                ctrsNewIEnabled(false);
                 this.Cursor = Cursors.WaitCursor;
             }
             //bNewShowIconGroup.Enabled = false;
@@ -202,7 +204,7 @@ namespace Folder_Icon_Changer
             //
             TBNewIcon.Text = SNewIConInfo.FilePath;
             int IIndex = SNewIConInfo.Index == 0 ? 0 : SNewIConInfo.FilePath.EndsWith("ico", StringComparison.CurrentCultureIgnoreCase) ? 0 : SNewIConInfo.Index;
-           
+
             if (SNewIConInfo.SourceIcon == null)
             {
                 if (newIconInfo != null) newIconInfo.Dispose();
@@ -223,7 +225,7 @@ namespace Folder_Icon_Changer
                 CheckNSetAllowToApply();
             }
             //bNewShowIconGroup.Enabled = newIconInfo!=null;
-           
+
             ctrsNewIEnabled(true);
             toolStripStatusLabel1.Text = "---";
             this.Cursor = Cursors.Default;
@@ -241,9 +243,63 @@ namespace Folder_Icon_Changer
                 GetNewIconInfo(SICon.GetFirstItem());
             }
         }
-
-
-
+        private void bIconFromImage_Click(object sender, EventArgs e)
+        { IconFromImage(); }
+        private void IconFromImage()
+        {
+            var fd = new OpenFileDialog();
+            fd.Multiselect = false;
+            fd.BuildFilter(new string[] { "*.jpg", "*.Jpeg", "*.png", "*.bmp" });
+            fd.Title = "Select any Image/Picture to be converted to ico format with sizes (p256, p128, p64, p48, p32, p16) and the Color is Alpha_Channel (32bit)";
+            if (fd.ShowDialog(this) == DialogResult.OK)
+            {
+                IconFromImage(fd.FileName);
+            }
+        }
+        private void IconFromImage(string SourceImageFile)
+        {
+            if (!File.Exists(SourceImageFile))
+            {
+                MessageBox.Show("File is Not Exists!");
+                return;
+            }
+            var SaveDefDir = Directory.Exists(tBTargetFolder.Text) ? tBTargetFolder.Text : Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            var SaveFD = new SaveFileDialog();
+            SaveFD.BuildFilter(new string[] { "*.ico" });
+            SaveFD.AddExtension = true;
+            SaveFD.DefaultExt = ".ico";
+            SaveFD.InitialDirectory = SaveDefDir;
+            //generatedsad 
+            SaveFD.Title = "Select where to save the new generated icon format?";
+            SaveFD.FileName = "NewIcon.ico";//Path.Combine(DefDir, "NewIcon.ico");
+            SaveFD.OverwritePrompt = true;
+            if (SaveFD.ShowDialog(this) == DialogResult.OK)
+            {
+                try
+                {
+                    var SourceImage = new Bitmap(SourceImageFile);
+                    string iconFile = "";
+                    using (var IconEd = new IconEditor(SourceImage, new OneIconInfo(Sizes.px_256x256, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_128x128, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_64x64, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_48x48, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_32x32, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_16x16, ImageColorsTypes.Alpha_Channel)))
+                    {
+                        var res = IconEd.SaveTo(SaveFD.FileName, SameFileNameDecisions.Overwrite);
+                        iconFile = res.FilePath;
+                    }
+                    SourceImage.Dispose();
+                    //
+                    BrowseIcon(iconFile);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    //throw;
+                }
+            }
+        }
 
         private string GetIconFileFullPathIfInFolder(string Folder_, string iconFP)
         {
@@ -305,11 +361,16 @@ namespace Folder_Icon_Changer
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
+                ///"*.jpg", "*.Jpeg", "*.png", "*.bmp"
                 var DFiles = (string[])e.Data.GetData(DataFormats.FileDrop);
                 var DDD = DFiles[0];
                 if (Directory.Exists(DDD) || DDD.EndsWith("ico", StringComparison.CurrentCultureIgnoreCase) ||
                     DDD.EndsWith("dll", StringComparison.CurrentCultureIgnoreCase) ||
-                    DDD.EndsWith("exe", StringComparison.CurrentCultureIgnoreCase))
+                    DDD.EndsWith("exe", StringComparison.CurrentCultureIgnoreCase) ||
+                    DDD.EndsWith("jpg", StringComparison.CurrentCultureIgnoreCase) ||
+                    DDD.EndsWith("Jpeg", StringComparison.CurrentCultureIgnoreCase) ||
+                    DDD.EndsWith("png", StringComparison.CurrentCultureIgnoreCase) ||
+                    DDD.EndsWith("bmp", StringComparison.CurrentCultureIgnoreCase))
                 {
                     e.Effect = DragDropEffects.Copy;
                 }
@@ -334,6 +395,13 @@ namespace Folder_Icon_Changer
                 {
                     GetNewIconInfo(SICon.GetFirstItem());
                 }
+            }
+            else if (DDD.EndsWith("jpg", StringComparison.CurrentCultureIgnoreCase) ||
+                    DDD.EndsWith("Jpeg", StringComparison.CurrentCultureIgnoreCase) ||
+                    DDD.EndsWith("png", StringComparison.CurrentCultureIgnoreCase) ||
+                    DDD.EndsWith("bmp", StringComparison.CurrentCultureIgnoreCase))
+            {
+                IconFromImage(DDD);
             }
         }
 
@@ -432,7 +500,7 @@ namespace Folder_Icon_Changer
             }
         }
 
-        
+
         private void nUpDownIconIndex_ValueChanged(object sender, EventArgs e)
         {
             if (newIconInfo != null)
@@ -450,7 +518,9 @@ namespace Folder_Icon_Changer
             }
         }
 
-      
+
+
+
 
 
 
