@@ -126,7 +126,7 @@ namespace Folder_Icon_Changer
                 RestCurrentInfo();
                 ctrsCurrentIEnabled(true);
                 toolStripStatusLabel1.Text = "---";
-                this.Cursor = Cursors.Default;
+                this.UseWaitCursor = false;
                 return;
             }
             Select_Icon.SelectedIconInfo FIInfo = null;
