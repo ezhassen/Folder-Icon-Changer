@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
-
+using Folder_Icon_Changer;
 
 namespace Folder_Icon_Changer
 {
@@ -21,7 +21,8 @@ namespace Folder_Icon_Changer
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
 
-            this.textBoxDescription.Text = AssemblyDescription;
+            //this.textBoxDescription.Text = AssemblyDescription;
+            this.textBoxDescription.Text = Program.mlm.GetString("strings", "AppDescription");
         }
 
         #region Assembly Attribute Accessors

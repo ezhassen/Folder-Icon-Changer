@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.Principal;
-using System.Text;
 using System.Windows.Forms;
 using Ezz_Helper;
-using Ezz_Helper.Drawing;
 using Ezz_Helper.WinForms.IconsManager;
 using Ezz_Helper.Drawing.IconsManager;
 using Folder_Icon_Changer.Properties;
@@ -24,11 +16,52 @@ namespace Folder_Icon_Changer
             InitializeComponent();
 
             gBNewIcon.MouseDown += FormMain_MouseDown;
-
-            this.Text = string.Format("Folder Icon Changer v{0} By ezhassen", Application.ProductVersion.ToString());
         }
 
-
+        Select_Icon.LangStrings Select_IconLangs;
+        public void RefreshLng()
+        {
+            this.Text = string.Format("{0} - {1}", string.Format(Program.mlm.GetString("strings", "MainFormTitle"), Application.ProductVersion.ToString()), Application.CompanyName);
+            //Buttons
+            bRefresh.Text = Program.mlm.GetString("Buttons", "Refresh");
+            bCurrentShowIconGroup.Text = Program.mlm.GetString("Buttons", "ShowIconGroup"); bNewShowIconGroup.Text = bCurrentShowIconGroup.Text;
+            bClearNewInfo.Text = Program.mlm.GetString("Buttons", "Clear");
+            BGetIcon.Text = Program.mlm.GetString("Buttons", "GetIcon");
+            bIconFromImage.Text = Program.mlm.GetString("Buttons", "IconFromImage");
+            BRest.Text = Program.mlm.GetString("Buttons", "ResetToDefaultIcon");
+            BApply.Text = Program.mlm.GetString("Buttons", "Apply");
+            BClose.Text = Program.mlm.GetString("Buttons", "Close");
+            //Label
+            labelTargetFolder.Text = Program.mlm.GetString("Label", "TargetFolder");
+            LabelCurrentIcon.Text = Program.mlm.GetString("Label", "CurrentIcon");
+            gBNewIcon.Text = Program.mlm.GetString("Label", "NewIconInfo");
+            CBCopyIconToFolder.Text = Program.mlm.GetString("Label", "CopyIconToFolder");
+            CBHideFile.Text = Program.mlm.GetString("Label", "HideIcon");
+            //
+            Select_IconLangs = new Select_Icon.LangStrings
+            {
+                FormText = Program.mlm.GetString("Select_Icon", "FormText"),
+                Abort = Program.mlm.GetString("Select_Icon", "Abort"),
+                AllSupportedFormats = Program.mlm.GetString("Select_Icon", "AllSupportedFormats"),
+                Back = Program.mlm.GetString("Select_Icon", "Back"),
+                Cancel = Program.mlm.GetString("Select_Icon", "Cancel"),
+                Count = Program.mlm.GetString("Select_Icon", "Count"),
+                DrawText = Program.mlm.GetString("Select_Icon", "DrawText"),
+                GetIcons = Program.mlm.GetString("Select_Icon", "GetIcons"),
+                Index = Program.mlm.GetString("Select_Icon", "Index"),
+                Loading = Program.mlm.GetString("Select_Icon", "Loading"),
+                NoIconToShow = Program.mlm.GetString("Select_Icon", "NoIconToShow"),
+                OK = Program.mlm.GetString("Select_Icon", "OK"),
+                SelectedCount = Program.mlm.GetString("Select_Icon", "SelectedCount"),
+                StretchedImage = Program.mlm.GetString("Select_Icon", "StretchedImage"),
+                StretchedSmallImagesToo = Program.mlm.GetString("Select_Icon", "StretchedSmallImagesToo"),
+                Refresh = Program.mlm.GetString("Select_Icon", "Refresh"),
+                SaveAs = Program.mlm.GetString("Select_Icon", "SaveAs"),
+                Select = Program.mlm.GetString("Select_Icon", "Select"),
+                ShowIconGroup = Program.mlm.GetString("Select_Icon", "ShowIconGroup"),
+                View = Program.mlm.GetString("Select_Icon", "View")
+            };
+        }
 
         #region Helper methods
 
@@ -86,7 +119,7 @@ namespace Folder_Icon_Changer
         private IconInfo CurrentIconInfo;
         private void RefreshCurrentInfo()
         {
-            this.Cursor = Cursors.WaitCursor;
+            this.UseWaitCursor = true;
             ctrsCurrentIEnabled(false);
             if (!Directory.Exists(tBTargetFolder.Text))
             {
@@ -96,7 +129,7 @@ namespace Folder_Icon_Changer
                 this.Cursor = Cursors.Default;
                 return;
             }
-            Ezz_Helper.WinForms.IconsManager.Select_Icon.SelectedIconInfo FIInfo = null;
+            Select_Icon.SelectedIconInfo FIInfo = null;
             try
             {
                 FIInfo = Ezz_Helper.Files.GetInfo.GetDirectoryInfo.GetFolderIconInfo(tBTargetFolder.Text);
@@ -111,7 +144,7 @@ namespace Folder_Icon_Changer
                 RestCurrentInfo();
                 ctrsCurrentIEnabled(true);
                 toolStripStatusLabel1.Text = "---";
-                this.Cursor = Cursors.Default;
+                this.UseWaitCursor = false;
                 return;
             }
             if (FIInfo.SourceIcon == null)
@@ -139,7 +172,7 @@ namespace Folder_Icon_Changer
             //bCurrentShowIconGroup.Enabled = BRest.Enabled;
             ctrsCurrentIEnabled(true);
             toolStripStatusLabel1.Text = "---";
-            this.Cursor = Cursors.Default;
+            this.UseWaitCursor = false;
             this.Refresh();
         }
 
@@ -147,7 +180,7 @@ namespace Folder_Icon_Changer
         {
             bClearNewInfo.Enabled = enabled;
             nUpDownIconIndex.Enabled = enabled;
-            BGetNew.Enabled = enabled;
+            BGetIcon.Enabled = enabled;
             BBrowseIcon.Enabled = enabled;
             bIconFromImage.Enabled = enabled;
             bNewShowIconGroup.Enabled = enabled ? newIconInfo != null : false;
@@ -237,8 +270,8 @@ namespace Folder_Icon_Changer
         }
         private void BrowseIcon(string DefTarget, int defindex = 0)
         {
-            var SICon = Ezz_Helper.WinForms.IconsManager.Select_Icon.ShowD(this, DefTarget, defindex, string.IsNullOrEmpty(DefTarget) ? true : string.IsNullOrEmpty(TBNewIcon.Text));
-            if (SICon.DialogResult == System.Windows.Forms.DialogResult.OK)
+            var SICon = Select_Icon.ShowD(this, DefTarget, defindex, string.IsNullOrEmpty(DefTarget) ? true : string.IsNullOrEmpty(TBNewIcon.Text), lang: Select_IconLangs);
+            if (SICon.DialogResult == DialogResult.OK)
             {
                 GetNewIconInfo(SICon.GetFirstItem());
             }
@@ -250,7 +283,7 @@ namespace Folder_Icon_Changer
             var fd = new OpenFileDialog();
             fd.Multiselect = false;
             fd.BuildFilter(new string[] { "*.jpg", "*.Jpeg", "*.png", "*.bmp" });
-            fd.Title = "Select any Image/Picture to be converted to ico format with sizes (p256, p128, p64, p48, p32, p16) and the Color is Alpha_Channel (32bit)";
+            fd.Title = Program.mlm.GetString("strings", "SelectAnyImageToBeConverted");
             if (fd.ShowDialog(this) == DialogResult.OK)
             {
                 IconFromImage(fd.FileName);
@@ -260,7 +293,7 @@ namespace Folder_Icon_Changer
         {
             if (!File.Exists(SourceImageFile))
             {
-                MessageBox.Show("File is Not Exists!");
+                MessageBox.Show(Program.mlm.GetString("strings", "FileNotExists"));
                 return;
             }
             var SaveDefDir = Directory.Exists(tBTargetFolder.Text) ? tBTargetFolder.Text : Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -270,8 +303,8 @@ namespace Folder_Icon_Changer
             SaveFD.DefaultExt = ".ico";
             SaveFD.InitialDirectory = SaveDefDir;
             //generatedsad 
-            SaveFD.Title = "Select where to save the new generated icon format?";
-            SaveFD.FileName = "NewIcon.ico";//Path.Combine(DefDir, "NewIcon.ico");
+            SaveFD.Title = Program.mlm.GetString("strings", "SelectToSaveNewGeneratedIcon");
+            SaveFD.FileName = Program.mlm.GetString("strings", "NewIcon") + ".ico";
             SaveFD.OverwritePrompt = true;
             if (SaveFD.ShowDialog(this) == DialogResult.OK)
             {
@@ -390,7 +423,7 @@ namespace Folder_Icon_Changer
                 DDD.EndsWith("dll", StringComparison.CurrentCultureIgnoreCase)
                 || DDD.EndsWith("exe", StringComparison.CurrentCultureIgnoreCase))
             {
-                var SICon = Ezz_Helper.WinForms.IconsManager.Select_Icon.ShowD(this, DDD, 0);
+                var SICon = Ezz_Helper.WinForms.IconsManager.Select_Icon.ShowD(this, DDD, 0, lang: Select_IconLangs);
                 if (SICon.DialogResult == System.Windows.Forms.DialogResult.OK)
                 {
                     GetNewIconInfo(SICon.GetFirstItem());
@@ -442,11 +475,11 @@ namespace Folder_Icon_Changer
             {
                 RefreshCurrentInfo();
                 GetNewIconInfo(null);
-                toolStripStatusLabel1.Text = "Done :)";
+                toolStripStatusLabel1.Text = Program.mlm.GetString("strings", "Done");
             }
             else
             {
-                toolStripStatusLabel1.Text = "There is an error!";
+                toolStripStatusLabel1.Text = Program.mlm.GetString("strings", "ThereIsAnError");
                 MessageBox.Show(err.Message);
             }
             //
@@ -507,7 +540,7 @@ namespace Folder_Icon_Changer
             {
                 if (newIconInfo.Index != (int)nUpDownIconIndex.Value)
                 {
-                    toolStripStatusLabel1.Text = "Click 'Get icon' button to get the icon first.";
+                    toolStripStatusLabel1.Text = string.Format(Program.mlm.GetString("strings", "ClickGetIconButtonToGetTheIconFirst"), BGetIcon.Text);
                     BApply.Enabled = false;
                 }
                 else
@@ -518,29 +551,18 @@ namespace Folder_Icon_Changer
             }
         }
 
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+            RefreshLng();
+        }
 
-
-
-
-
-
-
-        //
-        //[DllImport("user32")]
-        //public static extern UInt32 SendMessage
-        //    (IntPtr hWnd, UInt32 msg, UInt32 wParam, UInt32 lParam);
-
-        //internal const int BCM_FIRST = 0x1600; //Normal button
-        //internal const int BCM_SETSHIELD = (BCM_FIRST + 0x000C); //Elevated button
-        //public static bool IsAdministrator()
-        //{
-        //    return (new WindowsPrincipal(WindowsIdentity.GetCurrent()))
-        //            .IsInRole(WindowsBuiltInRole.Administrator);
-        //}
-        //static internal void AddShieldToButton(Button b)
-        //{
-        //    b.FlatStyle = FlatStyle.System;
-        //    SendMessage(b.Handle, BCM_SETSHIELD, 0, 0xFFFFFFFF);
-        //}
+        private void bOptions_Click(object sender, EventArgs e)
+        {
+            var formOp = new FormOptions();
+            if (formOp.ShowDialog(this) == DialogResult.OK)
+            {
+                this.RefreshLng();
+            }
+        }
     }
 }
