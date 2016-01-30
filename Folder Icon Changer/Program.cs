@@ -222,7 +222,7 @@ namespace Folder_Icon_Changer
             Select_IconG.SetValue("View", "العرض");
             Select_IconG.SetValue("Refresh", "&تحديث");
             Select_IconG.SetValue("SaveAs", "حفظ كـ ...");
-            Select_IconG.SetValue("ExportIcon", "تصدير الأيكون");
+            Select_IconG.SetValue("ExportIcon", "تصدير الأيقون");
             Select_IconG.SetValue("ExportImage", "تصدير الصورة");
 
             return nlng;
