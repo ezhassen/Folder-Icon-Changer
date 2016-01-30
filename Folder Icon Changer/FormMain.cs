@@ -56,10 +56,12 @@ namespace Folder_Icon_Changer
                 StretchedImage = Program.mlm.GetString("Select_Icon", "StretchedImage"),
                 StretchedSmallImagesToo = Program.mlm.GetString("Select_Icon", "StretchedSmallImagesToo"),
                 Refresh = Program.mlm.GetString("Select_Icon", "Refresh"),
-                SaveAs = Program.mlm.GetString("Select_Icon", "SaveAs"),
                 Select = Program.mlm.GetString("Select_Icon", "Select"),
                 ShowIconGroup = Program.mlm.GetString("Select_Icon", "ShowIconGroup"),
-                View = Program.mlm.GetString("Select_Icon", "View")
+                View = Program.mlm.GetString("Select_Icon", "View"),
+                SaveAs = Program.mlm.GetString("Select_Icon", "SaveAs"),
+                ExportIcon = Program.mlm.GetString("Select_Icon", "ExportIcon"),
+                ExportImage = Program.mlm.GetString("Select_Icon", "ExportImage")
             };
         }
 
@@ -190,25 +192,27 @@ namespace Folder_Icon_Changer
         {
             this.Cursor = Cursors.WaitCursor;
             ctrsNewIEnabled(false);
-            FilePath = GetIconFileFullPathIfInFolder(tBTargetFolder.Text, FilePath);
-            if (!File.Exists(FilePath))
-            {
-                GetNewIconInfo(null);
-                return;
-            }
-            var ExIcon = IconExtractor.ExtractIcon(FilePath, iconIndex);
-            if (ExIcon == null)
-            {
-                //ToDo : Can not find an icon by the index in the file
-                GetNewIconInfo(null);
-                return;
-            }
-            Select_Icon.SelectedIconInfo SNewIConInfo = new Select_Icon.SelectedIconInfo();
-            SNewIConInfo.FilePath = FilePath;
-            SNewIConInfo.SourceIcon = ExIcon;
-            SNewIConInfo.Index = iconIndex;
-            SNewIConInfo.iCount = IconExtractor.GetIconsCount(FilePath);
-            GetNewIconInfo(SNewIConInfo);
+            //FilePath = GetIconFileFullPathIfInFolder(tBTargetFolder.Text, FilePath);
+            GetNewIconInfo(Select_Icon.DirectSelectIconFromFile(GetIconFileFullPathIfInFolder(tBTargetFolder.Text, FilePath), iconIndex));
+            //
+            //if (!File.Exists(FilePath))
+            //{
+            //    GetNewIconInfo(null);
+            //    return;
+            //}
+            //var ExIcon = IconExtractor.ExtractIcon(FilePath, iconIndex);
+            //if (ExIcon == null)
+            //{
+            //    //ToDo : Can not find an icon by the index in the file
+            //    GetNewIconInfo(null);
+            //    return;
+            //}
+            //Select_Icon.SelectedIconInfo SNewIConInfo = new Select_Icon.SelectedIconInfo();
+            //SNewIConInfo.FilePath = FilePath;
+            //SNewIConInfo.SourceIcon = ExIcon;
+            //SNewIConInfo.Index = iconIndex;
+            //SNewIConInfo.iCount = IconExtractor.GetIconsCount(FilePath);
+            //GetNewIconInfo(SNewIConInfo);
         }
         private void GetNewIconInfo(Select_Icon.SelectedIconInfo SNewIConInfo)
         {
@@ -312,19 +316,37 @@ namespace Folder_Icon_Changer
                 {
                     var SourceImage = new Bitmap(SourceImageFile);
                     string iconFile = "";
+                    //using (var IconEd = new IconEditor(SourceImage, new OneIconInfo(Sizes.px_256x256, ImageColorsTypes.Alpha_Channel),
+                    //    new OneIconInfo(Sizes.px_128x128, ImageColorsTypes.Alpha_Channel),
+                    //    new OneIconInfo(Sizes.px_64x64, ImageColorsTypes.Alpha_Channel),
+                    //    new OneIconInfo(Sizes.px_48x48, ImageColorsTypes.Alpha_Channel),
+                    //    new OneIconInfo(Sizes.px_32x32, ImageColorsTypes.Alpha_Channel),
+                    //    new OneIconInfo(Sizes.px_16x16, ImageColorsTypes.Alpha_Channel)))
+                    //{
+                    //    var res = IconEd.SaveTo(SaveFD.FileName, SameFileNameDecisions.Overwrite);
+                    //    iconFile = res.FilePath;
+                    //}
                     using (var IconEd = new IconEditor(SourceImage, new OneIconInfo(Sizes.px_256x256, ImageColorsTypes.Alpha_Channel),
                         new OneIconInfo(Sizes.px_128x128, ImageColorsTypes.Alpha_Channel),
                         new OneIconInfo(Sizes.px_64x64, ImageColorsTypes.Alpha_Channel),
                         new OneIconInfo(Sizes.px_48x48, ImageColorsTypes.Alpha_Channel),
                         new OneIconInfo(Sizes.px_32x32, ImageColorsTypes.Alpha_Channel),
-                        new OneIconInfo(Sizes.px_16x16, ImageColorsTypes.Alpha_Channel)))
+                        new OneIconInfo(Sizes.px_24x24, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_16x16, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_48x48, ImageColorsTypes._256_IndexedColors),
+                        new OneIconInfo(Sizes.px_32x32, ImageColorsTypes._256_IndexedColors),
+                        new OneIconInfo(Sizes.px_24x24, ImageColorsTypes._256_IndexedColors),
+                        new OneIconInfo(Sizes.px_16x16, ImageColorsTypes._256_IndexedColors),
+                        new OneIconInfo(Sizes.px_24x24, ImageColorsTypes._16_IndexedColors),
+                        new OneIconInfo(Sizes.px_16x16, ImageColorsTypes._16_IndexedColors)))
                     {
                         var res = IconEd.SaveTo(SaveFD.FileName, SameFileNameDecisions.Overwrite);
                         iconFile = res.FilePath;
                     }
                     SourceImage.Dispose();
                     //
-                    BrowseIcon(iconFile);
+                    //BrowseIcon(iconFile);
+                    GetNewIconInfo(iconFile, 0);
                 }
                 catch (Exception ex)
                 {
@@ -509,7 +531,7 @@ namespace Folder_Icon_Changer
 
         private void bCurrentShowIconGroup_Click(object sender, EventArgs e)
         {
-            IconGroup.Show_D(this, CurrentIconInfo);
+            IconGroup.Show_D(this, CurrentIconInfo, new IconGroup.LangStrings { ExportImage = Program.mlm.GetString("Select_Icon", "ExportImage") });
         }
 
         private void bNewShowIconGroup_Click(object sender, EventArgs e)
