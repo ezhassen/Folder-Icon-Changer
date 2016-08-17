@@ -187,3 +187,15 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+*.gitignore
+*.gitattributes
+/desktop.ini
+*.db
+
+# Visual Studio 2015 cache/options directory
+.vs/
+
+#Others
+Prerequisites/
+El Forsan Setup-SetupFiles/
+El Forsan Setup-cache/

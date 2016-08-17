@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Ezz_Helper;
 using Ezz_Helper.Managers;
 using UpdatingPreloaderEzz;
+using System.Linq;
 
 namespace Folder_Icon_Changer
 {
@@ -53,23 +54,39 @@ namespace Folder_Icon_Changer
                     Preloader.Load += (sender, e) =>
                     {
                         mlm.ReloadLngsInfo();
-                        var lastlngIsGood = mlm.ChangeCurrentLng(Properties.Settings.Default.lng, false, English);
-                        if (lastlngIsGood)
+                        var def = mlm.LngsInfo.FirstOrDefault((li) => li.FileName.Equals("english.xml", StringComparison.CurrentCultureIgnoreCase));
+                        if (def == null || !Application.ProductVersion.Equals(def.LGroup.GetValue("AppVersion")))
                         {
-                            mlm.CurrentLng.xmlEzz.Load(OnFinish_1: () =>
+                            var defLang = English();
+                            defLang.xmlEzz.Save(OnFinish_1: () => Arabic().xmlEzz.Save(OnFinish_1: () =>
                             {
-                                ShowMainForm();
-                            });
+                                if (defLang.xmlEzz.Save_ErrorInLastOperation != null) { }
+                                _LoadNShowMainForm();
+                            }));
                         }
                         else
                         {
-                            ShowMainForm();
+                            _LoadNShowMainForm();
                         }
-
                     };
                     Application.Run(Preloader);
                 }
                 SaveCurrentLng();
+            }
+        }
+        private static void _LoadNShowMainForm()
+        {
+            var lastlngIsGood = mlm.ChangeCurrentLng(Properties.Settings.Default.lng, false, English);
+            if (lastlngIsGood)
+            {
+                mlm.CurrentLng.xmlEzz.Load(OnFinish_1: () =>
+                {
+                    ShowMainForm();
+                });
+            }
+            else
+            {
+                ShowMainForm();
             }
         }
 
@@ -98,7 +115,7 @@ namespace Folder_Icon_Changer
         {
             Lng nlng = mlm.NewLng("english");
 
-            nlng.SetLngInfoGroup(new LString("Name", "English"), new LString("RTL", "false", "If this lng is a RightToLeft language then \"true\" else \"false\""));
+            nlng.SetLngInfoGroup(new LString("Name", "English"), new LString("RTL", "false", "If this lng is a RightToLeft language then \"true\" else \"false\""), new LString("AppVersion", Application.ProductVersion));
             //
             var stringsG = nlng.AddNewGroup("strings");
             stringsG.SetValue("MainFormTitle", "Folder Icon Changer v{0}");
@@ -108,9 +125,10 @@ namespace Folder_Icon_Changer
             stringsG.SetValue("SelectToSaveNewGeneratedIcon", "Select where to save the new generated icon?");
             stringsG.SetValue("NewIcon", "NewIcon");
             stringsG.SetValue("Done", "Done :)");
+            stringsG.SetValue("Working", "Working...");
             stringsG.SetValue("ThereIsAnError", "There is an error!");
             stringsG.SetValue("ClickGetIconButtonToGetTheIconFirst", "Click '{0}' button to get the icon first.");
-            
+
             stringsG.SetValue("FormOptionsTitle", "Options");
             //
             var ButtonsG = nlng.AddNewGroup("Buttons");
@@ -124,6 +142,7 @@ namespace Folder_Icon_Changer
             ButtonsG.SetValue("Close", "Close");
             ButtonsG.SetValue("OK", "OK");
             ButtonsG.SetValue("Cancel", "Cancel");
+            ButtonsG.SetValue("GenerateBestFit", "Generate Best Icon Fit");
             //
             var labelsG = nlng.AddNewGroup("Label");
             labelsG.SetValue("TargetFolder", "Target folder : ");
@@ -165,7 +184,7 @@ namespace Folder_Icon_Changer
         {
             Lng nlng = mlm.NewLng("arabic");
 
-            nlng.SetLngInfoGroup(new LString("Name", "العربية"), new LString("RTL", "true", "If this lng is a RightToLeft language then 'true' else 'false'"));
+            nlng.SetLngInfoGroup(new LString("Name", "العربية"), new LString("RTL", "true", "If this lng is a RightToLeft language then 'true' else 'false'"), new LString("AppVersion", Application.ProductVersion));
             //
             var stringsG = nlng.AddNewGroup("strings");
             stringsG.SetValue("MainFormTitle", "مغير أيقونة المجلد إصدار {0}");
@@ -175,6 +194,7 @@ namespace Folder_Icon_Changer
             stringsG.SetValue("SelectToSaveNewGeneratedIcon", "حدد مكان حفظ الأيقونة الجديدة المولدة?");
             stringsG.SetValue("NewIcon", "أيقونة جديد");
             stringsG.SetValue("Done", "تم :)");
+            stringsG.SetValue("Working", "جار العمل...");
             stringsG.SetValue("ThereIsAnError", "يوجد خطأ ما!");
             stringsG.SetValue("ClickGetIconButtonToGetTheIconFirst", "إضغط على زر '{0}' لتحصل على الأيقونة أولاً.");
 
@@ -191,6 +211,7 @@ namespace Folder_Icon_Changer
             ButtonsG.SetValue("Close", "إغلاق");
             ButtonsG.SetValue("OK", "حسناً");
             ButtonsG.SetValue("Cancel", "إلغاء");
+            ButtonsG.SetValue("GenerateBestFit", "توليد أفضل أيقونة مناسبة");
             //
             var labelsG = nlng.AddNewGroup("Label");
             labelsG.SetValue("TargetFolder", "المجلد الهدف : ");

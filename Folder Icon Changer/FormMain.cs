@@ -6,6 +6,7 @@ using Ezz_Helper;
 using Ezz_Helper.WinForms.IconsManager;
 using Ezz_Helper.Drawing.IconsManager;
 using Folder_Icon_Changer.Properties;
+using static Ezz_Helper.OtherH;
 
 namespace Folder_Icon_Changer
 {
@@ -31,6 +32,7 @@ namespace Folder_Icon_Changer
             BRest.Text = Program.mlm.GetString("Buttons", "ResetToDefaultIcon");
             BApply.Text = Program.mlm.GetString("Buttons", "Apply");
             BClose.Text = Program.mlm.GetString("Buttons", "Close");
+            bCurrentGenBestFit.Text = Program.mlm.GetString("Buttons", "GenerateBestFit");
             //Label
             labelTargetFolder.Text = Program.mlm.GetString("Label", "TargetFolder");
             LabelCurrentIcon.Text = Program.mlm.GetString("Label", "CurrentIcon");
@@ -102,6 +104,12 @@ namespace Folder_Icon_Changer
             PBCurrent.Image = null;
         }
 
+        private bool NeedGenBestFit()
+        {
+            if (CurrentIconInfo == null) return false;
+            if (!CurrentIconInfo.ContainsAllIcons(BestFitIconsInfo())) return true;
+            return false;
+        }
         private void ctrsCurrentIEnabled(bool enabled)
         {
             bRefresh.Enabled = enabled;
@@ -111,11 +119,13 @@ namespace Folder_Icon_Changer
             {
                 CheckNSetAllowToApply();
                 bCurrentShowIconGroup.Enabled = CurrentIconInfo != null;
+                bCurrentGenBestFit.Enabled = NeedGenBestFit();
             }
             else
             {
                 BApply.Enabled = false;
                 bCurrentShowIconGroup.Enabled = false;
+                bCurrentGenBestFit.Enabled = false;
             }
         }
         private IconInfo CurrentIconInfo;
@@ -326,19 +336,7 @@ namespace Folder_Icon_Changer
                     //    var res = IconEd.SaveTo(SaveFD.FileName, SameFileNameDecisions.Overwrite);
                     //    iconFile = res.FilePath;
                     //}
-                    using (var IconEd = new IconEditor(SourceImage, new OneIconInfo(Sizes.px_256x256, ImageColorsTypes.Alpha_Channel),
-                        new OneIconInfo(Sizes.px_128x128, ImageColorsTypes.Alpha_Channel),
-                        new OneIconInfo(Sizes.px_64x64, ImageColorsTypes.Alpha_Channel),
-                        new OneIconInfo(Sizes.px_48x48, ImageColorsTypes.Alpha_Channel),
-                        new OneIconInfo(Sizes.px_32x32, ImageColorsTypes.Alpha_Channel),
-                        new OneIconInfo(Sizes.px_24x24, ImageColorsTypes.Alpha_Channel),
-                        new OneIconInfo(Sizes.px_16x16, ImageColorsTypes.Alpha_Channel),
-                        new OneIconInfo(Sizes.px_48x48, ImageColorsTypes._256_IndexedColors),
-                        new OneIconInfo(Sizes.px_32x32, ImageColorsTypes._256_IndexedColors),
-                        new OneIconInfo(Sizes.px_24x24, ImageColorsTypes._256_IndexedColors),
-                        new OneIconInfo(Sizes.px_16x16, ImageColorsTypes._256_IndexedColors),
-                        new OneIconInfo(Sizes.px_24x24, ImageColorsTypes._16_IndexedColors),
-                        new OneIconInfo(Sizes.px_16x16, ImageColorsTypes._16_IndexedColors)))
+                    using (var IconEd = new IconEditor(SourceImage, GetOneIconInfoArry()))
                     {
                         var res = IconEd.SaveTo(SaveFD.FileName, SameFileNameDecisions.Overwrite);
                         iconFile = res.FilePath;
@@ -354,6 +352,35 @@ namespace Folder_Icon_Changer
                     //throw;
                 }
             }
+        }
+        private OneIconInfo[] OneIconInfoArry;
+        private OneIconInfo[] GetOneIconInfoArry()
+        {
+            if (OneIconInfoArry != null) return OneIconInfoArry;
+            OneIconInfoArry = new OneIconInfo[] {new OneIconInfo(Sizes.px_256x256, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_128x128, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_64x64, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_48x48, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_32x32, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_24x24, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_16x16, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_48x48, ImageColorsTypes._256_IndexedColors),
+                        new OneIconInfo(Sizes.px_32x32, ImageColorsTypes._256_IndexedColors),
+                        new OneIconInfo(Sizes.px_24x24, ImageColorsTypes._256_IndexedColors),
+                        new OneIconInfo(Sizes.px_16x16, ImageColorsTypes._256_IndexedColors),
+                        new OneIconInfo(Sizes.px_24x24, ImageColorsTypes._16_IndexedColors),
+                        new OneIconInfo(Sizes.px_16x16, ImageColorsTypes._16_IndexedColors) };
+            return OneIconInfoArry;
+        }
+        private OneIconInfo[] BestFitIconsInfo()
+        {
+            return new OneIconInfo[] {new OneIconInfo(Sizes.px_256x256, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_128x128, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_64x64, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_48x48, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_32x32, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_24x24, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_16x16, ImageColorsTypes.Alpha_Channel)};
         }
 
         private string GetIconFileFullPathIfInFolder(string Folder_, string iconFP)
@@ -585,6 +612,50 @@ namespace Folder_Icon_Changer
             {
                 this.RefreshLng();
             }
+        }
+
+        bool _genBestFit;
+        private void bCurrentGenBestFit_Click(object sender, EventArgs e)
+        {
+            if (_genBestFit) return;
+            _genBestFit = true;
+            RefreshCurrentInfo();
+            bool canGen = bCurrentGenBestFit.Enabled;
+            ctrsNewIEnabled(false);
+            try
+            {
+                toolStripStatusLabel1.Text = Program.mlm.GetString("strings", "Working"); statusStrip1.Update();
+                if (!canGen)
+                {
+                    _genBestFit = false;
+                    RefreshCurrentInfo();
+                    return;
+                }
+                var filePath = Path.Combine(tBTargetFolder.Text, "FolderIcon.ico");
+                //
+                var bestFitImage = CurrentIconInfo.GetBestFitIcon();
+                var SourceImage = new Bitmap(bestFitImage.Image);
+                using (var IconEd = new IconEditor(SourceImage, GetOneIconInfoArry()))
+                {
+                    var res = IconEd.SaveTo(filePath, SameFileNameDecisions.Rename);
+                    filePath = res.FilePath;
+                }
+                CurrentIconInfo.Dispose();
+                SourceImage.Dispose();
+                GetNewIconInfo(filePath, 0);
+                BApply_Click(sender, e);
+                //RefreshCurrentInfo();
+                //toolStripStatusLabel1.Text = Program.mlm.GetString("strings", "Done"); statusStrip1.Update();
+            }
+            catch (Exception ex)
+            {
+                RefreshCurrentInfo();
+                toolStripStatusLabel1.Text = Program.mlm.GetString("strings", "ThereIsAnError"); statusStrip1.Update();
+                MessageBox.Show(ex.ToString());
+                //throw;
+            }
+            //ctrsNewIEnabled(true);
+            _genBestFit = false;
         }
     }
 }
