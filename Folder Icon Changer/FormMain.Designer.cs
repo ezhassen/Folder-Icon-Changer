@@ -53,19 +53,23 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.BClose = new System.Windows.Forms.Button();
             this.BApply = new System.Windows.Forms.Button();
-            this.bRefresh = new System.Windows.Forms.Button();
             this.bCurrentShowIconGroup = new System.Windows.Forms.Button();
-            this.bOptions = new System.Windows.Forms.Button();
-            this.BAbout = new System.Windows.Forms.Button();
             this.PBCurrent = new System.Windows.Forms.PictureBox();
             this.tBTargetFolder = new Ezz_Helper.WinForms.EditControls.TextBoxEzz();
             this.bCurrentGenBestFit = new System.Windows.Forms.Button();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.bRefresh = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.bOptions = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.bAbout = new System.Windows.Forms.ToolStripButton();
             this.gBNewIcon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBNew)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUpDownIconIndex)).BeginInit();
             this.contextMSBrowseIconFShell32.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBCurrent)).BeginInit();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelTargetFolder
@@ -166,7 +170,7 @@
             this.CBHideFile.Name = "CBHideFile";
             this.CBHideFile.Size = new System.Drawing.Size(298, 17);
             this.CBHideFile.TabIndex = 12;
-            this.CBHideFile.Text = "Hide the file (after copying OR if it in the target folder)";
+            this.CBHideFile.Text = "Hide if the icon exists in the target folder";
             this.CBHideFile.UseVisualStyleBackColor = true;
             // 
             // CBCopyIconToFolder
@@ -297,6 +301,7 @@
             this.statusStrip1.Location = new System.Drawing.Point(0, 416);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(519, 22);
+            this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 18;
             this.statusStrip1.Text = "statusStrip1";
             this.statusStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormMain_MouseDown);
@@ -331,20 +336,6 @@
             this.BApply.UseVisualStyleBackColor = true;
             this.BApply.Click += new System.EventHandler(this.BApply_Click);
             // 
-            // bRefresh
-            // 
-            this.bRefresh.Image = global::Folder_Icon_Changer.Properties.Resources.Refresh_24x24;
-            this.bRefresh.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.bRefresh.Location = new System.Drawing.Point(116, 12);
-            this.bRefresh.Name = "bRefresh";
-            this.bRefresh.Size = new System.Drawing.Size(60, 49);
-            this.bRefresh.TabIndex = 22;
-            this.bRefresh.Text = "Refresh";
-            this.bRefresh.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.bRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.bRefresh.UseVisualStyleBackColor = true;
-            this.bRefresh.Click += new System.EventHandler(this.bRefresh_Click);
-            // 
             // bCurrentShowIconGroup
             // 
             this.bCurrentShowIconGroup.Enabled = false;
@@ -355,26 +346,6 @@
             this.bCurrentShowIconGroup.Text = "Show icon group";
             this.bCurrentShowIconGroup.UseVisualStyleBackColor = true;
             this.bCurrentShowIconGroup.Click += new System.EventHandler(this.bCurrentShowIconGroup_Click);
-            // 
-            // bOptions
-            // 
-            this.bOptions.Image = global::Folder_Icon_Changer.Properties.Resources.Settings;
-            this.bOptions.Location = new System.Drawing.Point(56, 12);
-            this.bOptions.Name = "bOptions";
-            this.bOptions.Size = new System.Drawing.Size(54, 40);
-            this.bOptions.TabIndex = 25;
-            this.bOptions.UseVisualStyleBackColor = true;
-            this.bOptions.Click += new System.EventHandler(this.bOptions_Click);
-            // 
-            // BAbout
-            // 
-            this.BAbout.Image = global::Folder_Icon_Changer.Properties.Resources.ico_alpha_Information_32x32;
-            this.BAbout.Location = new System.Drawing.Point(12, 12);
-            this.BAbout.Name = "BAbout";
-            this.BAbout.Size = new System.Drawing.Size(40, 40);
-            this.BAbout.TabIndex = 23;
-            this.BAbout.UseVisualStyleBackColor = true;
-            this.BAbout.Click += new System.EventHandler(this.BAbout_Click);
             // 
             // PBCurrent
             // 
@@ -415,17 +386,72 @@
             this.bCurrentGenBestFit.UseVisualStyleBackColor = true;
             this.bCurrentGenBestFit.Click += new System.EventHandler(this.bCurrentGenBestFit_Click);
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.bRefresh,
+            this.toolStripSeparator1,
+            this.bOptions,
+            this.toolStripSeparator2,
+            this.bAbout});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(519, 54);
+            this.toolStrip1.TabIndex = 26;
+            this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormMain_MouseDown);
+            // 
+            // bRefresh
+            // 
+            this.bRefresh.Image = global::Folder_Icon_Changer.Properties.Resources.Refresh_32P;
+            this.bRefresh.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.bRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bRefresh.Name = "bRefresh";
+            this.bRefresh.Size = new System.Drawing.Size(50, 51);
+            this.bRefresh.Text = "Refresh";
+            this.bRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.bRefresh.Click += new System.EventHandler(this.bRefresh_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 54);
+            // 
+            // bOptions
+            // 
+            this.bOptions.Image = global::Folder_Icon_Changer.Properties.Resources.Settings;
+            this.bOptions.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.bOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bOptions.Name = "bOptions";
+            this.bOptions.Size = new System.Drawing.Size(53, 51);
+            this.bOptions.Text = "Options";
+            this.bOptions.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.bOptions.Click += new System.EventHandler(this.bOptions_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 54);
+            // 
+            // bAbout
+            // 
+            this.bAbout.Image = global::Folder_Icon_Changer.Properties.Resources.ico_alpha_Information_32x32;
+            this.bAbout.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.bAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bAbout.Name = "bAbout";
+            this.bAbout.Size = new System.Drawing.Size(44, 51);
+            this.bAbout.Text = "About";
+            this.bAbout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.bAbout.Click += new System.EventHandler(this.BAbout_Click);
+            // 
             // FormMain
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(519, 438);
-            this.Controls.Add(this.bOptions);
             this.Controls.Add(this.bCurrentGenBestFit);
             this.Controls.Add(this.bCurrentShowIconGroup);
-            this.Controls.Add(this.BAbout);
-            this.Controls.Add(this.bRefresh);
             this.Controls.Add(this.BClose);
             this.Controls.Add(this.BApply);
             this.Controls.Add(this.statusStrip1);
@@ -438,6 +464,7 @@
             this.Controls.Add(this.PBCurrent);
             this.Controls.Add(this.gBNewIcon);
             this.Controls.Add(this.labelTargetFolder);
+            this.Controls.Add(this.toolStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -459,6 +486,8 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBCurrent)).EndInit();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -486,16 +515,19 @@
         internal System.Windows.Forms.CheckBox CBHideFile;
         internal System.Windows.Forms.Button bIconFromImage;
         internal System.Windows.Forms.Button BGetIcon;
-        internal System.Windows.Forms.Button bRefresh;
-        internal System.Windows.Forms.Button BAbout;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.Button bClearNewInfo;
         private System.Windows.Forms.Button bCurrentShowIconGroup;
         private System.Windows.Forms.Button bNewShowIconGroup;
         private System.Windows.Forms.ContextMenuStrip contextMSBrowseIconFShell32;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemShell32;
-        private System.Windows.Forms.Button bOptions;
         private System.Windows.Forms.Button bCurrentGenBestFit;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton bRefresh;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton bOptions;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton bAbout;
     }
 }
 

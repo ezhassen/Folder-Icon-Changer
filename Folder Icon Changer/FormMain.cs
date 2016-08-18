@@ -25,6 +25,8 @@ namespace Folder_Icon_Changer
             this.Text = string.Format("{0} - {1}", string.Format(Program.mlm.GetString("strings", "MainFormTitle"), Application.ProductVersion.ToString()), Application.CompanyName);
             //Buttons
             bRefresh.Text = Program.mlm.GetString("Buttons", "Refresh");
+            bOptions.Text = Program.mlm.GetString("Buttons", "Options");
+            bAbout.Text = Program.mlm.GetString("Buttons", "About");
             bCurrentShowIconGroup.Text = Program.mlm.GetString("Buttons", "ShowIconGroup"); bNewShowIconGroup.Text = bCurrentShowIconGroup.Text;
             bClearNewInfo.Text = Program.mlm.GetString("Buttons", "Clear");
             BGetIcon.Text = Program.mlm.GetString("Buttons", "GetIcon");
@@ -558,12 +560,18 @@ namespace Folder_Icon_Changer
 
         private void bCurrentShowIconGroup_Click(object sender, EventArgs e)
         {
-            IconGroup.Show_D(this, CurrentIconInfo, new IconGroup.LangStrings { ExportImage = Program.mlm.GetString("Select_Icon", "ExportImage") });
+            ShowIconGroup(CurrentIconInfo);
         }
 
         private void bNewShowIconGroup_Click(object sender, EventArgs e)
         {
-            IconGroup.Show_D(this, newIconInfo);
+            ShowIconGroup(newIconInfo);
+        }
+
+        private void ShowIconGroup(IconInfo _iconInfo)
+        {
+            if (_iconInfo == null) return;
+            IconGroup.Show_D(this, _iconInfo, new IconGroup.LangStrings { ExportImage = Program.mlm.GetString("Select_Icon", "ExportImage") });
         }
 
         private void BAbout_Click(object sender, EventArgs e)
@@ -618,6 +626,16 @@ namespace Folder_Icon_Changer
         private void bCurrentGenBestFit_Click(object sender, EventArgs e)
         {
             if (_genBestFit) return;
+            var msgGenBestFit = Program.mlm.GetString("strings", "msgGenBestFit");
+            if (this.ShowMsgBox(msgGenBestFit, Program.mlm, MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.Yes) return;
+            // if (Program.mlm.CurrentLng.GetLngInfo_Value("RTL", "false").ToLower() == "false")Program.mlm.CurrentLng.GetLngInfo_Value("RTL", "false").ToLower() == "false"
+            //{
+            //    if (MessageBox.Show(this, msgGenBestFit, this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) != DialogResult.Yes) return;
+            //}
+            //else
+            //{
+            //    if (MessageBox.Show(this, msgGenBestFit, this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign) != DialogResult.Yes) return;
+            //}
             _genBestFit = true;
             RefreshCurrentInfo();
             bool canGen = bCurrentGenBestFit.Enabled;
@@ -657,5 +675,7 @@ namespace Folder_Icon_Changer
             //ctrsNewIEnabled(true);
             _genBestFit = false;
         }
+
+        
     }
 }

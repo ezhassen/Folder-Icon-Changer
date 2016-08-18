@@ -10,6 +10,7 @@ namespace Folder_Icon_Changer
 {
     static class Program
     {
+        public const string LngVersion = "1.0.1";
         public static UpdatingPreloader Preloader;
         public static MultiLanguageManager mlm;
         private static bool _cDefaultLng;
@@ -55,7 +56,7 @@ namespace Folder_Icon_Changer
                     {
                         mlm.ReloadLngsInfo();
                         var def = mlm.LngsInfo.FirstOrDefault((li) => li.FileName.Equals("english.xml", StringComparison.CurrentCultureIgnoreCase));
-                        if (def == null || !Application.ProductVersion.Equals(def.LGroup.GetValue("AppVersion")))
+                        if (def == null || !LngVersion.Equals(def.LGroup.GetValue("LngVersion")))
                         {
                             var defLang = English();
                             defLang.xmlEzz.Save(OnFinish_1: () => Arabic().xmlEzz.Save(OnFinish_1: () =>
@@ -115,7 +116,8 @@ namespace Folder_Icon_Changer
         {
             Lng nlng = mlm.NewLng("english");
 
-            nlng.SetLngInfoGroup(new LString("Name", "English"), new LString("RTL", "false", "If this lng is a RightToLeft language then \"true\" else \"false\""), new LString("AppVersion", Application.ProductVersion));
+            nlng.SetLngInfoGroup(new LString("Name", "English"), new LString("RTL", "false", "If this lng is a RightToLeft language then \"true\" else \"false\""), 
+                new LString("AppVersion", Application.ProductVersion), new LString("LngVersion", LngVersion));
             //
             var stringsG = nlng.AddNewGroup("strings");
             stringsG.SetValue("MainFormTitle", "Folder Icon Changer v{0}");
@@ -130,6 +132,7 @@ namespace Folder_Icon_Changer
             stringsG.SetValue("ClickGetIconButtonToGetTheIconFirst", "Click '{0}' button to get the icon first.");
 
             stringsG.SetValue("FormOptionsTitle", "Options");
+            stringsG.SetValue("msgGenBestFit", "Will try to Generate Best Fit Icon By generating multiple icons with deferent sizes.\r\n\r\nContinue?");
             //
             var ButtonsG = nlng.AddNewGroup("Buttons");
             ButtonsG.SetValue("GetIcon", "Get icon");
@@ -143,13 +146,15 @@ namespace Folder_Icon_Changer
             ButtonsG.SetValue("OK", "OK");
             ButtonsG.SetValue("Cancel", "Cancel");
             ButtonsG.SetValue("GenerateBestFit", "Generate Best Icon Fit");
+            ButtonsG.SetValue("Options", "Options");
+            ButtonsG.SetValue("About", "About");
             //
             var labelsG = nlng.AddNewGroup("Label");
             labelsG.SetValue("TargetFolder", "Target folder : ");
             labelsG.SetValue("CurrentIcon", "Current Icon : ");
             labelsG.SetValue("NewIconInfo", "New Icon Info");
             labelsG.SetValue("CopyIconToFolder", "Copy icon to the folder");
-            labelsG.SetValue("HideIcon", "Hide the file (If it exists in the target folder)");
+            labelsG.SetValue("HideIcon", "Hide if the icon exists in the target folder");
 
             //
             var Select_IconG = nlng.AddNewGroup("Select_Icon");
@@ -184,7 +189,8 @@ namespace Folder_Icon_Changer
         {
             Lng nlng = mlm.NewLng("arabic");
 
-            nlng.SetLngInfoGroup(new LString("Name", "العربية"), new LString("RTL", "true", "If this lng is a RightToLeft language then 'true' else 'false'"), new LString("AppVersion", Application.ProductVersion));
+            nlng.SetLngInfoGroup(new LString("Name", "العربية"), new LString("RTL", "true", "If this lng is a RightToLeft language then 'true' else 'false'"),
+                new LString("AppVersion", Application.ProductVersion), new LString("LngVersion", LngVersion));
             //
             var stringsG = nlng.AddNewGroup("strings");
             stringsG.SetValue("MainFormTitle", "مغير أيقونة المجلد إصدار {0}");
@@ -199,6 +205,7 @@ namespace Folder_Icon_Changer
             stringsG.SetValue("ClickGetIconButtonToGetTheIconFirst", "إضغط على زر '{0}' لتحصل على الأيقونة أولاً.");
 
             stringsG.SetValue("FormOptionsTitle", "خيارات");
+            stringsG.SetValue("msgGenBestFit", "سيحاول توليد أفضل أيقونة مناسبة عن طريق توليد أيقونات متعددة الأحجام.\r\n\r\nاستكمال؟");
             //
             var ButtonsG = nlng.AddNewGroup("Buttons");
             ButtonsG.SetValue("GetIcon", "الحصول على أيقونة");
@@ -212,14 +219,15 @@ namespace Folder_Icon_Changer
             ButtonsG.SetValue("OK", "حسناً");
             ButtonsG.SetValue("Cancel", "إلغاء");
             ButtonsG.SetValue("GenerateBestFit", "توليد أفضل أيقونة مناسبة");
+            ButtonsG.SetValue("Options", "خيارات");
+            ButtonsG.SetValue("About", "عن");
             //
             var labelsG = nlng.AddNewGroup("Label");
             labelsG.SetValue("TargetFolder", "المجلد الهدف : ");
             labelsG.SetValue("CurrentIcon", "الأيقونة الحالية : ");
             labelsG.SetValue("NewIconInfo", "معلومات الأيقونة الجديدة");
             labelsG.SetValue("CopyIconToFolder", "نسخ الأيقونة للمجلد");
-            labelsG.SetValue("HideIcon", "Hide the file (If it in the target folder)");
-            labelsG.SetValue("HideIcon", "إخفاء الملف (إذا كان موجودا في المجلد الهدف)");
+            labelsG.SetValue("HideIcon", "إخفاء الملف إذا كان موجوداً في المجلد الهدف");
 
             //
             var Select_IconG = nlng.AddNewGroup("Select_Icon");
