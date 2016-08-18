@@ -17,10 +17,10 @@
     <ROW Property="AiPreferFastOem" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="MSIFASTINSTALL" MultiBuildValue="DefaultBuild:7"/>
     <ROW Property="Manufacturer" Value="ezhassen"/>
-    <ROW Property="ProductCode" Value="1025:{4D3641C4-5AE8-4E3B-9946-1A9011B09997} 1033:{293F2F63-8151-4DF1-9984-B32C73BC4CA7} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{9C0152D0-23E6-414B-95F0-D604C210CC1F} 1025:{1350C109-9AA4-4D7C-AF73-AF5E50736467} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Folder Icon Changer"/>
-    <ROW Property="ProductVersion" Value="1.2.2.1025" Type="32" TargetFile="FolderIconChanger.exe"/>
+    <ROW Property="ProductVersion" Value="1.2.2.1030" Type="32" TargetFile="FolderIconChanger.exe"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{D78498AB-B8F3-4B42-B190-EF4E1846EB89}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -201,9 +201,9 @@
     <ROW Action="AI_AppSearchEx" Sequence="101"/>
     <ROW Action="AI_GetArpIconPath" Sequence="1401"/>
     <ROW Action="AI_RemoveExternalUIStub" Condition="(REMOVE=&quot;ALL&quot;) AND ((VersionNT &gt; 500) OR((VersionNT = 500) AND (ServicePackLevel &gt;= 4)))" Sequence="1501"/>
-    <ROW Action="AI_AiRemoveFilesImmediate" Sequence="3499"/>
     <ROW Action="AI_AiRemoveFilesRollback" Sequence="3099"/>
     <ROW Action="AI_AiRemoveRegsImmediate" Sequence="2599"/>
+    <ROW Action="AI_AiRemoveFilesImmediate" Sequence="3499"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
     <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
