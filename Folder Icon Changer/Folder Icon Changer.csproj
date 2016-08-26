@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -192,16 +194,15 @@
     </PublishFile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ezz Helper\Ezz Helper\Ezz Helper.csproj">
+    <ProjectReference Include="..\..\..\Projects_Helpers\Ezz Helper\Ezz Helper\Ezz Helper.csproj">
       <Project>{27c9b90f-a9d9-4721-ad99-e7f6cbbe0be7}</Project>
       <Name>Ezz Helper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Release (
-ilmerge /target:winexe /out:"Merged\$(TargetFileName)" "$(TargetFileName)" "Ezz Helper.dll"
-)</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -210,4 +211,17 @@ ilmerge /target:winexe /out:"Merged\$(TargetFileName)" "$(TargetFileName)" "Ezz 
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Release'">
+    <ItemGroup>
+      <MergeAssemblies Include="$(OutputPath)\$(TargetFileName)" />
+      <MergeAssemblies Include="$(OutputPath)\Ezz Helper.dll" />
+    </ItemGroup>
+    <PropertyGroup>
+      <OutputAssembly>$(OutputPath)\$(TargetName)_St.exe</OutputAssembly>
+      <Merger Condition="('$(OS)' == 'Windows_NT')">"$(SolutionDir)\packages\ILMerge.2.14.1208\tools\ILMerge.exe"</Merger>
+      <Merger Condition="('$(OS)' != 'Windows_NT')">mono --runtime=v4.0.30319 "$(SolutionDir)\packages\ILRepack.2.0.11\tools\ILRepack.exe"</Merger>
+    </PropertyGroup>
+    <Message Text="MERGING: @(MergeAssemblies->'%(Filename)') into $(OutputAssembly)" Importance="High" />
+    <Exec Command="$(Merger) /out:&quot;$(OutputAssembly)&quot; @(MergeAssemblies->'&quot;%(FullPath)&quot;', ' ')" />
+  </Target>
 </Project>
