@@ -13,6 +13,11 @@ Project("{840C416C-B8F3-42BC-B0DD-F6BB14C9F8CB}") = "Folder Icon Changer Setup",
 		{C45D39F1-9B35-4135-9BCB-75A9D0A0972D} = {C45D39F1-9B35-4135-9BCB-75A9D0A0972D}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F4CFAC33-7139-48D9-BCAD-2E83479930D9}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
