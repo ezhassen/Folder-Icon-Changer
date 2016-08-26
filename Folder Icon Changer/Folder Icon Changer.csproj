@@ -73,10 +73,6 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ILMerge, Version=2.13.307.0, Culture=neutral, PublicKeyToken=736440c9b414ea16, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\References &amp; Components\ILMerge\ILMerge.exe</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -139,6 +135,7 @@
       <DependentUpon>UpdatingPreloader.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -149,12 +146,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Projects_Helpers\Ezz Helper\Ezz Helper\Ezz Helper.csproj">
-      <Project>{27c9b90f-a9d9-4721-ad99-e7f6cbbe0be7}</Project>
-      <Name>Ezz Helper</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CFI.ico" />
@@ -199,6 +190,12 @@
       <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ezz Helper\Ezz Helper\Ezz Helper.csproj">
+      <Project>{27c9b90f-a9d9-4721-ad99-e7f6cbbe0be7}</Project>
+      <Name>Ezz Helper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
