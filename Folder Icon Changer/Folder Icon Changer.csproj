@@ -27,6 +27,8 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -199,9 +201,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Release (
-ilmerge /target:winexe /out:"Merged\$(TargetFileName)" "$(TargetFileName)" "Ezz Helper.dll"
-)</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -210,4 +211,17 @@ ilmerge /target:winexe /out:"Merged\$(TargetFileName)" "$(TargetFileName)" "Ezz 
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="AfterBuild" Condition="'$(Configuration)' == 'Release'">
+  <ItemGroup>
+    <MergeAssemblies Include="$(OutputPath)\$(TargetFileName)" />
+    <MergeAssemblies Include="$(OutputPath)\Ezz Helper.dll" />
+  </ItemGroup>
+  <PropertyGroup>
+    <OutputAssembly>$(OutputPath)\$(TargetName)_St.exe</OutputAssembly>
+    <Merger Condition="('$(OS)' == 'Windows_NT')">&quot;$(SolutionDir)\packages\ILMerge.2.14.1208\tools\ILMerge.exe&quot;</Merger>
+    <Merger Condition="('$(OS)' != 'Windows_NT')">mono --runtime=v4.0.30319 &quot;$(SolutionDir)\packages\ILRepack.2.0.11\tools\ILRepack.exe&quot;</Merger>
+  </PropertyGroup>
+  <Message Text="MERGING: @(MergeAssemblies->'%(Filename)') into $(OutputAssembly)" Importance="High" />
+  <Exec Command="$(Merger) /out:&quot;$(OutputAssembly)&quot; @(MergeAssemblies->'&quot;%(FullPath)&quot;', ' ')" />
+</Target>
 </Project>

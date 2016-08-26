@@ -129,7 +129,7 @@ publish/
 #*.pubxml
 
 # NuGet Packages Directory
-packages/*
+#packages/*
 ## TODO: If the tool you use requires repositories.config
 ## uncomment the next line
 #!packages/repositories.config
@@ -189,7 +189,7 @@ _Pvt_Extensions/
 ModelManifest.xml
 *.gitignore
 *.gitattributes
-/desktop.ini
+#/desktop.ini
 *.db
 
 # Visual Studio 2015 cache/options directory
