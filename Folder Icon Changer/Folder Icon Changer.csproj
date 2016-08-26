@@ -194,7 +194,7 @@
     </PublishFile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Projects_Helpers\Ezz Helper\Ezz Helper\Ezz Helper.csproj">
+    <ProjectReference Include="..\Ezz Helper\Ezz Helper\Ezz Helper.csproj">
       <Project>{27c9b90f-a9d9-4721-ad99-e7f6cbbe0be7}</Project>
       <Name>Ezz Helper</Name>
     </ProjectReference>
