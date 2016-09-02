@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Folder_Icon_Changer
 {
@@ -14,7 +10,7 @@ namespace Folder_Icon_Changer
             MessageBoxIcon messageBoxIcon = MessageBoxIcon.None, MessageBoxDefaultButton messageBoxDefaultButton = MessageBoxDefaultButton.Button1, bool RtlReading = false)
         {
             bool rtl = Program.mlm.CurrentLng.IsRTL();
-            return ShowMsgBox(owner, msg, messageBoxButtons, messageBoxIcon, messageBoxDefaultButton, rtl, rtl? RtlReading : false);
+            return ShowMsgBox(owner, msg, messageBoxButtons, messageBoxIcon, messageBoxDefaultButton, rtl, rtl ? RtlReading : false);
         }
 
         public static DialogResult ShowMsgBox(this Form owner, string msg, MessageBoxButtons messageBoxButtons = MessageBoxButtons.OK,
@@ -46,5 +42,6 @@ namespace Folder_Icon_Changer
         {
             return lng.GetLngInfo_Value("RTL", "false").ToLower() != "false";
         }
+
     }
 }

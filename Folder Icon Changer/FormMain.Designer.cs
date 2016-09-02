@@ -37,8 +37,6 @@
             this.BGetIcon = new System.Windows.Forms.Button();
             this.PBNew = new System.Windows.Forms.PictureBox();
             this.nUpDownIconIndex = new Ezz_Helper.WinForms.EditControls.NumericUpDownEx();
-            this.CBHideFile = new System.Windows.Forms.CheckBox();
-            this.CBCopyIconToFolder = new System.Windows.Forms.CheckBox();
             this.bIconFromImage = new System.Windows.Forms.Button();
             this.BBrowseIcon = new System.Windows.Forms.Button();
             this.contextMSBrowseIconFShell32 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -60,9 +58,12 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.bRefresh = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.bTopMost = new System.Windows.Forms.ToolStripButton();
             this.bOptions = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.bAbout = new System.Windows.Forms.ToolStripButton();
+            this.CBHideFile = new System.Windows.Forms.CheckBox();
+            this.CBCopyIconToFolder = new System.Windows.Forms.CheckBox();
             this.gBNewIcon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBNew)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nUpDownIconIndex)).BeginInit();
@@ -160,30 +161,6 @@
             this.nUpDownIconIndex.Size = new System.Drawing.Size(45, 20);
             this.nUpDownIconIndex.TabIndex = 17;
             this.nUpDownIconIndex.ValueChanged += new System.EventHandler(this.nUpDownIconIndex_ValueChanged);
-            // 
-            // CBHideFile
-            // 
-            this.CBHideFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.CBHideFile.Checked = global::Folder_Icon_Changer.Properties.Settings.Default.HideTheFileA;
-            this.CBHideFile.Location = new System.Drawing.Point(188, 132);
-            this.CBHideFile.Name = "CBHideFile";
-            this.CBHideFile.Size = new System.Drawing.Size(298, 17);
-            this.CBHideFile.TabIndex = 12;
-            this.CBHideFile.Text = "Hide if the icon exists in the target folder";
-            this.CBHideFile.UseVisualStyleBackColor = true;
-            // 
-            // CBCopyIconToFolder
-            // 
-            this.CBCopyIconToFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.CBCopyIconToFolder.Checked = global::Folder_Icon_Changer.Properties.Settings.Default.CopyIconT;
-            this.CBCopyIconToFolder.Location = new System.Drawing.Point(188, 109);
-            this.CBCopyIconToFolder.Name = "CBCopyIconToFolder";
-            this.CBCopyIconToFolder.Size = new System.Drawing.Size(304, 17);
-            this.CBCopyIconToFolder.TabIndex = 12;
-            this.CBCopyIconToFolder.Text = "Copy icon to the folder";
-            this.CBCopyIconToFolder.UseVisualStyleBackColor = true;
             // 
             // bIconFromImage
             // 
@@ -391,6 +368,7 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bRefresh,
             this.toolStripSeparator1,
+            this.bTopMost,
             this.bOptions,
             this.toolStripSeparator2,
             this.bAbout});
@@ -416,6 +394,20 @@
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 54);
+            // 
+            // bTopMost
+            // 
+            this.bTopMost.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.bTopMost.Checked = global::Folder_Icon_Changer.Properties.Settings.Default.TopMost;
+            this.bTopMost.CheckOnClick = true;
+            this.bTopMost.Image = global::Folder_Icon_Changer.Properties.Resources.pin_1;
+            this.bTopMost.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.bTopMost.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bTopMost.Name = "bTopMost";
+            this.bTopMost.Size = new System.Drawing.Size(75, 51);
+            this.bTopMost.Text = "Stay On Top";
+            this.bTopMost.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.bTopMost.CheckedChanged += new System.EventHandler(this.bTopMost_CheckedChanged);
             // 
             // bOptions
             // 
@@ -444,6 +436,30 @@
             this.bAbout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.bAbout.Click += new System.EventHandler(this.BAbout_Click);
             // 
+            // CBHideFile
+            // 
+            this.CBHideFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CBHideFile.Checked = global::Folder_Icon_Changer.Properties.Settings.Default.HideTheFileA;
+            this.CBHideFile.Location = new System.Drawing.Point(188, 132);
+            this.CBHideFile.Name = "CBHideFile";
+            this.CBHideFile.Size = new System.Drawing.Size(298, 17);
+            this.CBHideFile.TabIndex = 12;
+            this.CBHideFile.Text = "Hide if the icon exists in the target folder";
+            this.CBHideFile.UseVisualStyleBackColor = true;
+            // 
+            // CBCopyIconToFolder
+            // 
+            this.CBCopyIconToFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CBCopyIconToFolder.Checked = global::Folder_Icon_Changer.Properties.Settings.Default.CopyIconT;
+            this.CBCopyIconToFolder.Location = new System.Drawing.Point(188, 109);
+            this.CBCopyIconToFolder.Name = "CBCopyIconToFolder";
+            this.CBCopyIconToFolder.Size = new System.Drawing.Size(304, 17);
+            this.CBCopyIconToFolder.TabIndex = 12;
+            this.CBCopyIconToFolder.Text = "Copy icon to the folder";
+            this.CBCopyIconToFolder.UseVisualStyleBackColor = true;
+            // 
             // FormMain
             // 
             this.AllowDrop = true;
@@ -465,18 +481,21 @@
             this.Controls.Add(this.gBNewIcon);
             this.Controls.Add(this.labelTargetFolder);
             this.Controls.Add(this.toolStrip1);
+            this.DataBindings.Add(new System.Windows.Forms.Binding("TopMost", global::Folder_Icon_Changer.Properties.Settings.Default, "TopMost", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(520, 477);
             this.Name = "FormMain";
             this.Opacity = 0.95D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Folder Icon Changer v{0} By ezhassen";
+            this.TopMost = global::Folder_Icon_Changer.Properties.Settings.Default.TopMost;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FormMain_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.FormMain_DragEnter);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormMain_KeyDown);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormMain_MouseDown);
             this.gBNewIcon.ResumeLayout(false);
             this.gBNewIcon.PerformLayout();
@@ -528,6 +547,7 @@
         private System.Windows.Forms.ToolStripButton bOptions;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton bAbout;
+        private System.Windows.Forms.ToolStripButton bTopMost;
     }
 }
 

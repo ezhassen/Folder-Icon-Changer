@@ -586,6 +586,7 @@ namespace Folder_Icon_Changer
             {
                 Settings.Default.CopyIconT = CBCopyIconToFolder.Checked;
                 Settings.Default.HideTheFileA = CBHideFile.Checked;
+                Settings.Default.TopMost = bTopMost.Checked;
                 Settings.Default.Save();
             }
         }
@@ -676,6 +677,17 @@ namespace Folder_Icon_Changer
             _genBestFit = false;
         }
 
-        
+        private void FormMain_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
+
+        private void bTopMost_CheckedChanged(object sender, EventArgs e)
+        {
+            this.TopMost = bTopMost.Checked;
+        }
     }
 }

@@ -5,12 +5,14 @@ using Ezz_Helper;
 using Ezz_Helper.Managers;
 using UpdatingPreloaderEzz;
 using System.Linq;
+using System.Security;
+using System.Security.Permissions;
 
 namespace Folder_Icon_Changer
 {
     static class Program
     {
-        public const string LngVersion = "1.0.1";
+        public const string LngVersion = "1.0.2";
         public static UpdatingPreloader Preloader;
         public static MultiLanguageManager mlm;
         private static bool _cDefaultLng;
@@ -35,7 +37,8 @@ namespace Folder_Icon_Changer
                 Preloader.Refresh();
                 //
                 //var sync = SynchronizationContext.Current;
-                mlm = new MultiLanguageManager(Path.Combine(Application.StartupPath, "langs"));
+
+                mlm = new MultiLanguageManager(GetLangsFolder());
                 mlm.CheckFolderNCreateIt();
                 _cDefaultLng = cDefaultLng();
                 if (_cDefaultLng)
@@ -97,6 +100,37 @@ namespace Folder_Icon_Changer
             MainForm.Show();
             Preloader.Hide();
         }
+        //
+        public static string GetLangsFolder()
+        {
+            if (FolderHasWritePermission(Application.StartupPath))
+            {
+                return Path.Combine(Application.StartupPath, "langs");
+            }
+            else
+            {
+                return Path.Combine(Application.CommonAppDataPath, "langs");
+            }
+        }
+        public static bool FolderHasWritePermission(string folder)
+        {
+            PermissionSet permissionSet = new PermissionSet(PermissionState.None);
+
+            FileIOPermission writePermission = new FileIOPermission(FileIOPermissionAccess.Write, folder);
+
+            permissionSet.AddPermission(writePermission);
+            return permissionSet.IsSubsetOf(AppDomain.CurrentDomain.PermissionSet);
+            //if (permissionSet.IsSubsetOf(AppDomain.CurrentDomain.PermissionSet))
+            //{
+            //    // You have write permissions
+            //}
+            //else
+            //{
+            //    // You don't have write permissions
+            //}
+
+        }
+        //
         public static void SaveCurrentLng()
         {
             Properties.Settings.Default.lng = Path.GetFileNameWithoutExtension(mlm.CurrentLng.FileName);
@@ -111,6 +145,7 @@ namespace Folder_Icon_Changer
             }
             return false;
         }
+
 
         private static Lng English()
         {
@@ -148,6 +183,7 @@ namespace Folder_Icon_Changer
             ButtonsG.SetValue("GenerateBestFit", "Generate Best Icon Fit");
             ButtonsG.SetValue("Options", "Options");
             ButtonsG.SetValue("About", "About");
+            ButtonsG.SetValue("TopMost", "Stay On Top");
             //
             var labelsG = nlng.AddNewGroup("Label");
             labelsG.SetValue("TargetFolder", "Target folder : ");
@@ -221,6 +257,7 @@ namespace Folder_Icon_Changer
             ButtonsG.SetValue("GenerateBestFit", "توليد أفضل أيقونة مناسبة");
             ButtonsG.SetValue("Options", "خيارات");
             ButtonsG.SetValue("About", "عن");
+            ButtonsG.SetValue("TopMost", "البقاء أعلى التطبيقات");
             //
             var labelsG = nlng.AddNewGroup("Label");
             labelsG.SetValue("TargetFolder", "المجلد الهدف : ");
