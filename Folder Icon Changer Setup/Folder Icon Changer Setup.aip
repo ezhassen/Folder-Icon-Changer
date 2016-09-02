@@ -18,7 +18,7 @@
     <ROW Property="CTRLS" Value="2"/>
     <ROW Property="MSIFASTINSTALL" MultiBuildValue="DefaultBuild:7"/>
     <ROW Property="Manufacturer" Value="ezhassen"/>
-    <ROW Property="ProductCode" Value="1025:{C8C881A2-9A00-41A3-B694-A2457B5BD4EC} 1033:{D915D91E-8FD0-4CB3-A2D5-4C1C925F9A0A} " Type="16"/>
+    <ROW Property="ProductCode" Value="1025:{A225572E-4FF5-4F05-848A-5DF3BCCDA528} 1033:{952E1B37-3968-412D-BA97-E97A3B8BA7D0} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Folder Icon Changer"/>
     <ROW Property="ProductVersion" Value="1.2.2.1030" Type="32" TargetFile="FolderIconChanger.exe"/>
