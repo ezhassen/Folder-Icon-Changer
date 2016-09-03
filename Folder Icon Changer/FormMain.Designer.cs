@@ -36,12 +36,12 @@
             this.bClearNewInfo = new System.Windows.Forms.Button();
             this.BGetIcon = new System.Windows.Forms.Button();
             this.PBNew = new System.Windows.Forms.PictureBox();
-            this.nUpDownIconIndex = new Ezz_Helper.WinForms.EditControls.NumericUpDownEx();
+            this.CBHideFile = new System.Windows.Forms.CheckBox();
+            this.CBCopyIconToFolder = new System.Windows.Forms.CheckBox();
             this.bIconFromImage = new System.Windows.Forms.Button();
             this.BBrowseIcon = new System.Windows.Forms.Button();
             this.contextMSBrowseIconFShell32 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemShell32 = new System.Windows.Forms.ToolStripMenuItem();
-            this.TBNewIcon = new Ezz_Helper.WinForms.EditControls.TextBoxEzz();
             this.TBCurrentIconIndex = new System.Windows.Forms.TextBox();
             this.TBCurrentIcon = new System.Windows.Forms.TextBox();
             this.LabelCurrentIcon = new System.Windows.Forms.Label();
@@ -53,7 +53,6 @@
             this.BApply = new System.Windows.Forms.Button();
             this.bCurrentShowIconGroup = new System.Windows.Forms.Button();
             this.PBCurrent = new System.Windows.Forms.PictureBox();
-            this.tBTargetFolder = new Ezz_Helper.WinForms.EditControls.TextBoxEzz();
             this.bCurrentGenBestFit = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.bRefresh = new System.Windows.Forms.ToolStripButton();
@@ -62,15 +61,16 @@
             this.bOptions = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.bAbout = new System.Windows.Forms.ToolStripButton();
-            this.CBHideFile = new System.Windows.Forms.CheckBox();
-            this.CBCopyIconToFolder = new System.Windows.Forms.CheckBox();
+            this.tBTargetFolder = new Ezz_Helper.WinForms.EditControls.TextBoxEzz();
+            this.nUpDownIconIndex = new Ezz_Helper.WinForms.EditControls.NumericUpDownEx();
+            this.TBNewIcon = new Ezz_Helper.WinForms.EditControls.TextBoxEzz();
             this.gBNewIcon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBNew)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nUpDownIconIndex)).BeginInit();
             this.contextMSBrowseIconFShell32.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBCurrent)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nUpDownIconIndex)).BeginInit();
             this.SuspendLayout();
             // 
             // labelTargetFolder
@@ -148,19 +148,29 @@
             this.PBNew.TabStop = false;
             this.PBNew.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormMain_MouseDown);
             // 
-            // nUpDownIconIndex
+            // CBHideFile
             // 
-            this.nUpDownIconIndex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.nUpDownIconIndex.Location = new System.Drawing.Point(318, 20);
-            this.nUpDownIconIndex.Maximum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nUpDownIconIndex.Name = "nUpDownIconIndex";
-            this.nUpDownIconIndex.Size = new System.Drawing.Size(45, 20);
-            this.nUpDownIconIndex.TabIndex = 17;
-            this.nUpDownIconIndex.ValueChanged += new System.EventHandler(this.nUpDownIconIndex_ValueChanged);
+            this.CBHideFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CBHideFile.Checked = global::Folder_Icon_Changer.Properties.Settings.Default.HideTheFileA;
+            this.CBHideFile.Location = new System.Drawing.Point(188, 132);
+            this.CBHideFile.Name = "CBHideFile";
+            this.CBHideFile.Size = new System.Drawing.Size(298, 17);
+            this.CBHideFile.TabIndex = 12;
+            this.CBHideFile.Text = "Hide if the icon exists in the target folder";
+            this.CBHideFile.UseVisualStyleBackColor = true;
+            // 
+            // CBCopyIconToFolder
+            // 
+            this.CBCopyIconToFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CBCopyIconToFolder.Checked = global::Folder_Icon_Changer.Properties.Settings.Default.CopyIconT;
+            this.CBCopyIconToFolder.Location = new System.Drawing.Point(188, 109);
+            this.CBCopyIconToFolder.Name = "CBCopyIconToFolder";
+            this.CBCopyIconToFolder.Size = new System.Drawing.Size(304, 17);
+            this.CBCopyIconToFolder.TabIndex = 12;
+            this.CBCopyIconToFolder.Text = "Copy icon to the folder";
+            this.CBCopyIconToFolder.UseVisualStyleBackColor = true;
             // 
             // bIconFromImage
             // 
@@ -198,24 +208,6 @@
             this.toolStripMenuItemShell32.Size = new System.Drawing.Size(212, 22);
             this.toolStripMenuItemShell32.Text = "Browse to system shell file";
             this.toolStripMenuItemShell32.Click += new System.EventHandler(this.toolStripMenuItemShell32_Click);
-            // 
-            // TBNewIcon
-            // 
-            this.TBNewIcon.AllowToCalculate = false;
-            this.TBNewIcon.AllowToTogglesTheSign = false;
-            this.TBNewIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TBNewIcon.EditType = Ezz_Helper.WinForms.EditControls.TextBoxEzz.EditTypes.Path;
-            this.TBNewIcon.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBNewIcon.FreeInputForCalculating = false;
-            this.TBNewIcon.Location = new System.Drawing.Point(62, 19);
-            this.TBNewIcon.MaxNumber = 7.92281625142643E+28D;
-            this.TBNewIcon.MinNumber = -7.92281625142643E+28D;
-            this.TBNewIcon.Name = "TBNewIcon";
-            this.TBNewIcon.NumericType = Ezz_Helper.WinForms.EditControls.TextBoxEzz.NumericTypes.AcceptAny;
-            this.TBNewIcon.ReadOnly = true;
-            this.TBNewIcon.Size = new System.Drawing.Size(250, 23);
-            this.TBNewIcon.TabIndex = 16;
             // 
             // TBCurrentIconIndex
             // 
@@ -335,23 +327,6 @@
             this.PBCurrent.TabStop = false;
             this.PBCurrent.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormMain_MouseDown);
             // 
-            // tBTargetFolder
-            // 
-            this.tBTargetFolder.AllowToCalculate = false;
-            this.tBTargetFolder.AllowToTogglesTheSign = false;
-            this.tBTargetFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tBTargetFolder.EditType = Ezz_Helper.WinForms.EditControls.TextBoxEzz.EditTypes.Path;
-            this.tBTargetFolder.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tBTargetFolder.FreeInputForCalculating = false;
-            this.tBTargetFolder.Location = new System.Drawing.Point(95, 67);
-            this.tBTargetFolder.MaxNumber = 7.92281625142643E+28D;
-            this.tBTargetFolder.MinNumber = -7.92281625142643E+28D;
-            this.tBTargetFolder.Name = "tBTargetFolder";
-            this.tBTargetFolder.NumericType = Ezz_Helper.WinForms.EditControls.TextBoxEzz.NumericTypes.AcceptAny;
-            this.tBTargetFolder.Size = new System.Drawing.Size(377, 23);
-            this.tBTargetFolder.TabIndex = 16;
-            // 
             // bCurrentGenBestFit
             // 
             this.bCurrentGenBestFit.Enabled = false;
@@ -436,29 +411,54 @@
             this.bAbout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.bAbout.Click += new System.EventHandler(this.BAbout_Click);
             // 
-            // CBHideFile
+            // tBTargetFolder
             // 
-            this.CBHideFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.tBTargetFolder.AllowToCalculate = false;
+            this.tBTargetFolder.AllowToTogglesTheSign = false;
+            this.tBTargetFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.CBHideFile.Checked = global::Folder_Icon_Changer.Properties.Settings.Default.HideTheFileA;
-            this.CBHideFile.Location = new System.Drawing.Point(188, 132);
-            this.CBHideFile.Name = "CBHideFile";
-            this.CBHideFile.Size = new System.Drawing.Size(298, 17);
-            this.CBHideFile.TabIndex = 12;
-            this.CBHideFile.Text = "Hide if the icon exists in the target folder";
-            this.CBHideFile.UseVisualStyleBackColor = true;
+            this.tBTargetFolder.EditType = Ezz_Helper.WinForms.EditControls.TextBoxEzz.EditTypes.Path;
+            this.tBTargetFolder.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tBTargetFolder.FreeInputForCalculating = false;
+            this.tBTargetFolder.Location = new System.Drawing.Point(95, 67);
+            this.tBTargetFolder.MaxNumber = 7.92281625142643E+28D;
+            this.tBTargetFolder.MinNumber = -7.92281625142643E+28D;
+            this.tBTargetFolder.Name = "tBTargetFolder";
+            this.tBTargetFolder.NumericType = Ezz_Helper.WinForms.EditControls.TextBoxEzz.NumericTypes.AcceptAny;
+            this.tBTargetFolder.Size = new System.Drawing.Size(377, 23);
+            this.tBTargetFolder.TabIndex = 16;
             // 
-            // CBCopyIconToFolder
+            // nUpDownIconIndex
             // 
-            this.CBCopyIconToFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.nUpDownIconIndex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.nUpDownIconIndex.Location = new System.Drawing.Point(318, 20);
+            this.nUpDownIconIndex.Maximum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nUpDownIconIndex.Name = "nUpDownIconIndex";
+            this.nUpDownIconIndex.Size = new System.Drawing.Size(45, 20);
+            this.nUpDownIconIndex.TabIndex = 17;
+            this.nUpDownIconIndex.ValueChanged += new System.EventHandler(this.nUpDownIconIndex_ValueChanged);
+            // 
+            // TBNewIcon
+            // 
+            this.TBNewIcon.AllowToCalculate = false;
+            this.TBNewIcon.AllowToTogglesTheSign = false;
+            this.TBNewIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.CBCopyIconToFolder.Checked = global::Folder_Icon_Changer.Properties.Settings.Default.CopyIconT;
-            this.CBCopyIconToFolder.Location = new System.Drawing.Point(188, 109);
-            this.CBCopyIconToFolder.Name = "CBCopyIconToFolder";
-            this.CBCopyIconToFolder.Size = new System.Drawing.Size(304, 17);
-            this.CBCopyIconToFolder.TabIndex = 12;
-            this.CBCopyIconToFolder.Text = "Copy icon to the folder";
-            this.CBCopyIconToFolder.UseVisualStyleBackColor = true;
+            this.TBNewIcon.EditType = Ezz_Helper.WinForms.EditControls.TextBoxEzz.EditTypes.Path;
+            this.TBNewIcon.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBNewIcon.FreeInputForCalculating = false;
+            this.TBNewIcon.Location = new System.Drawing.Point(62, 19);
+            this.TBNewIcon.MaxNumber = 7.92281625142643E+28D;
+            this.TBNewIcon.MinNumber = -7.92281625142643E+28D;
+            this.TBNewIcon.Name = "TBNewIcon";
+            this.TBNewIcon.NumericType = Ezz_Helper.WinForms.EditControls.TextBoxEzz.NumericTypes.AcceptAny;
+            this.TBNewIcon.ReadOnly = true;
+            this.TBNewIcon.Size = new System.Drawing.Size(250, 23);
+            this.TBNewIcon.TabIndex = 16;
             // 
             // FormMain
             // 
@@ -500,13 +500,13 @@
             this.gBNewIcon.ResumeLayout(false);
             this.gBNewIcon.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBNew)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nUpDownIconIndex)).EndInit();
             this.contextMSBrowseIconFShell32.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBCurrent)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nUpDownIconIndex)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

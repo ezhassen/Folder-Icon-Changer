@@ -16,12 +16,12 @@
     <ROW Property="ARPSYSTEMCOMPONENT" Value="1"/>
     <ROW Property="AiPreferFastOem" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="CTRLS" Value="2"/>
-    <ROW Property="MSIFASTINSTALL" MultiBuildValue="DefaultBuild:7"/>
+    <ROW Property="MSIFASTINSTALL" MultiBuildValue="DefaultBuild:3"/>
     <ROW Property="Manufacturer" Value="ezhassen"/>
-    <ROW Property="ProductCode" Value="1025:{A225572E-4FF5-4F05-848A-5DF3BCCDA528} 1033:{952E1B37-3968-412D-BA97-E97A3B8BA7D0} " Type="16"/>
+    <ROW Property="ProductCode" Value="1025:{B129F0C9-79A8-4473-A68E-2A50D3DA0D28} 1033:{1A7B3B81-03A1-4679-882E-F42BE3B23374} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Folder Icon Changer"/>
-    <ROW Property="ProductVersion" Value="1.2.2.1030" Type="32" TargetFile="FolderIconChanger.exe"/>
+    <ROW Property="ProductVersion" Value="2.2.201.1035" Type="32" TargetFile="FolderIconChanger.exe"/>
     <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{D78498AB-B8F3-4B42-B190-EF4E1846EB89}"/>
@@ -66,6 +66,7 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AiRemoveFileComponent">
     <ROW RemoveFile="_" Condition="(AI_CLEAN_RESOURCES_UNINSTALL = &quot;1&quot;) AND (NOT UPGRADINGPRODUCTCODE)" Options="3"/>
+    <ROW RemoveFile="__1" Condition="(AI_CLEAN_RESOURCES_UNINSTALL = &quot;1&quot;) AND (NOT UPGRADINGPRODUCTCODE)" Options="1"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AiRemoveRegComponent">
     <ROW RemoveReg="_" InstallMode="2" Condition="(AI_CLEAN_RESOURCES_UNINSTALL = &quot;1&quot;) AND (NOT UPGRADINGPRODUCTCODE)"/>
@@ -212,9 +213,9 @@
     <ROW Action="AI_AppSearchEx" Sequence="101"/>
     <ROW Action="AI_GetArpIconPath" Sequence="1401"/>
     <ROW Action="AI_RemoveExternalUIStub" Condition="(REMOVE=&quot;ALL&quot;) AND ((VersionNT &gt; 500) OR((VersionNT = 500) AND (ServicePackLevel &gt;= 4)))" Sequence="1501"/>
-    <ROW Action="AI_AiRemoveFilesRollback" Sequence="3099"/>
     <ROW Action="AI_AiRemoveRegsImmediate" Sequence="2599"/>
     <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+    <ROW Action="AI_AiRemoveFilesRollback" Sequence="3099"/>
     <ROW Action="AI_AiRemoveFilesImmediate" Sequence="3499"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
@@ -264,7 +265,8 @@
     <ROW Registry="VersionMinor" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="VersionMinor" Value="#2" Component_="AI_CustomARPName"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiRemoveFileComponent">
-    <ROW FileKey="_" Component_="SHORTCUTDIR" DirProperty="APPDIR" InstallMode="2"/>
+    <ROW FileKey="_" Component_="FolderIconChanger.exe" DirProperty="APPDIR" InstallMode="2"/>
+    <ROW FileKey="__1" Component_="FolderIconChanger.exe" FileName="*" DirProperty="APPDIR" InstallMode="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiRemoveRegComponent">
     <ROW RemoveRegistry="_" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="-" Component_="SHORTCUTDIR"/>

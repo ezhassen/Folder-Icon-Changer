@@ -14,7 +14,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <AssemblyVersion>1.2.2.1032</AssemblyVersion>
+    <AssemblyVersion>2.2.201.1035</AssemblyVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -54,9 +54,9 @@
     <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>True</UpdateAssemblyInfoVersion>
-    <AssemblyVersionSettings>None.None.None.Increment</AssemblyVersionSettings>
-    <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
-    <AssemblyInfoVersionSettings>None.None.None.Increment</AssemblyInfoVersionSettings>
+    <AssemblyVersionSettings>None.None.Increment.Increment</AssemblyVersionSettings>
+    <AssemblyFileVersionSettings>None.None.Increment.Increment</AssemblyFileVersionSettings>
+    <AssemblyInfoVersionSettings>None.None.Increment.Increment</AssemblyInfoVersionSettings>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>Folder_Icon_Changer.Program</StartupObject>
