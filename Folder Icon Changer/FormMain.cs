@@ -27,6 +27,7 @@ namespace Folder_Icon_Changer
             bRefresh.Text = Program.mlm.GetString("Buttons", "Refresh");
             bOptions.Text = Program.mlm.GetString("Buttons", "Options");
             bAbout.Text = Program.mlm.GetString("Buttons", "About");
+            bTopMost.Text = Program.mlm.GetString("Buttons", "TopMost");
             bCurrentShowIconGroup.Text = Program.mlm.GetString("Buttons", "ShowIconGroup"); bNewShowIconGroup.Text = bCurrentShowIconGroup.Text;
             bClearNewInfo.Text = Program.mlm.GetString("Buttons", "Clear");
             BGetIcon.Text = Program.mlm.GetString("Buttons", "GetIcon");
@@ -545,6 +546,7 @@ namespace Folder_Icon_Changer
         {
             if (Directory.Exists(tBTargetFolder.Text))
             {
+                if (this.ShowMsgBox(Program.mlm.GetString("strings", "ResetToDefaultIconMsg"), Program.mlm, MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2) != DialogResult.Yes) return;
                 Ezz_Helper.Files.GetInfo.GetDirectoryInfo.RestFolderIcon(tBTargetFolder.Text);
                 RefreshCurrentInfo();
             }

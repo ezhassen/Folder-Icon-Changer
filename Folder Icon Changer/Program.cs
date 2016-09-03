@@ -12,7 +12,7 @@ namespace Folder_Icon_Changer
 {
     static class Program
     {
-        public const string LngVersion = "1.0.2";
+        public const string LngVersion = "1.0.3";
         public static UpdatingPreloader Preloader;
         public static MultiLanguageManager mlm;
         private static bool _cDefaultLng;
@@ -97,8 +97,8 @@ namespace Folder_Icon_Changer
         private static void ShowMainForm()
         {
             var MainForm = new FormMain(); MainForm.FormClosed += (object maForm, FormClosedEventArgs formClosedEventArgs) => { Application.Exit(); };
-            MainForm.Show();
             Preloader.Hide();
+            MainForm.Show();
         }
         //
         public static string GetLangsFolder()
@@ -168,6 +168,7 @@ namespace Folder_Icon_Changer
 
             stringsG.SetValue("FormOptionsTitle", "Options");
             stringsG.SetValue("msgGenBestFit", "Will try to Generate Best Fit Icon By generating multiple icons with deferent sizes.\r\n\r\nContinue?");
+            stringsG.SetValue("ResetToDefaultIconMsg", "Are you sure?");
             //
             var ButtonsG = nlng.AddNewGroup("Buttons");
             ButtonsG.SetValue("GetIcon", "Get icon");
@@ -242,6 +243,7 @@ namespace Folder_Icon_Changer
 
             stringsG.SetValue("FormOptionsTitle", "خيارات");
             stringsG.SetValue("msgGenBestFit", "سيحاول توليد أفضل أيقونة مناسبة عن طريق توليد أيقونات متعددة الأحجام.\r\n\r\nاستكمال؟");
+            stringsG.SetValue("ResetToDefaultIconMsg", "هل أنت متأكد من إعادة تعيين أيقونة المجلد للافتراضية؟");
             //
             var ButtonsG = nlng.AddNewGroup("Buttons");
             ButtonsG.SetValue("GetIcon", "الحصول على أيقونة");
