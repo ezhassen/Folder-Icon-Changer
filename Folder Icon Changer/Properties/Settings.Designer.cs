@@ -49,7 +49,7 @@ namespace Folder_Icon_Changer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("en")]
         public string lng {
             get {
                 return ((string)(this["lng"]));
@@ -68,6 +68,101 @@ namespace Folder_Icon_Changer.Properties {
             }
             set {
                 this["TopMost"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection siOptions_HistoryPathList {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["siOptions_HistoryPathList"]));
+            }
+            set {
+                this["siOptions_HistoryPathList"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size siOptions_LastSize {
+            get {
+                return ((global::System.Drawing.Size)(this["siOptions_LastSize"]));
+            }
+            set {
+                this["siOptions_LastSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string siOptions_LastWindowState {
+            get {
+                return ((string)(this["siOptions_LastWindowState"]));
+            }
+            set {
+                this["siOptions_LastWindowState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point siOptions_LastLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["siOptions_LastLocation"]));
+            }
+            set {
+                this["siOptions_LastLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Size siOptions_LastViewSize {
+            get {
+                return ((global::System.Drawing.Size)(this["siOptions_LastViewSize"]));
+            }
+            set {
+                this["siOptions_LastViewSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool siOptions_LastDrawText {
+            get {
+                return ((bool)(this["siOptions_LastDrawText"]));
+            }
+            set {
+                this["siOptions_LastDrawText"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool siOptions_StretchedImage {
+            get {
+                return ((bool)(this["siOptions_StretchedImage"]));
+            }
+            set {
+                this["siOptions_StretchedImage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool siOptions_StretchedSmallImage {
+            get {
+                return ((bool)(this["siOptions_StretchedSmallImage"]));
+            }
+            set {
+                this["siOptions_StretchedSmallImage"] = value;
             }
         }
     }
