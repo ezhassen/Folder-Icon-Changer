@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="12.3" version="14.5.2" Modules="architect" RootPath="." Language="en" Id="{1A12290F-81EB-492E-8C5B-D05D236ED864}">
-  <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
-    <ROW Name="HiddenItems" Value="AppXAppDetailsComponent;AppXCapabilitiesComponent;AppXDependenciesComponent;AppXProductDetailsComponent;AppXVisualAssetsComponent;AppXAppDeclarationsComponent;AppXUriRulesComponent"/>
-  </COMPONENT>
+<DOCUMENT Type="Advanced Installer" CreateVersion="12.3" version="13.2" Modules="architect" RootPath="." Language="en" Id="{1A12290F-81EB-492E-8C5B-D05D236ED864}">
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
     <ROW Property="AI_CLEAN_RESOURCES_DISABLE_UPGRADE" Value="1"/>
@@ -16,18 +13,15 @@
     <ROW Property="AI_UNINSTALLER" Value="msiexec.exe"/>
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
-    <ROW Property="ARPCONTACT" Value="ezhassen@gmail.com"/>
-    <ROW Property="ARPNOREPAIR" MultiBuildValue="DefaultBuild:1"/>
-    <ROW Property="ARPPRODUCTICON" Value="icon.exe" Type="8"/>
     <ROW Property="ARPSYSTEMCOMPONENT" Value="1"/>
     <ROW Property="AiPreferFastOem" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="CTRLS" Value="2"/>
     <ROW Property="MSIFASTINSTALL" MultiBuildValue="DefaultBuild:3"/>
     <ROW Property="Manufacturer" Value="ezhassen"/>
-    <ROW Property="ProductCode" Value="1025:{555917C8-45EE-4E61-8EC0-B11550AFE071} 1033:{BF964192-B410-40A2-8791-711EB7E808F3} " Type="16"/>
+    <ROW Property="ProductCode" Value="1025:{D83C8F2B-9166-4A5E-AAFE-E5B036E9F003} 1033:{93CB8347-9EAD-4793-B36C-48E02C22F8EE} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Folder Icon Changer"/>
-    <ROW Property="ProductVersion" Value="2.2.205.1041" Type="32" TargetFile="FolderIconChanger.exe"/>
+    <ROW Property="ProductVersion" Value="2.2.204.1040" Type="32" TargetFile="FolderIconChanger.exe"/>
     <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{D78498AB-B8F3-4B42-B190-EF4E1846EB89}"/>
@@ -56,7 +50,6 @@
     <ROW Component="AI_CustomARPName" ComponentId="{F62ADF61-A923-4EC3-A5F5-280B8CE668F1}" Directory_="APPDIR" Attributes="4" KeyPath="DisplayName" Options="1"/>
     <ROW Component="AI_ExePath" ComponentId="{837D3728-B391-4FFC-A45F-B7104EF0A2F1}" Directory_="APPDIR" Attributes="4" KeyPath="AI_ExePath"/>
     <ROW Component="AI_InstallLanguage" ComponentId="{91080BD5-627F-4319-928A-5062BFA97350}" Directory_="APPDIR" Attributes="4" KeyPath="AI_InstallLanguage" Options="1"/>
-    <ROW Component="FolderIconChanger.VisualElementsManifest.xml" ComponentId="{5F5CBA53-1C1E-4948-A074-67FEAD39E308}" Directory_="APPDIR" Attributes="0" KeyPath="FolderIconChanger.VisualElementsManifest.xml"/>
     <ROW Component="FolderIconChanger.exe" ComponentId="{F826CF95-9B96-4E91-A21E-D79196321088}" Directory_="APPDIR" Attributes="0" KeyPath="FolderIconChanger.exe"/>
     <ROW Component="InstallLanguage" ComponentId="{3A43F35A-3027-4292-9229-C01A9FBA3AB4}" Directory_="APPDIR" Attributes="4" KeyPath="InstallLanguage" Options="1"/>
     <ROW Component="ProductInformation" ComponentId="{FA65A2FC-6A7D-4F9E-9169-DA3CC3F7F503}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
@@ -66,12 +59,10 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
     <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="AI_CustomARPName AI_ExePath AI_InstallLanguage FolderIconChanger.exe InstallLanguage ProductInformation QuickLaunch SHORTCUTDIR langs"/>
-    <ROW Feature="TileAssets_DefaultBuild" Title="TileAssets_DefaultBuild" Description="Description" Display="0" Level="1" Directory_="APPDIR" Attributes="0" Options="271" Components="AI_CustomARPName AI_ExePath AI_InstallLanguage FolderIconChanger.VisualElementsManifest.xml" Builds="DefaultBuild"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
-    <ROW File="FolderIconChanger.VisualElementsManifest.xml" Component_="FolderIconChanger.VisualElementsManifest.xml" FileName="FOLDER~1.XML|Folder Icon Changer.VisualElementsManifest.xml" Attributes="0" SourcePath="&lt;AI_RES&gt;app.VisualElementsManifest.xml" SelfReg="false"/>
-    <ROW File="FolderIconChanger.exe" Component_="FolderIconChanger.exe" FileName="FOLDER~1.EXE|Folder Icon Changer.exe" Attributes="0" SourcePath="..\Folder Icon Changer\bin\Release\Folder Icon Changer_St.exe" SelfReg="false" NextFile="FolderIconChanger.VisualElementsManifest.xml" DigSign="true"/>
+    <ROW File="FolderIconChanger.exe" Component_="FolderIconChanger.exe" FileName="FOLDER~1.EXE|Folder Icon Changer.exe" Attributes="0" SourcePath="..\Folder Icon Changer\bin\Release\Folder Icon Changer_St.exe" SelfReg="false" DigSign="true"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AiRemoveFileComponent">
     <ROW RemoveFile="_" Condition="(AI_CLEAN_RESOURCES_UNINSTALL = &quot;1&quot;) AND (NOT UPGRADINGPRODUCTCODE)" Options="3"/>
@@ -81,10 +72,10 @@
     <ROW RemoveReg="_" InstallMode="2" Condition="(AI_CLEAN_RESOURCES_UNINSTALL = &quot;1&quot;) AND (NOT UPGRADINGPRODUCTCODE)"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
-    <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="1"/>
+    <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="1" EulaPathLocId="*" IntroTextPathLocId="*"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
-    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" Languages="en;ar" LangOpt="1" InstallationType="2" CabsLocation="1" UseLzma="true" LzmaMethod="2" LzmaCompressionLevel="4" PackageType="1" FilesInsideExe="true" ExtractionFolder="[AppDataFolder][|Manufacturer]\[|ProductName] [|ProductVersion]\install" ExtUI="true" LangsDialog="true" UseLargeSchema="true" Unicode="true" ExeName="[|ProductName] v[|ProductVersion]" UACExecutionLevel="2"/>
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="0" Languages="en;ar" LangOpt="1" InstallationType="2" CabsLocation="1" UseLzma="true" LzmaMethod="2" LzmaCompressionLevel="2" PackageType="1" FilesInsideExe="true" ExtractionFolder="[AppDataFolder][|Manufacturer]\[|ProductName] [|ProductVersion]\install" ExtUI="true" LangsDialog="true" UseLargeSchema="true" Unicode="true" UACExecutionLevel="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
     <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
@@ -97,9 +88,6 @@
     <ROW Fragment="LanguageDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\LanguageDlg.aip"/>
     <ROW Fragment="MaintenanceTypeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceTypeDlg.aip"/>
     <ROW Fragment="MaintenanceWelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceWelcomeDlg.aip"/>
-    <ROW Fragment="PreparePrereqDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\PreparePrereqDlg.aip"/>
-    <ROW Fragment="PrerequisitesDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\PrerequisitesDlg.aip"/>
-    <ROW Fragment="ProgressPrereqDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\ProgressPrereqDlg.aip"/>
     <ROW Fragment="SequenceDialogs.aip" Path="&lt;AI_THEMES&gt;classic\fragments\SequenceDialogs.aip"/>
     <ROW Fragment="Sequences.aip" Path="&lt;AI_FRAGS&gt;Sequences.aip"/>
     <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
@@ -108,32 +96,15 @@
     <ROW Fragment="VerifyRemoveDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRemoveDlg.aip"/>
     <ROW Fragment="VerifyRepairDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRepairDlg.aip"/>
     <ROW Fragment="WelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\WelcomeDlg.aip"/>
-    <ROW Fragment="WelcomePrereqDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\WelcomePrereqDlg.aip"/>
-  </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.GenericXmlAttributeComponent">
-    <ROW XmlAttribute="BackgroundColor" XmlElement="VisualElements" Name="BackgroundColor" Flags="14" Order="0" Value="System default"/>
-    <ROW XmlAttribute="Executable" XmlElement="VisualElements" Name="Executable" Flags="14" Order="0" FileId="FolderIconChanger.exe"/>
-    <ROW XmlAttribute="ForegroundText" XmlElement="VisualElements" Name="ForegroundText" Flags="14" Order="0" Value="light"/>
-    <ROW XmlAttribute="ShowNameOnSquare150x150Logo" XmlElement="VisualElements" Name="ShowNameOnSquare150x150Logo" Flags="14" Order="0" Value="on"/>
-    <ROW XmlAttribute="xmlnsxsi" XmlElement="Application" Name="xmlns:xsi" Flags="14" Order="0" Value="http://www.w3.org/2001/XMLSchema-instance"/>
-  </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.GenericXmlElementComponent">
-    <ROW XmlElement="Application" Name="Application" Order="0" Flags="0" Type="53"/>
-    <ROW XmlElement="VisualElements" ParentElement="Application" Name="VisualElements" Order="0" Flags="0" Type="0"/>
-  </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.GenericXmlFileComponent">
-    <ROW XmlFile="FolderIconChanger.VisualElementsMan" FileName="Folder Icon Changer.VisualElementsManifest.xml" RootElement="Application" Flags="89" Version="1.0" Encoding="UTF-8" IndentUnits="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiActionTextComponent">
-    <ROW Action="AI_AiRemoveFilesCommit" Description="Executing file removal operations" DescriptionLocId="ActionText.Description.AI_AiRemoveFilesCommit" Template="Executing file removal: [1]" TemplateLocId="ActionText.Template.AI_AiRemoveFilesCommit"/>
-    <ROW Action="AI_AiRemoveFilesDeferred_Permanent" Description="Preparing files for removal" DescriptionLocId="ActionText.Description.AI_AiRemoveFilesDeferred_Permanent" Template="Preparing file: [1]" TemplateLocId="ActionText.Template.AI_AiRemoveFilesDeferred_Permanent"/>
-    <ROW Action="AI_AiRemoveFilesDeferred_Undoable" Description="Preparing files for removal" DescriptionLocId="ActionText.Description.AI_AiRemoveFilesDeferred_Undoable" Template="Preparing file: [1]" TemplateLocId="ActionText.Template.AI_AiRemoveFilesDeferred_Undoable"/>
-    <ROW Action="AI_AiRemoveFilesImmediate" Description="Preparing files for removal" DescriptionLocId="ActionText.Description.AI_AiRemoveFilesImmediate" Template="Preparing file: [1]" TemplateLocId="ActionText.Template.AI_AiRemoveFilesImmediate"/>
-    <ROW Action="AI_AiRemoveFilesRollback" Description="Restoring removed files" DescriptionLocId="ActionText.Description.AI_AiRemoveFilesRollback" Template="Restoring file: [1]" TemplateLocId="ActionText.Template.AI_AiRemoveFilesRollback"/>
-    <ROW Action="AI_AiRemoveRegsCommit" Description="Executing registry removal operations." DescriptionLocId="ActionText.Description.AI_AiRemoveRegsCommit" Template="Removing registry entry: [1]" TemplateLocId="ActionText.Template.AI_AiRemoveRegsCommit"/>
-    <ROW Action="AI_AiRemoveRegsCommitUser" Description="Executing registry removal operations." DescriptionLocId="ActionText.Description.AI_AiRemoveRegsCommit" Template="Removing registry entry: [1]" TemplateLocId="ActionText.Template.AI_AiRemoveRegsCommit"/>
-    <ROW Action="AI_AiRemoveRegsDeferred" Description="Executing registry removal operations." DescriptionLocId="ActionText.Description.AI_AiRemoveRegsDeferred" Template="Removing registry entry: [1]" TemplateLocId="ActionText.Template.AI_AiRemoveRegsDeferred"/>
-    <ROW Action="AI_AiRemoveRegsDeferredUser" Description="Executing registry removal operations." DescriptionLocId="ActionText.Description.AI_AiRemoveRegsDeferred" Template="Removing registry entry: [1]" TemplateLocId="ActionText.Template.AI_AiRemoveRegsDeferred"/>
+    <ROW Action="AI_AiRemoveFilesCommit" Description="Executing file removal operations" Template="Executing file removal: [1]" DescriptionLocId="ActionText.Description.AI_AiRemoveFilesCommit" TemplateLocId="ActionText.Template.AI_AiRemoveFilesCommit"/>
+    <ROW Action="AI_AiRemoveFilesDeferred_Permanent" Description="Preparing files for removal" Template="Preparing file: [1]" DescriptionLocId="ActionText.Description.AI_AiRemoveFilesDeferred_Permanent" TemplateLocId="ActionText.Template.AI_AiRemoveFilesDeferred_Permanent"/>
+    <ROW Action="AI_AiRemoveFilesDeferred_Undoable" Description="Preparing files for removal" Template="Preparing file: [1]" DescriptionLocId="ActionText.Description.AI_AiRemoveFilesDeferred_Undoable" TemplateLocId="ActionText.Template.AI_AiRemoveFilesDeferred_Undoable"/>
+    <ROW Action="AI_AiRemoveFilesImmediate" Description="Preparing files for removal" Template="Preparing file: [1]" DescriptionLocId="ActionText.Description.AI_AiRemoveFilesImmediate" TemplateLocId="ActionText.Template.AI_AiRemoveFilesImmediate"/>
+    <ROW Action="AI_AiRemoveFilesRollback" Description="Restoring removed files" Template="Restoring file: [1]" DescriptionLocId="ActionText.Description.AI_AiRemoveFilesRollback" TemplateLocId="ActionText.Template.AI_AiRemoveFilesRollback"/>
+    <ROW Action="AI_AiRemoveRegsCommit" Description="Executing registry removal operations." Template="Removing registry entry: [1]" DescriptionLocId="ActionText.Description.AI_AiRemoveRegsCommit" TemplateLocId="ActionText.Template.AI_AiRemoveRegsCommit"/>
+    <ROW Action="AI_AiRemoveRegsDeferred" Description="Executing registry removal operations." Template="Removing registry entry: [1]" DescriptionLocId="ActionText.Description.AI_AiRemoveRegsDeferred" TemplateLocId="ActionText.Template.AI_AiRemoveRegsDeferred"/>
     <ROW Action="AI_AiRemoveRegsImmediate" Description="Generating actions to remove registry entries." DescriptionLocId="ActionText.Description.AI_AiRemoveRegsImmediate"/>
     <ROW Action="AI_DeleteLzma" Description="Deleting files extracted from archive" DescriptionLocId="ActionText.Description.AI_DeleteLzma" TemplateLocId="-"/>
     <ROW Action="AI_DeleteRLzma" Description="Deleting files extracted from archive" DescriptionLocId="ActionText.Description.AI_DeleteLzma" TemplateLocId="-"/>
@@ -150,9 +121,6 @@
     <ROW Name="ResourceCleaner.dll" SourcePath="&lt;AI_CUSTACTS&gt;ResourceCleaner.dll"/>
     <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
     <ROW Name="lzmaextractor.dll" SourcePath="&lt;AI_CUSTACTS&gt;lzmaextractor.dll"/>
-  </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.MsiConditionComponent">
-    <ROW Feature_="TileAssets_DefaultBuild" Level="4" Condition="VersionNT &lt; 603"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
     <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
@@ -178,9 +146,6 @@
     <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="203"/>
     <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
     <ROW Dialog_="LanguageDlg" Control_="Next" Event="EndDialog" Argument="Return" Condition="AI_BOOTSTRAPPER" Ordering="1"/>
-    <ROW Dialog_="WelcomePrereqDlg" Control_="Next" Event="NewDialog" Argument="PrerequisitesDlg" Condition="AI_BOOTSTRAPPER" Ordering="1"/>
-    <ROW Dialog_="PrerequisitesDlg" Control_="Next" Event="EndDialog" Argument="Return" Condition="AI_BOOTSTRAPPER" Ordering="1"/>
-    <ROW Dialog_="PrerequisitesDlg" Control_="Back" Event="NewDialog" Argument="WelcomePrereqDlg" Condition="AI_BOOTSTRAPPER" Ordering="1"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
     <ROW Directory_="SHORTCUTDIR" Component_="SHORTCUTDIR" ManualDelete="false"/>
@@ -194,9 +159,7 @@
     <ROW Action="AI_AiRemoveFilesImmediate" Type="1" Source="ResourceCleaner.dll" Target="OnAiRemoveFilesImmediate"/>
     <ROW Action="AI_AiRemoveFilesRollback" Type="11521" Source="ResourceCleaner.dll" Target="OnAiUndoRemoveFiles"/>
     <ROW Action="AI_AiRemoveRegsCommit" Type="11777" Source="ResourceCleaner.dll" Target="OnAiRemoveRegs" WithoutSeq="true"/>
-    <ROW Action="AI_AiRemoveRegsCommitUser" Type="9729" Source="ResourceCleaner.dll" Target="OnAiRemoveRegs" WithoutSeq="true"/>
     <ROW Action="AI_AiRemoveRegsDeferred" Type="11265" Source="ResourceCleaner.dll" Target="OnAiRemoveRegs" WithoutSeq="true"/>
-    <ROW Action="AI_AiRemoveRegsDeferredUser" Type="9217" Source="ResourceCleaner.dll" Target="OnAiRemoveRegs" WithoutSeq="true"/>
     <ROW Action="AI_AiRemoveRegsImmediate" Type="1" Source="ResourceCleaner.dll" Target="OnAiRemoveRegsImmediate"/>
     <ROW Action="AI_AppSearchEx" Type="1" Source="Prereq.dll" Target="DoAppSearchEx"/>
     <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH_ORIGINAL" Target="[AI_SETUPEXEPATH]"/>
@@ -230,9 +193,6 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFileHashComponent">
     <ATTRIBUTE name="HashFiles" value="1"/>
-  </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
-    <ROW Name="icon.exe" SourcePath="..\icon.ico" Index="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
     <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
@@ -274,7 +234,7 @@
     <ROW Condition="(VersionNT &lt;&gt; 500)" Description="[ProductName] cannot be installed on [WindowsTypeNT50Display]." DescriptionLocId="AI.LaunchCondition.NoNT50" IsPredefined="true" Builds="DefaultBuild"/>
     <ROW Condition="(VersionNT64 OR ((VersionNT &lt;&gt; 501) OR (ServicePackLevel = 3))) AND ((VersionNT &lt;&gt; 502) OR (ServicePackLevel = 2))" Description="[ProductName] cannot be installed on [WindowsTypeNT5XDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT5X" IsPredefined="true" Builds="DefaultBuild"/>
     <ROW Condition="SETUPEXEDIR OR (REMOVE=&quot;ALL&quot;)" Description="This package can only be run from a bootstrapper." DescriptionLocId="AI.LaunchCondition.RequireBootstrapper" IsPredefined="true" Builds="DefaultBuild"/>
-    <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]." DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]" DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiLockPermComponent">
     <ROW LockObject="langs_Dir" Table="CreateFolder" User="Everyone" Permission="1880096767" Flags="0"/>
@@ -300,8 +260,8 @@
     <ROW Registry="Publisher" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="Publisher" Value="[Manufacturer]" Component_="AI_CustomARPName"/>
     <ROW Registry="URLInfoAbout" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="URLInfoAbout" Value="[ARPURLINFOABOUT]" Component_="AI_CustomARPName"/>
     <ROW Registry="URLUpdateInfo" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="URLUpdateInfo" Value="[ARPURLUPDATEINFO]" Component_="AI_CustomARPName"/>
-    <ROW Registry="UninstallPath" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="UninstallPath" Value="[AI_UNINSTALLER] /i [ProductCode] AI_UNINSTALLER_CTP=1" Component_="AI_CustomARPName"/>
-    <ROW Registry="UninstallString" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="UninstallString" Value="[AI_UNINSTALLER] /i [ProductCode] AI_UNINSTALLER_CTP=1" Component_="AI_CustomARPName"/>
+    <ROW Registry="UninstallPath" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="UninstallPath" Value="[AI_UNINSTALLER] /i [ProductCode]" Component_="AI_CustomARPName"/>
+    <ROW Registry="UninstallString" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="UninstallString" Value="[AI_UNINSTALLER] /i [ProductCode]" Component_="AI_CustomARPName"/>
     <ROW Registry="Version" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Version" Value="[ProductVersion]" Component_="ProductInformation"/>
     <ROW Registry="VersionMajor" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="VersionMajor" Value="#1" Component_="AI_CustomARPName"/>
     <ROW Registry="VersionMinor" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="VersionMinor" Value="#2" Component_="AI_CustomARPName"/>
@@ -327,10 +287,10 @@
     <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.PreReqComponent">
-    <ROW PrereqKey="C673FE9433B49AFAC9592AB26B8F8E4" DisplayName=".NET Framework 4.0" SetupFileUrl="http://download.microsoft.com/download/9/5/A/95A9616B-7A37-4AF6-BC36-D6EA96C8DAAE/dotNetFx40_Full_x86_x64.exe" Location="1" ExactSize="50449456" WinNTVersions="Windows 8 x86, Windows 8.1 x86, Windows 10 x86" WinNT64Versions="Windows 8 x64, Windows Server 2012 x64, Windows 8.1 x64, Windows Server 2012 R2 x64, Windows 10 x64" Operator="1" NoUiComLine="/q /norestart" Options="xy" MD5="251743dfd3fda414570524bac9e55381" TargetName=".NET Framework 4.0"/>
+    <ROW PrereqKey="C673FE9433B49AFAC9592AB26B8F8E4" DisplayName=".NET Framework 4.0" SetupFileUrl="http://download.microsoft.com/download/9/5/A/95A9616B-7A37-4AF6-BC36-D6EA96C8DAAE/dotNetFx40_Full_x86_x64.exe" Location="1" ExactSize="50449456" WinNTVersions="Windows 2000, Windows 2000 Service Pack 1, Windows 2000 Service Pack 2, Windows 2000 Service Pack 3, Windows 2000 Service Pack 4, Windows XP x86, Windows XP x86 Service Pack 1, Windows Server 2003 x86, Windows 8 x86, Windows 8.1 x86, Windows 10 x86" WinNT64Versions="Windows XP x64, Windows Server 2003 x64, Windows 8 x64, Windows Server 2012 x64, Windows 8.1 x64, Windows Server 2012 R2 x64, Windows 10 x64" Operator="1" NoUiComLine="/q /norestart" Options="xy" MD5="251743dfd3fda414570524bac9e55381" TargetName=".NET Framework 4.0"/>
     <ATTRIBUTE name="PrereqsOrder" value="C673FE9433B49AFAC9592AB26B8F8E4"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.PreReqSearchComponent">
-    <ROW SearchKey="C673FE9433B49AFAC9592AB26B8F8E4Install" Prereq="C673FE9433B49AFAC9592AB26B8F8E4" SearchType="9" SearchString="HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\Install" RefContent="M1" Order="1" Property="PreReqSearch_C673FE9433B49AFAC9592A"/>
+    <ROW SearchKey="C673FE9433B49AFAC9592AB26B8F8E4Install" Prereq="C673FE9433B49AFAC9592AB26B8F8E4" SearchType="9" SearchString="HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\Install" RefContent="M1" Order="1" Property="PreReqSearch_C673FE9433B49AFAC9592AB26B8F8E4"/>
   </COMPONENT>
 </DOCUMENT>

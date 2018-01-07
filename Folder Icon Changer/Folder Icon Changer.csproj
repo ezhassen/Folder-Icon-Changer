@@ -159,8 +159,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CFI.ico" />
+    <None Include="Resources\Close32.png" />
+    <None Include="Resources\Undo3_32P.png" />
+    <None Include="Resources\Check32p.png" />
     <None Include="Resources\pin_1.png" />
-    <None Include="Resources\pin_2.png" />
     <None Include="Resources\icon.ico" />
     <None Include="Resources\Settings.png" />
     <None Include="Resources\Refresh_32P.png" />

@@ -15,15 +15,12 @@
     <Name>Folder Icon Changer Setup</Name>
     <RootNamespace>Folder Icon Changer Setup</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'All' ">
-    <DebugSymbols>false</DebugSymbols>
-    <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
-  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'DefaultBuild' " />
   <ItemGroup>
     <Compile Include="Folder Icon Changer Setup.aip">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Caphyon\Advanced Installer\AdvInstExtTasks.Targets" />
+  <Import Project="$(AdvancedInstallerMSBuildTargets)\AdvInstExtTasks.Targets" Condition="'$(AdvancedInstallerMSBuildTargets)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Caphyon\Advanced Installer\AdvInstExtTasks.Targets" Condition="'$(AdvancedInstallerMSBuildTargets)' == ''" />
 </Project>

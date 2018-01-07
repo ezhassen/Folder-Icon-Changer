@@ -121,28 +121,34 @@
   <data name="Refresh_32P" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Refresh_32P.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Ezz14_Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Ezz14_Left.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Preloader_725" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Preloader_725.GIF;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="pin_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pin_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ezz14_Left" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ezz14_Left.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ico_alpha_Information_32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ico_alpha_Information_32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Preloader_725" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Preloader_725.GIF;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Close32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Close32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Refresh_24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Refresh_24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pin_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pin_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pin_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pin_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Undo3_32P" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Undo3_32P.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Check32p" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Check32p.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -12,7 +12,7 @@ namespace Folder_Icon_Changer
 {
 	static class Program
 	{
-		public const string LngVersion = "1.0.3";
+		public const string LngVersion = "1.0.4";
 		public static UpdatingPreloader Preloader;
 		public static MultiLanguageManager mlm;
 		private static bool _cDefaultLng;
@@ -171,6 +171,7 @@ namespace Folder_Icon_Changer
 			stringsG.SetValue("FormOptionsTitle", "Options");
 			stringsG.SetValue("msgGenBestFit", "Will try to Generate Best Fit Icon By generating multiple icons with deferent sizes.\r\n\r\nContinue?");
 			stringsG.SetValue("ResetToDefaultIconMsg", "Are you sure?");
+			stringsG.SetValue("ShowCurrentFolderForIconFromImage", "Show Current Folder when creating Icon From Image");
 			//
 			var ButtonsG = nlng.AddNewGroup("Buttons");
 			ButtonsG.SetValue("GetIcon", "Get icon");
@@ -194,6 +195,7 @@ namespace Folder_Icon_Changer
 			labelsG.SetValue("NewIconInfo", "New Icon Info");
 			labelsG.SetValue("CopyIconToFolder", "Copy icon to the folder");
 			labelsG.SetValue("HideIcon", "Hide if the icon exists in the target folder");
+			labelsG.SetValue("OtherOptions", "Other Options");
 
 			//
 			var Select_IconG = nlng.AddNewGroup("Select_Icon");
@@ -246,8 +248,10 @@ namespace Folder_Icon_Changer
 			stringsG.SetValue("FormOptionsTitle", "خيارات");
 			stringsG.SetValue("msgGenBestFit", "سيحاول توليد أفضل أيقونة مناسبة عن طريق توليد أيقونات متعددة الأحجام.\r\n\r\nاستكمال؟");
 			stringsG.SetValue("ResetToDefaultIconMsg", "هل أنت متأكد من إعادة تعيين أيقونة المجلد للافتراضية؟");
-			//
-			var ButtonsG = nlng.AddNewGroup("Buttons");
+            stringsG.SetValue("ShowCurrentFolderForIconFromImage", "إظهار المجلد الحالي عند إنشاء أيقونة من صورة");
+
+            //
+            var ButtonsG = nlng.AddNewGroup("Buttons");
 			ButtonsG.SetValue("GetIcon", "الحصول على أيقونة");
 			ButtonsG.SetValue("Refresh", "تحديث");
 			ButtonsG.SetValue("ShowIconGroup", "عرض مجموعة الأيقونات");
@@ -269,6 +273,7 @@ namespace Folder_Icon_Changer
 			labelsG.SetValue("NewIconInfo", "معلومات الأيقونة الجديدة");
 			labelsG.SetValue("CopyIconToFolder", "نسخ الأيقونة للمجلد");
 			labelsG.SetValue("HideIcon", "إخفاء الملف إذا كان موجوداً في المجلد الهدف");
+			labelsG.SetValue("OtherOptions", "خيارات أخرى");
 
 			//
 			var Select_IconG = nlng.AddNewGroup("Select_Icon");

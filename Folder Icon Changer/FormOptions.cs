@@ -13,6 +13,7 @@ namespace Folder_Icon_Changer
         {
             InitializeComponent();
             gbLanguage.MouseDown += FormOptions_MouseDown;
+            gbOtherOptions.MouseDown += FormOptions_MouseDown;
         }
         public void RefreshLng()
         {
@@ -20,6 +21,10 @@ namespace Folder_Icon_Changer
             bOK.Text = Program.mlm.GetString("Buttons", "OK");
             bCancel.Text = Program.mlm.GetString("Buttons", "Cancel");
             bRefresh.Text = Program.mlm.GetString("Buttons", "Refresh");
+            cbShowCurrentFolderForIconFromImage.Text = Program.mlm.GetString("strings", "ShowCurrentFolderForIconFromImage");
+            gbOtherOptions.Text = Program.mlm.GetString("Label", "OtherOptions");
+            bool rtl = Program.mlm.CurrentLng?.GetLngInfo_Value("RTL", "false").ToLower() == "true";
+            gbOtherOptions.RightToLeft = rtl ? RightToLeft.Yes : RightToLeft.Inherit;
         }
 
         private void FormOptions_Load(object sender, EventArgs e)
