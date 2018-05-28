@@ -159,6 +159,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CFI.ico" />
+    <None Include="Resources\BG314P.png" />
+    <None Include="Resources\BG_MenuStrip1.png" />
+    <None Include="Resources\background.png" />
     <None Include="Resources\Close32.png" />
     <None Include="Resources\Undo3_32P.png" />
     <None Include="Resources\Check32p.png" />

@@ -744,8 +744,9 @@ namespace Folder_Icon_Changer
             {
                 if (newIconInfo.Index != (int)nUpDownIconIndex.Value)
                 {
-                    toolStripStatusLabel1.Text = string.Format(Program.mlm.GetString("strings", "ClickGetIconButtonToGetTheIconFirst"), BGetIcon.Text);
-                    BApply.Enabled = false;
+                    //toolStripStatusLabel1.Text = string.Format(Program.mlm.GetString("strings", "ClickGetIconButtonToGetTheIconFirst"), BGetIcon.Text);
+                    //BApply.Enabled = false;
+                    BGetNew_Click(sender, e);
                 }
                 else
                 {
@@ -898,8 +899,11 @@ namespace Folder_Icon_Changer
         public FormMain()
         {
             InitializeComponent();
-
+            //
             gBNewIcon.MouseDown += FormMain_MouseDown;
+            //
+            this.BackColor = ColorTranslator.FromHtml("#2C3742");//Color.Empty;
+            TransparencyKey = this.BackColor;
         }
 
         #endregion Public Constructors
@@ -916,7 +920,8 @@ namespace Folder_Icon_Changer
             bRefresh.Text = Program.mlm.GetString("Buttons", "Refresh");
             bOptions.Text = Program.mlm.GetString("Buttons", "Options");
             bAbout.Text = Program.mlm.GetString("Buttons", "About");
-            bTopMost.Text = Program.mlm.GetString("Buttons", "TopMost");
+            //bTopMost.Text = Program.mlm.GetString("Buttons", "TopMost");
+            toolTip1.SetToolTip(bTopMost, Program.mlm.GetString("Buttons", "TopMost"));
             bCurrentShowIconGroup.Text = Program.mlm.GetString("Buttons", "ShowIconGroup"); bNewShowIconGroup.Text = bCurrentShowIconGroup.Text;
             bClearNewInfo.Text = Program.mlm.GetString("Buttons", "Clear");
             BGetIcon.Text = Program.mlm.GetString("Buttons", "GetIcon");
