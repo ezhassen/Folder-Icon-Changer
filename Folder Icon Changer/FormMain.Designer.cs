@@ -36,14 +36,12 @@
             this.bClearNewInfo = new System.Windows.Forms.Button();
             this.BGetIcon = new System.Windows.Forms.Button();
             this.PBNew = new System.Windows.Forms.PictureBox();
-            this.nUpDownIconIndex = new Ezz_Helper.WinForms.EditControls.NumericUpDownEx();
             this.CBHideFile = new System.Windows.Forms.CheckBox();
             this.CBCopyIconToFolder = new System.Windows.Forms.CheckBox();
             this.bIconFromImage = new System.Windows.Forms.Button();
             this.BBrowseIcon = new System.Windows.Forms.Button();
             this.contextMSBrowseIconFShell32 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemShell32 = new System.Windows.Forms.ToolStripMenuItem();
-            this.TBNewIcon = new Ezz_Helper.WinForms.EditControls.TextBoxEzz();
             this.TBCurrentIconIndex = new System.Windows.Forms.TextBox();
             this.TBCurrentIcon = new System.Windows.Forms.TextBox();
             this.LabelCurrentIcon = new System.Windows.Forms.Label();
@@ -56,18 +54,20 @@
             this.bCurrentShowIconGroup = new System.Windows.Forms.Button();
             this.PBCurrent = new System.Windows.Forms.PictureBox();
             this.bCurrentGenBestFit = new System.Windows.Forms.Button();
-            this.tBTargetFolder = new Ezz_Helper.WinForms.EditControls.TextBoxEzz();
             this.bTopMost = new System.Windows.Forms.CheckBox();
             this.bAbout = new System.Windows.Forms.Button();
             this.bOptions = new System.Windows.Forms.Button();
             this.bRefresh = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.tBTargetFolder = new Ezz_Helper.WinForms.EditControls.TextBoxEzz();
+            this.nUpDownIconIndex = new Ezz_Helper.WinForms.EditControls.NumericUpDownEx();
+            this.TBNewIcon = new Ezz_Helper.WinForms.EditControls.TextBoxEzz();
             this.gBNewIcon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBNew)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nUpDownIconIndex)).BeginInit();
             this.contextMSBrowseIconFShell32.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBCurrent)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nUpDownIconIndex)).BeginInit();
             this.SuspendLayout();
             // 
             // labelTargetFolder
@@ -83,8 +83,7 @@
             // 
             // gBNewIcon
             // 
-            this.gBNewIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.gBNewIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gBNewIcon.BackColor = System.Drawing.Color.Transparent;
             this.gBNewIcon.Controls.Add(this.bNewShowIconGroup);
@@ -99,46 +98,61 @@
             this.gBNewIcon.Controls.Add(this.TBNewIcon);
             this.gBNewIcon.Location = new System.Drawing.Point(12, 212);
             this.gBNewIcon.Name = "gBNewIcon";
-            this.gBNewIcon.Size = new System.Drawing.Size(496, 174);
+            this.gBNewIcon.Size = new System.Drawing.Size(496, 151);
             this.gBNewIcon.TabIndex = 5;
             this.gBNewIcon.TabStop = false;
             this.gBNewIcon.Text = "New Icon Info";
             // 
             // bNewShowIconGroup
             // 
+            this.bNewShowIconGroup.BackColor = System.Drawing.Color.Orange;
             this.bNewShowIconGroup.Enabled = false;
+            this.bNewShowIconGroup.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
+            this.bNewShowIconGroup.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Goldenrod;
+            this.bNewShowIconGroup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gold;
+            this.bNewShowIconGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bNewShowIconGroup.Location = new System.Drawing.Point(182, 48);
             this.bNewShowIconGroup.Name = "bNewShowIconGroup";
             this.bNewShowIconGroup.Size = new System.Drawing.Size(132, 23);
             this.bNewShowIconGroup.TabIndex = 24;
             this.bNewShowIconGroup.Text = "Show icon group";
-            this.bNewShowIconGroup.UseVisualStyleBackColor = true;
+            this.bNewShowIconGroup.UseVisualStyleBackColor = false;
             this.bNewShowIconGroup.Click += new System.EventHandler(this.bNewShowIconGroup_Click);
             // 
             // bClearNewInfo
             // 
+            this.bClearNewInfo.BackColor = System.Drawing.Color.Orange;
+            this.bClearNewInfo.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
+            this.bClearNewInfo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Goldenrod;
+            this.bClearNewInfo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gold;
+            this.bClearNewInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bClearNewInfo.Location = new System.Drawing.Point(6, 19);
             this.bClearNewInfo.Name = "bClearNewInfo";
             this.bClearNewInfo.Size = new System.Drawing.Size(50, 23);
             this.bClearNewInfo.TabIndex = 20;
             this.bClearNewInfo.Text = "Clear";
-            this.bClearNewInfo.UseVisualStyleBackColor = true;
+            this.bClearNewInfo.UseVisualStyleBackColor = false;
             this.bClearNewInfo.Click += new System.EventHandler(this.bClearNewInfo_Click);
             // 
             // BGetIcon
             // 
             this.BGetIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BGetIcon.BackColor = System.Drawing.Color.Orange;
+            this.BGetIcon.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
+            this.BGetIcon.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Goldenrod;
+            this.BGetIcon.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gold;
+            this.BGetIcon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BGetIcon.Location = new System.Drawing.Point(374, 15);
             this.BGetIcon.Name = "BGetIcon";
             this.BGetIcon.Size = new System.Drawing.Size(52, 44);
             this.BGetIcon.TabIndex = 19;
             this.BGetIcon.Text = "Get icon";
-            this.BGetIcon.UseVisualStyleBackColor = true;
+            this.BGetIcon.UseVisualStyleBackColor = false;
             this.BGetIcon.Click += new System.EventHandler(this.BGetNew_Click);
             // 
             // PBNew
             // 
-            this.PBNew.BackColor = System.Drawing.SystemColors.Control;
+            this.PBNew.BackColor = System.Drawing.Color.LightSteelBlue;
             this.PBNew.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PBNew.Location = new System.Drawing.Point(83, 48);
             this.PBNew.Name = "PBNew";
@@ -148,28 +162,12 @@
             this.PBNew.TabStop = false;
             this.PBNew.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormMain_MouseDown);
             // 
-            // nUpDownIconIndex
-            // 
-            this.nUpDownIconIndex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.nUpDownIconIndex.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.nUpDownIconIndex.ForeColor = System.Drawing.Color.Black;
-            this.nUpDownIconIndex.Location = new System.Drawing.Point(322, 20);
-            this.nUpDownIconIndex.Maximum = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.nUpDownIconIndex.Name = "nUpDownIconIndex";
-            this.nUpDownIconIndex.Size = new System.Drawing.Size(45, 20);
-            this.nUpDownIconIndex.TabIndex = 17;
-            this.nUpDownIconIndex.ValueChanged += new System.EventHandler(this.nUpDownIconIndex_ValueChanged);
-            // 
             // CBHideFile
             // 
             this.CBHideFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CBHideFile.Checked = global::Folder_Icon_Changer.Properties.Settings.Default.HideTheFileA;
-            this.CBHideFile.Location = new System.Drawing.Point(188, 151);
+            this.CBHideFile.Location = new System.Drawing.Point(188, 128);
             this.CBHideFile.Name = "CBHideFile";
             this.CBHideFile.Size = new System.Drawing.Size(301, 17);
             this.CBHideFile.TabIndex = 12;
@@ -181,7 +179,7 @@
             this.CBCopyIconToFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CBCopyIconToFolder.Checked = global::Folder_Icon_Changer.Properties.Settings.Default.CopyIconT;
-            this.CBCopyIconToFolder.Location = new System.Drawing.Point(188, 128);
+            this.CBCopyIconToFolder.Location = new System.Drawing.Point(188, 105);
             this.CBCopyIconToFolder.Name = "CBCopyIconToFolder";
             this.CBCopyIconToFolder.Size = new System.Drawing.Size(301, 17);
             this.CBCopyIconToFolder.TabIndex = 12;
@@ -191,24 +189,34 @@
             // bIconFromImage
             // 
             this.bIconFromImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bIconFromImage.BackColor = System.Drawing.Color.Orange;
+            this.bIconFromImage.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
+            this.bIconFromImage.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Goldenrod;
+            this.bIconFromImage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gold;
+            this.bIconFromImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bIconFromImage.Location = new System.Drawing.Point(374, 65);
             this.bIconFromImage.Name = "bIconFromImage";
             this.bIconFromImage.Size = new System.Drawing.Size(109, 27);
             this.bIconFromImage.TabIndex = 7;
             this.bIconFromImage.Text = "IconFromImage";
-            this.bIconFromImage.UseVisualStyleBackColor = true;
+            this.bIconFromImage.UseVisualStyleBackColor = false;
             this.bIconFromImage.Click += new System.EventHandler(this.bIconFromImage_Click);
             // 
             // BBrowseIcon
             // 
             this.BBrowseIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BBrowseIcon.BackColor = System.Drawing.Color.Orange;
             this.BBrowseIcon.ContextMenuStrip = this.contextMSBrowseIconFShell32;
+            this.BBrowseIcon.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
+            this.BBrowseIcon.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Goldenrod;
+            this.BBrowseIcon.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gold;
+            this.BBrowseIcon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BBrowseIcon.Location = new System.Drawing.Point(432, 15);
             this.BBrowseIcon.Name = "BBrowseIcon";
             this.BBrowseIcon.Size = new System.Drawing.Size(51, 44);
             this.BBrowseIcon.TabIndex = 7;
             this.BBrowseIcon.Text = "---";
-            this.BBrowseIcon.UseVisualStyleBackColor = true;
+            this.BBrowseIcon.UseVisualStyleBackColor = false;
             this.BBrowseIcon.Click += new System.EventHandler(this.BBrowseIcon_Click);
             // 
             // contextMSBrowseIconFShell32
@@ -225,30 +233,10 @@
             this.toolStripMenuItemShell32.Text = "Browse to system shell file";
             this.toolStripMenuItemShell32.Click += new System.EventHandler(this.toolStripMenuItemShell32_Click);
             // 
-            // TBNewIcon
-            // 
-            this.TBNewIcon.AllowToCalculate = false;
-            this.TBNewIcon.AllowToTogglesTheSign = false;
-            this.TBNewIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TBNewIcon.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.TBNewIcon.EditType = Ezz_Helper.WinForms.EditControls.TextBoxEzz.EditTypes.Path;
-            this.TBNewIcon.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TBNewIcon.ForeColor = System.Drawing.Color.Black;
-            this.TBNewIcon.FreeInputForCalculating = false;
-            this.TBNewIcon.Location = new System.Drawing.Point(62, 19);
-            this.TBNewIcon.MaxNumber = 7.92281625142643E+28D;
-            this.TBNewIcon.MinNumber = -7.92281625142643E+28D;
-            this.TBNewIcon.Name = "TBNewIcon";
-            this.TBNewIcon.NumericType = Ezz_Helper.WinForms.EditControls.TextBoxEzz.NumericTypes.AcceptAny;
-            this.TBNewIcon.ReadOnly = true;
-            this.TBNewIcon.Size = new System.Drawing.Size(254, 23);
-            this.TBNewIcon.TabIndex = 16;
-            // 
             // TBCurrentIconIndex
             // 
             this.TBCurrentIconIndex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.TBCurrentIconIndex.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.TBCurrentIconIndex.BackColor = System.Drawing.Color.LightSteelBlue;
             this.TBCurrentIconIndex.ForeColor = System.Drawing.Color.Black;
             this.TBCurrentIconIndex.Location = new System.Drawing.Point(426, 110);
             this.TBCurrentIconIndex.Name = "TBCurrentIconIndex";
@@ -261,7 +249,7 @@
             // 
             this.TBCurrentIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TBCurrentIcon.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.TBCurrentIcon.BackColor = System.Drawing.Color.LightSteelBlue;
             this.TBCurrentIcon.ForeColor = System.Drawing.Color.Black;
             this.TBCurrentIcon.Location = new System.Drawing.Point(197, 110);
             this.TBCurrentIcon.Name = "TBCurrentIcon";
@@ -284,7 +272,11 @@
             // BBrowseFolder
             // 
             this.BBrowseFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BBrowseFolder.BackColor = System.Drawing.SystemColors.Control;
+            this.BBrowseFolder.BackColor = System.Drawing.Color.Orange;
+            this.BBrowseFolder.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
+            this.BBrowseFolder.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Goldenrod;
+            this.BBrowseFolder.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gold;
+            this.BBrowseFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BBrowseFolder.Location = new System.Drawing.Point(479, 65);
             this.BBrowseFolder.Name = "BBrowseFolder";
             this.BBrowseFolder.Size = new System.Drawing.Size(35, 26);
@@ -295,16 +287,22 @@
             // 
             // BRest
             // 
-            this.BRest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.BRest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BRest.BackColor = System.Drawing.Color.Orange;
             this.BRest.Enabled = false;
+            this.BRest.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
+            this.BRest.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Goldenrod;
+            this.BRest.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gold;
+            this.BRest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BRest.Image = global::Folder_Icon_Changer.Properties.Resources.Undo3_32P;
-            this.BRest.Location = new System.Drawing.Point(15, 392);
+            this.BRest.Location = new System.Drawing.Point(12, 369);
             this.BRest.Name = "BRest";
             this.BRest.Size = new System.Drawing.Size(120, 60);
             this.BRest.TabIndex = 17;
             this.BRest.Text = "Reset to default icon";
             this.BRest.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.BRest.UseVisualStyleBackColor = true;
+            this.BRest.UseVisualStyleBackColor = false;
             this.BRest.Click += new System.EventHandler(this.BRest_Click);
             // 
             // statusStrip1
@@ -312,7 +310,7 @@
             this.statusStrip1.BackColor = System.Drawing.Color.Transparent;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 455);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 438);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(520, 22);
             this.statusStrip1.SizingGrip = false;
@@ -331,36 +329,53 @@
             // 
             // BClose
             // 
-            this.BClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BClose.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BClose.BackColor = System.Drawing.Color.Orange;
             this.BClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.BClose.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
+            this.BClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Goldenrod;
+            this.BClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gold;
+            this.BClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BClose.Image = global::Folder_Icon_Changer.Properties.Resources.Close32;
-            this.BClose.Location = new System.Drawing.Point(438, 392);
+            this.BClose.Location = new System.Drawing.Point(438, 369);
             this.BClose.Name = "BClose";
             this.BClose.Size = new System.Drawing.Size(70, 60);
             this.BClose.TabIndex = 19;
             this.BClose.Text = "Close";
             this.BClose.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.BClose.UseVisualStyleBackColor = true;
+            this.BClose.UseVisualStyleBackColor = false;
             this.BClose.Click += new System.EventHandler(this.BClose_Click);
             // 
             // BApply
             // 
-            this.BApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BApply.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BApply.BackColor = System.Drawing.Color.Orange;
             this.BApply.Enabled = false;
+            this.BApply.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
+            this.BApply.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Goldenrod;
+            this.BApply.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gold;
+            this.BApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BApply.Image = global::Folder_Icon_Changer.Properties.Resources.Check32p;
-            this.BApply.Location = new System.Drawing.Point(282, 392);
+            this.BApply.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.BApply.Location = new System.Drawing.Point(282, 369);
             this.BApply.Name = "BApply";
             this.BApply.Size = new System.Drawing.Size(150, 60);
             this.BApply.TabIndex = 20;
             this.BApply.Text = "Apply";
             this.BApply.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.BApply.UseVisualStyleBackColor = true;
+            this.BApply.UseVisualStyleBackColor = false;
             this.BApply.Click += new System.EventHandler(this.BApply_Click);
             // 
             // bCurrentShowIconGroup
             // 
-            this.bCurrentShowIconGroup.BackColor = System.Drawing.Color.Transparent;
+            this.bCurrentShowIconGroup.BackColor = System.Drawing.Color.Orange;
             this.bCurrentShowIconGroup.Enabled = false;
+            this.bCurrentShowIconGroup.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
+            this.bCurrentShowIconGroup.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Goldenrod;
+            this.bCurrentShowIconGroup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gold;
+            this.bCurrentShowIconGroup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bCurrentShowIconGroup.Location = new System.Drawing.Point(197, 136);
             this.bCurrentShowIconGroup.Name = "bCurrentShowIconGroup";
             this.bCurrentShowIconGroup.Size = new System.Drawing.Size(132, 23);
@@ -371,7 +386,7 @@
             // 
             // PBCurrent
             // 
-            this.PBCurrent.BackColor = System.Drawing.SystemColors.Control;
+            this.PBCurrent.BackColor = System.Drawing.Color.LightSteelBlue;
             this.PBCurrent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PBCurrent.Location = new System.Drawing.Point(95, 100);
             this.PBCurrent.Name = "PBCurrent";
@@ -383,8 +398,12 @@
             // 
             // bCurrentGenBestFit
             // 
-            this.bCurrentGenBestFit.BackColor = System.Drawing.Color.Transparent;
+            this.bCurrentGenBestFit.BackColor = System.Drawing.Color.Orange;
             this.bCurrentGenBestFit.Enabled = false;
+            this.bCurrentGenBestFit.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
+            this.bCurrentGenBestFit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Goldenrod;
+            this.bCurrentGenBestFit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gold;
+            this.bCurrentGenBestFit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bCurrentGenBestFit.Location = new System.Drawing.Point(197, 165);
             this.bCurrentGenBestFit.Name = "bCurrentGenBestFit";
             this.bCurrentGenBestFit.Size = new System.Drawing.Size(132, 31);
@@ -392,25 +411,6 @@
             this.bCurrentGenBestFit.Text = "Generate Best Fit Icon";
             this.bCurrentGenBestFit.UseVisualStyleBackColor = false;
             this.bCurrentGenBestFit.Click += new System.EventHandler(this.bCurrentGenBestFit_Click);
-            // 
-            // tBTargetFolder
-            // 
-            this.tBTargetFolder.AllowToCalculate = false;
-            this.tBTargetFolder.AllowToTogglesTheSign = false;
-            this.tBTargetFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tBTargetFolder.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tBTargetFolder.EditType = Ezz_Helper.WinForms.EditControls.TextBoxEzz.EditTypes.Path;
-            this.tBTargetFolder.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tBTargetFolder.ForeColor = System.Drawing.Color.Black;
-            this.tBTargetFolder.FreeInputForCalculating = false;
-            this.tBTargetFolder.Location = new System.Drawing.Point(95, 67);
-            this.tBTargetFolder.MaxNumber = 7.92281625142643E+28D;
-            this.tBTargetFolder.MinNumber = -7.92281625142643E+28D;
-            this.tBTargetFolder.Name = "tBTargetFolder";
-            this.tBTargetFolder.NumericType = Ezz_Helper.WinForms.EditControls.TextBoxEzz.NumericTypes.AcceptAny;
-            this.tBTargetFolder.Size = new System.Drawing.Size(378, 23);
-            this.tBTargetFolder.TabIndex = 16;
             // 
             // bTopMost
             // 
@@ -488,6 +488,61 @@
             this.bRefresh.UseVisualStyleBackColor = false;
             this.bRefresh.Click += new System.EventHandler(this.bRefresh_Click);
             // 
+            // tBTargetFolder
+            // 
+            this.tBTargetFolder.AllowToCalculate = false;
+            this.tBTargetFolder.AllowToTogglesTheSign = false;
+            this.tBTargetFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tBTargetFolder.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.tBTargetFolder.EditType = Ezz_Helper.WinForms.EditControls.TextBoxEzz.EditTypes.Path;
+            this.tBTargetFolder.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tBTargetFolder.ForeColor = System.Drawing.Color.Black;
+            this.tBTargetFolder.FreeInputForCalculating = false;
+            this.tBTargetFolder.Location = new System.Drawing.Point(95, 67);
+            this.tBTargetFolder.MaxNumber = 7.92281625142643E+28D;
+            this.tBTargetFolder.MinNumber = -7.92281625142643E+28D;
+            this.tBTargetFolder.Name = "tBTargetFolder";
+            this.tBTargetFolder.NumericType = Ezz_Helper.WinForms.EditControls.TextBoxEzz.NumericTypes.AcceptAny;
+            this.tBTargetFolder.Size = new System.Drawing.Size(378, 23);
+            this.tBTargetFolder.TabIndex = 16;
+            // 
+            // nUpDownIconIndex
+            // 
+            this.nUpDownIconIndex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.nUpDownIconIndex.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.nUpDownIconIndex.ForeColor = System.Drawing.Color.Black;
+            this.nUpDownIconIndex.Location = new System.Drawing.Point(322, 20);
+            this.nUpDownIconIndex.Maximum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nUpDownIconIndex.Name = "nUpDownIconIndex";
+            this.nUpDownIconIndex.Size = new System.Drawing.Size(45, 20);
+            this.nUpDownIconIndex.TabIndex = 17;
+            this.nUpDownIconIndex.ValueChanged += new System.EventHandler(this.nUpDownIconIndex_ValueChanged);
+            // 
+            // TBNewIcon
+            // 
+            this.TBNewIcon.AllowToCalculate = false;
+            this.TBNewIcon.AllowToTogglesTheSign = false;
+            this.TBNewIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TBNewIcon.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.TBNewIcon.EditType = Ezz_Helper.WinForms.EditControls.TextBoxEzz.EditTypes.Path;
+            this.TBNewIcon.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TBNewIcon.ForeColor = System.Drawing.Color.Black;
+            this.TBNewIcon.FreeInputForCalculating = false;
+            this.TBNewIcon.Location = new System.Drawing.Point(62, 19);
+            this.TBNewIcon.MaxNumber = 7.92281625142643E+28D;
+            this.TBNewIcon.MinNumber = -7.92281625142643E+28D;
+            this.TBNewIcon.Name = "TBNewIcon";
+            this.TBNewIcon.NumericType = Ezz_Helper.WinForms.EditControls.TextBoxEzz.NumericTypes.AcceptAny;
+            this.TBNewIcon.ReadOnly = true;
+            this.TBNewIcon.Size = new System.Drawing.Size(254, 23);
+            this.TBNewIcon.TabIndex = 16;
+            // 
             // FormMain
             // 
             this.AllowDrop = true;
@@ -497,7 +552,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImage = global::Folder_Icon_Changer.Properties.Resources.BG314P;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(520, 477);
+            this.ClientSize = new System.Drawing.Size(520, 460);
             this.ControlBox = false;
             this.Controls.Add(this.bRefresh);
             this.Controls.Add(this.bOptions);
@@ -524,7 +579,7 @@
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(520, 477);
+            this.MinimumSize = new System.Drawing.Size(520, 400);
             this.Name = "FormMain";
             this.Opacity = 0.95D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -538,11 +593,11 @@
             this.gBNewIcon.ResumeLayout(false);
             this.gBNewIcon.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBNew)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nUpDownIconIndex)).EndInit();
             this.contextMSBrowseIconFShell32.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBCurrent)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nUpDownIconIndex)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

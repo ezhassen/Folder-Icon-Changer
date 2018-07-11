@@ -96,18 +96,6 @@ namespace Folder_Icon_Changer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string siOptions_LastWindowState {
-            get {
-                return ((string)(this["siOptions_LastWindowState"]));
-            }
-            set {
-                this["siOptions_LastWindowState"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
         public global::System.Drawing.Point siOptions_LastLocation {
             get {

@@ -725,7 +725,6 @@ namespace Folder_Icon_Changer
                 Settings.Default.siOptions_LastLocation = Select_Icon.Options.LastLocation.GetValueOrDefault(Point.Empty);
                 Settings.Default.siOptions_LastSize = Select_Icon.Options.LastSize.GetValueOrDefault(Size.Empty);
                 Settings.Default.siOptions_LastViewSize = Select_Icon.Options.LastViewSize.GetValueOrDefault(Size.Empty);
-                Settings.Default.siOptions_LastWindowState = Select_Icon.Options.LastWindowState.HasValue ? Select_Icon.Options.LastWindowState.Value.ToString() : "";
                 Settings.Default.siOptions_StretchedImage = Select_Icon.Options.StretchedImage.GetValueOrDefault(true);
                 Settings.Default.siOptions_StretchedSmallImage = Select_Icon.Options.StretchedSmallImage.GetValueOrDefault(false);
                 //
@@ -763,25 +762,26 @@ namespace Folder_Icon_Changer
         /// <param name="e">The <see cref="EventArgs"/></param>
         private void FormMain_Load(object sender, EventArgs e)
         {
-            //load Select_Icon.Options
-            if (Settings.Default.siOptions_HistoryPathList != null && Settings.Default.siOptions_HistoryPathList.Count != 0)
+            Program.LoadLang(onFinish: () =>
             {
-                foreach (var item in Settings.Default.siOptions_HistoryPathList)
+                //
+                //load Select_Icon.Options
+                if (Settings.Default.siOptions_HistoryPathList != null && Settings.Default.siOptions_HistoryPathList.Count != 0)
                 {
-                    Select_Icon.Options.HistoryPathList.Add(item);
+                    foreach (var item in Settings.Default.siOptions_HistoryPathList)
+                    {
+                        Select_Icon.Options.HistoryPathList.Add(item);
+                    }
                 }
-            }
-            Select_Icon.Options.LastDrawText = Settings.Default.siOptions_LastDrawText;
-            if (!Settings.Default.siOptions_LastLocation.IsEmpty) Select_Icon.Options.LastLocation = Settings.Default.siOptions_LastLocation;
-            if (!Settings.Default.siOptions_LastSize.IsEmpty) Select_Icon.Options.LastSize = Settings.Default.siOptions_LastSize;
-            if (!Settings.Default.siOptions_LastViewSize.IsEmpty) Select_Icon.Options.LastViewSize = Settings.Default.siOptions_LastViewSize;
-            FormWindowState ws = FormWindowState.Normal;
-            var wsRes = Enum.TryParse(Settings.Default.siOptions_LastWindowState, true, out ws);
-            if (wsRes) Select_Icon.Options.LastWindowState = ws;
-            Select_Icon.Options.StretchedImage = Settings.Default.siOptions_StretchedImage;
-            Select_Icon.Options.StretchedSmallImage = Settings.Default.siOptions_StretchedSmallImage;
-            //
-            RefreshLng();
+                Select_Icon.Options.LastDrawText = Settings.Default.siOptions_LastDrawText;
+                if (!Settings.Default.siOptions_LastLocation.IsEmpty) Select_Icon.Options.LastLocation = Settings.Default.siOptions_LastLocation;
+                if (!Settings.Default.siOptions_LastSize.IsEmpty) Select_Icon.Options.LastSize = Settings.Default.siOptions_LastSize;
+                if (!Settings.Default.siOptions_LastViewSize.IsEmpty) Select_Icon.Options.LastViewSize = Settings.Default.siOptions_LastViewSize;
+                Select_Icon.Options.StretchedImage = Settings.Default.siOptions_StretchedImage;
+                Select_Icon.Options.StretchedSmallImage = Settings.Default.siOptions_StretchedSmallImage;
+                //
+                RefreshLng();
+            });
         }
 
         /// <summary>
