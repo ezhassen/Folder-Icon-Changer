@@ -199,6 +199,7 @@ ModelManifest.xml
 Folder Icon Changer Setup-SetupFiles/
 Folder Icon Changer Setup-cache/
 /.vscode/
+packages/
 
 #Ignore all .aip Except the main one to remove backups created after upgrading advanced installer
 *.aip
