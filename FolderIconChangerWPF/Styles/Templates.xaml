@@ -1,0 +1,254 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:conv="clr-namespace:FolderIconChangerWPF.ValueConverters"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    xmlns:mm="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:serv="clr-namespace:FolderIconChangerWPF.Services">
+
+    <!--#region  Windows-->
+    
+    <Style x:Key="WindowCommandsSeparator" TargetType="Separator">
+        <Setter Property="Foreground" Value="{DynamicResource SeperatorBrush}" />
+        <Setter Property="Margin" Value="3" />
+        <Setter Property="Height" Value="11" />
+        <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <RotateTransform Angle="90"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  Title  -->
+    <ItemContainerTemplate x:Key="WindowTitleTemplateBig">
+        <Grid HorizontalAlignment="Stretch">
+            <!--  Title  -->
+            <Viewbox
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Margin="5,2">
+                <StackPanel>
+
+                    <TextBlock
+                        Margin="0,0,0,0"
+                        HorizontalAlignment="Center"
+                        FontFamily="{DynamicResource LatoBold}"
+                        FontSize="{DynamicResource FontSizeLarge}">
+
+                        <Run Foreground="{DynamicResource WordOrangeBrush}" Text="{lex:BLoc SplitedTitle, Converter={conv:StringSplitConverter Index=0, Seperator=;}}" />
+
+                        <Run Foreground="{DynamicResource WordGreenBrush}" Text="{lex:BLoc SplitedTitle, Converter={conv:StringSplitConverter Index=1, Seperator=;}}" />
+
+                        <Run Foreground="{DynamicResource WordRedBrush}" Text="{lex:BLoc SplitedTitle, Converter={conv:StringSplitConverter Index=2, Seperator=;}}" />
+
+                    </TextBlock>
+                    <TextBlock
+                        Padding="0,0,0,3"
+                        FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}"
+                        FontFamily="{StaticResource FontAwesome}"
+                        FontSize="12"
+                        Foreground="{DynamicResource GrayBrush2}"
+                        TextAlignment="Center">
+                        <Run Text="{lex:BLoc ByEzhassen}" /><Run Text=" (ezhassen)" />
+                    </TextBlock>
+                </StackPanel>
+            </Viewbox>
+        </Grid>
+    </ItemContainerTemplate>
+
+    <!--#region MainWindow Templates-->
+
+    <!--<mm:WindowCommands x:Key="MainLeftWindowCommands">
+        <ContentPresenter ContentTemplate="{StaticResource LanguageSelectionTemplateComboBox}" />
+    </mm:WindowCommands>
+
+    <mm:WindowCommands x:Key="MainRightWindowCommands">
+        <ContentPresenter ContentTemplate="{StaticResource ThemeSelectionTemplateComboBox}" />
+    </mm:WindowCommands>-->
+    <!--#endregion-->
+
+
+
+
+
+    <!--  Language Selection  -->
+    <ItemContainerTemplate x:Key="LanguageSelectionTemplateComboBox">
+        <ComboBox
+            Grid.Column="0"
+            Margin="5,1,1,0"
+            Padding="1"
+            HorizontalAlignment="Left"
+            Background="{DynamicResource WindowBackgroundBrush}"
+            BorderThickness="0"
+            ItemsSource="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SupportedCultures}"
+            SelectedItem="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SelectedCulture}"
+            WindowChrome.IsHitTestVisibleInChrome="True">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Viewbox Stretch="Uniform">
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Width="45"
+                                Height="35"
+                                Source="{Binding Converter={conv:CultureToImageConverter}}"
+                                Stretch="Uniform">
+                                <Image.Effect>
+                                    <DropShadowEffect
+                                        BlurRadius="8"
+                                        Direction="290"
+                                        Opacity="1"
+                                        ShadowDepth="1" />
+                                </Image.Effect>
+                            </Image>
+                            <TextBlock
+                                Margin="2,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontFamily="{DynamicResource LatoRegular}"
+                                FontSize="{DynamicResource FontSizeSmall}"
+                                FontWeight="Bold"
+                                TextAlignment="Center">
+                                <TextBlock Visibility="{Binding DisplayName, Mode=OneWay, Converter={conv:VisibilityWhenStringConverter When=English, Value=Collapsed, Otherwise=Visible}}"><Run Foreground="{StaticResource WordBlueBrush}" Text="{Binding DisplayName, Mode=OneWay}" /></TextBlock>
+                                <Run Foreground="{DynamicResource WordOrangeBrush}" Text="{}{" />
+                                <Run Foreground="{DynamicResource WordRedBrush}" Text="{Binding NativeName, Mode=OneWay}" />
+                                <Run Foreground="{DynamicResource WordOrangeBrush}" Text="}" />
+                            </TextBlock>
+                        </StackPanel>
+                    </Viewbox>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+    </ItemContainerTemplate>
+    
+    <ItemContainerTemplate x:Key="LanguageSelectionTemplateDropDownButton">
+        <mm:DropDownButton
+                Margin="5,1,1,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                ArrowVisibility="Collapsed"
+                Background="{DynamicResource WindowBackgroundBrush}"
+                BorderThickness="0"
+                ItemsSource="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SupportedCultures}"
+                ToolTip="{Binding NativeName}">
+
+            <mm:DropDownButton.Icon>
+                <Image
+                        Width="45"
+                        Height="35"
+                        Source="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SelectedCulture, Converter={conv:CultureToImageConverter}}"
+                        Stretch="Uniform">
+                    <Image.Effect>
+                        <DropShadowEffect
+                                BlurRadius="8"
+                                Direction="290"
+                                Opacity="1"
+                                ShadowDepth="1" />
+                    </Image.Effect>
+                </Image>
+            </mm:DropDownButton.Icon>
+
+            <mm:DropDownButton.ItemContainerStyle>
+                <Style TargetType="MenuItem">
+                    <Setter Property="Command" Value="{Binding Source={x:Static serv:SettingsService.Instance}, Path=ChangeSelectedCultureCommand}" />
+                    <Setter Property="CommandParameter" Value="{Binding}" />
+                    <Setter Property="HeaderTemplate">
+                        <Setter.Value>
+                            <ItemContainerTemplate>
+                                <TextBlock
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        FontFamily="{DynamicResource LatoRegular}"
+                                        FontSize="{DynamicResource FontSizeSmall}"
+                                        FontWeight="Bold"
+                                        TextAlignment="Center">
+                                        <TextBlock Visibility="{Binding DisplayName, Mode=OneWay, Converter={conv:VisibilityWhenStringConverter When=English, Value=Collapsed, Otherwise=Visible}}"><Run Foreground="{StaticResource WordBlueBrush}" Text="{Binding DisplayName, Mode=OneWay}" /></TextBlock>
+                                        <Run Foreground="{DynamicResource WordOrangeBrush}" Text="{}{" />
+                                        <Run Foreground="{DynamicResource WordRedBrush}" Text="{Binding NativeName, Mode=OneWay}" />
+                                        <Run Foreground="{DynamicResource WordOrangeBrush}" Text="}" />
+                                    </TextBlock>
+                            </ItemContainerTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="Icon">
+                        <Setter.Value>
+                            <Image
+                                    Width="45"
+                                    Height="35"
+                                    Source="{Binding Converter={conv:CultureToImageConverter}}"
+                                    Stretch="Uniform">
+                                <Image.Effect>
+                                    <DropShadowEffect
+                                            BlurRadius="8"
+                                            Direction="290"
+                                            Opacity="1"
+                                            ShadowDepth="1" />
+                                </Image.Effect>
+                            </Image>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Width" Value="Auto" />
+                </Style>
+            </mm:DropDownButton.ItemContainerStyle>
+
+        </mm:DropDownButton>
+    </ItemContainerTemplate>
+
+
+        <!--  Theme Selection  -->
+
+    <ItemContainerTemplate x:Key="ThemeSelectionTemplateComboBox">
+        <ComboBox
+            Margin="0,1,1,1"
+            Padding="1"
+            BorderThickness="0"
+            ItemsSource="{Binding Source={x:Static serv:SettingsService.Instance}, Path=Themes}"
+            SelectedItem="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SelectedTheme}"
+            WindowChrome.IsHitTestVisibleInChrome="True">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Viewbox Stretch="Uniform">
+                        <StackPanel Margin="10" Orientation="Horizontal">
+                            <Ellipse
+                                Width="25"
+                                Height="25"
+                                Fill="{Binding BackgroundBrush}"
+                                Stretch="Uniform"
+                                Stroke="{Binding ForegroundBrush}"
+                                StrokeThickness="1.5">
+                                <Ellipse.Effect>
+                                    <DropShadowEffect
+                                        BlurRadius="8"
+                                        Direction="290"
+                                        Opacity="1"
+                                        ShadowDepth="1" />
+                                </Ellipse.Effect>
+                            </Ellipse>
+                            <!--<TextBlock
+                                            Margin="2,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{StaticResource LatoRegular}"
+                                            FontSize="{StaticResource FontSizeSmall}"
+                                            FontWeight="Bold"
+                                            TextAlignment="Center">
+                                            <TextBlock Visibility="{Binding DisplayName, Mode=OneWay, Converter={conv:VisibilityWhenStringConverter When=English, Value=Collapsed, Otherwise=Visible}}"><Run Foreground="{StaticResource WordBlueBrush}" Text="{Binding DisplayName, Mode=OneWay}" /></TextBlock>
+                                            <Run Foreground="{StaticResource WordOrangeBrush}" Text="{}{" />
+                                            <Run Foreground="{StaticResource WordRedBrush}" Text="{Binding NativeName, Mode=OneWay}" />
+                                            <Run Foreground="{StaticResource WordOrangeBrush}" Text="}" />
+                                        </TextBlock>-->
+                        </StackPanel>
+                    </Viewbox>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+    </ItemContainerTemplate>
+
+    <!--#endregion Windows-->
+
+</ResourceDictionary>

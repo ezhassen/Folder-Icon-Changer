@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en" target-language="ar" original="FOLDERICONCHANGERWPF/PROPERTIES/RESOURCES.RESX" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6900.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="FOLDERICONCHANGERWPF/PROPERTIES/RESOURCES.RESX" datatype="resx">
+        <trans-unit id="About" translate="yes" xml:space="preserve">
+          <source>About</source>
+          <target state="translated">عن</target>
+        </trans-unit>
+        <trans-unit id="AppDescription" translate="yes" xml:space="preserve">
+          <source>easy-to-use and fast way to change folder's icon</source>
+          <target state="translated">لتغيير أيقونات المجلدات بسهولة وبسرعة :)</target>
+        </trans-unit>
+        <trans-unit id="Apply" translate="yes" xml:space="preserve">
+          <source>Apply</source>
+          <target state="translated">تطبيق</target>
+        </trans-unit>
+        <trans-unit id="ByEzhassen" translate="yes" xml:space="preserve">
+          <source>By Ezz Hasan</source>
+          <target state="translated">بواسطة عز حسن</target>
+        </trans-unit>
+        <trans-unit id="Cancel" translate="yes" xml:space="preserve">
+          <source>Cancel</source>
+          <target state="translated">إلغاء</target>
+        </trans-unit>
+        <trans-unit id="Clear" translate="yes" xml:space="preserve">
+          <source>Clear</source>
+          <target state="translated">مسح</target>
+        </trans-unit>
+        <trans-unit id="ClickGetIconButtonToGetTheIconFirst" translate="yes" xml:space="preserve">
+          <source>Click '{0}' button to get the icon first.</source>
+          <target state="translated">إضغط على زر '{0}' لتحصل على الأيقونة أولاً.</target>
+        </trans-unit>
+        <trans-unit id="Close" translate="yes" xml:space="preserve">
+          <source>Close</source>
+          <target state="translated">إغلاق</target>
+        </trans-unit>
+        <trans-unit id="CopyIconToFolder" translate="yes" xml:space="preserve">
+          <source>Copy icon to the folder</source>
+          <target state="translated">نسخ الأيقونة للمجلد</target>
+        </trans-unit>
+        <trans-unit id="CurrentIcon" translate="yes" xml:space="preserve">
+          <source>Current Icon</source>
+          <target state="translated">الأيقونة الحالية</target>
+        </trans-unit>
+        <trans-unit id="Done" translate="yes" xml:space="preserve">
+          <source>Done :)</source>
+          <target state="translated">تم 🙂</target>
+        </trans-unit>
+        <trans-unit id="FileNotExists" translate="yes" xml:space="preserve">
+          <source>File Not Exists!</source>
+          <target state="translated">الملف غير موجود!</target>
+        </trans-unit>
+        <trans-unit id="FlowDirection" translate="yes" xml:space="preserve">
+          <source>LeftToRight</source>
+          <target state="translated">RightToLeft</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">LeftToRight Or RightToLeft</note>
+        </trans-unit>
+        <trans-unit id="FormOptionsTitle" translate="yes" xml:space="preserve">
+          <source>Options</source>
+          <target state="translated">خيارات</target>
+        </trans-unit>
+        <trans-unit id="GenerateBestFit" translate="yes" xml:space="preserve">
+          <source>Generate Best Icon Fit</source>
+          <target state="translated">توليد أفضل أيقونة مناسبة</target>
+        </trans-unit>
+        <trans-unit id="GetIcon" translate="yes" xml:space="preserve">
+          <source>Get Icon</source>
+          <target state="translated">الحصول على أيقونة</target>
+        </trans-unit>
+        <trans-unit id="HideIcon" translate="yes" xml:space="preserve">
+          <source>Hide if the icon exists in the target folder</source>
+          <target state="translated">إخفاء الملف إذا كان موجوداً في المجلد الهدف</target>
+        </trans-unit>
+        <trans-unit id="IconFromImage" translate="yes" xml:space="preserve">
+          <source>Icon from image</source>
+          <target state="translated">أيقونة من صورة</target>
+        </trans-unit>
+        <trans-unit id="LangFlagBase64" translate="yes" xml:space="preserve">
+          <source>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</source>
+          <target state="translated">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</target>
+        </trans-unit>
+        <trans-unit id="Loading" translate="yes" xml:space="preserve">
+          <source>Loading...</source>
+          <target state="translated">جارِ التحميل...</target>
+        </trans-unit>
+        <trans-unit id="MainFormTitle" translate="yes" xml:space="preserve">
+          <source>Folder Icon Changer</source>
+          <target state="translated">مُغير أيقونة المجلد</target>
+        </trans-unit>
+        <trans-unit id="msgGenBestFit" translate="yes" xml:space="preserve">
+          <source>Will try to Generate Best Fit Icon By generating multiple icons with deferent sizes.
+
+Continue?</source>
+          <target state="translated">سيحاول توليد أفضل أيقونة مناسبة عن طريق توليد أيقونات متعددة الأحجام
+
+استكمال؟</target>
+        </trans-unit>
+        <trans-unit id="NewIcon" translate="yes" xml:space="preserve">
+          <source>New Icon</source>
+          <target state="translated">أيقونة جديدة</target>
+        </trans-unit>
+        <trans-unit id="NewIconInfo" translate="yes" xml:space="preserve">
+          <source>New Icon Info</source>
+          <target state="translated">معلومات الأيقونة الجديدة</target>
+        </trans-unit>
+        <trans-unit id="OK" translate="yes" xml:space="preserve">
+          <source>OK</source>
+          <target state="translated">حسناً</target>
+        </trans-unit>
+        <trans-unit id="Options" translate="yes" xml:space="preserve">
+          <source>Options</source>
+          <target state="translated">خيارات</target>
+        </trans-unit>
+        <trans-unit id="OtherOptions" translate="yes" xml:space="preserve">
+          <source>Other Options</source>
+          <target state="translated">خيارات أخرى</target>
+        </trans-unit>
+        <trans-unit id="Refresh" translate="yes" xml:space="preserve">
+          <source>Refresh</source>
+          <target state="translated">تحديث</target>
+        </trans-unit>
+        <trans-unit id="ResetToDefaultIcon" translate="yes" xml:space="preserve">
+          <source>Reset to default icon</source>
+          <target state="translated">إعادة تعيين الأيقونة</target>
+        </trans-unit>
+        <trans-unit id="ResetToDefaultIconMsg" translate="yes" xml:space="preserve">
+          <source>Are you sure?</source>
+          <target state="translated">هل أنت متأكد من إعادة تعيين أيقونة المجلد للافتراضية؟</target>
+        </trans-unit>
+        <trans-unit id="SelectAnyImageToBeConverted" translate="yes" xml:space="preserve">
+          <source>Select any Image/Picture to be converted to ico format with sizes (p256, p128, p64, p48, p32, p16) and the Color is Alpha_Channel (32bit)</source>
+          <target state="translated">إختر الصورة لكي يتم توليد أيقونة منها بأحجام (265ب, 128ب, 64ب, 48ب, 32ب, 16ب) والألوان تكون قناة ألفا 32بيت</target>
+        </trans-unit>
+        <trans-unit id="SelectToSaveNewGeneratedIcon" translate="yes" xml:space="preserve">
+          <source>Select where to save the new generated icon?</source>
+          <target state="translated">حدد مكان حفظ الأيقونة الجديدة المولدة?</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_Abort" translate="yes" xml:space="preserve">
+          <source>Abort</source>
+          <target state="translated">إحباط</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_AllSupportedFormats" translate="yes" xml:space="preserve">
+          <source>All supported formats</source>
+          <target state="translated">كل الصيغ المدعومة</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_Back" translate="yes" xml:space="preserve">
+          <source>Back</source>
+          <target state="translated">عودة</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_Cancel" translate="yes" xml:space="preserve">
+          <source>Cancel</source>
+          <target state="translated">إلغاء</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_Count" translate="yes" xml:space="preserve">
+          <source>Count</source>
+          <target state="translated">العدد</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_DrawText" translate="yes" xml:space="preserve">
+          <source>Draw Text</source>
+          <target state="translated">كتابة النص</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_ExportIcon" translate="yes" xml:space="preserve">
+          <source>Export Icon</source>
+          <target state="translated">تصدير الأيقونة</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_ExportImage" translate="yes" xml:space="preserve">
+          <source>Export Image</source>
+          <target state="translated">تصدير الصورة</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_GetIcons" translate="yes" xml:space="preserve">
+          <source>Get Icons</source>
+          <target state="translated">لحصول على الأيقونات</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_Index" translate="yes" xml:space="preserve">
+          <source>Index</source>
+          <target state="translated">الترتيب</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_NoIconToShow" translate="yes" xml:space="preserve">
+          <source>There isn't any icon to be shown!</source>
+          <target state="translated">لا توجد أي أيقونة لإظهارها!</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_OK" translate="yes" xml:space="preserve">
+          <source>OK</source>
+          <target state="translated">حسناً</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_Refresh" translate="yes" xml:space="preserve">
+          <source>Refresh</source>
+          <target state="translated">تحديث</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_SaveAs" translate="yes" xml:space="preserve">
+          <source>Save as ...</source>
+          <target state="translated">حفظ كـ ...</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_Select" translate="yes" xml:space="preserve">
+          <source>Select</source>
+          <target state="translated">إختيار</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_SelectedCount" translate="yes" xml:space="preserve">
+          <source>Selected count</source>
+          <target state="translated">عدد المحدد</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_ShowIconGroup" translate="yes" xml:space="preserve">
+          <source>Show icon group</source>
+          <target state="translated">عرض مجموعة الأيقونات</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_StretchedImage" translate="yes" xml:space="preserve">
+          <source>Stretched Image</source>
+          <target state="translated">صورة متمددة</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_StretchedSmallImagesToo" translate="yes" xml:space="preserve">
+          <source>Stretch Small Images Too</source>
+          <target state="translated">مد الصور الصغيرة أيضا</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_Title" translate="yes" xml:space="preserve">
+          <source>Select Icon</source>
+          <target state="translated">إختر أيقونة</target>
+        </trans-unit>
+        <trans-unit id="Select_Icon_View" translate="yes" xml:space="preserve">
+          <source>View</source>
+          <target state="translated">العرض</target>
+        </trans-unit>
+        <trans-unit id="ShowCurrentFolderForIconFromImage" translate="yes" xml:space="preserve">
+          <source>Show Current Folder when creating Icon From Image</source>
+          <target state="translated">إظهار المجلد الحالي عند إنشاء أيقونة من صورة</target>
+        </trans-unit>
+        <trans-unit id="ShowIconGroup" translate="yes" xml:space="preserve">
+          <source>Show icon group</source>
+          <target state="translated">عرض مجموعة الأيقونات</target>
+        </trans-unit>
+        <trans-unit id="SplitedTitle" translate="yes" xml:space="preserve">
+          <source>Folder;Icon;Changer</source>
+          <target state="translated">مُغير;أيقونة;المجلد</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">will be splited by ;</note>
+        </trans-unit>
+        <trans-unit id="TargetFolder" translate="yes" xml:space="preserve">
+          <source>Target folder</source>
+          <target state="translated">المجلد الهدف</target>
+        </trans-unit>
+        <trans-unit id="ThereIsAnError" translate="yes" xml:space="preserve">
+          <source>There is an error!</source>
+          <target state="translated">يوجد خطأ ما!</target>
+        </trans-unit>
+        <trans-unit id="TopMost" translate="yes" xml:space="preserve">
+          <source>Stay On Top</source>
+          <target state="translated">البقاء أعلى التطبيقات</target>
+        </trans-unit>
+        <trans-unit id="VersionMiniText" translate="yes" xml:space="preserve">
+          <source>v</source>
+          <target state="translated">إصدار</target>
+        </trans-unit>
+        <trans-unit id="Working" translate="yes" xml:space="preserve">
+          <source>Working...</source>
+          <target state="translated">جار العمل...</target>
+        </trans-unit>
+        <trans-unit id="AppDark" translate="yes" xml:space="preserve">
+          <source>Dark Theme</source>
+          <target state="translated">المظهر المُظلم</target>
+        </trans-unit>
+        <trans-unit id="AppLight" translate="yes" xml:space="preserve">
+          <source>Light Theme</source>
+          <target state="translated">المظهر المُضيئ</target>
+        </trans-unit>
+        <trans-unit id="Exit" translate="yes" xml:space="preserve">
+          <source>Exit</source>
+          <target state="translated">خروج</target>
+        </trans-unit>
+        <trans-unit id="AppDarkBlue" translate="yes" xml:space="preserve">
+          <source>Blue Theme</source>
+          <target state="translated">المظهر الأزرق</target>
+        </trans-unit>
+        <trans-unit id="MainWindowMenu" translate="yes" xml:space="preserve">
+          <source>Menu</source>
+          <target state="translated">القائمة</target>
+        </trans-unit>
+        <trans-unit id="Settings" translate="yes" xml:space="preserve">
+          <source>Settings</source>
+          <target state="translated">الإعدادات</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

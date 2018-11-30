@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="AppDescription" xml:space="preserve">
+    <value>easy-to-use and fast way to change folder's icon</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="ByEzhassen" xml:space="preserve">
+    <value>By Ezz Hasan</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="ClickGetIconButtonToGetTheIconFirst" xml:space="preserve">
+    <value>Click '{0}' button to get the icon first.</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CopyIconToFolder" xml:space="preserve">
+    <value>Copy icon to the folder</value>
+  </data>
+  <data name="CurrentIcon" xml:space="preserve">
+    <value>Current Icon</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done :)</value>
+  </data>
+  <data name="FileNotExists" xml:space="preserve">
+    <value>File Not Exists!</value>
+  </data>
+  <data name="FlowDirection" xml:space="preserve">
+    <value>LeftToRight</value>
+    <comment>LeftToRight Or RightToLeft</comment>
+  </data>
+  <data name="FormOptionsTitle" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="GenerateBestFit" xml:space="preserve">
+    <value>Generate Best Icon Fit</value>
+  </data>
+  <data name="GetIcon" xml:space="preserve">
+    <value>Get Icon</value>
+  </data>
+  <data name="HideIcon" xml:space="preserve">
+    <value>Hide if the icon exists in the target folder</value>
+  </data>
+  <data name="IconFromImage" xml:space="preserve">
+    <value>Icon from image</value>
+  </data>
+  <data name="LangFlagBase64" xml:space="preserve">
+    <value>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</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="MainFormTitle" xml:space="preserve">
+    <value>Folder Icon Changer</value>
+  </data>
+  <data name="msgGenBestFit" xml:space="preserve">
+    <value>Will try to Generate Best Fit Icon By generating multiple icons with deferent sizes.
+
+Continue?</value>
+  </data>
+  <data name="NewIcon" xml:space="preserve">
+    <value>New Icon</value>
+  </data>
+  <data name="NewIconInfo" xml:space="preserve">
+    <value>New Icon Info</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="OtherOptions" xml:space="preserve">
+    <value>Other Options</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="ResetToDefaultIcon" xml:space="preserve">
+    <value>Reset to default icon</value>
+  </data>
+  <data name="ResetToDefaultIconMsg" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="SelectAnyImageToBeConverted" xml:space="preserve">
+    <value>Select any Image/Picture to be converted to ico format with sizes (p256, p128, p64, p48, p32, p16) and the Color is Alpha_Channel (32bit)</value>
+  </data>
+  <data name="SelectToSaveNewGeneratedIcon" xml:space="preserve">
+    <value>Select where to save the new generated icon?</value>
+  </data>
+  <data name="Select_Icon_Abort" xml:space="preserve">
+    <value>Abort</value>
+  </data>
+  <data name="Select_Icon_AllSupportedFormats" xml:space="preserve">
+    <value>All supported formats</value>
+  </data>
+  <data name="Select_Icon_Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Select_Icon_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Select_Icon_Count" xml:space="preserve">
+    <value>Count</value>
+  </data>
+  <data name="Select_Icon_DrawText" xml:space="preserve">
+    <value>Draw Text</value>
+  </data>
+  <data name="Select_Icon_ExportIcon" xml:space="preserve">
+    <value>Export Icon</value>
+  </data>
+  <data name="Select_Icon_ExportImage" xml:space="preserve">
+    <value>Export Image</value>
+  </data>
+  <data name="Select_Icon_GetIcons" xml:space="preserve">
+    <value>Get Icons</value>
+  </data>
+  <data name="Select_Icon_Index" xml:space="preserve">
+    <value>Index</value>
+  </data>
+  <data name="Select_Icon_NoIconToShow" xml:space="preserve">
+    <value>There isn't any icon to be shown!</value>
+  </data>
+  <data name="Select_Icon_OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Select_Icon_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Select_Icon_SaveAs" xml:space="preserve">
+    <value>Save as ...</value>
+  </data>
+  <data name="Select_Icon_Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="Select_Icon_SelectedCount" xml:space="preserve">
+    <value>Selected count</value>
+  </data>
+  <data name="Select_Icon_ShowIconGroup" xml:space="preserve">
+    <value>Show icon group</value>
+  </data>
+  <data name="Select_Icon_StretchedImage" xml:space="preserve">
+    <value>Stretched Image</value>
+  </data>
+  <data name="Select_Icon_StretchedSmallImagesToo" xml:space="preserve">
+    <value>Stretch Small Images Too</value>
+  </data>
+  <data name="Select_Icon_Title" xml:space="preserve">
+    <value>Select Icon</value>
+  </data>
+  <data name="Select_Icon_View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="ShowCurrentFolderForIconFromImage" xml:space="preserve">
+    <value>Show Current Folder when creating Icon From Image</value>
+  </data>
+  <data name="ShowIconGroup" xml:space="preserve">
+    <value>Show icon group</value>
+  </data>
+  <data name="SplitedTitle" xml:space="preserve">
+    <value>Folder;Icon;Changer</value>
+    <comment>will be splited by ;</comment>
+  </data>
+  <data name="TargetFolder" xml:space="preserve">
+    <value>Target folder</value>
+  </data>
+  <data name="ThereIsAnError" xml:space="preserve">
+    <value>There is an error!</value>
+  </data>
+  <data name="TopMost" xml:space="preserve">
+    <value>Stay On Top</value>
+  </data>
+  <data name="VersionMiniText" xml:space="preserve">
+    <value>v</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Working...</value>
+  </data>
+  <data name="AppDark" xml:space="preserve">
+    <value>Dark Theme</value>
+  </data>
+  <data name="AppLight" xml:space="preserve">
+    <value>Light Theme</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="AppDarkBlue" xml:space="preserve">
+    <value>Blue Theme</value>
+  </data>
+  <data name="MainWindowMenu" xml:space="preserve">
+    <value>Menu</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+</root>

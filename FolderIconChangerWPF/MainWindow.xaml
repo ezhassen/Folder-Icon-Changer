@@ -1,0 +1,472 @@
+﻿<mm:MetroWindow
+    x:Class="FolderIconChangerWPF.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ap="clr-namespace:FolderIconChangerWPF.AttachedProperties"
+    xmlns:conv="clr-namespace:FolderIconChangerWPF.ValueConverters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    xmlns:local="clr-namespace:FolderIconChangerWPF"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mm="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:serv="clr-namespace:FolderIconChangerWPF.Services"
+    Title="{lex:BLoc MainFormTitle, FallbackValue={}Folder Icon Changer}"
+    Width="520"
+    Height="460"
+    MinWidth="520"
+    MinHeight="460"
+    lex:LocalizeDictionary.DesignCulture="en"
+    lex:LocalizeDictionary.OutputMissingKeys="True"
+    lex:ResxLocalizationProvider.DefaultAssembly="Folder Icon Changer"
+    lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+    Icon="Icon.ico"
+    IconOverlayBehavior="Always"
+    NonActiveWindowTitleBrush="{DynamicResource WindowBackgroundBrush}"
+    ResizeMode="NoResize"
+    ShowIconOnTitleBar="False"
+    TitleAlignment="Stretch"
+    TitleTemplate="{StaticResource WindowTitleTemplateBig}"
+    TitlebarHeight="42"
+    WindowButtonCommandsOverlayBehavior="Always"
+    WindowStartupLocation="CenterScreen"
+    WindowTitleBrush="{DynamicResource WindowBackgroundBrush}"
+    mc:Ignorable="d">
+    <!--  LeftWindowCommands="{DynamicResource MainWindowLeftCommands}"  -->
+    <mm:MetroWindow.Resources />
+
+    <mm:MetroWindow.LeftWindowCommands>
+        <mm:WindowCommands ShowLastSeparator="False" ShowSeparators="False">
+
+            <!--  App Menu  -->
+            <Border x:Name="AppMenu" Visibility="Visible">
+                <Border.Resources>
+
+                    <Thickness x:Key="SeparatorMargin">5,3</Thickness>
+                    <Thickness x:Key="MenuIconMargin">5,0</Thickness>
+                    <Thickness x:Key="MenuIconPadding">-3</Thickness>
+
+                    <DropShadowEffect
+                        x:Key="ToggleButtonShadowEffect"
+                        BlurRadius="10"
+                        Direction="250"
+                        Opacity=".6"
+                        ShadowDepth="3" />
+                    <DropShadowEffect
+                        x:Key="ButtonShadowEffect"
+                        BlurRadius="3"
+                        Direction="250"
+                        Opacity=".6"
+                        ShadowDepth="2" />
+
+                    <Style x:Key="NormalMenuItem" TargetType="MenuItem">
+                        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+                        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+
+                        <Setter Property="HeaderTemplate">
+                            <Setter.Value>
+                                <ItemContainerTemplate>
+                                    <!--  TemplatedParent  -->
+                                    <TextBlock
+                                        Margin="5"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Center"
+                                        Effect="{StaticResource ToggleButtonShadowEffect}"
+                                        FontSize="{DynamicResource FontSizeLarge}"
+                                        Foreground="{DynamicResource TextBrush}"
+                                        Text="{Binding Header, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=MenuItem}}"
+                                        TextTrimming="CharacterEllipsis"
+                                        ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}" />
+                                </ItemContainerTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <!--<Setter Property="Icon">
+                        <Setter.Value>
+                            <Viewbox Margin="5,0" StretchDirection="Both">
+                                <iconPacks:PackIconMaterial
+                                    Margin="5,0"
+                                    Padding="-5"
+                                    Effect="{StaticResource ButtonShadowEffect}"
+                                    Foreground="{DynamicResource AccentBaseColorBrush}"
+                                    Kind="{Binding Tag, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=MenuItem}}" />
+                            </Viewbox>
+                        </Setter.Value>
+                    </Setter>-->
+                        <Setter Property="MinHeight" Value="42" />
+                        <Setter Property="ToolTip" Value="{Binding Header, RelativeSource={RelativeSource Mode=Self}}" />
+                    </Style>
+                </Border.Resources>
+
+
+                <!--<Border.Effect>
+                <DropShadowEffect
+                        BlurRadius="30"
+                        Direction="290"
+                        Opacity="1"
+                        ShadowDepth=".5" />
+            </Border.Effect>-->
+                <StackPanel Margin="0,10" FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}">
+                    <ToggleButton
+                        x:Name="MenuToggle"
+                        MinWidth="20"
+                        MinHeight="20"
+                        Effect="{StaticResource ToggleButtonShadowEffect}"
+                        Foreground="{DynamicResource GrayBrush1}"
+                        IsChecked="False"
+                        ToolTip="{lex:BLoc MainWindowMenu, TargetNullValue=Menu}">
+                        <ToggleButton.Content>
+                            <!--<StackPanel Orientation="Horizontal">-->
+                            <Viewbox>
+                                <Viewbox.Effect>
+                                    <DropShadowEffect
+                                        BlurRadius="3"
+                                        Direction="250"
+                                        Opacity=".6"
+                                        ShadowDepth="2" />
+                                </Viewbox.Effect>
+                                <!--<iconPacks:PackIconMaterial Kind="Settings" />-->
+                                <iconPacks:PackIconFontAwesome Kind="EllipsisVSolid" />
+                            </Viewbox>
+                            <!--<TextBlock Margin="5,0,0,0" HorizontalAlignment="Stretch" Text="Options" />-->
+                            <!--</StackPanel>-->
+                            <!--<Path
+                            Height="20"
+                            Data="{StaticResource Icons.Account.Data}"
+                            Fill="{StaticResource IconBrush}"
+                            Stretch="Uniform" />-->
+                        </ToggleButton.Content>
+                    </ToggleButton>
+                    <!--  DataContext="{Binding ElementName=MenuToggle}"  -->
+                    <Popup
+                        MinWidth="160"
+                        DataContext="{Binding ElementName=MenuToggle}"
+                        HorizontalOffset="-40"
+                        IsOpen="{Binding IsChecked}"
+                        Placement="Bottom"
+                        PlacementTarget="{Binding}"
+                        RenderOptions.ClearTypeHint="Enabled"
+                        SnapsToDevicePixels="True"
+                        StaysOpen="False"
+                        TextOptions.TextFormattingMode="Ideal"
+                        VerticalOffset="0">
+                        <Border
+                            Background="{DynamicResource ContextMenuBackgroundBrush}"
+                            BorderBrush="{DynamicResource ContextMenuBorderBrush}"
+                            BorderThickness="1">
+                            <StackPanel>
+                                <MenuItem Header="{lex:BLoc Settings, TargetNullValue={}Settings}" Style="{StaticResource NormalMenuItem}">
+                                    <MenuItem.Icon>
+                                        <Viewbox Margin="5,0" StretchDirection="Both">
+                                            <iconPacks:PackIconMaterial
+                                                Margin="{StaticResource MenuIconMargin}"
+                                                Padding="{StaticResource MenuIconPadding}"
+                                                Effect="{StaticResource ButtonShadowEffect}"
+                                                Foreground="{DynamicResource AccentBaseColorBrush}"
+                                                Kind="Settings" />
+                                        </Viewbox>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <Separator Margin="{StaticResource SeparatorMargin}" />
+                                <MenuItem Header="{lex:BLoc About, TargetNullValue={}About}" Style="{StaticResource NormalMenuItem}">
+                                    <MenuItem.Icon>
+                                        <Viewbox Margin="5,0" StretchDirection="Both">
+                                            <iconPacks:PackIconMaterial
+                                                Margin="{StaticResource MenuIconMargin}"
+                                                Padding="{StaticResource MenuIconPadding}"
+                                                Effect="{StaticResource ButtonShadowEffect}"
+                                                Foreground="{DynamicResource AccentBaseColorBrush}"
+                                                Kind="Information" />
+                                        </Viewbox>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <Separator Margin="{StaticResource SeparatorMargin}" />
+                                <MenuItem
+                                    FontSize="{StaticResource FontSizeRegular}"
+                                    Foreground="{DynamicResource TextBrush}"
+                                    Header="{lex:BLoc Exit, TargetNullValue={}Exit}"
+                                    ToolTip="{Binding Header, RelativeSource={RelativeSource Mode=Self}}">
+
+                                    <MenuItem.Icon>
+                                        <!--<iconPacks:PackIconOcticons Margin="5,0" Kind="SignOut" />-->
+                                        <Viewbox Margin="5,0">
+                                            <!--<iconPacks:PackIconFontAwesome
+                                                Margin="{StaticResource MenuIconMargin}"
+                                                Effect="{StaticResource ButtonShadowEffect}"
+                                                Foreground="{DynamicResource WordRedBrush}"
+                                                Kind="WindowCloseSolid" />-->
+                                            <iconPacks:PackIconMaterial
+                                                Margin="{StaticResource MenuIconMargin}"
+                                                Effect="{StaticResource ButtonShadowEffect}"
+                                                Foreground="{DynamicResource WordRedBrush}"
+                                                Kind="CloseBox" />
+                                        </Viewbox>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </StackPanel>
+                        </Border>
+                    </Popup>
+                </StackPanel>
+            </Border>
+            <!--<Separator Style="{StaticResource WindowCommandsSeparator}" />-->
+            <!--  Language Selection  -->
+            <mm:DropDownButton
+                Margin="5,1,1,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                ArrowVisibility="Collapsed"
+                Background="{DynamicResource WindowBackgroundBrush}"
+                BorderThickness="0"
+                FlowDirection="LeftToRight"
+                ItemsSource="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SupportedCultures}"
+                ToolTip="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SelectedCulture.NativeName}">
+                <!--  FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}"  -->
+                <mm:DropDownButton.Icon>
+                    <Image
+                        Width="45"
+                        Height="35"
+                        Source="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SelectedCulture, Converter={conv:CultureToImageConverter}}"
+                        Stretch="Uniform">
+                        <Image.Effect>
+                            <DropShadowEffect
+                                BlurRadius="8"
+                                Direction="290"
+                                Opacity="1"
+                                ShadowDepth="1" />
+                        </Image.Effect>
+                    </Image>
+                </mm:DropDownButton.Icon>
+
+                <mm:DropDownButton.ItemContainerStyle>
+                    <Style TargetType="MenuItem">
+                        <Setter Property="Command" Value="{Binding Source={x:Static serv:SettingsService.Instance}, Path=ChangeSelectedCultureCommand}" />
+                        <Setter Property="CommandParameter" Value="{Binding}" />
+                        <Setter Property="HeaderTemplate">
+                            <Setter.Value>
+                                <ItemContainerTemplate>
+                                    <StackPanel Margin="0,5,0,5" Orientation="Horizontal">
+                                        <Image
+                                            Width="45"
+                                            Height="35"
+                                            Source="{Binding Converter={conv:CultureToImageConverter}}"
+                                            Stretch="Uniform">
+                                            <Image.Effect>
+                                                <DropShadowEffect
+                                                    BlurRadius="8"
+                                                    Direction="290"
+                                                    Opacity="1"
+                                                    ShadowDepth="1" />
+                                            </Image.Effect>
+                                        </Image>
+                                        <TextBlock
+                                            Margin="2,0,0,0"
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{DynamicResource LatoRegular}"
+                                            FontSize="{DynamicResource FontSizeSmall}"
+                                            FontWeight="Bold"
+                                            TextAlignment="Center">
+                                            <TextBlock Visibility="{Binding DisplayName, Mode=OneWay, Converter={conv:VisibilityWhenStringConverter When=English, Value=Collapsed, Otherwise=Visible}}"><Run Foreground="{StaticResource WordBlueBrush}" Text="{Binding DisplayName, Mode=OneWay}" /></TextBlock>
+                                            <Run Foreground="{DynamicResource WordOrangeBrush}" Text="{}{" />
+                                            <Run
+                                                FontWeight="Bold"
+                                                Foreground="{DynamicResource WordRedBrush}"
+                                                Text="{Binding NativeName, Mode=OneWay}" />
+                                            <Run Foreground="{DynamicResource WordOrangeBrush}" Text="}" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                </ItemContainerTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                        <Setter Property="Margin" Value="-15,0,0,0" />
+                    </Style>
+                </mm:DropDownButton.ItemContainerStyle>
+
+            </mm:DropDownButton>
+            <!--<ContentControl Content="{StaticResource LanguageSelectionTemplateDropDownButton}" />-->
+            <!--<ContentPresenter Content="{StaticResource LanguageSelectionTemplateComboBox}" />-->
+            <!--  Theme Selection  -->
+            <!--<ContentPresenter ContentTemplate="{StaticResource ThemeSelectionTemplateComboBox}" />-->
+            <mm:DropDownButton
+                Margin="0,1,1,1"
+                Padding="1"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                ArrowVisibility="Collapsed"
+                Background="{DynamicResource WindowBackgroundBrush}"
+                BorderThickness="0"
+                FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}"
+                ItemsSource="{Binding Source={x:Static serv:SettingsService.Instance}, Path=Themes}"
+                ToolTip="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SelectedTheme.LocalizedDisplayName}">
+
+                <mm:DropDownButton.Icon>
+                    <Viewbox Stretch="Uniform">
+                        <StackPanel
+                            Margin="10"
+                            DataContext="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SelectedTheme}"
+                            Orientation="Horizontal">
+                            <Ellipse
+                                Width="25"
+                                Height="25"
+                                Fill="{Binding BackgroundBrush}"
+                                Stretch="Uniform"
+                                Stroke="{Binding ForegroundBrush}"
+                                StrokeThickness="1.5">
+                                <Ellipse.Effect>
+                                    <DropShadowEffect
+                                        BlurRadius="8"
+                                        Direction="290"
+                                        Opacity="1"
+                                        ShadowDepth="1" />
+                                </Ellipse.Effect>
+                            </Ellipse>
+                        </StackPanel>
+                    </Viewbox>
+                </mm:DropDownButton.Icon>
+                <mm:DropDownButton.ItemContainerStyle>
+                    <Style TargetType="MenuItem">
+                        <Setter Property="Command" Value="{Binding Source={x:Static serv:SettingsService.Instance}, Path=ChangeSelectedThemeCommand}" />
+                        <Setter Property="CommandParameter" Value="{Binding}" />
+                        <Setter Property="HeaderTemplate">
+                            <Setter.Value>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Ellipse
+                                            Width="25"
+                                            Height="25"
+                                            Margin="10"
+                                            Fill="{Binding BackgroundBrush}"
+                                            Stretch="Uniform"
+                                            Stroke="{Binding ForegroundBrush}"
+                                            StrokeThickness="1.5">
+                                            <Ellipse.Effect>
+                                                <DropShadowEffect
+                                                    BlurRadius="8"
+                                                    Direction="290"
+                                                    Opacity="1"
+                                                    ShadowDepth="1" />
+                                            </Ellipse.Effect>
+                                        </Ellipse>
+                                        <TextBlock
+                                            Margin="2,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{StaticResource LatoRegular}"
+                                            FontSize="{StaticResource FontSizeRegular}"
+                                            FontWeight="Bold"
+                                            Text="{Binding LocalizedDisplayName}"
+                                            TextAlignment="Center" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                        <Setter Property="Margin" Value="-15,0,0,0" />
+                    </Style>
+                </mm:DropDownButton.ItemContainerStyle>
+
+            </mm:DropDownButton>
+
+        </mm:WindowCommands>
+    </mm:MetroWindow.LeftWindowCommands>
+    <mm:MetroWindow.RightWindowCommands>
+        <mm:WindowCommands ShowLastSeparator="True" ShowSeparators="True">
+            <ToggleButton Padding="6"
+                Background="Transparent"
+                BorderThickness="0"
+                Cursor="Hand"
+                Foreground="{DynamicResource AccentBaseColorBrush}"
+                IsChecked="{Binding IsTopMost, Source={x:Static serv:SettingsService.Instance}}"
+                ToolTip="{lex:BLoc TopMost, TargetNullValue={}Stay On Top}">
+                <ToggleButton.Effect>
+                    <DropShadowEffect
+                        BlurRadius="10"
+                        Direction="250"
+                        Opacity=".6"
+                        ShadowDepth="3" />
+                </ToggleButton.Effect>
+                <ToggleButton.Content>
+                    <!--<iconPacks:PackIconFontAwesome Kind="ThumbtackSolid" />-->
+                    <Viewbox>
+                        <Viewbox.Effect>
+                            <DropShadowEffect
+                                BlurRadius="3"
+                                Direction="250"
+                                Opacity=".6"
+                                ShadowDepth="2" />
+                        </Viewbox.Effect>
+                        <!--<iconPacks:PackIconMaterial Kind="Settings" />-->
+                        <Grid>
+                            <iconPacks:PackIconMaterial Kind="PinOff" Visibility="{Binding IsChecked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}, Converter={conv:VisibilityWhenFalseConverter}}" />
+                            <iconPacks:PackIconMaterial Kind="Pin" Visibility="{Binding IsChecked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}, Converter={conv:VisibilityWhenTrueConverter}}" />
+                        </Grid>
+                    </Viewbox>
+                </ToggleButton.Content>
+            </ToggleButton>
+            <!--<Separator Style="{StaticResource WindowCommandsSeparator}" />-->
+        </mm:WindowCommands>
+    </mm:MetroWindow.RightWindowCommands>
+    <!--<mm:MetroWindow.TitleTemplate>
+        <ItemContainerTemplate>
+            <ContentControl ContentTemplate="{StaticResource FormTitleBig}"/>
+        </ItemContainerTemplate>
+    </mm:MetroWindow.TitleTemplate>-->
+
+    <Grid Background="{DynamicResource WindowBackgroundBrush}" MouseDown="Window_MouseDown">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--<TextBlock
+            MinWidth="200"
+            Margin="10"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Text="{lex:BLoc MainFormTitle}" />-->
+        <!--<Grid>-->
+        <!--<ContentPresenter ContentTemplate="{DynamicResource WindowTitleBig}" />-->
+        <!--<iconPacks:PackIconFontAwesome Kind="BarsSolid" />-->
+        <!--</Grid>-->
+
+        <!--<mm:DropDownButton
+            Grid.Row="0"
+            Foreground="{DynamicResource AccentBaseColorBrush}"
+            Margin="5" BorderThickness="0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center" ArrowVisibility="Collapsed"
+            FontSize="50">
+            <mm:DropDownButton.Icon>
+                <Viewbox>
+        -->
+        <!--<iconPacks:PackIconMaterial Kind="MenuDown" />-->
+        <!--
+                    <iconPacks:PackIconFontAwesome Kind="EllipsisVSolid" />
+        -->
+        <!--<iconPacks:PackIconFontAwesome Width="30" Height="30" Kind="BarsSolid" />-->
+        <!--
+                </Viewbox>
+            </mm:DropDownButton.Icon>
+        </mm:DropDownButton>-->
+
+        <!--<ContentControl Content="{Binding LeftWindowCommands, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mm:MetroWindow}}" />-->
+        <!--<ContentControl Content="{StaticResource AppMenu}" />-->
+
+        <StackPanel Grid.Row="1" Margin="50">
+
+            <TextBox
+                Width="200"
+                ap:TextBoxHelper.AllowToCalculate="True"
+                ap:TextBoxHelper.EditType="FileName"
+                ap:TextBoxHelper.FreeInputForCalculating="True" />
+
+           
+
+
+        </StackPanel>
+    </Grid>
+</mm:MetroWindow>

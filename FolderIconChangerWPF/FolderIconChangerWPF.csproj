@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{668A3B74-BBA7-4CEC-A511-C9ED01ED52DE}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>FolderIconChangerWPF</RootNamespace>
+    <AssemblyName>Folder Icon Changer</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>FolderIconChangerWPF.App</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Label="MultilingualAppToolkit">
+    <MultilingualAppToolkitVersion>4.0</MultilingualAppToolkitVersion>
+    <MultilingualFallbackLanguage>en</MultilingualFallbackLanguage>
+    <TranslationReport Condition="'$(Configuration)' == 'Release'">true</TranslationReport>
+    <SuppressPseudoWarning Condition="'$(Configuration)' == 'Debug'">true</SuppressPseudoWarning>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="AttachedProperties\BaseAttachedProperty.cs" />
+    <Compile Include="AttachedProperties\BorderAttachedProperties.cs" />
+    <Compile Include="AttachedProperties\ControlUnload.cs" />
+    <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
+    <Compile Include="AttachedProperties\HandleControlUnload.cs" />
+    <Compile Include="AttachedProperties\IsBusyProperty.cs" />
+    <Compile Include="AttachedProperties\NoFrameHistory.cs" />
+    <Compile Include="AttachedProperties\NumberOnly.cs" />
+    <Compile Include="AttachedProperties\OnParentWindowClosing.cs" />
+    <Compile Include="AttachedProperties\PanelChildMarginProperty.cs" />
+    <Compile Include="AttachedProperties\PasswordBoxAttachedProperties.cs" />
+    <Compile Include="AttachedProperties\ScrollViewerAttachedProperties.cs" />
+    <Compile Include="AttachedProperties\TextAttachedProperties.cs" />
+    <Compile Include="AttachedProperties\TextBlockAttachedProperties.cs" />
+    <Compile Include="AttachedProperties\TextBoxHelper.cs" />
+    <Compile Include="AttachedProperties\TreeViewItems.cs" />
+    <Compile Include="AttachedProperties\WindowClosing.cs" />
+    <Compile Include="Interfaces\IHandleParentWindowClosing.cs" />
+    <Compile Include="Interfaces\ITreeItem.cs" />
+    <Compile Include="Services\ISettingsService.cs" />
+    <Compile Include="Services\SettingsService.cs" />
+    <Compile Include="Themes\ThemeHelper.cs" />
+    <Compile Include="ValueConverters\Base64ImageConverter.cs" />
+    <Compile Include="ValueConverters\BaseValueConverter.cs" />
+    <Compile Include="ValueConverters\BooleanInvertConverter.cs" />
+    <Compile Include="ValueConverters\BytesBitmapImageConverter.cs" />
+    <Compile Include="ValueConverters\CultureToImageConverter.cs" />
+    <Compile Include="ValueConverters\DateTimeUTCToLocalConverter.cs" />
+    <Compile Include="ValueConverters\DateTimeUTCToLocalStringConverter.cs" />
+    <Compile Include="ValueConverters\DynamicStringWithColors.cs" />
+    <Compile Include="ValueConverters\StringFormatConverter.cs" />
+    <Compile Include="ValueConverters\StringSplitConverter.cs" />
+    <Compile Include="ValueConverters\ValueWhenConverter.cs" />
+    <Compile Include="ValueConverters\ValueWhenStringConverter.cs" />
+    <Compile Include="ValueConverters\VisibilityConverters.cs" />
+    <Compile Include="ViewModels\Base\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Base\DelegateCommand.cs" />
+    <Compile Include="ViewModels\Base\IHavePassword.cs" />
+    <Compile Include="ViewModels\Base\RelayCommand.cs" />
+    <Compile Include="ViewModels\Base\RelayParameterizedCommand.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Animation\AnimationSlideInDirection.cs" />
+    <Compile Include="Animation\FrameworkElementAnimations.cs" />
+    <Compile Include="Animation\PageAnimation.cs" />
+    <Compile Include="Animation\PageAnimations.cs" />
+    <Compile Include="Animation\StoryboardHelpers.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\Custom_Comparers.cs" />
+    <Compile Include="Helpers\CharsChecker.cs" />
+    <Compile Include="Helpers\CommandLineParser.cs" />
+    <Compile Include="Helpers\ExpressionHelpers.cs" />
+    <Compile Include="Helpers\FileDialogFilterBuilderHelpercs.cs" />
+    <Compile Include="Helpers\Helper.cs" />
+    <Compile Include="Helpers\LocalizationProvider.cs" />
+    <Compile Include="Helpers\MediaHelper.cs" />
+    <Compile Include="Helpers\StringExtensions.cs" />
+    <Compile Include="Helpers\WPFApplicationSingleInstance.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Styles\Buttons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Fonts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Shared.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Templates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Texts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\AppDarkBlue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\AppDark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\AppLight.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.ar.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Resource Include="Fonts\fontawesome-webfont.ttf" />
+    <Resource Include="Fonts\Lato-Black.ttf" />
+    <Resource Include="Fonts\Lato-BlackItalic.ttf" />
+    <Resource Include="Fonts\Lato-Bold.ttf" />
+    <Resource Include="Fonts\Lato-BoldItalic.ttf" />
+    <Resource Include="Fonts\Lato-Hairline.ttf" />
+    <Resource Include="Fonts\Lato-HairlineItalic.ttf" />
+    <Resource Include="Fonts\Lato-Heavy.ttf" />
+    <Resource Include="Fonts\Lato-HeavyItalic.ttf" />
+    <Resource Include="Fonts\Lato-Italic.ttf" />
+    <Resource Include="Fonts\Lato-Light.ttf" />
+    <Resource Include="Fonts\Lato-LightItalic.ttf" />
+    <Resource Include="Fonts\Lato-Medium.ttf" />
+    <Resource Include="Fonts\Lato-MediumItalic.ttf" />
+    <Resource Include="Fonts\Lato-Regular.ttf" />
+    <Resource Include="Fonts\Lato-Semibold.ttf" />
+    <Resource Include="Fonts\Lato-SemiboldItalic.ttf" />
+    <Resource Include="Fonts\Lato-Thin.ttf" />
+    <Resource Include="Fonts\Lato-ThinItalic.ttf" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ezz Helper\Ezz Helper\Ezz Helper.csproj">
+      <Project>{27c9b90f-a9d9-4721-ad99-e7f6cbbe0be7}</Project>
+      <Name>Ezz Helper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MahApps.Metro">
+      <Version>1.6.5</Version>
+    </PackageReference>
+    <PackageReference Include="MahApps.Metro.IconPacks">
+      <Version>2.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="MahApps.Metro.Resources">
+      <Version>0.6.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Windows.Shell">
+      <Version>3.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="MvvmLightLibs">
+      <Version>5.4.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="WPFLocalizeExtension">
+      <Version>3.3.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
+    <Folder Include="Views\" />
+    <Folder Include="Windows\" />
+  </ItemGroup>
+  <ItemGroup>
+    <XliffResource Include="MultilingualResources\FolderIconChangerWPF.ar.xlf" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.ResxResources.targets" Label="MultilingualAppToolkit" Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\v$(MultilingualAppToolkitVersion)\Microsoft.Multilingual.ResxResources.targets')" />
+  <Target Name="MATPrerequisite" BeforeTargets="PrepareForBuild" Condition="!Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.ResxResources.targets')" Label="MultilingualAppToolkit">
+    <Warning Text="$(MSBuildProjectFile) is Multilingual build enabled, but the Multilingual App Toolkit is unavailable during the build. If building with Visual Studio, please check to ensure that toolkit is properly installed." />
+  </Target>
+</Project>
