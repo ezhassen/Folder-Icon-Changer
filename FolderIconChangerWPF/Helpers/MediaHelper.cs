@@ -40,7 +40,15 @@ namespace FolderIconChangerWPF
             byte[] res = null;
             using (var ms = new MemoryStream())
             {
-                imageIn.Save(ms, imageIn.RawFormat);
+                try
+                {
+                    var rFormat = imageIn.RawFormat;
+                    imageIn.Save(ms, new System.Drawing.Imaging.ImageFormat(rFormat.Guid));
+                }
+                catch (Exception ex)
+                {
+                    imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                }
                 res = ms.ToArray();
             }
             return res;

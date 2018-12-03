@@ -142,7 +142,7 @@
     <value>Close</value>
   </data>
   <data name="CopyIconToFolder" xml:space="preserve">
-    <value>Copy icon to the folder</value>
+    <value>Copy new icon to the target folder</value>
   </data>
   <data name="CurrentIcon" xml:space="preserve">
     <value>Current Icon</value>
@@ -167,7 +167,7 @@
     <value>Get Icon</value>
   </data>
   <data name="HideIcon" xml:space="preserve">
-    <value>Hide if the icon exists in the target folder</value>
+    <value>Hide the Icon file if it exists in the target folder</value>
   </data>
   <data name="IconFromImage" xml:space="preserve">
     <value>Icon from image</value>
@@ -321,5 +321,23 @@ Continue?</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="FilePath" xml:space="preserve">
+    <value>File Path</value>
+  </data>
+  <data name="GetFolderIcon" xml:space="preserve">
+    <value>Get Folder Icon</value>
+  </data>
+  <data name="CopyIconToFolderOff" xml:space="preserve">
+    <value>New Icon wont be copied to the target folder</value>
+  </data>
+  <data name="CopyIconToFolderOn" xml:space="preserve">
+    <value>New Icon will be copied to the target folder</value>
+  </data>
+  <data name="HideIconOff" xml:space="preserve">
+    <value>New Icon file wont be hidden</value>
+  </data>
+  <data name="HideIconOn" xml:space="preserve">
+    <value>New Icon file will be hidden If it exists in the target folder</value>
   </data>
 </root>

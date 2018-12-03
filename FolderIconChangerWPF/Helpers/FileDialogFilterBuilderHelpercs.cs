@@ -10,7 +10,7 @@ using Microsoft.Win32;
 
 namespace FolderIconChangerWPF.Helpers
 {
-    public static class FileDialogFilterBuilderHelpercs
+    public static class FileDialogFilterBuilderHelper
     {
         //
         public static void BuildFilter(this FileDialog FileDialog_1, string[] Names, bool SetTypeByExtension_1 = true, bool AddAllSupportedFormats_1 = true, string AllFormatsString_1 = FileDialogFilterBuilder.DefaultAllFormatsString)

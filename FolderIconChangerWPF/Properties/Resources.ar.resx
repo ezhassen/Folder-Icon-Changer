@@ -211,4 +211,10 @@
   <data name="AppDarkBlue" xml:space="preserve">
     <value>المظهر الأزرق</value>
   </data>
+  <data name="MainWindowMenu" xml:space="preserve">
+    <value>القائمة</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>الإعدادات</value>
+  </data>
 </root>

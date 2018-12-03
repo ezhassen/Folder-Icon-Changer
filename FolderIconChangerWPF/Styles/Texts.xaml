@@ -3,9 +3,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ap="clr-namespace:FolderIconChangerWPF.AttachedProperties"
     xmlns:conv="clr-namespace:FolderIconChangerWPF.ValueConverters"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:lex="http://wpflocalizeextension.codeplex.com"
     xmlns:mm="http://metro.mahapps.com/winfx/xaml/controls"
-    xmlns:mmConverters="http://metro.mahapps.com/winfx/xaml/shared">
+    xmlns:mmConverters="clr-namespace:MahApps.Metro.Converters;assembly=MahApps.Metro"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <Style x:Key="BaseTextBlockDarkStyle" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
@@ -14,28 +16,28 @@
         <!--<Setter Property="Background" Value="{StaticResource GrayBrush10}" />-->
     </Style>
     <Style x:Key="BaseTextBoxStyle" TargetType="{x:Type TextBox}">
-        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
         <Setter Property="Background" Value="{DynamicResource GrayBrush8}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
     </Style>
     <Style
         x:Key="HeaderText"
         BasedOn="{StaticResource BaseTextBlockStyle}"
         TargetType="{x:Type TextBlock}">
         <Setter Property="Foreground" Value="{DynamicResource GrayBrush2}" />
-        <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="Margin" Value="0,6" />
+        <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
     <Style
         x:Key="TextBoxMedium"
         BasedOn="{StaticResource BaseTextBoxStyle}"
         TargetType="{x:Type TextBox}">
-        <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
-        <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
-        <Setter Property="Padding" Value="10" />
-        <Setter Property="Margin" Value="0,5,0,5" />
         <Setter Property="BorderBrush" Value="{DynamicResource AccentBaseColorBrush}" />
         <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
+        <Setter Property="Margin" Value="0,5,0,5" />
+        <Setter Property="Padding" Value="10" />
 
         <!--<Setter Property="Background" Value="{StaticResource GrayBrush8}" />
         <Setter Property="Foreground" Value="{StaticResource TextBrush}" />-->
@@ -67,7 +69,6 @@
                             <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource AccentColorBrush}" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource AccentColorBrush}" />
                             <Setter Property="Effect">
                                 <Setter.Value>
                                     <DropShadowEffect
@@ -77,6 +78,7 @@
                                         Color="{DynamicResource AccentColor}" />
                                 </Setter.Value>
                             </Setter>
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource AccentColorBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -87,13 +89,13 @@
         x:Key="TextBoxWithHintLarge"
         BasedOn="{StaticResource BaseTextBoxStyle}"
         TargetType="{x:Type TextBox}">
-
-        <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
-        <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
-        <Setter Property="Padding" Value="10" />
-        <Setter Property="Margin" Value="0,5,0,5" />
         <Setter Property="BorderBrush" Value="{DynamicResource AccentBaseColorBrush}" />
         <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
+
+        <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
+        <Setter Property="Margin" Value="0,5,0,5" />
+        <Setter Property="Padding" Value="10" />
 
         <!--<Setter Property="Background" Value="{StaticResource ForegroundLightBrush}" />
         <Setter Property="Foreground" Value="{StaticResource ForegroundVeryDarkBrush}" />-->
@@ -150,7 +152,6 @@
                             <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource AccentColorBrush}" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource AccentColorBrush}" />
                             <Setter Property="Effect">
                                 <Setter.Value>
                                     <DropShadowEffect
@@ -160,6 +161,7 @@
                                         Color="{DynamicResource AccentColor}" />
                                 </Setter.Value>
                             </Setter>
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource AccentColorBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -169,20 +171,18 @@
     </Style>
 
     <Style x:Key="PasswordBoxWithHintLarge" TargetType="{x:Type PasswordBox}">
-
-        <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
-        <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
-        <Setter Property="Padding" Value="10" />
-        <Setter Property="Margin" Value="0,5,0,5" />
+        <Setter Property="Background" Value="{DynamicResource GrayBrush8}" />
         <Setter Property="BorderBrush" Value="{StaticResource AccentBaseColorBrush}" />
         <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
+
+        <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
 
         <!--<Setter Property="Background" Value="{StaticResource ForegroundLightBrush}" />
         <Setter Property="Foreground" Value="{StaticResource ForegroundVeryDarkBrush}" />-->
         <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-        <Setter Property="Background" Value="{DynamicResource GrayBrush8}" />
-
-        <Setter Property="ap:MonitorPasswordProperty.Value" Value="True" />
+        <Setter Property="Margin" Value="0,5,0,5" />
+        <Setter Property="Padding" Value="10" />
         <!--<Setter Property="IsEnabled" Value="{TemplateBinding ap:IsBusyProperty.Value, Converter={conv:BooleanToVisiblityConverter}}"/>-->
 
         <Setter Property="Template">
@@ -214,8 +214,7 @@
                             Foreground="{StaticResource GrayBrush5}"
                             IsHitTestVisible="False"
                             Text="{TemplateBinding Tag}"
-                            Visibility="{TemplateBinding ap:HasTextProperty.Value,
-                                                         Converter={conv:VisibilityWhenFalseConverter}}" />
+                            Visibility="{TemplateBinding ap:HasTextProperty.Value, Converter={conv:VisibilityWhenFalseConverter}}" />
 
                     </Grid>
 
@@ -227,7 +226,6 @@
                             <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource AccentColorBrush}" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource AccentColorBrush}" />
                             <Setter Property="Effect">
                                 <Setter.Value>
                                     <DropShadowEffect
@@ -237,11 +235,14 @@
                                         Color="{DynamicResource AccentColor}" />
                                 </Setter.Value>
                             </Setter>
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource AccentColorBrush}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+
+        <Setter Property="ap:MonitorPasswordProperty.Value" Value="True" />
 
     </Style>
 
@@ -251,13 +252,13 @@
         TargetType="{x:Type TextBlock}">
 
         <Setter Property="FontFamily" Value="{StaticResource FontAwesome}" />
-        <Setter Property="Text" Value="&#xf110;" />
-        <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
         <Setter Property="RenderTransform">
             <Setter.Value>
                 <RotateTransform />
             </Setter.Value>
         </Setter>
+        <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+        <Setter Property="Text" Value="&#xf110;" />
 
         <Style.Resources>
             <Storyboard x:Key="Spin">
@@ -287,8 +288,8 @@
         x:Key="TextBlockEditTBName"
         BasedOn="{StaticResource BaseTextBlockStyle}"
         TargetType="{x:Type TextBlock}">
-        <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
         <Setter Property="FontFamily" Value="{StaticResource FontAwesome}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
         <Setter Property="Foreground" Value="{DynamicResource AccentBaseColorBrush}" />
     </Style>
@@ -296,6 +297,7 @@
         x:Key="TextBlockTitle"
         BasedOn="{StaticResource BaseTextBlockStyle}"
         TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily" Value="{StaticResource LatoBold}" />
         <!--
             FontSize="{StaticResource FontSizeXXLarge}"
             FontFamily="{StaticResource LatoBold}"
@@ -303,14 +305,14 @@
             FontWeight="Bold"
         -->
         <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
-        <Setter Property="FontFamily" Value="{StaticResource LatoBold}" />
-        <Setter Property="Foreground" Value="{DynamicResource AccentBaseColorBrush}" />
         <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{DynamicResource AccentBaseColorBrush}" />
     </Style>
     <Style
         x:Key="TextBlockSubTitle"
         BasedOn="{StaticResource BaseTextBlockStyle}"
         TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily" Value="{StaticResource LatoThin}" />
         <!--
             FontSize="{StaticResource FontSizeXXLarge}"
             FontFamily="{StaticResource LatoBold}"
@@ -318,9 +320,8 @@
             FontWeight="Bold"
         -->
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
-        <Setter Property="FontFamily" Value="{StaticResource LatoThin}" />
-        <Setter Property="Foreground" Value="{DynamicResource GrayBrush5}" />
         <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{DynamicResource GrayBrush5}" />
         <Setter Property="TextWrapping" Value="WrapWithOverflow" />
     </Style>
 
@@ -338,9 +339,9 @@
         TargetType="{x:Type TextBox}">
 
         <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
+        <Setter Property="Margin" Value="0,5,0,5" />
         <!--<Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />-->
         <Setter Property="Padding" Value="10" />
-        <Setter Property="Margin" Value="0,5,0,5" />
         <!--<Setter Property="BorderBrush" Value="{StaticResource GrayBrush1}" />-->
         <!--<Setter Property="BorderThickness" Value=".5" />-->
 
@@ -372,17 +373,11 @@
             </Trigger>
         </Style.Triggers>-->
     </Style>
-
-
-
+    <!--<sys:String x:Key="SearchIcon">M42.5,22A12.5,12.5 0 0,1 55,34.5A12.5,12.5 0 0,1 42.5,47C40.14,47 37.92,46.34 36,45.24L26.97,54.27C25.8,55.44 23.9,55.44 22.73,54.27C21.56,53.1 21.56,51.2 22.73,50.03L31.8,40.96C30.66,39.08 30,36.86 30,34.5A12.5,12.5 0 0,1 42.5,22M42.5,26A8.5,8.5 0 0,0 34,34.5A8.5,8.5 0 0,0 42.5,43A8.5,8.5 0 0,0 51,34.5A8.5,8.5 0 0,0 42.5,26Z</sys:String>-->
     <Style
         x:Key="EzzSearchMetroTextBox"
         BasedOn="{StaticResource SearchMetroTextBox}"
         TargetType="{x:Type TextBox}">
-        <!--<Setter Property="FlowDirection" Value="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}" />-->
-        <Setter Property="mm:TextBoxHelper.ClearTextButton" Value="False" />
-        <Setter Property="mm:TextBoxHelper.UseFloatingWatermark" Value="True" />
-        <Setter Property="mm:TextBoxHelper.Watermark" Value="{lex:BLoc HeaderSearch, FallbackValue=Search, TargetNullValue=Search}" />
         <!--<TextBox.InputBindings>
                     <KeyBinding
                         Key="Return"
@@ -396,7 +391,8 @@
                     <Grid
                         x:Name="PART_ButtonsGrid"
                         Margin="-10,0,0,0"
-                        VerticalAlignment="Stretch">
+                        VerticalAlignment="Stretch"
+                        DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBox}}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition x:Name="CDSeperator" Width="Auto" />
@@ -408,23 +404,31 @@
                             Grid.Column="0"
                             HorizontalContentAlignment="Stretch"
                             VerticalContentAlignment="Stretch"
-                            Command="{Binding (ap:TextBoxHelper.FilterCommand), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBox}, Mode=OneWay}"
-                            Style="{DynamicResource ChromelessButtonStyle}">
+                            Command="{Binding (ap:TextBoxHelper.FilterCommand), Mode=OneWay}"
+                            IsEnabled="{Binding (ap:TextBoxHelper.FilterButtonIsEnabled)}"
+                            Style="{DynamicResource ChromelessButtonStyle}"
+                            ToolTip="{Binding (ap:TextBoxHelper.FilterButtonToolTip)}">
                             <Grid>
-                                <ContentControl
+                                <!--  Custom or default search button Content  -->
+                                <Grid
                                     x:Name="PART_SearchIcon"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    Content="M42.5,22A12.5,12.5 0 0,1 55,34.5A12.5,12.5 0 0,1 42.5,47C40.14,47 37.92,46.34 36,45.24L26.97,54.27C25.8,55.44 23.9,55.44 22.73,54.27C21.56,53.1 21.56,51.2 22.73,50.03L31.8,40.96C30.66,39.08 30,36.86 30,34.5A12.5,12.5 0 0,1 42.5,22M42.5,26A8.5,8.5 0 0,0 34,34.5A8.5,8.5 0 0,0 42.5,43A8.5,8.5 0 0,0 51,34.5A8.5,8.5 0 0,0 42.5,26Z"
-                                    Style="{DynamicResource PathIconContentControlStyle}"
-                                    Visibility="{Binding Path=(ap:TextBoxHelper.IsFiltering), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBox}, Converter={conv:VisibilityWhenFalseConverter Value=Visible, Otherwise=Collapsed}}">
-                                    <!--
-                                        Visibility="{TemplateBinding ap:IsBusyProperty.Value,
-                                        Converter={conv:VisibilityWhenFalseConverter}}"
-                                        {TemplateBinding ap:IsBusyProperty.Value,
-                                        Converter={conv:VisibilityWhenFalseConverter}}
-                                    -->
-                                </ContentControl>
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Visibility="{Binding Path=(ap:TextBoxHelper.IsFiltering), Mode=OneWay, Converter={conv:VisibilityWhenBoolConverter When=True, Value=Collapsed, Otherwise=Visible}}">
+
+                                    <!--  Custom Search Icon  -->
+                                    <ContentControl Content="{Binding Path=(ap:TextBoxHelper.FilterButtonContent)}" Visibility="{Binding Path=(ap:TextBoxHelper.FilterButtonContent), Converter={conv:VisibilityWhenNotNullConverter}}" />
+                                    <!--  Content="{Binding (ap:TextBoxHelper.FilterButtonContent), FallbackValue={StaticResource SearchIcon}}"  -->
+
+                                    <ContentControl
+                                        Content="M42.5,22A12.5,12.5 0 0,1 55,34.5A12.5,12.5 0 0,1 42.5,47C40.14,47 37.92,46.34 36,45.24L26.97,54.27C25.8,55.44 23.9,55.44 22.73,54.27C21.56,53.1 21.56,51.2 22.73,50.03L31.8,40.96C30.66,39.08 30,36.86 30,34.5A12.5,12.5 0 0,1 42.5,22M42.5,26A8.5,8.5 0 0,0 34,34.5A8.5,8.5 0 0,0 42.5,43A8.5,8.5 0 0,0 51,34.5A8.5,8.5 0 0,0 42.5,26Z"
+                                        Style="{DynamicResource PathIconContentControlStyle}"
+                                        Visibility="{Binding Path=(ap:TextBoxHelper.FilterButtonContent), Converter={conv:VisibilityWhenNullConverter}}" />
+                                    <!--  Visibility="{Binding Path=(ap:TextBoxHelper.IsFiltering), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBox}, Converter={conv:VisibilityWhenFalseConverter Value=Visible, Otherwise=Collapsed}}">  -->
+                                    <!--  Content="{Binding Path=(ap:TextBoxHelper.FilterButtonContent), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBox}}"  -->
+
+
+                                </Grid>
                                 <!--  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"  -->
 
 
@@ -436,7 +440,7 @@
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Stretch"
                                     StretchDirection="Both"
-                                    Visibility="{Binding Path=(ap:TextBoxHelper.IsFiltering), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBox}, Converter={conv:VisibilityWhenTrueConverter Value=Visible, Otherwise=Collapsed}}">
+                                    Visibility="{Binding Path=(ap:TextBoxHelper.IsFiltering), Mode=OneWay, Converter={conv:VisibilityWhenTrueConverter Value=Visible, Otherwise=Collapsed}}">
 
                                     <TextBlock Foreground="{DynamicResource AccentBaseColorBrush}" Style="{DynamicResource SpinningText}" />
                                 </Viewbox>
@@ -455,10 +459,12 @@
                         <Button
                             x:Name="PART_ClearButton"
                             Grid.Column="2"
-                            Command="{Binding (ap:TextBoxHelper.ClearFilterCommand), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBox}}"
+                            Command="{Binding (ap:TextBoxHelper.ClearFilterCommand)}"
                             Content="r"
+                            IsEnabled="{Binding (ap:TextBoxHelper.ClearButtonIsEnabled)}"
                             Style="{DynamicResource ChromelessButtonStyle}"
-                            Visibility="{Binding Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBox}, Converter={conv:VisibilityWhenStringConverter Value=Collapsed, Otherwise=Visible}}" />
+                            ToolTip="{Binding (ap:TextBoxHelper.ClearButtonToolTip)}"
+                            Visibility="{Binding Text, Converter={conv:VisibilityWhenStringConverter Value=Collapsed, Otherwise=Visible}}" />
                     </Grid>
 
                     <ControlTemplate.Triggers>
@@ -466,17 +472,19 @@
                                             <Setter TargetName="PART_ButtonsGrid" Property="Background" Value="{DynamicResource WindowBackgroundBrush}" />
 
                                         </Trigger>-->
-
+                        <DataTrigger Binding="{Binding (ap:TextBoxHelper.RequireFilterAction), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBox}}" Value="True">
+                            <Setter TargetName="PART_SearchButton" Property="ToolTip" Value="{Binding (ap:TextBoxHelper.RequireFilterButtonToolTip), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBox}}" />
+                        </DataTrigger>
                         <!--<Trigger Property="{Binding Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBox}}" Value="">
                             <Setter TargetName="PART_SearchIcon" Property="Visibility" Value="Hidden" />
                             <Setter TargetName="PART_IsBusyIcon" Property="Visibility" Value="Visible" />
                         </Trigger>-->
 
                         <Trigger SourceName="PART_ClearButton" Property="Visibility" Value="Visible">
-                            <Setter TargetName="PART_ButtonsGrid" Property="Margin" Value="-30,0,0,0" />
+                            <Setter TargetName="CDClearButton" Property="Width" Value="*" />
                             <!--<Setter TargetName="PART_SearchButton" Property="Grid.ColumnSpan" Value="3" />-->
                             <Setter TargetName="CDSeperator" Property="Width" Value=".1*" />
-                            <Setter TargetName="CDClearButton" Property="Width" Value="*" />
+                            <Setter TargetName="PART_ButtonsGrid" Property="Margin" Value="-30,0,0,0" />
                         </Trigger>
 
                         <!--<Trigger SourceName="PART_ClearButton" Property="IsMouseOver" Value="False">
@@ -507,8 +515,417 @@
             </Setter.Value>
 
         </Setter>
+        <!--<Setter Property="FlowDirection" Value="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}" />-->
+        <Setter Property="mm:TextBoxHelper.ClearTextButton" Value="False" />
+        <Setter Property="mm:TextBoxHelper.UseFloatingWatermark" Value="True" />
+        <!--<Setter Property="mm:TextBoxHelper.Watermark" Value="{lex:BLoc HeaderSearch, FallbackValue=Search, TargetNullValue=Search}" />-->
 
     </Style>
+
+    <Style
+        x:Key="EzzFilterTextBoxBaseStyle"
+        BasedOn="{StaticResource MetroTextBox}"
+        TargetType="{x:Type TextBox}">
+        <!--  change SnapsToDevicePixels to True to view a better border and validation error  -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <ControlTemplate.Resources>
+                        <Storyboard x:Key="enterGotFocus">
+                            <DoubleAnimation
+                                Storyboard.TargetName="PART_Message"
+                                Storyboard.TargetProperty="Opacity"
+                                To=".2"
+                                Duration="0:0:0.2" />
+                        </Storyboard>
+                        <Storyboard x:Key="exitGotFocus">
+                            <DoubleAnimation
+                                Storyboard.TargetName="PART_Message"
+                                Storyboard.TargetProperty="Opacity"
+                                Duration="0:0:0.2" />
+                        </Storyboard>
+
+                        <Storyboard x:Key="enterHasText">
+                            <DoubleAnimation
+                                Storyboard.TargetName="PART_Message"
+                                Storyboard.TargetProperty="Opacity"
+                                From=".2"
+                                To="0"
+                                Duration="0:0:0.2" />
+                        </Storyboard>
+                        <Storyboard x:Key="exitHasText">
+                            <DoubleAnimation
+                                Storyboard.TargetName="PART_Message"
+                                Storyboard.TargetProperty="Opacity"
+                                Duration="0:0:0.2" />
+                        </Storyboard>
+                    </ControlTemplate.Resources>
+                    <Grid>
+                        <AdornerDecorator x:Name="PART_WaitingForDataEffectAdornerDecorator" Visibility="Collapsed">
+                            <Border
+                                x:Name="PART_WaitingForDataEffectGrid"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="Transparent"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Effect="{DynamicResource WaitingForDataEffect}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </AdornerDecorator>
+                        <Border
+                            x:Name="Base"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        <Grid x:Name="PART_InnerGrid" Margin="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="TextColumn" Width="*" />
+                                <ColumnDefinition x:Name="ButtonColumn" Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition x:Name="ButtonRow" Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <ScrollViewer
+                                x:Name="PART_ContentHost"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Margin="2"
+                                VerticalAlignment="Stretch"
+                                Background="{x:Null}"
+                                BorderThickness="0"
+                                IsTabStop="False" />
+                            <TextBlock
+                                x:Name="PART_Message"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Margin="6,2,6,2"
+                                Padding="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Foreground="{TemplateBinding Foreground}"
+                                Style="{DynamicResource MahApps.Metro.Styles.MetroWatermarkTextBlock}"
+                                Text="{TemplateBinding mm:TextBoxHelper.Watermark}"
+                                TextAlignment="{TemplateBinding mm:TextBoxHelper.WatermarkAlignment}"
+                                TextTrimming="{TemplateBinding mm:TextBoxHelper.WatermarkTrimming}"
+                                TextWrapping="{TemplateBinding mm:TextBoxHelper.WatermarkWrapping}"
+                                Visibility="Collapsed" />
+                            <ContentControl
+                                x:Name="PART_FloatingMessageContainer"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Style="{DynamicResource FloatingMessageContainerStyle}">
+                                <ContentControl.Height>
+                                    <MultiBinding Converter="{mmConverters:MathMultiplyConverter}">
+                                        <Binding
+                                            ElementName="PART_FloatingMessage"
+                                            Mode="OneWay"
+                                            Path="ActualHeight" />
+                                        <Binding
+                                            ElementName="PART_FloatingMessageContainer"
+                                            Mode="OneWay"
+                                            Path="Opacity" />
+                                    </MultiBinding>
+                                </ContentControl.Height>
+                                <TextBlock
+                                    x:Name="PART_FloatingMessage"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    Style="{DynamicResource MetroAutoCollapsingTextBlock}"
+                                    Text="{TemplateBinding mm:TextBoxHelper.Watermark}"
+                                    TextAlignment="{TemplateBinding mm:TextBoxHelper.WatermarkAlignment}"
+                                    TextTrimming="{TemplateBinding mm:TextBoxHelper.WatermarkTrimming}">
+                                    <TextBlock.RenderTransform>
+                                        <TranslateTransform x:Name="FloatingMessageTransform">
+                                            <TranslateTransform.Y>
+                                                <MultiBinding Converter="{mmConverters:MathSubtractConverter}">
+                                                    <Binding
+                                                        ElementName="PART_FloatingMessage"
+                                                        Mode="OneWay"
+                                                        Path="ActualHeight" />
+                                                    <Binding
+                                                        ElementName="PART_FloatingMessageContainer"
+                                                        Mode="OneWay"
+                                                        Path="ActualHeight" />
+                                                </MultiBinding>
+                                            </TranslateTransform.Y>
+                                        </TranslateTransform>
+                                    </TextBlock.RenderTransform>
+                                </TextBlock>
+                            </ContentControl>
+
+                            <!--  Buttons  -->
+                            <Grid
+                                x:Name="PART_ButtonsGrid"
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition x:Name="ButtonsSeperator" Width="3" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Button
+                                    x:Name="PART_FilterButton"
+                                    Grid.Column="0"
+                                    Width="{TemplateBinding mm:TextBoxHelper.ButtonWidth}"
+                                    Command="{TemplateBinding ap:TextBoxHelper.FilterCommand}"
+                                    Content="{TemplateBinding ap:TextBoxHelper.FilterButtonContent}"
+                                    Focusable="False"
+                                    FontFamily="{TemplateBinding mm:TextBoxHelper.ButtonFontFamily}"
+                                    FontSize="{TemplateBinding mm:TextBoxHelper.ButtonFontSize}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    IsEnabled="{TemplateBinding ap:TextBoxHelper.FilterButtonIsEnabled}"
+                                    IsTabStop="False"
+                                    Style="{DynamicResource ChromelessButtonStyle}"
+                                    ToolTip="{TemplateBinding ap:TextBoxHelper.FilterButtonToolTip}"
+                                    Visibility="{TemplateBinding ap:TextBoxHelper.FilterButtonVisibility}" />
+
+                                <Button
+                                    x:Name="PART_ClearText"
+                                    Grid.Column="2"
+                                    Command="{TemplateBinding ap:TextBoxHelper.ClearFilterCommand}"
+                                    Width="{TemplateBinding mm:TextBoxHelper.ButtonWidth}"
+                                    mm:TextBoxHelper.IsClearTextButtonBehaviorEnabled="True"
+                                    Content="{TemplateBinding mm:TextBoxHelper.ButtonContent}"
+                                    ContentTemplate="{TemplateBinding mm:TextBoxHelper.ButtonContentTemplate}"
+                                    Focusable="False"
+                                    FontFamily="{TemplateBinding mm:TextBoxHelper.ButtonFontFamily}"
+                                    FontSize="{TemplateBinding mm:TextBoxHelper.ButtonFontSize}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    IsEnabled="{TemplateBinding ap:TextBoxHelper.ClearButtonIsEnabled}"
+                                    IsTabStop="False"
+                                    Style="{DynamicResource ChromelessButtonStyle}"
+                                    Template="{TemplateBinding mm:TextBoxHelper.ButtonTemplate}"
+                                    ToolTip="{TemplateBinding ap:TextBoxHelper.ClearButtonToolTip}"
+                                    Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:TextBoxHelper.HasText), Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                <!--  Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:TextBoxHelper.TextButton), Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"  -->
+                            </Grid>
+                        </Grid>
+                        <Border
+                            x:Name="DisabledVisualElement"
+                            Background="{DynamicResource ControlsDisabledBrush}"
+                            BorderBrush="{DynamicResource ControlsDisabledBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            IsHitTestVisible="False"
+                            Opacity="0"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                            Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:ControlsHelper.DisabledVisualElementVisibility), Mode=OneWay}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ap:TextBoxHelper.RequireFilterAction)}" Value="True">
+                            <!--<Setter TargetName="PART_FilterButton" Property="Content">
+                                <Setter.Value>
+                                    <ContentControl
+                                            x:Name="PART_PackIcon"
+                                            Width="{Binding RelativeSource={RelativeSource Self}, Path=(mm:TextBoxHelper.ButtonWidth), Mode=OneWay}"
+                                            Height="{Binding RelativeSource={RelativeSource Self}, Path=(mm:TextBoxHelper.ButtonWidth), Mode=OneWay}"
+                                            Padding="3"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Content="M42.5,22A12.5,12.5 0 0,1 55,34.5A12.5,12.5 0 0,1 42.5,47C40.14,47 37.92,46.34 36,45.24L26.97,54.27C25.8,55.44 23.9,55.44 22.73,54.27C21.56,53.1 21.56,51.2 22.73,50.03L31.8,40.96C30.66,39.08 30,36.86 30,34.5A12.5,12.5 0 0,1 42.5,22M42.5,26A8.5,8.5 0 0,0 34,34.5A8.5,8.5 0 0,0 42.5,43A8.5,8.5 0 0,0 51,34.5A8.5,8.5 0 0,0 42.5,26Z"
+                                            Style="{DynamicResource PathIconContentControlStyle}" />
+                                </Setter.Value>
+                            </Setter>-->
+                            <!--  RequireFilterButtonToolTip  -->
+                            <Setter Property="ap:TextBoxHelper.FilterButtonToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(ap:TextBoxHelper.RequireFilterButtonToolTip)}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=(ap:TextBoxHelper.IsFiltering)}" Value="True">
+                            <Setter TargetName="PART_FilterButton" Property="Content">
+                                <Setter.Value>
+                                    <Viewbox
+                                        x:Name="PART_IsBusyIcon"
+                                        Width="20"
+                                        MinWidth="5"
+                                        MinHeight="5"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        StretchDirection="Both">
+                                        <!--  Visibility="{Binding Path=(ap:TextBoxHelper.IsFiltering), Mode=OneWay, Converter={conv:VisibilityWhenTrueConverter Value=Visible, Otherwise=Collapsed}}"  -->
+                                        <TextBlock Foreground="{DynamicResource AccentBaseColorBrush}" Style="{DynamicResource SpinningText}" />
+                                    </Viewbox>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=(mm:TextBoxHelper.ButtonsAlignment)}" Value="Left">
+                            <Setter TargetName="ButtonColumn" Property="Width" Value="*" />
+                            <Setter TargetName="PART_ButtonsGrid" Property="Grid.Column" Value="0" />
+                            <Setter TargetName="PART_ClearText" Property="Grid.Column" Value="0" />
+                            <Setter TargetName="PART_ContentHost" Property="Grid.Column" Value="1" />
+                            <Setter TargetName="PART_FilterButton" Property="Grid.Column" Value="2" />
+                            <Setter TargetName="PART_Message" Property="Grid.Column" Value="1" />
+                            <Setter TargetName="TextColumn" Property="Width" Value="Auto" />
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Text}" Value="">
+                            <Setter TargetName="PART_Message" Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsVisible, RelativeSource={RelativeSource Self}}" Value="True" />
+                                <Condition Binding="{Binding Path=(mm:TextBoxHelper.UseFloatingWatermark), RelativeSource={RelativeSource Self}}" Value="True" />
+                                <Condition Binding="{Binding Path=(mm:TextBoxHelper.HasText), RelativeSource={RelativeSource Self}}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource ShowFloatingMessageStoryboard}" />
+                            </MultiDataTrigger.EnterActions>
+                            <MultiDataTrigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource HideFloatingMessageStoryboard}" />
+                            </MultiDataTrigger.ExitActions>
+                        </MultiDataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(mm:TextBoxHelper.ButtonsAlignment)}" Value="Right" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=(mm:TextBoxHelper.TextButton)}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="PART_ContentHost" Property="Grid.ColumnSpan" Value="2" />
+                            <Setter TargetName="PART_Message" Property="Grid.ColumnSpan" Value="2" />
+                        </MultiDataTrigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Base" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:ControlsHelper.MouseOverBorderBrush)}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="DisabledVisualElement" Property="Opacity" Value="0.6" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsReadOnly" Value="True" />
+                                <Condition Property="mm:TextBoxHelper.ButtonCommand" Value="{x:Null}" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_ClearText" Property="IsEnabled" Value="False" />
+                        </MultiTrigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Base" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:ControlsHelper.FocusBorderBrush)}" />
+                            <Setter TargetName="PART_FloatingMessage" Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                            <Setter TargetName="PART_FloatingMessage" Property="Opacity" Value="1" />
+                        </Trigger>
+
+                        <Trigger SourceName="PART_ClearText" Property="IsMouseOver" Value="True">
+                            <Setter TargetName="PART_ClearText" Property="Background" Value="{DynamicResource GrayBrush8}" />
+                            <Setter TargetName="PART_ClearText" Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                        </Trigger>
+                        <Trigger SourceName="PART_ClearText" Property="IsPressed" Value="True">
+                            <Setter TargetName="PART_ClearText" Property="Background" Value="{DynamicResource BlackBrush}" />
+                            <Setter TargetName="PART_ClearText" Property="Foreground" Value="{DynamicResource WhiteBrush}" />
+                        </Trigger>
+                        <Trigger SourceName="PART_FilterButton" Property="IsMouseOver" Value="True">
+                            <Setter TargetName="PART_FilterButton" Property="Background" Value="{DynamicResource GrayBrush8}" />
+                            <Setter TargetName="PART_FilterButton" Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                        </Trigger>
+                        <Trigger SourceName="PART_FilterButton" Property="IsPressed" Value="True">
+                            <Setter TargetName="PART_FilterButton" Property="Background" Value="{DynamicResource BlackBrush}" />
+                            <Setter TargetName="PART_FilterButton" Property="Foreground" Value="{DynamicResource WhiteBrush}" />
+                        </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsVisible" Value="True" />
+                                <Condition Property="mm:TextBoxHelper.IsWaitingForData" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_WaitingForDataEffectAdornerDecorator" Property="Visibility" Value="Visible" />
+                            <MultiTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource WaitingForDataStoryboard}" />
+                            </MultiTrigger.EnterActions>
+                        </MultiTrigger>
+                        <Trigger Property="mm:TextBoxHelper.IsWaitingForData" Value="False">
+                            <Setter TargetName="PART_WaitingForDataEffectAdornerDecorator" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ap:TextBoxHelper.ClearButtonToolTip" Value="{lex:BLoc Clear, TargetNullValue=Clear}" />
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="ap:TextBoxHelper.FilterButtonContent">
+            <Setter.Value>
+                <!--<iconPacks:PackIconFontAwesome Kind="SyncAltSolid"/>-->
+                <!--<DataTemplate>-->
+                    <ContentControl
+                        x:Name="PART_PackIcon"
+                        Width="{Binding RelativeSource={RelativeSource Self}, Path=(mm:TextBoxHelper.ButtonWidth), Mode=OneWay}"
+                        Height="{Binding RelativeSource={RelativeSource Self}, Path=(mm:TextBoxHelper.ButtonWidth), Mode=OneWay}"
+                        Padding="3"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="M42.5,22A12.5,12.5 0 0,1 55,34.5A12.5,12.5 0 0,1 42.5,47C40.14,47 37.92,46.34 36,45.24L26.97,54.27C25.8,55.44 23.9,55.44 22.73,54.27C21.56,53.1 21.56,51.2 22.73,50.03L31.8,40.96C30.66,39.08 30,36.86 30,34.5A12.5,12.5 0 0,1 42.5,22M42.5,26A8.5,8.5 0 0,0 34,34.5A8.5,8.5 0 0,0 42.5,43A8.5,8.5 0 0,0 51,34.5A8.5,8.5 0 0,0 42.5,26Z"
+                        Style="{DynamicResource PathIconContentControlStyle}" />
+                <!--</DataTemplate>-->
+            </Setter.Value>
+        </Setter>
+        <!--<Setter Property="ap:TextBoxHelper.RequireFilterButtonToolTip" Value="{lex:BLoc Refresh, TargetNullValue=Refresh}" />-->
+        <Setter Property="ap:TextBoxHelper.FilterButtonToolTip" Value="{lex:BLoc Filter, TargetNullValue=Filter}" />
+        <Setter Property="mm:TextBoxHelper.ButtonTemplate" Value="{DynamicResource ChromelessButtonTemplate}" />
+        <Setter Property="mm:TextBoxHelper.TextButton" Value="True" />
+    </Style>
+    <Style
+        x:Key="EzzFilterTextBoxDynamicIcon"
+        BasedOn="{StaticResource EzzFilterTextBoxBaseStyle}"
+        TargetType="TextBox">
+
+        <Setter Property="ap:TextBoxHelper.FilterButtonToolTip" Value="{lex:BLoc Search, TargetNullValue=Search}" />
+
+        <Style.Triggers>
+            <Trigger Property="ap:TextBoxHelper.RequireFilterAction" Value="False">
+                <Setter Property="ap:TextBoxHelper.FilterButtonContent">
+                    <Setter.Value>
+                        <iconPacks:PackIconFontAwesome Kind="SyncAltSolid" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="PathTextBox"
+        BasedOn="{StaticResource EzzFilterTextBoxBaseStyle}"
+        TargetType="TextBox">
+        <Setter Property="ap:TextBoxHelper.EditType" Value="Path" />
+        <Setter Property="ap:TextBoxHelper.FilterButtonContent">
+            <Setter.Value>
+                <iconPacks:PackIconFontAwesome Kind="SyncAltSolid" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ap:TextBoxHelper.FilterButtonToolTip" Value="{lex:BLoc Refresh, TargetNullValue=Refresh}" />
+
+        <Style.Triggers>
+            <Trigger Property="ap:TextBoxHelper.RequireFilterAction" Value="True">
+                <Setter Property="ap:TextBoxHelper.FilterButtonContent">
+                    <Setter.Value>
+                        <iconPacks:PackIconFontAwesome Kind="ArrowRightSolid" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style
+        x:Key="PathTextBox2"
+        BasedOn="{StaticResource EzzFilterTextBoxBaseStyle}"
+        TargetType="TextBox">
+        <Setter Property="ap:TextBoxHelper.EditType" Value="Path" />
+        <Setter Property="ap:TextBoxHelper.FilterButtonContent">
+            <Setter.Value>
+                <iconPacks:PackIconFontAwesome Kind="SyncAltSolid" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ap:TextBoxHelper.FilterButtonToolTip" Value="{lex:BLoc Refresh, TargetNullValue=Refresh}" />
+
+        <Style.Triggers>
+            <Trigger Property="ap:TextBoxHelper.RequireFilterAction" Value="True">
+                <Setter Property="ap:TextBoxHelper.FilterButtonContent">
+                    <Setter.Value>
+                        <iconPacks:PackIconFontAwesome Kind="ArrowRightSolid" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+   
     <!--#endregion Metro-->
 
 </ResourceDictionary>

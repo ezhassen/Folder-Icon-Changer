@@ -58,5 +58,41 @@ namespace FolderIconChangerWPF.Properties {
                 this["TopMost"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CopyIconToFolder {
+            get {
+                return ((bool)(this["CopyIconToFolder"]));
+            }
+            set {
+                this["CopyIconToFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool HideIcon {
+            get {
+                return ((bool)(this["HideIcon"]));
+            }
+            set {
+                this["HideIcon"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowCurrentFolderForIconFromImage {
+            get {
+                return ((bool)(this["ShowCurrentFolderForIconFromImage"]));
+            }
+            set {
+                this["ShowCurrentFolderForIconFromImage"] = value;
+            }
+        }
     }
 }

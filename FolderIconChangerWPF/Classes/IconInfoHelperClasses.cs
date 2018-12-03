@@ -1,0 +1,156 @@
+﻿using Ezz_Helper.Drawing.IconsManager;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace FolderIconChangerWPF.IconInfoCore
+{
+    public enum IconViewTypes
+    {
+        /// <summary>
+        /// To show icon group of one icon.
+        /// </summary>
+        /// <remarks></remarks>
+        OneIcon = 0,
+        /// <summary>
+        /// To show icons of MultiIcons.
+        /// </summary>
+        /// <remarks></remarks>
+        MultiIcons = 1
+        //Custom
+    }
+
+    public static class IconHelper
+    {
+        public static Task<Classes.TaskResult<SelectedIconInfo>> DirectSelectIconFromFileAsync(string FilePath, int iconIndex, CancellationToken cancellationToken = default)
+        {
+            return Classes.TaskResult.RunAsync(func: (cancel) => DirectSelectIconFromFile(FilePath, iconIndex), cancellationToken: cancellationToken);
+        }
+        public static SelectedIconInfo DirectSelectIconFromFile(string FilePath, int iconIndex)
+        {
+            if (!File.Exists(FilePath)) return null;
+            var ExIcon = IconExtractor.ExtractIcon(FilePath, iconIndex);
+            if (ExIcon == null) return null;
+            var SNewIConInfo = new SelectedIconInfo
+            {
+                FilePath = FilePath,
+                SourceIcon = ExIcon,
+                Index = iconIndex,
+                ICount = IconExtractor.GetIconsCount(FilePath)
+            };
+
+            return SNewIConInfo;
+        }
+
+
+        private static OneIconInfo[] oneIconInfoArry;
+        public static OneIconInfo[] OneIconInfoArry
+        {
+            get
+            {
+                if (oneIconInfoArry != null) return oneIconInfoArry;
+                oneIconInfoArry = new OneIconInfo[] {new OneIconInfo(Sizes.px_256x256, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_128x128, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_64x64, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_48x48, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_32x32, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_24x24, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_16x16, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_48x48, ImageColorsTypes._256_IndexedColors),
+                        new OneIconInfo(Sizes.px_32x32, ImageColorsTypes._256_IndexedColors),
+                        new OneIconInfo(Sizes.px_24x24, ImageColorsTypes._256_IndexedColors),
+                        new OneIconInfo(Sizes.px_16x16, ImageColorsTypes._256_IndexedColors),
+                        new OneIconInfo(Sizes.px_24x24, ImageColorsTypes._16_IndexedColors),
+                        new OneIconInfo(Sizes.px_16x16, ImageColorsTypes._16_IndexedColors) };
+                return oneIconInfoArry;
+            }
+        }
+
+        public static OneIconInfo[] BestFitIconsInfo => new OneIconInfo[] {new OneIconInfo(Sizes.px_256x256, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_128x128, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_64x64, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_48x48, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_32x32, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_24x24, ImageColorsTypes.Alpha_Channel),
+                        new OneIconInfo(Sizes.px_16x16, ImageColorsTypes.Alpha_Channel)};
+
+    }
+
+    public class SelectedIconInfo
+    {
+        public bool? DialogResult { get; set; }
+
+        public IconViewTypes IconViewType { get; set; }
+
+        public Icon SourceIcon { get; set; }
+
+        public IconInfo.IconImageInfo SelectedIconImageInfo { get; set; }
+
+        /// <summary>
+        /// Icon Index in the file
+        /// </summary>
+        public int Index { get; set; }
+
+        public string FilePath { get; set; }
+
+        /// <summary>
+        /// Icons Count in the file
+        /// </summary>
+        public int ICount { get; set; }
+
+    }
+    public sealed class SelectedIcons : List<SelectedIconInfo>
+    {
+
+        public bool? DialogResult { get; set; }
+
+        public DrawIconsToListView.IconViewTypes IconViewType { get; set; }
+
+        public string FilePath { get; set; }
+
+        public int ICount { get; set; }
+
+        public SelectedIconInfo GetFirstItem()
+        {
+            if (this.Count == 0) return null;
+            return this[0];
+        }
+        public IconInfo.IconImageInfo GetFirstIconImageInfo()
+        {
+            if (this.Count == 0) return null;
+            return this[0].SelectedIconImageInfo;
+        }
+        public List<IconInfo.IconImageInfo> GetAllIconImageInfo()
+        {
+            var newL = new List<IconInfo.IconImageInfo>();
+            foreach (SelectedIconInfo item in this)
+            {
+                newL.Add(item.SelectedIconImageInfo);
+            }
+            return newL;
+        }
+
+        public Icon GetFirstSourceIcon()
+        {
+            if (this.Count == 0) return null;
+            return this[0].SourceIcon;
+        }
+        //public IEnumerable<Icon> GetAllSourceIcons() => this.Select(sii => sii.SourceIcon);
+        public List<Icon> GetAllSourceIcons()
+        {
+            var newL = new List<Icon>();
+            foreach (SelectedIconInfo item in this)
+            {
+                newL.Add(item.SourceIcon);
+            }
+            return newL;
+        }
+
+    }
+
+}

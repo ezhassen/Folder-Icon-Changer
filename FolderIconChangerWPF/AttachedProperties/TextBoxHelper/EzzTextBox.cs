@@ -12,41 +12,8 @@ using System.Windows.Input;
 
 namespace FolderIconChangerWPF.AttachedProperties
 {
-    public static class TextBoxHelper
+    public static partial class TextBoxHelper
     {
-
-        #region Filtering
-
-        public static bool GetIsFiltering(DependencyObject obj) => (bool)obj.GetValue(IsFilteringProperty);
-
-        public static void SetIsFiltering(DependencyObject obj, bool value) => obj.SetValue(IsFilteringProperty, value);
-
-        // Using a DependencyProperty as the backing store for IsFiltering.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IsFilteringProperty =
-            DependencyProperty.RegisterAttached("IsFiltering", typeof(bool), typeof(TextBoxHelper), new PropertyMetadata(false));
-
-
-        public static ICommand GetFilterCommand(DependencyObject obj) => (ICommand)obj.GetValue(FilterCommandProperty);
-
-        public static void SetFilterCommand(DependencyObject obj, ICommand value) => obj.SetValue(FilterCommandProperty, value);
-
-        // Using a DependencyProperty as the backing store for FilterCommand.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty FilterCommandProperty =
-            DependencyProperty.RegisterAttached("FilterCommand", typeof(ICommand), typeof(TextBoxHelper), new PropertyMetadata(null));
-
-
-
-
-        public static ICommand GetClearFilterCommand(DependencyObject obj) => (ICommand)obj.GetValue(ClearFilterCommandProperty);
-
-        public static void SetClearFilterCommand(DependencyObject obj, ICommand value) => obj.SetValue(ClearFilterCommandProperty, value);
-
-        // Using a DependencyProperty as the backing store for ClearFilterCommand.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ClearFilterCommandProperty =
-            DependencyProperty.RegisterAttached("ClearFilterCommand", typeof(ICommand), typeof(TextBoxHelper), new PropertyMetadata(null));
-
-        #endregion
-
         #region EzzTextBox
 
         #region Enums
@@ -1719,6 +1686,4 @@ namespace FolderIconChangerWPF.AttachedProperties
         #endregion //EzzTextBox
 
     }
-
-
 }

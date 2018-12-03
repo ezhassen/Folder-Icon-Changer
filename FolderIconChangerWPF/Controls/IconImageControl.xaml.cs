@@ -1,0 +1,222 @@
+﻿using Ezz_Helper.Drawing.IconsManager;
+using System;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+
+namespace FolderIconChangerWPF.Controls
+{
+    /// <summary>
+    /// Interaction logic for IconImageControl.xaml
+    /// </summary>
+    public partial class IconImageControl : IconImageControlBase
+    {
+        public IconImageControl()
+        {
+            InitializeComponent();
+        }
+
+        private void IconImageControlBase_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (IsLoading || ImageSource is null) return;
+            PART_CommandsPanel.Visibility = Visibility.Visible;
+        }
+
+        private void IconImageControlBase_MouseLeave(object sender, MouseEventArgs e)
+        {
+            PART_CommandsPanel.Visibility = Visibility.Hidden;
+        }
+    }
+    public class IconImageControlBase : UserControl
+    {
+        public IconImageControlBase()
+        {
+            //TODO: Create ViewIconGroupCommand
+            //ViewIconGroupCommand = 
+        }
+        #region Props
+
+
+        public IconInfo IconInfo
+        {
+            get { return (IconInfo)GetValue(IconInfoProperty); }
+            set { SetValue(IconInfoProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IconInfo.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IconInfoProperty =
+            DependencyProperty.Register("IconInfo", typeof(IconInfo), typeof(IconImageControlBase), new PropertyMetadata(null, new PropertyChangedCallback(OnIconInfoPropertyChanged)));
+
+        private static void OnIconInfoPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as IconImageControlBase)?.OnIconInfoChanged(e);
+        private async void OnIconInfoChanged(DependencyPropertyChangedEventArgs e)
+        {
+            var newIconInfo = e.NewValue as IconInfo;
+            IsLoading = true;
+            //ImageSource = null;
+            try
+            {
+                if (newIconInfo is null)
+                {
+                    ImageSource = null;
+                }
+                else
+                {
+                    var tRes = await Task.Run(() =>
+                    {
+                        try
+                        {
+                            return newIconInfo.GetBestFitIcon(new System.Drawing.Size(256, 256))?.Image;
+                        }
+                        catch (Exception)
+                        {
+                            //throw;
+                            return null;
+                        }
+
+                    });
+                    ImageSource = tRes?.ToSWBitmapImage();
+                }
+
+            }
+            catch (Exception)
+            {
+                //throw;
+                return;
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        }
+
+        public ImageSource ImageSource
+        {
+            get { return (ImageSource)GetValue(ImageSourceProperty); }
+            set { SetValue(ImageSourceProperty, value);
+                //var Image_ = new Image();
+                //Image_.StretchDirection
+            }
+        }
+
+        // Using a DependencyProperty as the backing store for ImageSource.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ImageSourceProperty =
+            DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(IconImageControlBase), new PropertyMetadata(null));
+
+
+
+
+        public static Stretch GetImageStretch(DependencyObject obj)
+        {
+            return (Stretch)obj.GetValue(ImageStretchProperty);
+        }
+
+        public static void SetImageStretch(DependencyObject obj, Stretch value)
+        {
+            obj.SetValue(ImageStretchProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for ImageStretch.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ImageStretchProperty =
+            DependencyProperty.RegisterAttached("ImageStretch", typeof(Stretch), typeof(IconImageControlBase), new PropertyMetadata(Stretch.Uniform));
+
+
+
+
+        public static StretchDirection GetImageStretchDirection(DependencyObject obj)
+        {
+            return (StretchDirection)obj.GetValue(ImageStretchDirectionProperty);
+        }
+
+        public static void SetImageStretchDirection(DependencyObject obj, StretchDirection value)
+        {
+            obj.SetValue(ImageStretchDirectionProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for ImageStretchDirection.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ImageStretchDirectionProperty =
+            DependencyProperty.RegisterAttached("ImageStretchDirection", typeof(StretchDirection), typeof(IconImageControlBase), new PropertyMetadata(StretchDirection.DownOnly));
+
+
+
+        public bool IsLoading
+        {
+            get { return (bool)GetValue(IsLoadingProperty); }
+            set { SetValue(IsLoadingProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsLoading.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsLoadingProperty =
+            DependencyProperty.Register("IsLoading", typeof(bool), typeof(IconImageControlBase), new PropertyMetadata(false, new PropertyChangedCallback(OnIsLoadingPropertyChanged)));
+
+        private static void OnIsLoadingPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as IconImageControlBase)?.OnIsLoadingChanged(e);
+        Cursor controlCursor;
+        private void OnIsLoadingChanged(DependencyPropertyChangedEventArgs e)
+        {
+            var val = (bool)e.NewValue;
+            if (val)
+            {
+                controlCursor = this.Cursor;
+                this.Cursor = Cursors.Wait;
+            }
+            else
+            {
+                //if (this.Cursor == Cursors.Wait) return;
+                this.Cursor = controlCursor ?? Cursors.Arrow;
+            }
+        }
+
+
+        public ICommand ViewIconGroupCommand
+        {
+            get { return (ICommand)GetValue(ViewIconGroupCommandProperty); }
+            set { SetValue(ViewIconGroupCommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ViewIconGroupCommand.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ViewIconGroupCommandProperty =
+            DependencyProperty.Register("ViewIconGroupCommand", typeof(ICommand), typeof(IconImageControlBase), new PropertyMetadata(null));
+
+
+        public bool AllowToGenerateBestFit
+        {
+            get { return (bool)GetValue(AllowToGenerateBestFitProperty); }
+            set { SetValue(AllowToGenerateBestFitProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for AllowToGenerateBestFit.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AllowToGenerateBestFitProperty =
+            DependencyProperty.Register("AllowToGenerateBestFit", typeof(bool), typeof(IconImageControlBase), new PropertyMetadata(false, new PropertyChangedCallback(OnAllowToGenerateBestFitPropertyChanged)));
+
+        private static void OnAllowToGenerateBestFitPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as IconImageControlBase)?.OnAllowToGenerateBestFitChanged(e);
+        private void OnAllowToGenerateBestFitChanged(DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue is bool && (bool)e.NewValue)
+            {
+                //TODO: Set GenerateBestFitCommand
+
+                //GenerateBestFitCommand = null;
+
+            }
+            else
+            {
+                GenerateBestFitCommand = null;
+            }
+
+        }
+
+        public ICommand GenerateBestFitCommand
+        {
+            get { return (ICommand)GetValue(GenerateBestFitCommandProperty); }
+            set { SetValue(GenerateBestFitCommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for GenerateBestFitCommand.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty GenerateBestFitCommandProperty =
+            DependencyProperty.Register("GenerateBestFitCommand", typeof(ICommand), typeof(IconImageControlBase), new PropertyMetadata(null));
+
+
+        #endregion
+    }
+}

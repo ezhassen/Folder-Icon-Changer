@@ -39,8 +39,9 @@
           <target state="translated">إغلاق</target>
         </trans-unit>
         <trans-unit id="CopyIconToFolder" translate="yes" xml:space="preserve">
-          <source>Copy icon to the folder</source>
-          <target state="translated">نسخ الأيقونة للمجلد</target>
+          <source>Copy new icon to the target folder</source>
+          <target state="needs-review-translation">نسخ الأيقونة للمجلد</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="CurrentIcon" translate="yes" xml:space="preserve">
           <source>Current Icon</source>
@@ -72,8 +73,9 @@
           <target state="translated">الحصول على أيقونة</target>
         </trans-unit>
         <trans-unit id="HideIcon" translate="yes" xml:space="preserve">
-          <source>Hide if the icon exists in the target folder</source>
-          <target state="translated">إخفاء الملف إذا كان موجوداً في المجلد الهدف</target>
+          <source>Hide the Icon file if it exists in the target folder</source>
+          <target state="needs-review-translation">إخفاء الملف إذا كان موجوداً في المجلد الهدف</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="IconFromImage" translate="yes" xml:space="preserve">
           <source>Icon from image</source>
@@ -279,6 +281,30 @@ Continue?</source>
         <trans-unit id="Settings" translate="yes" xml:space="preserve">
           <source>Settings</source>
           <target state="translated">الإعدادات</target>
+        </trans-unit>
+        <trans-unit id="FilePath" translate="yes" xml:space="preserve">
+          <source>File Path</source>
+          <target state="new">File Path</target>
+        </trans-unit>
+        <trans-unit id="GetFolderIcon" translate="yes" xml:space="preserve">
+          <source>Get Folder Icon</source>
+          <target state="new">Get Folder Icon</target>
+        </trans-unit>
+        <trans-unit id="CopyIconToFolderOff" translate="yes" xml:space="preserve">
+          <source>New Icon wont be copied to the target folder</source>
+          <target state="new">New Icon wont be copied to the target folder</target>
+        </trans-unit>
+        <trans-unit id="CopyIconToFolderOn" translate="yes" xml:space="preserve">
+          <source>New Icon will be copied to the target folder</source>
+          <target state="new">New Icon will be copied to the target folder</target>
+        </trans-unit>
+        <trans-unit id="HideIconOff" translate="yes" xml:space="preserve">
+          <source>New Icon file wont be hidden</source>
+          <target state="new">New Icon file wont be hidden</target>
+        </trans-unit>
+        <trans-unit id="HideIconOn" translate="yes" xml:space="preserve">
+          <source>New Icon file will be hidden If it exists in the target folder</source>
+          <target state="new">New Icon file will be hidden If it exists in the target folder</target>
         </trans-unit>
       </group>
     </body>

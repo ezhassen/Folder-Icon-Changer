@@ -55,8 +55,10 @@ namespace FolderIconChangerWPF.Services
         //}
         //
         CultureInfo _selectedCulture;
-        public CultureInfo SelectedCulture {
-            get {
+        public CultureInfo SelectedCulture
+        {
+            get
+            {
                 if (_selectedCulture == null)
                 {
                     var savedCul = Properties.Settings.Default.SelectedCulture;
@@ -68,7 +70,8 @@ namespace FolderIconChangerWPF.Services
                 return _selectedCulture;
             }
 
-            set {
+            set
+            {
                 if (_selectedCulture == value) return;
                 _selectedCulture = value;
                 if (_selectedCulture == null) _selectedCulture = new CultureInfo("en");
@@ -81,8 +84,10 @@ namespace FolderIconChangerWPF.Services
             }
         }
 
-        public ObservableCollection<CultureInfo> SupportedCultures {
-            get {
+        public ObservableCollection<CultureInfo> SupportedCultures
+        {
+            get
+            {
                 if (LocalizeDictionary.Instance.IncludeInvariantCulture) LocalizeDictionary.Instance.IncludeInvariantCulture = false;
                 return LocalizeDictionary.Instance.MergedAvailableCultures;
             }
@@ -107,8 +112,10 @@ namespace FolderIconChangerWPF.Services
 
 
         ThemeInfo _SelectedTheme;
-        public ThemeInfo SelectedTheme {
-            get {
+        public ThemeInfo SelectedTheme
+        {
+            get
+            {
                 if (_SelectedTheme == null)
                 {
                     var savedT = Properties.Settings.Default.SelectedThemeName;
@@ -119,7 +126,8 @@ namespace FolderIconChangerWPF.Services
 
                 return _SelectedTheme;
             }
-            set {
+            set
+            {
                 if (_SelectedTheme == value) return;
                 _SelectedTheme = value;
                 Properties.Settings.Default.SelectedThemeName = value.Name;
@@ -145,8 +153,6 @@ namespace FolderIconChangerWPF.Services
 
         public ObservableCollection<ThemeInfo> Themes => ThemeHelper.Themes;
 
-
-        
         public bool IsTopMost
         {
             get { return Properties.Settings.Default.TopMost; }
@@ -162,6 +168,45 @@ namespace FolderIconChangerWPF.Services
                 if (mainW != null)
                 {
                     mainW.Topmost = value;
+                }
+            }
+        }
+
+
+        public bool CopyIconToFolder
+        {
+            get { return Properties.Settings.Default.CopyIconToFolder; }
+            set
+            {
+                if (Properties.Settings.Default.CopyIconToFolder != value)
+                {
+                    Properties.Settings.Default.CopyIconToFolder = value;
+                    OnPropertyChanged(); //uses CallerMemberName
+                }
+            }
+        }
+
+        public bool HideIcon
+        {
+            get { return Properties.Settings.Default.HideIcon; }
+            set
+            {
+                if (Properties.Settings.Default.HideIcon != value)
+                {
+                    Properties.Settings.Default.HideIcon = value;
+                    OnPropertyChanged(); //uses CallerMemberName
+                }
+            }
+        }
+        public bool ShowCurrentFolderForIconFromImage
+        {
+            get { return Properties.Settings.Default.ShowCurrentFolderForIconFromImage; }
+            set
+            {
+                if (Properties.Settings.Default.ShowCurrentFolderForIconFromImage != value)
+                {
+                    Properties.Settings.Default.ShowCurrentFolderForIconFromImage = value;
+                    OnPropertyChanged(); //uses CallerMemberName
                 }
             }
         }

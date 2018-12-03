@@ -160,11 +160,29 @@ namespace FolderIconChangerWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy icon to the folder.
+        ///   Looks up a localized string similar to Copy new icon to the target folder.
         /// </summary>
         internal static string CopyIconToFolder {
             get {
                 return ResourceManager.GetString("CopyIconToFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Icon wont be copied to the target folder.
+        /// </summary>
+        internal static string CopyIconToFolderOff {
+            get {
+                return ResourceManager.GetString("CopyIconToFolderOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Icon will be copied to the target folder.
+        /// </summary>
+        internal static string CopyIconToFolderOn {
+            get {
+                return ResourceManager.GetString("CopyIconToFolderOn", resourceCulture);
             }
         }
         
@@ -205,6 +223,15 @@ namespace FolderIconChangerWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File Path.
+        /// </summary>
+        internal static string FilePath {
+            get {
+                return ResourceManager.GetString("FilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LeftToRight.
         /// </summary>
         internal static string FlowDirection {
@@ -232,6 +259,15 @@ namespace FolderIconChangerWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Get Folder Icon.
+        /// </summary>
+        internal static string GetFolderIcon {
+            get {
+                return ResourceManager.GetString("GetFolderIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Get Icon.
         /// </summary>
         internal static string GetIcon {
@@ -241,11 +277,29 @@ namespace FolderIconChangerWPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hide if the icon exists in the target folder.
+        ///   Looks up a localized string similar to Hide the Icon file if it exists in the target folder.
         /// </summary>
         internal static string HideIcon {
             get {
                 return ResourceManager.GetString("HideIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Icon file wont be hidden.
+        /// </summary>
+        internal static string HideIconOff {
+            get {
+                return ResourceManager.GetString("HideIconOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Icon file will be hidden If it exists in the target folder.
+        /// </summary>
+        internal static string HideIconOn {
+            get {
+                return ResourceManager.GetString("HideIconOn", resourceCulture);
             }
         }
         
