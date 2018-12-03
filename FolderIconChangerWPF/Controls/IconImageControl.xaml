@@ -92,9 +92,9 @@
                         />-->
                     </Button>
                     <Button
-                        Command="{Binding ViewIconGroupCommand}"
+                        Command="{Binding GenerateBestFitCommand}"
                         ToolTip="{lex:BLoc GenerateBestFit, TargetNullValue={}Generate Best Icon Fit}"
-                        Visibility="{Binding AllowToGenerateBestFit, Converter={conv:VisibilityWhenBoolConverter When=True, Value=Visible, Otherwise=Collapsed}}">
+                        Visibility="{Binding GenerateBestFitCommand, Converter={conv:VisibilityWhenNullConverter  Value=Collapsed, Otherwise=Visible}}">
                         <iconPacks:PackIconFontAwesome Kind="ExpandSolid" />
                         <!--<iconPacks:PackIconMaterial Kind="FileExport"
                             Effect="{StaticResource IconDropShadowEffect}"

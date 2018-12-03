@@ -14,7 +14,6 @@ using static FolderIconChangerWPF.IconInfoCore.IconHelper;
 using static FolderIconChangerWPF.LocalizationProvider;
 using Microsoft.Win32;
 using FolderIconChangerWPF.Helpers;
-using System.ComponentModel;
 
 namespace FolderIconChangerWPF.ViewModels
 {
@@ -185,6 +184,21 @@ namespace FolderIconChangerWPF.ViewModels
                 await RefreshCurrentInfo();
             }, (param) => !IsWorking));
 
+        DelegateCommand _ResetTargetFolderIconCommand;
+        public DelegateCommand ResetTargetFolderIconCommand
+            => _ResetTargetFolderIconCommand ?? (_ResetTargetFolderIconCommand = new DelegateCommand(async () =>
+            {
+                await ResetTargetFolderIcon();
+            }, (param) => !IsWorking));
+
+
+        DelegateCommand _CurrentGenBestFitCommand;
+        public DelegateCommand CurrentGenBestFitCommand
+            => _CurrentGenBestFitCommand ?? (_CurrentGenBestFitCommand = new DelegateCommand(async () =>
+            {
+               await CurrentGenBestFit();
+            }, (param) => !IsWorking));
+
         private async Task RefreshCurrentInfo()
         {
             if (IsWorking) return;
@@ -304,12 +318,56 @@ namespace FolderIconChangerWPF.ViewModels
             }
         }
 
+        async Task ResetTargetFolderIcon()
+        {
+            if (IsWorking) return;
+            if (Directory.Exists(TargetFolder))
+            {
+                if (MessageBox.Show(GetLocalizedString("ResetToDefaultIconMsg"), GetLocalizedString("MainFormTitle"), MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes) return;
+                IsWorking = true;
+                var TaskRes = await TaskResult.RunAsync(() =>
+                {
+                    Ezz_Helper.Files.GetInfo.GetDirectoryInfo.RestFolderIcon(TargetFolder);
+                });
+                IsWorking = false;
+                //
+                if (TaskRes.OperationWasSuccessful)
+                {
+                    RefreshCurrentInfoCommand.Execute(null);
+                }
+                else if (TaskRes.Exception != null)
+                {
+                    MessageBox.Show(TaskRes.Exception.Message);
+                }
+            }
+        }
+
+
+        DelegateCommand _BrowseForTargetFolderCommand;
+        public DelegateCommand BrowseForTargetFolderCommand
+            => _BrowseForTargetFolderCommand ?? (_BrowseForTargetFolderCommand = new DelegateCommand(() =>
+            {
+                BrowseForTargetFolder();
+            }));
+        void BrowseForTargetFolder()
+        {
+            if (IsWorking) return;
+            //var dialog = Microsoft.Win32.
+            RefreshCurrentInfoCommand.Execute(null);
+        }
+
         #endregion CurrentIconInfo
 
         #region NewIconInfo
 
         //Commands
 
+        DelegateCommand _ApplyNewIconCommand;
+        public DelegateCommand ApplyNewIconCommand
+            => _ApplyNewIconCommand ?? (_ApplyNewIconCommand = new DelegateCommand(async () =>
+            {
+                await ApplyNewIcon();
+            }, (param) => !IsWorking));
         private DelegateCommand _RefreshNewInfoCommand;
 
         public DelegateCommand RefreshNewInfoCommand
@@ -331,7 +389,7 @@ namespace FolderIconChangerWPF.ViewModels
         public DelegateCommand BrowseForIconCommand
             => _BrowseForIconCommand ?? (_BrowseForIconCommand = new DelegateCommand(() =>
             {
-                //Command Method here
+                BrowseIcon();
             }, (param) => !IsWorking));
 
         private DelegateCommand _ClearNewIconPathCommand;
@@ -671,6 +729,74 @@ namespace FolderIconChangerWPF.ViewModels
             IsGeneratingFromImage = false;
         }
 
+        private async Task ApplyNewIcon()
+        {
+            if (IsWorking || !Directory.Exists(TargetFolder)) return;
+            IsWorking = true;
+            //
+            var TaskRes = await TaskResult.RunAsync(() =>
+            {
+                var iconPath = Services.SettingsService.Instance.CopyIconToFolder ? NewIconPath : GetFileShortPathIfInFolder(TargetFolder, NewIconPath);
+                Ezz_Helper.Files.GetInfo.GetDirectoryInfo.SetFolderCustomIcon(TargetFolder, iconPath, NewIconIndex.GetValueOrDefault(0),
+                CopyTheIconToTargetFolder: Services.SettingsService.Instance.CopyIconToFolder,
+                HideFileIfitInFolder: Services.SettingsService.Instance.HideIcon);
+            });
+            IsWorking = false;
+            if (TaskRes.OperationWasSuccessful)
+            {
+                RefreshCurrentInfoCommand.Execute(null);
+            }
+            else if (TaskRes.Exception != null)
+            {
+                MessageBox.Show(TaskRes.Exception.Message);
+            }
+        }
+
+
+        private void BrowseIcon()
+        {
+            if (IsWorking) return;
+            BrowseIcon(string.IsNullOrEmpty(NewIconPath) ? TargetFolder : Path.GetDirectoryName(NewIconPath), NewIconIndex.GetValueOrDefault(0));
+        }
+
+        private void BrowseIcon(string DefTarget, int defindex = 0)
+        {
+            if (IsWorking) return;
+            //var SICon = Select_Icon.ShowD(null, DefTarget, defindex, string.IsNullOrEmpty(DefTarget) ? true : string.IsNullOrEmpty(NewIconPath));
+            //if (SICon.DialogResult == DialogResult.OK)
+            //{
+            //    GetNewIconInfo(SICon.GetFirstItem());
+            //}
+            //
+
+            var fd = new OpenFileDialog
+            {
+                Multiselect = false,
+                Title = GetLocalizedString("Select_Icon_Title")
+            };
+            FileDialogFilterBuilderHelper.BuildFilter(fd, new string[] { "*.ico" });
+            if (!Directory.Exists(DefTarget))
+            {
+                if (Directory.Exists(TargetFolder))
+                {
+                    DefTarget = TargetFolder;
+                }
+                else//desktop
+                {
+                    DefTarget = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+                }
+            }
+            fd.InitialDirectory = DefTarget;
+            //
+            if (fd.ShowDialog() == true)
+            {
+                this.NewIconIndex = 0;
+                this.NewIconPath = fd.FileName;
+                this.RefreshNewInfoCommand.Execute(null);
+            }
+
+        }
+
         #endregion NewIconInfo
 
         #region Helper Methods
@@ -688,7 +814,7 @@ namespace FolderIconChangerWPF.ViewModels
                     {
                         return Path.GetFileName(iconFP);
                     }
-                    return iconFP.Replace(Folder_, "").Trim();
+                    return iconFP.Replace(Folder_, "").Trim('\\');
                 }
                 //else
                 //{

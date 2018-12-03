@@ -419,8 +419,7 @@
     MouseDown="Window_MouseDown"
     </mm:MetroWindow.TitleTemplate>-->
 
-    <Grid Background="{DynamicResource WindowBackgroundBrush}"
-          ap:MoveWindowByMouseDown.Window="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mm:MetroWindow}}">
+    <Grid ap:MoveWindowByMouseDown.Window="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mm:MetroWindow}}" Background="{DynamicResource WindowBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -598,12 +597,13 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox  
+                <TextBox
                     x:Name="TBTargetFolder"
                     Grid.Column="0"
-                    Margin="5" ap:TextBoxHelper.FilterByEnterKey="True"
+                    Margin="5"
                     HorizontalAlignment="Stretch"
                     ap:TextBoxHelper.ClearFilterCommand="{Binding ClearTargetFolderCommand}"
+                    ap:TextBoxHelper.FilterByEnterKey="True"
                     ap:TextBoxHelper.FilterCommand="{Binding RefreshCurrentInfoCommand}"
                     ap:TextBoxHelper.IsFiltering="{Binding IsLoadingCurrentInfo}"
                     ap:TextBoxHelper.RequireFilterAction="{Binding CurrentRequireRefresh}"
@@ -612,9 +612,9 @@
                     IsReadOnly="{Binding IsWorking}"
                     IsReadOnlyCaretVisible="True"
                     Style="{StaticResource PathTextBox}"
-                    Text="{Binding TargetFolder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    Text="{Binding TargetFolder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                <Button Grid.Column="1" Style="{StaticResource BrowseButtonStyle}" />
+                <Button Grid.Column="1" Command="{Binding BrowseForTargetFolderCommand}" Style="{StaticResource BrowseButtonStyle}" />
             </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -622,8 +622,8 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <controls:IconImageControl
-                    Grid.Column="0"
+                <controls:IconImageControl 
+                    Grid.Column="0" GenerateBestFitCommand="{Binding CurrentGenBestFitCommand}"
                     IconInfo="{Binding CurrentIconInfo}"
                     IsLoading="{Binding IsLoadingCurrentInfo}" />
 
@@ -633,7 +633,7 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>-->
-                   
+
                     <mm:Badged
                         MinWidth="20"
                         Margin="5,20,5,5"
@@ -663,6 +663,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Background="{DynamicResource WordRedBrush}"
+                    Command="{Binding ResetTargetFolderIconCommand}"
                     Foreground="White"
                     IsEnabled="{Binding CurrentIconInfo, Converter={conv:BoolWhenNullConverter}}"
                     Style="{StaticResource MainCommandButtonStyle}">
@@ -709,9 +710,10 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <TextBox
-                        Grid.Row="0" ap:TextBoxHelper.FilterByEnterKey="True"
+                        Grid.Row="0"
                         ap:TextBoxHelper.ClearFilterCommand="{Binding ClearNewIconPathCommand}"
                         ap:TextBoxHelper.EditType="Path"
+                        ap:TextBoxHelper.FilterByEnterKey="True"
                         ap:TextBoxHelper.FilterCommand="{Binding RefreshNewInfoCommand}"
                         ap:TextBoxHelper.IsFiltering="{Binding IsLoadingNewInfo}"
                         ap:TextBoxHelper.RequireFilterAction="{Binding NewRequireRefresh}"
@@ -720,15 +722,17 @@
                         IsReadOnly="{Binding IsWorking}"
                         IsReadOnlyCaretVisible="True"
                         Style="{StaticResource PathTextBox2}"
-                        Text="{Binding NewIconPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        Text="{Binding NewIconPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     <mm:NumericUpDown
                         Grid.Column="1"
-                        MinWidth="70" NumericInputMode="Numbers"
-                        Margin="5,0" SelectAllOnFocus="True"
+                        MinWidth="70"
+                        Margin="5,0"
                         IsReadOnly="{Binding IsWorking}"
                         Maximum="{Binding NewIconMaxIndex}"
                         Minimum="0"
+                        NumericInputMode="Numbers"
+                        SelectAllOnFocus="True"
                         Value="{Binding NewIconIndex, TargetNullValue=0}" />
 
                     <Border
@@ -745,7 +749,9 @@
                             </Grid.ColumnDefinitions>
 
                             <!--  Browse for icon file  -->
-                            <Button BorderThickness="0" ToolTip="Browse for an icon file">
+                            <Button BorderThickness="0" 
+                                    Command="{Binding BrowseForIconCommand}"
+                                    ToolTip="Browse for an icon file">
                                 <Viewbox>
                                     <iconPacks:PackIconFontAwesome Kind="FileSolid" />
                                 </Viewbox>
@@ -776,7 +782,7 @@
                                     Grid.Column="1"
                                     HorizontalContentAlignment="Stretch"
                                     VerticalContentAlignment="Stretch"
-                                    BorderThickness="0"
+                                    BorderThickness="0" 
                                     FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}">
                                     <mm:HamburgerMenuItemCollection>
                                         <mm:HamburgerMenuIconItem
@@ -954,6 +960,7 @@
                             Grid.Row="1"
                             Margin="0,10,10,10"
                             HorizontalAlignment="Right"
+                            Command="{Binding ApplyNewIconCommand}"
                             IsEnabled="{Binding NewIconInfo, Converter={conv:BoolWhenNullConverter}}"
                             Style="{StaticResource MainCommandButtonStyle}">
                             <Grid Focusable="False">

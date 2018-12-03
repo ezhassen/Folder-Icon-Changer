@@ -179,33 +179,6 @@ namespace FolderIconChangerWPF.Controls
             DependencyProperty.Register("ViewIconGroupCommand", typeof(ICommand), typeof(IconImageControlBase), new PropertyMetadata(null));
 
 
-        public bool AllowToGenerateBestFit
-        {
-            get { return (bool)GetValue(AllowToGenerateBestFitProperty); }
-            set { SetValue(AllowToGenerateBestFitProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for AllowToGenerateBestFit.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty AllowToGenerateBestFitProperty =
-            DependencyProperty.Register("AllowToGenerateBestFit", typeof(bool), typeof(IconImageControlBase), new PropertyMetadata(false, new PropertyChangedCallback(OnAllowToGenerateBestFitPropertyChanged)));
-
-        private static void OnAllowToGenerateBestFitPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as IconImageControlBase)?.OnAllowToGenerateBestFitChanged(e);
-        private void OnAllowToGenerateBestFitChanged(DependencyPropertyChangedEventArgs e)
-        {
-            if (e.NewValue is bool && (bool)e.NewValue)
-            {
-                //TODO: Set GenerateBestFitCommand
-
-                //GenerateBestFitCommand = null;
-
-            }
-            else
-            {
-                GenerateBestFitCommand = null;
-            }
-
-        }
-
         public ICommand GenerateBestFitCommand
         {
             get { return (ICommand)GetValue(GenerateBestFitCommandProperty); }
