@@ -16,14 +16,16 @@
     Title="{lex:BLoc MainFormTitle, FallbackValue={}Folder Icon Changer}"
     Width="520"
     MinWidth="520"
-    MinHeight="460"
+    MinHeight="480"
     lex:LocalizeDictionary.DesignCulture="en"
     lex:LocalizeDictionary.OutputMissingKeys="True"
     lex:ResxLocalizationProvider.DefaultAssembly="Folder Icon Changer"
     lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+    DataContext="{Binding Source={x:Static vm:ApplicationViewModel.Instance}}"
     Icon="Icon.ico"
     IconOverlayBehavior="Always"
     NonActiveWindowTitleBrush="{DynamicResource WindowBackgroundBrush}"
+    OverlayBrush="Red"
     ResizeMode="NoResize"
     ShowIconOnTitleBar="False"
     SizeToContent="Height"
@@ -34,9 +36,6 @@
     WindowStartupLocation="CenterScreen"
     WindowTitleBrush="{DynamicResource WindowBackgroundBrush}"
     mc:Ignorable="d">
-    <mm:MetroWindow.DataContext>
-        <vm:MainPageViewModel x:Name="MainPageViewModel" />
-    </mm:MetroWindow.DataContext>
     <!--  LeftWindowCommands="{DynamicResource MainWindowLeftCommands}"  -->
     <mm:MetroWindow.Resources />
 
@@ -44,10 +43,35 @@
         <mm:WindowCommands ShowLastSeparator="False" ShowSeparators="False">
 
             <!--  App Menu  -->
-            <Border x:Name="AppMenu" Visibility="Visible">
-                <Border.Resources>
+            <ToggleButton
+                MinWidth="20"
+                MinHeight="20"
+                Margin="0,10"
+                Foreground="{DynamicResource GrayBrush1}"
+                ToolTip="{lex:BLoc MainWindowMenu, TargetNullValue=Menu}">
+                <ToggleButton.Effect>
+                    <DropShadowEffect
+                        BlurRadius="10"
+                        Direction="250"
+                        Opacity=".6"
+                        ShadowDepth="3" />
+                </ToggleButton.Effect>
+                <ToggleButton.Content>
+                    <Viewbox>
+                        <Viewbox.Effect>
+                            <DropShadowEffect
+                                BlurRadius="3"
+                                Direction="250"
+                                Opacity=".6"
+                                ShadowDepth="2" />
+                        </Viewbox.Effect>
+                        <!--<iconPacks:PackIconMaterial Kind="Settings" />-->
+                        <iconPacks:PackIconFontAwesome Kind="EllipsisVSolid" />
+                    </Viewbox>
+                </ToggleButton.Content>
+                <ToggleButton.Resources>
 
-                    <Thickness x:Key="SeparatorMargin">5,3</Thickness>
+                    <Thickness x:Key="SeparatorMargin">-10,0,10,0</Thickness>
                     <Thickness x:Key="MenuIconMargin">5,0</Thickness>
                     <Thickness x:Key="MenuIconPadding">-3</Thickness>
 
@@ -100,117 +124,95 @@
                         <Setter Property="MinHeight" Value="42" />
                         <Setter Property="ToolTip" Value="{Binding Header, RelativeSource={RelativeSource Mode=Self}}" />
                     </Style>
-                </Border.Resources>
+                </ToggleButton.Resources>
 
-                <!--<Border.Effect>
-                <DropShadowEffect
-                        BlurRadius="30"
-                        Direction="290"
-                        Opacity="1"
-                        ShadowDepth=".5" />
-            </Border.Effect>-->
-                <StackPanel Margin="0,10" FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}">
-                    <ToggleButton
-                        x:Name="MenuToggle"
-                        MinWidth="20"
-                        MinHeight="20"
-                        Effect="{StaticResource ToggleButtonShadowEffect}"
-                        Foreground="{DynamicResource GrayBrush1}"
-                        IsChecked="False"
-                        ToolTip="{lex:BLoc MainWindowMenu, TargetNullValue=Menu}">
-                        <ToggleButton.Content>
-                            <!--<StackPanel Orientation="Horizontal">-->
-                            <Viewbox>
-                                <Viewbox.Effect>
-                                    <DropShadowEffect
-                                        BlurRadius="3"
-                                        Direction="250"
-                                        Opacity=".6"
-                                        ShadowDepth="2" />
-                                </Viewbox.Effect>
-                                <!--<iconPacks:PackIconMaterial Kind="Settings" />-->
-                                <iconPacks:PackIconFontAwesome Kind="EllipsisVSolid" />
-                            </Viewbox>
-                            <!--<TextBlock Margin="5,0,0,0" HorizontalAlignment="Stretch" Text="Options" />-->
-                            <!--</StackPanel>-->
-                            <!--<Path
-                            Height="20"
-                            Data="{StaticResource Icons.Account.Data}"
-                            Fill="{StaticResource IconBrush}"
-                            Stretch="Uniform" />-->
-                        </ToggleButton.Content>
-                    </ToggleButton>
-                    <!--  DataContext="{Binding ElementName=MenuToggle}"  -->
-                    <Popup
+                <ap:ContextMenuHelper.ToggleButtonContextMenu>
+                    <ContextMenu
                         MinWidth="160"
-                        DataContext="{Binding ElementName=MenuToggle}"
+                        FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}"
                         HorizontalOffset="-40"
-                        IsOpen="{Binding IsChecked}"
                         Placement="Bottom"
-                        PlacementTarget="{Binding}"
                         RenderOptions.ClearTypeHint="Enabled"
                         SnapsToDevicePixels="True"
                         StaysOpen="False"
                         TextOptions.TextFormattingMode="Ideal"
                         VerticalOffset="0">
-                        <Border
-                            Background="{DynamicResource ContextMenuBackgroundBrush}"
-                            BorderBrush="{DynamicResource ContextMenuBorderBrush}"
-                            BorderThickness="1">
-                            <StackPanel>
-                                <MenuItem Header="{lex:BLoc Settings, TargetNullValue={}Settings}" Style="{StaticResource NormalMenuItem}">
-                                    <MenuItem.Icon>
-                                        <Viewbox Margin="5,0" StretchDirection="Both">
-                                            <iconPacks:PackIconMaterial
-                                                Margin="{StaticResource MenuIconMargin}"
-                                                Padding="{StaticResource MenuIconPadding}"
-                                                Effect="{StaticResource ButtonShadowEffect}"
-                                                Foreground="{DynamicResource AccentBaseColorBrush}"
-                                                Kind="Settings" />
-                                        </Viewbox>
-                                    </MenuItem.Icon>
-                                </MenuItem>
-                                <Separator Margin="{StaticResource SeparatorMargin}" />
-                                <MenuItem Header="{lex:BLoc About, TargetNullValue={}About}" Style="{StaticResource NormalMenuItem}">
-                                    <MenuItem.Icon>
-                                        <Viewbox Margin="5,0" StretchDirection="Both">
-                                            <iconPacks:PackIconMaterial
-                                                Margin="{StaticResource MenuIconMargin}"
-                                                Padding="{StaticResource MenuIconPadding}"
-                                                Effect="{StaticResource ButtonShadowEffect}"
-                                                Foreground="{DynamicResource AccentBaseColorBrush}"
-                                                Kind="Information" />
-                                        </Viewbox>
-                                    </MenuItem.Icon>
-                                </MenuItem>
-                                <Separator Margin="{StaticResource SeparatorMargin}" />
-                                <MenuItem
-                                    FontSize="{StaticResource FontSizeRegular}"
-                                    Foreground="{DynamicResource TextBrush}"
-                                    Header="{lex:BLoc Exit, TargetNullValue={}Exit}"
-                                    ToolTip="{Binding Header, RelativeSource={RelativeSource Mode=Self}}">
+                        <MenuItem
+                            Command="{Binding GoToPageCommand, Source={x:Static vm:ApplicationViewModel.Instance}}"
+                            CommandParameter="SettingsPage"
+                            Header="{lex:BLoc Settings, TargetNullValue={}Settings}"
+                            Style="{StaticResource NormalMenuItem}">
+                            <MenuItem.Icon>
+                                <Viewbox Margin="5,0" StretchDirection="Both">
+                                    <iconPacks:PackIconMaterial
+                                        Margin="{StaticResource MenuIconMargin}"
+                                        Padding="{StaticResource MenuIconPadding}"
+                                        Effect="{StaticResource ButtonShadowEffect}"
+                                        Foreground="{DynamicResource AccentBaseColorBrush}"
+                                        Kind="Settings" />
+                                </Viewbox>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator Margin="{StaticResource SeparatorMargin}" />
+                        <MenuItem
+                            Command="{Binding GoToPageCommand, Source={x:Static vm:ApplicationViewModel.Instance}}"
+                            CommandParameter="AboutPage"
+                            Header="{lex:BLoc About, TargetNullValue={}About}"
+                            Style="{StaticResource NormalMenuItem}">
+                            <MenuItem.Icon>
+                                <Viewbox Margin="5,0" StretchDirection="Both">
+                                    <iconPacks:PackIconMaterial
+                                        Margin="{StaticResource MenuIconMargin}"
+                                        Padding="{StaticResource MenuIconPadding}"
+                                        Effect="{StaticResource ButtonShadowEffect}"
+                                        Foreground="{DynamicResource AccentBaseColorBrush}"
+                                        Kind="Information" />
+                                </Viewbox>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <Separator Margin="{StaticResource SeparatorMargin}" />
+                        <MenuItem
+                            Command="{Binding AppExitCommand, Source={x:Static vm:ApplicationViewModel.Instance}}"
+                            FontSize="{StaticResource FontSizeRegular}"
+                            Foreground="{DynamicResource TextBrush}"
+                            Header="{lex:BLoc Exit, TargetNullValue={}Exit}"
+                            ToolTip="{Binding Header, RelativeSource={RelativeSource Mode=Self}}">
 
-                                    <MenuItem.Icon>
-                                        <!--<iconPacks:PackIconOcticons Margin="5,0" Kind="SignOut" />-->
-                                        <Viewbox Margin="5,0">
-                                            <!--<iconPacks:PackIconFontAwesome
+                            <MenuItem.Icon>
+                                <!--<iconPacks:PackIconOcticons Margin="5,0" Kind="SignOut" />-->
+                                <Viewbox Margin="5,0">
+                                    <!--<iconPacks:PackIconFontAwesome
                                                 Margin="{StaticResource MenuIconMargin}"
                                                 Effect="{StaticResource ButtonShadowEffect}"
                                                 Foreground="{DynamicResource WordRedBrush}"
                                                 Kind="WindowCloseSolid" />-->
-                                            <iconPacks:PackIconMaterial
-                                                Margin="{StaticResource MenuIconMargin}"
-                                                Effect="{StaticResource ButtonShadowEffect}"
-                                                Foreground="{DynamicResource WordRedBrush}"
-                                                Kind="CloseBox" />
-                                        </Viewbox>
-                                    </MenuItem.Icon>
-                                </MenuItem>
-                            </StackPanel>
-                        </Border>
-                    </Popup>
-                </StackPanel>
-            </Border>
+                                    <iconPacks:PackIconMaterial
+                                        Margin="{StaticResource MenuIconMargin}"
+                                        Effect="{StaticResource ButtonShadowEffect}"
+                                        Foreground="{DynamicResource WordRedBrush}"
+                                        Kind="CloseBox" />
+                                </Viewbox>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </ap:ContextMenuHelper.ToggleButtonContextMenu>
+
+            </ToggleButton>
+            <!--Home-->
+            <Button
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Command="{Binding GoToPageCommand}"
+            CommandParameter="MainPage" Margin="5"
+            DataContext="{Binding Source={x:Static vm:ApplicationViewModel.Instance}}"
+            Foreground="{DynamicResource GrayBrush1}"
+            Style="{StaticResource ChromelessButtonStyle}"
+            Visibility="{Binding CurrentPage, Converter={conv:VisibilityWhenStringConverter When=MainPage, Value=Collapsed, Otherwise=Visible}}">
+                <Viewbox>
+                <!--<iconPacks:PackIconFontAwesome Kind="ArrowLeftSolid" />-->
+                    <iconPacks:PackIconFontAwesome Kind="HomeSolid" />
+                </Viewbox>
+            </Button>
             <!--<Separator Style="{StaticResource WindowCommandsSeparator}" />-->
             <!--  Language Selection  -->
             <mm:DropDownButton
@@ -420,575 +422,6 @@
     </mm:MetroWindow.TitleTemplate>-->
 
     <Grid ap:MoveWindowByMouseDown.Window="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mm:MetroWindow}}" Background="{DynamicResource WindowBackgroundBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.Resources>
-            <DropShadowEffect
-                x:Key="ButtonShadowEffect"
-                BlurRadius="15"
-                Direction="270"
-                ShadowDepth="3" />
-            <DropShadowEffect
-                x:Key="IconShadowEffect"
-                BlurRadius="5"
-                ShadowDepth="1" />
-
-            <Style TargetType="controls:IconImageControl">
-                <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
-                <Setter Property="BorderThickness" Value="2" />
-                <Setter Property="Effect">
-                    <Setter.Value>
-                        <DropShadowEffect BlurRadius="15" Direction="270" />
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="Height" Value="{Binding Width, RelativeSource={RelativeSource Self}}" />
-                <Setter Property="HorizontalAlignment" Value="Left" />
-                <Setter Property="Margin" Value="10" />
-                <Setter Property="Width" Value="128" />
-            </Style>
-
-            <Style
-                x:Key="BrowseButtonStyle"
-                BasedOn="{StaticResource MetroButton}"
-                TargetType="Button">
-                <!--<Setter Property="Foreground" Value="{DynamicResource AccentBaseColorBrush}"/>-->
-                <Setter Property="Content">
-                    <Setter.Value>
-                        <iconPacks:PackIconOcticons Kind="FileDirectory" />
-                        <!--<iconPacks:PackIconMaterial Kind="FolderEdit" />-->
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
-                <Setter Property="Margin" Value="5" />
-                <Setter Property="MinWidth" Value="50" />
-            </Style>
-
-
-            <Style
-                x:Key="MainCommandButtonStyle"
-                BasedOn="{StaticResource MetroButton}"
-                TargetType="Button">
-
-                <Setter Property="Effect" Value="{StaticResource ButtonShadowEffect}" />
-                <Setter Property="MinWidth" Value="120" />
-                <Setter Property="MinWidth" Value="120" />
-                <!--<Setter Property="Margin" Value="0,0,10,10" />-->
-                <Setter Property="RenderTransform">
-                    <Setter.Value>
-                        <ScaleTransform />
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="RenderTransformOrigin">
-                    <Setter.Value>
-                        <Point X="0.5" Y="0.5" />
-                    </Setter.Value>
-                </Setter>
-
-                <Style.Triggers>
-                    <!--<EventTrigger RoutedEvent="Click">
-                        <BeginStoryboard>
-                            <Storyboard>
-                    -->
-                    <!--  Storyboard.TargetName="ApplyButton"  -->
-                    <!--
-                                <DoubleAnimation
-                                    AutoReverse="True"
-                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
-                                    To="1.2"
-                                    Duration="0:0:0.08" />
-                    -->
-                    <!--  Storyboard.TargetName="ApplyButton"  -->
-                    <!--
-                                <DoubleAnimation
-                                    AutoReverse="True"
-                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
-                                    To="1.2"
-                                    Duration="0:0:0.08" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>-->
-                    <EventTrigger RoutedEvent="MouseEnter">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation
-                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
-                                    To="1.1"
-                                    Duration="0:0:0.15" />
-                                <DoubleAnimation
-                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
-                                    To="1.1"
-                                    Duration="0:0:0.15" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="MouseLeave">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation
-                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
-                                    To="1"
-                                    Duration="0:0:0.15" />
-                                <DoubleAnimation
-                                    Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
-                                    To="1"
-                                    Duration="0:0:0.15" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-
-                    <!--<Trigger Property="IsPressed" Value="True">
-                    -->
-                    <!--<Setter TargetName="border" Property="BorderBrush" Value="Transparent" />-->
-                    <!--
-                        <Setter Property="Background" Value="{DynamicResource WordOrangeBrush}">
-                    -->
-                    <!--<Setter.Value>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                    <GradientBrush.GradientStops>
-                                        <GradientStopCollection>
-                                            <GradientStop Offset="0.0" Color="{DynamicResource Gray1}" />
-                                            <GradientStop Offset="0.1" Color="{DynamicResource Gray2}" />
-                                            <GradientStop Offset="0.9" Color="{DynamicResource Gray3}" />
-                                            <GradientStop Offset="1.0" Color="{DynamicResource Gray4}" />
-                                        </GradientStopCollection>
-                                    </GradientBrush.GradientStops>
-                                </LinearGradientBrush>
-                            </Setter.Value>-->
-                    <!--
-                        </Setter>
-                    -->
-                    <!--<Setter Property="BorderBrush">
-                            <Setter.Value>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                    <GradientBrush.GradientStops>
-                                        <GradientStopCollection>
-                                            <GradientStop Offset="0.0" Color="{DynamicResource Gray1}" />
-                                            <GradientStop Offset="1.0" Color="{DynamicResource Gray3}" />
-                                        </GradientStopCollection>
-                                    </GradientBrush.GradientStops>
-                                </LinearGradientBrush>
-                            </Setter.Value>
-                        </Setter>-->
-                    <!--  https://docs.microsoft.com/en-us/previous-versions/dotnet/netframework-3.0/ms753328(v=vs.85)  -->
-                    <!--<Setter TargetName="border" Property="Background" Value="{StaticResource PressedBrush}" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource PressedBorderBrush}" />-->
-                    <!--
-                    </Trigger>-->
-                </Style.Triggers>
-
-            </Style>
-
-            <Style
-                x:Key="RedMainCommandButtonStyle"
-                BasedOn="{StaticResource MainCommandButtonStyle}"
-                TargetType="Button">
-                <Setter Property="Background" Value="{DynamicResource WordRedBrush}" />
-                <Setter Property="Foreground" Value="White" />
-
-            </Style>
-        </Grid.Resources>
-        <StackPanel Grid.Row="0" Margin="10">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <!--<ColumnDefinition Width="Auto" />-->
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <TextBox
-                    x:Name="TBTargetFolder"
-                    Grid.Column="0"
-                    Margin="5"
-                    HorizontalAlignment="Stretch"
-                    ap:TextBoxHelper.ClearFilterCommand="{Binding ClearTargetFolderCommand}"
-                    ap:TextBoxHelper.FilterByEnterKey="True"
-                    ap:TextBoxHelper.FilterCommand="{Binding RefreshCurrentInfoCommand}"
-                    ap:TextBoxHelper.IsFiltering="{Binding IsLoadingCurrentInfo}"
-                    ap:TextBoxHelper.RequireFilterAction="{Binding CurrentRequireRefresh}"
-                    ap:TextBoxHelper.RequireFilterButtonToolTip="{lex:BLoc GetFolderIcon, TargetNullValue=Get Folder Icon}"
-                    mm:TextBoxHelper.Watermark="Target Folder"
-                    IsReadOnly="{Binding IsWorking}"
-                    IsReadOnlyCaretVisible="True"
-                    Style="{StaticResource PathTextBox}"
-                    Text="{Binding TargetFolder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
-                <Button Grid.Column="1" Command="{Binding BrowseForTargetFolderCommand}" Style="{StaticResource BrowseButtonStyle}" />
-            </Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <controls:IconImageControl 
-                    Grid.Column="0" GenerateBestFitCommand="{Binding CurrentGenBestFitCommand}"
-                    IconInfo="{Binding CurrentIconInfo}"
-                    IsLoading="{Binding IsLoadingCurrentInfo}" />
-
-                <StackPanel Grid.Column="1" Margin="0,0,65,0">
-                    <!--<Grid Margin="5,20,5,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>-->
-
-                    <mm:Badged
-                        MinWidth="20"
-                        Margin="5,20,5,5"
-                        Badge="{Binding CurrentIconIndex}"
-                        ToolTip="{lex:BLoc Select_Icon_Index, TargetNullValue=Index}">
-
-                        <TextBox
-                            IsReadOnly="True"
-                            Text="{Binding CurrentIconPath}"
-                            ToolTip="{lex:BLoc FilePath, TargetNullValue=File Path}" />
-                    </mm:Badged>
-                    <!--<TextBox
-                            Grid.Column="1"
-                            MinWidth="40"
-                            Margin="5"
-                            IsReadOnly="True"
-                            Text="{Binding CurrentIconIndex}"
-                            TextAlignment="Center" />-->
-                    <!--</Grid>-->
-
-
-                </StackPanel>
-                <Button
-                    x:Name="ResetButton"
-                    Grid.Column="1"
-                    Margin="10,10,10,10"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Background="{DynamicResource WordRedBrush}"
-                    Command="{Binding ResetTargetFolderIconCommand}"
-                    Foreground="White"
-                    IsEnabled="{Binding CurrentIconInfo, Converter={conv:BoolWhenNullConverter}}"
-                    Style="{StaticResource MainCommandButtonStyle}">
-                    <Button.Triggers>
-                        <EventTrigger RoutedEvent="MouseDown" />
-                    </Button.Triggers>
-                    <Grid Focusable="False">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <iconPacks:PackIconOcticons
-                            Grid.Row="0"
-                            Margin="0,5,0,0"
-                            Padding="-5"
-                            HorizontalAlignment="Center"
-                            Effect="{StaticResource IconShadowEffect}"
-                            Focusable="False"
-                            Kind="Trashcan" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Margin="0,3"
-                            HorizontalAlignment="Center"
-                            Effect="{StaticResource IconShadowEffect}"
-                            Focusable="False"
-                            FontSize="{StaticResource FontSizeLarge}"
-                            Text="Reset" />
-                    </Grid>
-                </Button>
-            </Grid>
-        </StackPanel>
-        <!--  Bottom Contents  -->
-        <GroupBox Grid.Row="1" Header="{lex:BLoc NewIconInfo, TargetNullValue={}New Icon Info}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <!--  New Icon Path and Index ctrls  -->
-                <Grid Grid.Row="0" Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBox
-                        Grid.Row="0"
-                        ap:TextBoxHelper.ClearFilterCommand="{Binding ClearNewIconPathCommand}"
-                        ap:TextBoxHelper.EditType="Path"
-                        ap:TextBoxHelper.FilterByEnterKey="True"
-                        ap:TextBoxHelper.FilterCommand="{Binding RefreshNewInfoCommand}"
-                        ap:TextBoxHelper.IsFiltering="{Binding IsLoadingNewInfo}"
-                        ap:TextBoxHelper.RequireFilterAction="{Binding NewRequireRefresh}"
-                        ap:TextBoxHelper.RequireFilterButtonToolTip="{lex:BLoc GetIcon, TargetNullValue=Get Icon}"
-                        mm:TextBoxHelper.Watermark="{lex:BLoc FilePath, TargetNullValue=File Path}"
-                        IsReadOnly="{Binding IsWorking}"
-                        IsReadOnlyCaretVisible="True"
-                        Style="{StaticResource PathTextBox2}"
-                        Text="{Binding NewIconPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
-                    <mm:NumericUpDown
-                        Grid.Column="1"
-                        MinWidth="70"
-                        Margin="5,0"
-                        IsReadOnly="{Binding IsWorking}"
-                        Maximum="{Binding NewIconMaxIndex}"
-                        Minimum="0"
-                        NumericInputMode="Numbers"
-                        SelectAllOnFocus="True"
-                        Value="{Binding NewIconIndex, TargetNullValue=0}" />
-
-                    <Border
-                        x:Name="BrowsIconSplitButton"
-                        Grid.Column="2"
-                        MinWidth="50"
-                        Margin="5,0,0,0"
-                        BorderBrush="{DynamicResource ControlBorderBrush}"
-                        BorderThickness="1">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-
-                            <!--  Browse for icon file  -->
-                            <Button BorderThickness="0" 
-                                    Command="{Binding BrowseForIconCommand}"
-                                    ToolTip="Browse for an icon file">
-                                <Viewbox>
-                                    <iconPacks:PackIconFontAwesome Kind="FileSolid" />
-                                </Viewbox>
-                            </Button>
-
-                            <!--  Other commands (Arrow)  -->
-                            <Grid Grid.Column="2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Separator
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="2"
-                                    Margin="-12,4,6,4"
-                                    RenderTransformOrigin="0.5,0.5">
-                                    <Separator.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform />
-                                            <SkewTransform />
-                                            <RotateTransform Angle="90" />
-                                            <TranslateTransform />
-                                        </TransformGroup>
-                                    </Separator.RenderTransform>
-
-                                </Separator>
-                                <mm:DropDownButton
-                                    Grid.Column="1"
-                                    HorizontalContentAlignment="Stretch"
-                                    VerticalContentAlignment="Stretch"
-                                    BorderThickness="0" 
-                                    FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}">
-                                    <mm:HamburgerMenuItemCollection>
-                                        <mm:HamburgerMenuIconItem
-                                            Command="{Binding IconFromImageCommand}"
-                                            Label="Icon From Image"
-                                            ToolTip="Generate new Icon from an image">
-                                            <mm:HamburgerMenuIconItem.Icon>
-                                                <iconPacks:PackIconFontAwesome Kind="FileImageSolid" />
-                                            </mm:HamburgerMenuIconItem.Icon>
-                                        </mm:HamburgerMenuIconItem>
-                                    </mm:HamburgerMenuItemCollection>
-                                    <mm:DropDownButton.MenuStyle>
-                                        <Style BasedOn="{StaticResource MetroContextMenu}" TargetType="ContextMenu">
-                                            <Setter Property="HorizontalOffset" Value="-70" />
-                                        </Style>
-                                    </mm:DropDownButton.MenuStyle>
-                                    <mm:DropDownButton.ItemContainerStyle>
-                                        <Style TargetType="MenuItem">
-                                            <Setter Property="Command" Value="{Binding Command}" />
-                                            <!--<Setter Property="CommandParameter" Value="{Binding}" />-->
-                                            <Setter Property="HeaderTemplate">
-                                                <Setter.Value>
-                                                    <ItemContainerTemplate>
-                                                        <StackPanel Margin="0,5,0,5" Orientation="Horizontal">
-                                                            <ContentPresenter Content="{Binding Icon}" />
-                                                            <TextBlock
-                                                                Margin="2,0,0,0"
-                                                                HorizontalAlignment="Stretch"
-                                                                VerticalAlignment="Center"
-                                                                FontFamily="{DynamicResource LatoRegular}"
-                                                                FontSize="{DynamicResource FontSizeSmall}"
-                                                                FontWeight="Bold"
-                                                                Text="{Binding Label}"
-                                                                TextAlignment="Center" />
-                                                        </StackPanel>
-                                                    </ItemContainerTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                            <Setter Property="HorizontalAlignment" Value="Stretch" />
-                                            <Setter Property="Margin" Value="-15,0,0,0" />
-                                            <Setter Property="ToolTip" Value="{Binding ToolTip}" />
-                                        </Style>
-                                    </mm:DropDownButton.ItemContainerStyle>
-
-                                </mm:DropDownButton>
-
-
-                                <!--<Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>-->
-                                <!--<ToggleButton ContextMenu="{StaticResource NewIconCommandsContextMenu}"
-                                    x:Name="BrowsNewIconToggleButton"
-                                    BorderThickness="0"
-                                    Foreground="{DynamicResource GrayBrush1}"
-                                    IsChecked="False"
-                                    ToolTip="{lex:BLoc MainWindowMenu, TargetNullValue=Menu}">
-                                    <ToggleButton.Content>
-                                -->
-                                <!--<StackPanel Orientation="Horizontal">-->
-                                <!--
-                                        <Viewbox>
-                                            <Viewbox.Effect>
-                                                <DropShadowEffect
-                                                    BlurRadius="5"
-                                                    Direction="250"
-                                                    Opacity=".7"
-                                                    ShadowDepth="1" />
-                                            </Viewbox.Effect>
-                                            <iconPacks:PackIconFontAwesome Kind="AngleDownSolid" />
-                                        </Viewbox>
-                                    </ToggleButton.Content>
-
-                                </ToggleButton>
-                                <Popup x:Name="BrowsNewIconPopup"
-                                    HorizontalOffset="-60"
-                                    Placement="Bottom" IsOpen="{Binding IsChecked, ElementName=BrowsNewIconToggleButton}"
-                                    PlacementTarget="{Binding ElementName=BrowsIconSplitButton}"
-                                    RenderOptions.ClearTypeHint="Enabled"
-                                    SnapsToDevicePixels="True"
-                                    StaysOpen="False"
-                                    TextOptions.TextFormattingMode="Ideal"
-                                    VerticalOffset="0"   >
-
-                                </Popup>-->
-
-                            </Grid>
-
-                        </Grid>
-                    </Border>
-                    <!--<mm:SplitButton
-                        Grid.Column="2"
-                        MinWidth="50"
-                        Margin="5,0,0,0">
-                        <mm:SplitButton.Icon>
-                            <iconPacks:PackIconFontAwesome Kind="FileSolid" />
-                        </mm:SplitButton.Icon>
-                        <mm:SplitButton.ItemsSource>
-                            <mm:HamburgerMenuItemCollection>
-                                <mm:HamburgerMenuIconItem Label="Icon From Image" ToolTip="Generate new Icon from an image" Command="{Binding IconFromImageCommand}">
-                                    <mm:HamburgerMenuIconItem.Icon>
-                                        <iconPacks:PackIconFontAwesome Kind="FileImageSolid" />
-                                    </mm:HamburgerMenuIconItem.Icon>
-                                </mm:HamburgerMenuIconItem>
-                            </mm:HamburgerMenuItemCollection>
-                        </mm:SplitButton.ItemsSource>
-                    </mm:SplitButton>-->
-                </Grid>
-
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-
-                    <controls:IconImageControl
-                        Grid.Column="0"
-                        VerticalAlignment="Top"
-                        IconInfo="{Binding NewIconInfo}"
-                        IsLoading="{Binding IsLoadingNewInfo}" />
-
-                    <Grid Grid.Column="1" Margin="5">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <!--  New Icon Options  -->
-                        <!--<GroupBox Header="Options">-->
-
-                        <StackPanel Margin="10,0">
-                            <StackPanel.Resources>
-                                <Style BasedOn="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" TargetType="mm:ToggleSwitch">
-                                    <Setter Property="ContentTemplate">
-                                        <Setter.Value>
-                                            <ItemContainerTemplate>
-                                                <!--<Border
-                                                        Padding="3"
-                                                        BorderBrush="{DynamicResource GrayBrush6}"
-                                                        BorderThickness="0"
-                                                        CornerRadius="5">-->
-                                                <TextBlock Text="{Binding}" TextWrapping="Wrap" />
-                                                <!--</Border>-->
-                                            </ItemContainerTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                </Style>
-                            </StackPanel.Resources>
-                            <mm:ToggleSwitch
-                                Margin="0,5"
-                                ContentDirection="RightToLeft"
-                                IsChecked="{Binding Source={x:Static serv:SettingsService.Instance}, Path=CopyIconToFolder}"
-                                OffLabel="{lex:BLoc CopyIconToFolderOff, TargetNullValue={}New Icon wont be copied to the target folder}"
-                                OnLabel="{lex:BLoc CopyIconToFolderOn, TargetNullValue={}New Icon will be copied to the target folder}"
-                                OnSwitchBrush="{DynamicResource WordGreenBrush}"
-                                ToolTip="{lex:BLoc CopyIconToFolder, TargetNullValue={}Copy new icon to the target folder}" />
-
-                            <mm:ToggleSwitch
-                                Height="Auto"
-                                Margin="0,5"
-                                VerticalAlignment="Stretch"
-                                ContentDirection="RightToLeft"
-                                IsChecked="{Binding Source={x:Static serv:SettingsService.Instance}, Path=HideIcon}"
-                                OffLabel="{lex:BLoc HideIconOff, TargetNullValue={}New Icon file wont be hidden If it exists in the target folder}"
-                                OnLabel="{lex:BLoc HideIconOn, TargetNullValue={}New Icon file will be hidden}"
-                                OnSwitchBrush="{DynamicResource WordRedBrush}"
-                                ToolTip="{lex:BLoc HideIcon, TargetNullValue={}Hide the Icon file if it exists in the target folder}" />
-
-                        </StackPanel>
-                        <!--</GroupBox>-->
-
-                        <!--  New Icon Apply Command  -->
-                        <Button
-                            x:Name="ApplyButton"
-                            Grid.Row="1"
-                            Margin="0,10,10,10"
-                            HorizontalAlignment="Right"
-                            Command="{Binding ApplyNewIconCommand}"
-                            IsEnabled="{Binding NewIconInfo, Converter={conv:BoolWhenNullConverter}}"
-                            Style="{StaticResource MainCommandButtonStyle}">
-                            <Grid Focusable="False">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <iconPacks:PackIconFontAwesome
-                                    Grid.Row="0"
-                                    Margin="0,3,0,0"
-                                    Padding="-5"
-                                    HorizontalAlignment="Center"
-                                    Effect="{StaticResource IconShadowEffect}"
-                                    Focusable="False"
-                                    Kind="CheckSolid" />
-                                <TextBlock
-                                    Grid.Row="1"
-                                    Margin="0,3"
-                                    HorizontalAlignment="Center"
-                                    Effect="{StaticResource IconShadowEffect}"
-                                    Focusable="False"
-                                    FontSize="{StaticResource FontSizeLarge}"
-                                    Text="Apply" />
-                            </Grid>
-                        </Button>
-                    </Grid>
-                </Grid>
-            </Grid>
-        </GroupBox>
+        <controls:PageHost CurrentPage="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}}" CurrentPageViewModel="{Binding CurrentPageViewModel, Source={x:Static vm:ApplicationViewModel.Instance}}" />
     </Grid>
 </mm:MetroWindow>

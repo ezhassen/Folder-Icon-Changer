@@ -155,7 +155,13 @@ namespace FolderIconChangerWPF.Services
 
         public bool IsTopMost
         {
-            get { return Properties.Settings.Default.TopMost; }
+            get
+            {
+                var val = Properties.Settings.Default.TopMost;
+                var mainW = Application.Current.MainWindow;
+                if (mainW != null && val != mainW.Topmost) mainW.Topmost = val;
+                return val;
+            }
             set
             {
                 if (Properties.Settings.Default.TopMost != value)

@@ -87,6 +87,7 @@
     <Compile Include="AttachedProperties\BaseAttachedProperty.cs" />
     <Compile Include="AttachedProperties\BorderAttachedProperties.cs" />
     <Compile Include="AttachedProperties\ButtonHelper.cs" />
+    <Compile Include="AttachedProperties\ContextMenuHelper.cs" />
     <Compile Include="AttachedProperties\ControlUnload.cs" />
     <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
     <Compile Include="AttachedProperties\HandleControlUnload.cs" />
@@ -104,6 +105,10 @@
     <Compile Include="AttachedProperties\TextBoxHelper\Filtering.cs" />
     <Compile Include="AttachedProperties\TreeViewItems.cs" />
     <Compile Include="AttachedProperties\WindowClosing.cs" />
+    <Compile Include="Controls\PageHost.xaml.cs">
+      <DependentUpon>PageHost.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Classes\IconInfoHelperClasses.cs" />
     <Compile Include="Classes\OneTaskHandler.cs" />
     <Compile Include="Classes\TaskOperationResult.cs" />
@@ -112,6 +117,15 @@
     </Compile>
     <Compile Include="Interfaces\IHandleParentWindowClosing.cs" />
     <Compile Include="Interfaces\ITreeItem.cs" />
+    <Compile Include="Pages\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\ISettingsService.cs" />
     <Compile Include="Services\SettingsService.cs" />
     <Compile Include="Themes\ThemeHelper.cs" />
@@ -128,13 +142,20 @@
     <Compile Include="ValueConverters\ValueWhenConverter.cs" />
     <Compile Include="ValueConverters\ValueWhenStringConverter.cs" />
     <Compile Include="ValueConverters\VisibilityConverters.cs" />
+    <Compile Include="ViewModels\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
     <Compile Include="ViewModels\Base\DelegateCommand.cs" />
     <Compile Include="ViewModels\Base\IHavePassword.cs" />
     <Compile Include="ViewModels\Base\RelayCommand.cs" />
     <Compile Include="ViewModels\Base\RelayParameterizedCommand.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="Win32\FolderBrowserDialog.cs" />
+    <Compile Include="Win32\NativeMethods.cs" />
     <Page Include="Controls\IconImageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PageHost.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -165,6 +186,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AboutPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Buttons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -278,6 +311,7 @@
     <Resource Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Enums\" />
     <Folder Include="Images\" />
     <Folder Include="Views\" />
     <Folder Include="Windows\" />

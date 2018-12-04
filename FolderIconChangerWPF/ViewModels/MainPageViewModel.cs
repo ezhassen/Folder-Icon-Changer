@@ -19,6 +19,22 @@ namespace FolderIconChangerWPF.ViewModels
 {
     public class MainPageViewModel : BaseViewModel
     {
+
+        private static MainPageViewModel _instance;
+        public static MainPageViewModel Instance
+        {
+            get
+            {
+                if (_instance == null) _instance = new MainPageViewModel();
+                return _instance;
+            }
+
+            set
+            {
+                _instance = value;
+            }
+        }
+
         private bool _IsWorking;
 
         public bool IsWorking
@@ -196,7 +212,7 @@ namespace FolderIconChangerWPF.ViewModels
         public DelegateCommand CurrentGenBestFitCommand
             => _CurrentGenBestFitCommand ?? (_CurrentGenBestFitCommand = new DelegateCommand(async () =>
             {
-               await CurrentGenBestFit();
+                await CurrentGenBestFit();
             }, (param) => !IsWorking));
 
         private async Task RefreshCurrentInfo()
@@ -352,8 +368,32 @@ namespace FolderIconChangerWPF.ViewModels
         void BrowseForTargetFolder()
         {
             if (IsWorking) return;
+            IsWorking = true;
+            try
+            {
+                var dialog = new Win32.FolderBrowserDialog
+                {
+                    ShowEditBox = true,
+                    BrowseShares = true,
+                    RootPath = TargetFolder,
+                    RootType = Directory.Exists(TargetFolder) ? Win32.RootType.Path : Win32.RootType.SpecialFolder,
+                    RootSpecialFolder = Environment.SpecialFolder.Desktop,
+                    ShowStatusText = true,
+                    BrowseFiles = false
+                };
+                if (dialog.ShowDialog() == true)
+                {
+                    IsWorking = false;
+                    TargetFolder = dialog.SelectedPath;
+                    RefreshCurrentInfoCommand.Execute(null);
+                }
+            }
+            finally
+            {
+                IsWorking = false;
+            }
+
             //var dialog = Microsoft.Win32.
-            RefreshCurrentInfoCommand.Execute(null);
         }
 
         #endregion CurrentIconInfo
