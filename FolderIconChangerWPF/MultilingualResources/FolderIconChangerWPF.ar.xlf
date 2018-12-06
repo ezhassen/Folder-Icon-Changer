@@ -286,7 +286,7 @@ Continue?</source>
         </trans-unit>
         <trans-unit id="GetFolderIcon" translate="yes" xml:space="preserve">
           <source>Get Folder Icon</source>
-          <target state="translated">جلف أيقونة المجلد</target>
+          <target state="translated">جلب أيقونة المجلد</target>
         </trans-unit>
         <trans-unit id="CopyIconToFolderOff" translate="yes" xml:space="preserve">
           <source>New Icon wont be copied to the target folder</source>
