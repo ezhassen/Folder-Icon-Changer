@@ -93,6 +93,7 @@
     <Compile Include="AttachedProperties\HandleControlUnload.cs" />
     <Compile Include="AttachedProperties\IsBusyProperty.cs" />
     <Compile Include="AttachedProperties\MoveWindowByMouseDown.cs" />
+    <Compile Include="AttachedProperties\MultiBindingHelper.cs" />
     <Compile Include="AttachedProperties\NoFrameHistory.cs" />
     <Compile Include="AttachedProperties\NumberOnly.cs" />
     <Compile Include="AttachedProperties\OnParentWindowClosing.cs" />
@@ -105,6 +106,9 @@
     <Compile Include="AttachedProperties\TextBoxHelper\Filtering.cs" />
     <Compile Include="AttachedProperties\TreeViewItems.cs" />
     <Compile Include="AttachedProperties\WindowClosing.cs" />
+    <Compile Include="Controls\EzzSplitButton.xaml.cs">
+      <DependentUpon>EzzSplitButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PageHost.xaml.cs">
       <DependentUpon>PageHost.xaml</DependentUpon>
     </Compile>
@@ -140,6 +144,7 @@
     <Compile Include="ValueConverters\StringFormatConverter.cs" />
     <Compile Include="ValueConverters\StringSplitConverter.cs" />
     <Compile Include="ValueConverters\ValueWhenConverter.cs" />
+    <Compile Include="ValueConverters\ValueWhenFolderExistsConverter.cs" />
     <Compile Include="ValueConverters\ValueWhenStringConverter.cs" />
     <Compile Include="ValueConverters\VisibilityConverters.cs" />
     <Compile Include="ViewModels\ApplicationViewModel.cs" />
@@ -151,6 +156,10 @@
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="Win32\FolderBrowserDialog.cs" />
     <Compile Include="Win32\NativeMethods.cs" />
+    <Page Include="Controls\EzzSplitButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\IconImageControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

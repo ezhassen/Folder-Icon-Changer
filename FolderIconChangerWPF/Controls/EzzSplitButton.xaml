@@ -1,0 +1,54 @@
+﻿<local:EzzSplitButtonBase
+    x:Class="FolderIconChangerWPF.Controls.EzzSplitButton"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:local="clr-namespace:FolderIconChangerWPF.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="60"
+    d:DesignWidth="100"
+    BorderBrush="{DynamicResource ControlBorderBrush}"
+    BorderThickness="1"
+    mc:Ignorable="d">
+
+    <!--
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        BorderThickness="1"
+        BorderBrush="{DynamicResource ControlBorderBrush}"
+    -->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="2" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Button
+            x:Name="PART_Button"
+            Grid.Column="0"
+            x:FieldModifier="public"
+            BorderThickness="0" ToolTip="{Binding ButtonToolTip, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:EzzSplitButtonBase}}"
+            Command="{Binding ButtonCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:EzzSplitButtonBase}}"
+            CommandParameter="{Binding ButtonCommandParameter, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:EzzSplitButtonBase}}"
+            Content="{Binding ButtonContent, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:EzzSplitButtonBase}}" />
+
+        <Border
+            Grid.Column="1"
+            Margin="0,2" 
+            Background="{DynamicResource GrayBrush2}"
+            CornerRadius="1" />
+
+        <ToggleButton
+            x:Name="PART_ToggleButton"
+            Grid.Column="2"
+            x:FieldModifier="public"
+            BorderThickness="0">
+            <ToggleButton.Content>
+                <Viewbox>
+                    <iconPacks:PackIconFontAwesome Kind="AngleDownSolid" Opacity=".9" />
+                </Viewbox>
+            </ToggleButton.Content>
+        </ToggleButton>
+    </Grid>
+</local:EzzSplitButtonBase>

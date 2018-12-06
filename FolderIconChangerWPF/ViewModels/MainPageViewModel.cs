@@ -14,6 +14,8 @@ using static FolderIconChangerWPF.IconInfoCore.IconHelper;
 using static FolderIconChangerWPF.LocalizationProvider;
 using Microsoft.Win32;
 using FolderIconChangerWPF.Helpers;
+using System.Diagnostics;
+using System.ComponentModel;
 
 namespace FolderIconChangerWPF.ViewModels
 {
@@ -34,6 +36,22 @@ namespace FolderIconChangerWPF.ViewModels
                 _instance = value;
             }
         }
+
+
+        Window _OwnerWindow;
+        public Window OwnerWindow
+        {
+            get { return _OwnerWindow; }
+            set
+            {
+                if (_OwnerWindow != value)
+                {
+                    _OwnerWindow = value;
+                    OnPropertyChanged(); //uses CallerMemberName
+                }
+            }
+        }
+
 
         private bool _IsWorking;
 
@@ -215,6 +233,45 @@ namespace FolderIconChangerWPF.ViewModels
                 await CurrentGenBestFit();
             }, (param) => !IsWorking));
 
+
+        DelegateCommand _CurrentOpenTargetFolderCommand;
+        public DelegateCommand CurrentOpenTargetFolderCommand
+            => _CurrentOpenTargetFolderCommand ?? (_CurrentOpenTargetFolderCommand = new DelegateCommand(() =>
+            {
+                OpenFolder(TargetFolder);
+            }, (param) => !IsWorking));
+
+        DelegateCommand _CurrentIconOpenContainingFolderCommand;
+        public DelegateCommand CurrentIconOpenContainingFolderCommand
+            => _CurrentIconOpenContainingFolderCommand ?? (_CurrentIconOpenContainingFolderCommand = new DelegateCommand(() =>
+            {
+                OpenContainingFolder(GetFileFullPathIfInFolder(TargetFolder, CurrentIconPath));
+            }, (param) => !IsWorking));
+
+        void OpenContainingFolder(string file)
+        {
+            if (string.IsNullOrEmpty(file)) return;
+            OpenFolder(Path.GetDirectoryName(file));
+        }
+        void OpenFolder(string folder)
+        {
+            if (!Directory.Exists(folder)) return;
+
+            //%SystemRoot%\explorer.exe
+            IsWorking = true;
+            try
+            {
+                var process = new Process();
+                process.StartInfo.FileName = folder;
+                process.StartInfo.UseShellExecute = true;
+                process.Start();
+            }
+            finally
+            {
+                IsWorking = false;
+            }
+        }
+
         private async Task RefreshCurrentInfo()
         {
             if (IsWorking) return;
@@ -237,25 +294,50 @@ namespace FolderIconChangerWPF.ViewModels
                  Exception Exception = null;
                  string IconFilePath = null;
                  int? IconIndex = null;
+                 bool isDefaultIcon = false;
+                 Icon fDefaultIcon = null;
+
                  try
                  {
                      FIInfo = Ezz_Helper.Files.GetInfo.GetDirectoryInfo.GetFolderIconInfo(TargetFolder);
+                     isDefaultIcon = (FIInfo is null || FIInfo.SourceIcon is null);
+
+                     if (GetDefaultFolderIcon && isDefaultIcon)
+                     {
+                         var Shell32File = Ezz_Helper.Files.GetInfo.GetFileInfo.GetShell32_dll_FullPath();
+                         //Folder Icon Index is 3 or 4
+
+                         fDefaultIcon = IconExtractor.ExtractIcon(Shell32File, 3);
+                     }
                  }
                  catch (Exception ex)
                  {
                      Exception = ex;
                      //MessageBox.Show(ex.ToString());
                  }
+                 if (isDefaultIcon)
+                 {
+                     if (_currentIconInfo != null) _currentIconInfo.Dispose();
+                     if (fDefaultIcon is null)
+                     {
+                         _currentIconInfo = null;
+                     }
+                     else
+                     {
+                         _currentIconInfo = new IconInfo(fDefaultIcon);
+                     }
 
-                 if (FIInfo == null)
+                     return Tuple.Create(_currentIconInfo, IconFilePath, IconIndex, Exception);
+                 }
+                 if (FIInfo is null)
                  {
                      _currentIconInfo = null;
                      return Tuple.Create(_currentIconInfo, IconFilePath, IconIndex, Exception);
                  }
 
-                 if (FIInfo.SourceIcon == null)
+                 if (FIInfo.SourceIcon is null)
                  {
-                     if (_currentIconInfo != null) _currentIconInfo.Dispose();
+                     if (!(_currentIconInfo is null)) _currentIconInfo.Dispose();
                      _currentIconInfo = null;
                  }
                  else
@@ -270,7 +352,7 @@ namespace FolderIconChangerWPF.ViewModels
             if (tRes.Item4 != null)
             {
                 //TODO: Handle Exception
-                MessageBox.Show(tRes.Item4.ToString());
+                MessageBox.Show(OwnerWindow, tRes.Item4.ToString());
             }
             else
             {
@@ -294,11 +376,26 @@ namespace FolderIconChangerWPF.ViewModels
             this.CurrentRequireRefresh = false;
         }
 
+
+        bool _GetDefaultFolderIcon = true;
+        public bool GetDefaultFolderIcon
+        {
+            get { return _GetDefaultFolderIcon; }
+            set
+            {
+                if (_GetDefaultFolderIcon != value)
+                {
+                    _GetDefaultFolderIcon = value;
+                    OnPropertyChanged(); //uses CallerMemberName
+                }
+            }
+        }
+
         private async Task CurrentGenBestFit()
         {
             if (IsWorking || CurrentIconInfo is null) return;
             var msgGenBestFit = GetLocalizedString("msgGenBestFit");
-            if (MessageBox.Show(msgGenBestFit, GetLocalizedString("MainFormTitle"), MessageBoxButton.YesNo, MessageBoxImage.Information) != MessageBoxResult.Yes) return;
+            if (MessageBox.Show(OwnerWindow, msgGenBestFit, GetLocalizedString("MainFormTitle"), MessageBoxButton.YesNo, MessageBoxImage.Information) != MessageBoxResult.Yes) return;
             await RefreshCurrentInfo();
             //IsWorking = true;
             StatusMsg = GetLocalizedString("Working");
@@ -330,7 +427,7 @@ namespace FolderIconChangerWPF.ViewModels
             else if (taskRes.Exception != null)
             {
                 //TODO: Handle Exception msg
-                MessageBox.Show(taskRes.Exception.ToString());
+                MessageBox.Show(OwnerWindow, taskRes.Exception.ToString());
             }
         }
 
@@ -339,7 +436,7 @@ namespace FolderIconChangerWPF.ViewModels
             if (IsWorking) return;
             if (Directory.Exists(TargetFolder))
             {
-                if (MessageBox.Show(GetLocalizedString("ResetToDefaultIconMsg"), GetLocalizedString("MainFormTitle"), MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes) return;
+                if (MessageBox.Show(OwnerWindow, GetLocalizedString("ResetToDefaultIconMsg"), GetLocalizedString("MainFormTitle"), MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes) return;
                 IsWorking = true;
                 var TaskRes = await TaskResult.RunAsync(() =>
                 {
@@ -353,7 +450,7 @@ namespace FolderIconChangerWPF.ViewModels
                 }
                 else if (TaskRes.Exception != null)
                 {
-                    MessageBox.Show(TaskRes.Exception.Message);
+                    MessageBox.Show(OwnerWindow, TaskRes.Exception.Message);
                 }
             }
         }
@@ -375,12 +472,12 @@ namespace FolderIconChangerWPF.ViewModels
                 {
                     ShowEditBox = true,
                     BrowseShares = true,
-                    RootPath = TargetFolder,
-                    RootType = Directory.Exists(TargetFolder) ? Win32.RootType.Path : Win32.RootType.SpecialFolder,
+                    RootType = Win32.RootType.SpecialFolder,
                     RootSpecialFolder = Environment.SpecialFolder.Desktop,
                     ShowStatusText = true,
                     BrowseFiles = false
                 };
+                if (Directory.Exists(TargetFolder)) dialog.SelectedPath = TargetFolder;
                 if (dialog.ShowDialog() == true)
                 {
                     IsWorking = false;
@@ -724,7 +821,7 @@ namespace FolderIconChangerWPF.ViewModels
             if (!File.Exists(SourceImageFile))
             {
                 IsGeneratingFromImage = false;
-                MessageBox.Show(GetLocalizedString("FileNotExists"));
+                MessageBox.Show(OwnerWindow, GetLocalizedString("FileNotExists"));
                 return;
             }
             IsGeneratingFromImage = true;
@@ -763,7 +860,7 @@ namespace FolderIconChangerWPF.ViewModels
                 }
                 else if (tRes.Exception != null)
                 {
-                    MessageBox.Show(tRes.Exception.Message);
+                    MessageBox.Show(OwnerWindow, tRes.Exception.Message);
                 }
             }
             IsGeneratingFromImage = false;
@@ -788,7 +885,7 @@ namespace FolderIconChangerWPF.ViewModels
             }
             else if (TaskRes.Exception != null)
             {
-                MessageBox.Show(TaskRes.Exception.Message);
+                MessageBox.Show(OwnerWindow, TaskRes.Exception.Message);
             }
         }
 

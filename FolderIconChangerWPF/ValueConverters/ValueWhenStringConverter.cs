@@ -58,5 +58,13 @@ namespace FolderIconChangerWPF.ValueConverters
         public bool IgnoreCase { get; set; } = true;
     }
 
-    public class ValueWhenStringConverter : ValueWhenStringConverterBase<ValueWhenStringConverter> { }
+    public class ValueWhenStringConverter : ValueWhenStringConverterBase<object> { }
+    public class BoolWhenStringConverter : ValueWhenStringConverterBase<bool>
+    {
+        public BoolWhenStringConverter()
+        {
+            this.Value = false;
+            this.Otherwise = true;
+        }
+    }
 }

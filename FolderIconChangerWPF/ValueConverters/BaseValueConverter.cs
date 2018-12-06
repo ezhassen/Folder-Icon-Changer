@@ -9,7 +9,7 @@ namespace FolderIconChangerWPF.ValueConverters
     /// <summary>
     /// A base value converter that allows direct XAML usage
     /// </summary>
-    public abstract class BaseValueConverter : MarkupExtension, IValueConverter
+    public abstract class BaseValueConverter : MarkupExtension, IValueConverter, IMultiValueConverter
     {
         //where T : class, new()
         #region Private Members
@@ -45,7 +45,7 @@ namespace FolderIconChangerWPF.ValueConverters
         /// <param name="parameter"></param>
         /// <param name="culture"></param>
         /// <returns></returns>
-        public abstract object Convert(object value, Type targetType, object parameter, CultureInfo culture);
+        public virtual object Convert(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 
         /// <summary>
         /// The method to convert a value back to it's source type
@@ -55,11 +55,21 @@ namespace FolderIconChangerWPF.ValueConverters
         /// <param name="parameter"></param>
         /// <param name="culture"></param>
         /// <returns></returns>
-        public abstract object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture);
+        public virtual object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 
         #endregion
+
+        #region IMultiValueConverter
+
+        public virtual object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+        public virtual object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => throw new NotImplementedException(); 
+
+        #endregion
+
+
         public bool Debug { get; set; } = false;
     }
+
     /// <summary>
     /// A base value converter that allows direct XAML usage (uses static Converter)
     /// </summary>

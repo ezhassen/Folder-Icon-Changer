@@ -6,9 +6,12 @@
     xmlns:conv="clr-namespace:FolderIconChangerWPF.ValueConverters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:input="clr-namespace:System.Windows.Input;assembly=System"
     xmlns:lex="http://wpflocalizeextension.codeplex.com"
     xmlns:local="clr-namespace:FolderIconChangerWPF.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:sysCollections="clr-namespace:System.Collections;assembly=mscorlib"
     d:DesignHeight="128"
     d:DesignWidth="128"
     lex:LocalizeDictionary.DesignCulture="en"
@@ -20,10 +23,11 @@
     mc:Ignorable="d">
 
     <Grid DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:IconImageControlBase}}">
-        <Image x:Name="ImageControl" 
-               Stretch="{Binding ImageStretch}"
-               StretchDirection="{Binding ImageStretchDirection}"
-               Source="{Binding ImageSource}" />
+        <Image
+            x:Name="ImageControl"
+            Source="{Binding ImageSource}"
+            Stretch="{Binding ImageStretch}"
+            StretchDirection="{Binding ImageStretchDirection}" />
 
         <Grid Visibility="{Binding IsLoading, Converter={conv:VisibilityWhenTrueConverter}}">
             <Viewbox
@@ -52,7 +56,7 @@
                 ap:AnimateFadeInProperty.Value="{Binding RelativeSource={RelativeSource Self}, Path=Visibility, Converter={conv:BoolWhenVisibilityConverter}}"
                 Background="{DynamicResource SemiTransparentGreyBrush}"
                 CornerRadius="5"
-                Visibility="Visible">
+                Visibility="Hidden">
 
                 <Border.Resources>
                     <!--<DropShadowEffect
@@ -91,14 +95,37 @@
 
                         />-->
                     </Button>
-                    <Button
-                        Command="{Binding GenerateBestFitCommand}"
-                        ToolTip="{lex:BLoc GenerateBestFit, TargetNullValue={}Generate Best Icon Fit}"
-                        Visibility="{Binding GenerateBestFitCommand, Converter={conv:VisibilityWhenNullConverter  Value=Collapsed, Otherwise=Visible}}">
+                    <Button Command="{Binding GenerateBestFitCommand}" ToolTip="{lex:BLoc GenerateBestFit, TargetNullValue={}Generate Best Icon Fit}">
+
+                        <!--  Visibility="{Binding GenerateBestFitCommand, Converter={conv:VisibilityWhenNullConverter  Value=Collapsed, Otherwise=Visible}}"  -->
                         <iconPacks:PackIconFontAwesome Kind="ExpandSolid" />
+
                         <!--<iconPacks:PackIconMaterial Kind="FileExport"
                             Effect="{StaticResource IconDropShadowEffect}"
                         />-->
+                        <!--  <x:Array  -->
+                        <Button.Visibility>
+                            <MultiBinding>
+                                <MultiBinding.Converter>
+                                    <conv:VisibilityWhenConverter
+                                        MultiWhenAny="True"
+                                        Otherwise="Visible"
+                                        Value="Collapsed">
+                                        <conv:VisibilityWhenConverter.MultiWhen>
+                                            <sysCollections:ArrayList>
+                                                <sys:Boolean>False</sys:Boolean>
+                                                <!--OR-->
+                                                <x:Null />
+                                            </sysCollections:ArrayList>
+                                        </conv:VisibilityWhenConverter.MultiWhen>
+                                    </conv:VisibilityWhenConverter>
+                                </MultiBinding.Converter>
+
+                                <Binding Path="AllowToGenerateBestFit" />
+                                <Binding Path="GenerateBestFitCommand" />
+                                <!--<Binding Path="GenerateBestFitCommand"/>-->
+                            </MultiBinding>
+                        </Button.Visibility>
                     </Button>
                 </StackPanel>
             </Border>

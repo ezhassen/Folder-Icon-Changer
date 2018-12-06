@@ -115,6 +115,15 @@ namespace FolderIconChangerWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Browse for an icon file.
+        /// </summary>
+        internal static string BrowseForAnIconFile {
+            get {
+                return ResourceManager.GetString("BrowseForAnIconFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to By Ezz Hasan.
         /// </summary>
         internal static string ByEzhassen {
@@ -259,6 +268,15 @@ namespace FolderIconChangerWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generate new Icon from an image.
+        /// </summary>
+        internal static string GenerateNewIconFromAnImage {
+            get {
+                return ResourceManager.GetString("GenerateNewIconFromAnImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Get Folder Icon.
         /// </summary>
         internal static string GetFolderIcon {
@@ -387,6 +405,24 @@ namespace FolderIconChangerWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open Containing Folder.
+        /// </summary>
+        internal static string OpenContainingFolder {
+            get {
+                return ResourceManager.GetString("OpenContainingFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open folder in explorer.
+        /// </summary>
+        internal static string OpenFolderInExplorer {
+            get {
+                return ResourceManager.GetString("OpenFolderInExplorer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Options.
         /// </summary>
         internal static string Options {
@@ -410,6 +446,15 @@ namespace FolderIconChangerWPF.Properties {
         internal static string Refresh {
             get {
                 return ResourceManager.GetString("Refresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        internal static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
             }
         }
         
@@ -626,6 +671,15 @@ namespace FolderIconChangerWPF.Properties {
         internal static string SelectAnyImageToBeConverted {
             get {
                 return ResourceManager.GetString("SelectAnyImageToBeConverted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Target Folder.
+        /// </summary>
+        internal static string SelectTargetFolder {
+            get {
+                return ResourceManager.GetString("SelectTargetFolder", resourceCulture);
             }
         }
         

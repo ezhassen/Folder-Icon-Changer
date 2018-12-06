@@ -37,7 +37,7 @@
     <value>إغلاق</value>
   </data>
   <data name="CopyIconToFolder" xml:space="preserve">
-    <value>نسخ الأيقونة للمجلد</value>
+    <value>نسخ الأيقونة للمجلد الهدف</value>
   </data>
   <data name="CurrentIcon" xml:space="preserve">
     <value>الأيقونة الحالية</value>
@@ -62,7 +62,7 @@
     <value>الحصول على أيقونة</value>
   </data>
   <data name="HideIcon" xml:space="preserve">
-    <value>إخفاء الملف إذا كان موجوداً في المجلد الهدف</value>
+    <value>إخفاء ملف الأيقونة إذا كان موجوداً في المجلد الهدف</value>
   </data>
   <data name="IconFromImage" xml:space="preserve">
     <value>أيقونة من صورة</value>
@@ -216,5 +216,41 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>الإعدادات</value>
+  </data>
+  <data name="FilePath" xml:space="preserve">
+    <value>مكان الملف</value>
+  </data>
+  <data name="GetFolderIcon" xml:space="preserve">
+    <value>جلف أيقونة المجلد</value>
+  </data>
+  <data name="CopyIconToFolderOff" xml:space="preserve">
+    <value>لن يتم نسخ الأيقونة الجديدة إلى المجلد الهدف</value>
+  </data>
+  <data name="CopyIconToFolderOn" xml:space="preserve">
+    <value>سيتم نسخ الأيقونة الجديدة إلى المجلد الهدف</value>
+  </data>
+  <data name="HideIconOff" xml:space="preserve">
+    <value>لن يتم إخفاء الأيقونة الجديدة</value>
+  </data>
+  <data name="HideIconOn" xml:space="preserve">
+    <value>سيتم إخفاء الأيقونة الجديدة إذا كانت موجودة في المجلد الهدف</value>
+  </data>
+  <data name="OpenContainingFolder" xml:space="preserve">
+    <value>فتح المجلد الذي يحتويه</value>
+  </data>
+  <data name="BrowseForAnIconFile" xml:space="preserve">
+    <value>حدد ملف الأيقونة</value>
+  </data>
+  <data name="GenerateNewIconFromAnImage" xml:space="preserve">
+    <value>تحويل صورة إلى أيقونة</value>
+  </data>
+  <data name="OpenFolderInExplorer" xml:space="preserve">
+    <value>فتح المجلد</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>إعادة تعيين</value>
+  </data>
+  <data name="SelectTargetFolder" xml:space="preserve">
+    <value>حدد المجلد الهدف</value>
   </data>
 </root>

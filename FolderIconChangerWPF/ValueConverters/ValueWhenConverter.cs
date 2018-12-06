@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -50,6 +50,27 @@ Note, if you want to use a value of Null, use the following syntax:
     /// </summary>
     public abstract class ValueWhenConverterBase<WhenType, ValueType> : BaseValueConverter
     {
+        /// <summary>
+        /// This object is the result of the binding conversion if the originally bound value is equivalent to the value of the When property.
+        /// </summary>
+        public virtual ValueType Value { get; set; } = default(ValueType);
+        /// <summary>
+        /// This object is the result of the binding conversion if the originally bound value is NOT equivalent to the value of the When property.
+        /// </summary>
+        public virtual ValueType Otherwise { get; set; } = default(ValueType);
+        /// <summary>
+        /// This is the object evaluated for equivalence with the bound value. The bound value is technically an input parameter to this converter.
+        /// </summary>
+        public virtual WhenType When { get; set; } = default(WhenType);
+        public virtual WhenType OtherwiseValueBack { get; set; } = default(WhenType);
+
+        public IList MultiWhen { get; set; }
+        /// <summary>
+        /// Checks if any value in object[] values contains defined MultiWhen values.
+        /// Otherwise All object[] values must be in MultiWhen.
+        /// </summary>
+        public bool MultiWhenAny { get; set; }
+
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (Debug) Debugger.Break();
@@ -85,24 +106,83 @@ Note, if you want to use a value of Null, use the following syntax:
                 return OtherwiseValueBack;
             }
         }
-        /// <summary>
-        /// This object is the result of the binding conversion if the originally bound value is equivalent to the value of the When property.
-        /// </summary>
-        public virtual ValueType Value { get; set; } = default(ValueType);
-        /// <summary>
-        /// This object is the result of the binding conversion if the originally bound value is NOT equivalent to the value of the When property.
-        /// </summary>
-        public virtual ValueType Otherwise { get; set; } = default(ValueType);
-        /// <summary>
-        /// This is the object evaluated for equivalence with the bound value. The bound value is technically an input parameter to this converter.
-        /// </summary>
-        public virtual WhenType When { get; set; } = default(WhenType);
-        public virtual WhenType OtherwiseValueBack { get; set; } = default(WhenType);
+
+        //
+        public override object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (Debug) Debugger.Break();
+
+            try
+            {
+                if (values is null) return Otherwise;
+                if (MultiWhen is null)
+                {
+                    var whenObj = When as object;
+                    if (MultiWhenAny)
+                    {
+                        if (values.Any(val => val.Equals(When))) return Value;
+                    }
+                    else
+                    {
+                        if (values.All(val => val.Equals(When))) return Value;
+                    }
+
+                    return Otherwise;
+                }
+
+                if (MultiWhenAny)
+                {
+                    if (values.Any(val => MultiWhen.Contains(val))) return Value;
+
+                    //foreach (var val in values)
+                    //{
+                    //    if (MultiWhen.Contains(val)) return Value;
+                    //}
+                    return Otherwise;
+                }
+                else //And
+                {
+                    if (values.All(val => MultiWhen.Contains(val))) return Value;
+
+                    //foreach (var val in values)
+                    //{
+                    //    if (!MultiWhen.Contains(val)) return Otherwise;
+                    //}
+                    return Value;
+                }
+            }
+            catch
+            {
+                return Otherwise;
+            }
+
+        }
+
+
     }
     public class ValueWhenConverter : ValueWhenConverterBase<object, object> { }
     public class ValueWhenBoolConverter : ValueWhenConverterBase<bool, object> { }
     public class ValueWhenBoolConverterInt : ValueWhenConverterBase<bool, int> { }
     public class ValueWhenNullConverter : ValueWhenConverterBase<object, object> { }
+
+    public class BoolWhenBoolConverter : ValueWhenConverterBase<bool, bool>
+    {
+        public BoolWhenBoolConverter()
+        {
+            When = true;
+            Value = true;
+            Otherwise = false;
+        }
+    }
+    public class BoolWhenConverter : ValueWhenConverterBase<object, bool>
+    {
+        public BoolWhenConverter()
+        {
+            Value = true;
+            Otherwise = false;
+        }
+    }
+
     public class BoolWhenNullConverter : ValueWhenConverterBase<object, bool>
     {
         public BoolWhenNullConverter()

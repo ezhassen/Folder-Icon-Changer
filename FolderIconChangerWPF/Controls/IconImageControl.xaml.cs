@@ -20,7 +20,7 @@ namespace FolderIconChangerWPF.Controls
 
         private void IconImageControlBase_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (IsLoading || ImageSource is null) return;
+            if (IsLoading || IsNullImage || ImageSource is null) return;
             PART_CommandsPanel.Visibility = Visibility.Visible;
         }
 
@@ -45,9 +45,12 @@ namespace FolderIconChangerWPF.Controls
             set { SetValue(IconInfoProperty, value); }
         }
 
+
+
         // Using a DependencyProperty as the backing store for IconInfo.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IconInfoProperty =
             DependencyProperty.Register("IconInfo", typeof(IconInfo), typeof(IconImageControlBase), new PropertyMetadata(null, new PropertyChangedCallback(OnIconInfoPropertyChanged)));
+
 
         private static void OnIconInfoPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as IconImageControlBase)?.OnIconInfoChanged(e);
         private async void OnIconInfoChanged(DependencyPropertyChangedEventArgs e)
@@ -94,17 +97,24 @@ namespace FolderIconChangerWPF.Controls
         public ImageSource ImageSource
         {
             get { return (ImageSource)GetValue(ImageSourceProperty); }
-            set { SetValue(ImageSourceProperty, value);
-                //var Image_ = new Image();
-                //Image_.StretchDirection
+            set
+            {
+                if (value is null)
+                {
+                    IsNullImage = true;
+                    SetValue(ImageSourceProperty, ShowNullImage ? NullImage : null);
+                }
+                else
+                {
+                    IsNullImage = false;
+                    SetValue(ImageSourceProperty, value);
+                }
             }
         }
 
         // Using a DependencyProperty as the backing store for ImageSource.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ImageSourceProperty =
             DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(IconImageControlBase), new PropertyMetadata(null));
-
-
 
 
         public static Stretch GetImageStretch(DependencyObject obj)
@@ -120,9 +130,6 @@ namespace FolderIconChangerWPF.Controls
         // Using a DependencyProperty as the backing store for ImageStretch.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ImageStretchProperty =
             DependencyProperty.RegisterAttached("ImageStretch", typeof(Stretch), typeof(IconImageControlBase), new PropertyMetadata(Stretch.Uniform));
-
-
-
 
         public static StretchDirection GetImageStretchDirection(DependencyObject obj)
         {
@@ -168,6 +175,49 @@ namespace FolderIconChangerWPF.Controls
         }
 
 
+        /// <summary>
+        /// Gets or sets a value indicating whether IsNullImage
+        /// </summary>
+        public bool IsNullImage
+        {
+            get { return (bool)GetValue(IsNullImageProperty); }
+            protected set { SetValue(IsNullImageProperty, value); }
+        }
+        public static readonly DependencyProperty IsNullImageProperty =
+            DependencyProperty.Register("IsNullImage", typeof(bool), typeof(IconImageControlBase), new PropertyMetadata(true));
+
+        public ImageSource NullImage
+        {
+            get { return (ImageSource)GetValue(NullImageProperty); }
+            set { SetValue(NullImageProperty, value); }
+        }
+        public static readonly DependencyProperty NullImageProperty =
+            DependencyProperty.Register("NullImage", typeof(ImageSource), typeof(IconImageControlBase), new PropertyMetadata(null, new PropertyChangedCallback(OnNullImagePropertyChanged)));
+        private static void OnNullImagePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as IconImageControlBase)?.OnNullImageChanged();
+        }
+        internal void OnNullImageChanged()
+        {
+            if (IsNullImage) this.ImageSource = null;
+        }
+
+        public bool ShowNullImage
+        {
+            get { return (bool)GetValue(ShowNullImageProperty); }
+            set { SetValue(ShowNullImageProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ShowNullImage.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ShowNullImageProperty =
+            DependencyProperty.Register("ShowNullImage", typeof(bool), typeof(IconImageControlBase), new PropertyMetadata(true, new PropertyChangedCallback(OnShowNullImagePropertyChanged)));
+
+        private static void OnShowNullImagePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as IconImageControlBase)?.OnShowNullImageChanged(e);
+        private void OnShowNullImageChanged(DependencyPropertyChangedEventArgs e)
+        {
+            if (IsNullImage) this.ImageSource = null;
+        }
+
         public ICommand ViewIconGroupCommand
         {
             get { return (ICommand)GetValue(ViewIconGroupCommandProperty); }
@@ -188,6 +238,17 @@ namespace FolderIconChangerWPF.Controls
         // Using a DependencyProperty as the backing store for GenerateBestFitCommand.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty GenerateBestFitCommandProperty =
             DependencyProperty.Register("GenerateBestFitCommand", typeof(ICommand), typeof(IconImageControlBase), new PropertyMetadata(null));
+
+        public bool AllowToGenerateBestFit
+        {
+            get { return (bool)GetValue(AllowToGenerateBestFitProperty); }
+            set { SetValue(AllowToGenerateBestFitProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for AllowToGenerateBestFit.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AllowToGenerateBestFitProperty =
+            DependencyProperty.Register("AllowToGenerateBestFit", typeof(bool), typeof(IconImageControlBase), new PropertyMetadata(true));
+
 
 
         #endregion

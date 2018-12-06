@@ -340,4 +340,22 @@ Continue?</value>
   <data name="HideIconOn" xml:space="preserve">
     <value>New Icon file will be hidden If it exists in the target folder</value>
   </data>
+  <data name="OpenContainingFolder" xml:space="preserve">
+    <value>Open Containing Folder</value>
+  </data>
+  <data name="BrowseForAnIconFile" xml:space="preserve">
+    <value>Browse for an icon file</value>
+  </data>
+  <data name="GenerateNewIconFromAnImage" xml:space="preserve">
+    <value>Generate new Icon from an image</value>
+  </data>
+  <data name="OpenFolderInExplorer" xml:space="preserve">
+    <value>Open folder in explorer</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="SelectTargetFolder" xml:space="preserve">
+    <value>Select Target Folder</value>
+  </data>
 </root>

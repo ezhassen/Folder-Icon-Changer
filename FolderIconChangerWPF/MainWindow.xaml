@@ -26,7 +26,7 @@
     IconOverlayBehavior="Always"
     NonActiveWindowTitleBrush="{DynamicResource WindowBackgroundBrush}"
     OverlayBrush="Red"
-    ResizeMode="NoResize"
+    ResizeMode="CanMinimize"
     ShowIconOnTitleBar="False"
     SizeToContent="Height"
     TitleAlignment="Stretch"
@@ -137,9 +137,11 @@
                         StaysOpen="False"
                         TextOptions.TextFormattingMode="Ideal"
                         VerticalOffset="0">
-                        <MenuItem
+                        <MenuItem x:Name="AppMenu_SettingsPageItem"
                             Command="{Binding GoToPageCommand, Source={x:Static vm:ApplicationViewModel.Instance}}"
                             CommandParameter="SettingsPage"
+                            Visibility="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}, 
+                            Converter={conv:VisibilityWhenStringConverter When=SettingsPage, Value=Collapsed, Otherwise=Visible}}"
                             Header="{lex:BLoc Settings, TargetNullValue={}Settings}"
                             Style="{StaticResource NormalMenuItem}">
                             <MenuItem.Icon>
@@ -153,10 +155,14 @@
                                 </Viewbox>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <Separator Margin="{StaticResource SeparatorMargin}" />
+                        <Separator  Visibility="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}, 
+                            Converter={conv:VisibilityWhenStringConverter When=SettingsPage, Value=Collapsed, Otherwise=Visible}}" Margin="{StaticResource SeparatorMargin}" />
                         <MenuItem
+                            x:Name="AppMenu_AboutPage"
                             Command="{Binding GoToPageCommand, Source={x:Static vm:ApplicationViewModel.Instance}}"
                             CommandParameter="AboutPage"
+                            Visibility="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}, 
+                            Converter={conv:VisibilityWhenStringConverter When=AboutPage, Value=Collapsed, Otherwise=Visible}}"
                             Header="{lex:BLoc About, TargetNullValue={}About}"
                             Style="{StaticResource NormalMenuItem}">
                             <MenuItem.Icon>
@@ -170,7 +176,8 @@
                                 </Viewbox>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <Separator Margin="{StaticResource SeparatorMargin}" />
+                        <Separator Visibility="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}, 
+                            Converter={conv:VisibilityWhenStringConverter When=AboutPage, Value=Collapsed, Otherwise=Visible}}" Margin="{StaticResource SeparatorMargin}" />
                         <MenuItem
                             Command="{Binding AppExitCommand, Source={x:Static vm:ApplicationViewModel.Instance}}"
                             FontSize="{StaticResource FontSizeRegular}"
@@ -422,6 +429,11 @@
     </mm:MetroWindow.TitleTemplate>-->
 
     <Grid ap:MoveWindowByMouseDown.Window="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mm:MetroWindow}}" Background="{DynamicResource WindowBackgroundBrush}">
-        <controls:PageHost CurrentPage="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}}" CurrentPageViewModel="{Binding CurrentPageViewModel, Source={x:Static vm:ApplicationViewModel.Instance}}" />
+        <!--<Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>-->
+        
+        <controls:PageHost Grid.Row="1" CurrentPage="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}}" CurrentPageViewModel="{Binding CurrentPageViewModel, Source={x:Static vm:ApplicationViewModel.Instance}}" />
     </Grid>
 </mm:MetroWindow>

@@ -40,8 +40,7 @@
         </trans-unit>
         <trans-unit id="CopyIconToFolder" translate="yes" xml:space="preserve">
           <source>Copy new icon to the target folder</source>
-          <target state="needs-review-translation">نسخ الأيقونة للمجلد</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">نسخ الأيقونة للمجلد الهدف</target>
         </trans-unit>
         <trans-unit id="CurrentIcon" translate="yes" xml:space="preserve">
           <source>Current Icon</source>
@@ -74,8 +73,7 @@
         </trans-unit>
         <trans-unit id="HideIcon" translate="yes" xml:space="preserve">
           <source>Hide the Icon file if it exists in the target folder</source>
-          <target state="needs-review-translation">إخفاء الملف إذا كان موجوداً في المجلد الهدف</target>
-          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+          <target state="translated">إخفاء ملف الأيقونة إذا كان موجوداً في المجلد الهدف</target>
         </trans-unit>
         <trans-unit id="IconFromImage" translate="yes" xml:space="preserve">
           <source>Icon from image</source>
@@ -284,27 +282,51 @@ Continue?</source>
         </trans-unit>
         <trans-unit id="FilePath" translate="yes" xml:space="preserve">
           <source>File Path</source>
-          <target state="new">File Path</target>
+          <target state="translated">مكان الملف</target>
         </trans-unit>
         <trans-unit id="GetFolderIcon" translate="yes" xml:space="preserve">
           <source>Get Folder Icon</source>
-          <target state="new">Get Folder Icon</target>
+          <target state="translated">جلف أيقونة المجلد</target>
         </trans-unit>
         <trans-unit id="CopyIconToFolderOff" translate="yes" xml:space="preserve">
           <source>New Icon wont be copied to the target folder</source>
-          <target state="new">New Icon wont be copied to the target folder</target>
+          <target state="translated">لن يتم نسخ الأيقونة الجديدة إلى المجلد الهدف</target>
         </trans-unit>
         <trans-unit id="CopyIconToFolderOn" translate="yes" xml:space="preserve">
           <source>New Icon will be copied to the target folder</source>
-          <target state="new">New Icon will be copied to the target folder</target>
+          <target state="translated">سيتم نسخ الأيقونة الجديدة إلى المجلد الهدف</target>
         </trans-unit>
         <trans-unit id="HideIconOff" translate="yes" xml:space="preserve">
           <source>New Icon file wont be hidden</source>
-          <target state="new">New Icon file wont be hidden</target>
+          <target state="translated">لن يتم إخفاء الأيقونة الجديدة</target>
         </trans-unit>
         <trans-unit id="HideIconOn" translate="yes" xml:space="preserve">
           <source>New Icon file will be hidden If it exists in the target folder</source>
-          <target state="new">New Icon file will be hidden If it exists in the target folder</target>
+          <target state="translated">سيتم إخفاء الأيقونة الجديدة إذا كانت موجودة في المجلد الهدف</target>
+        </trans-unit>
+        <trans-unit id="OpenContainingFolder" translate="yes" xml:space="preserve">
+          <source>Open Containing Folder</source>
+          <target state="translated">فتح المجلد الذي يحتويه</target>
+        </trans-unit>
+        <trans-unit id="BrowseForAnIconFile" translate="yes" xml:space="preserve">
+          <source>Browse for an icon file</source>
+          <target state="translated">حدد ملف الأيقونة</target>
+        </trans-unit>
+        <trans-unit id="GenerateNewIconFromAnImage" translate="yes" xml:space="preserve">
+          <source>Generate new Icon from an image</source>
+          <target state="translated">تحويل صورة إلى أيقونة</target>
+        </trans-unit>
+        <trans-unit id="OpenFolderInExplorer" translate="yes" xml:space="preserve">
+          <source>Open folder in explorer</source>
+          <target state="translated">فتح المجلد</target>
+        </trans-unit>
+        <trans-unit id="Reset" translate="yes" xml:space="preserve">
+          <source>Reset</source>
+          <target state="translated">إعادة تعيين</target>
+        </trans-unit>
+        <trans-unit id="SelectTargetFolder" translate="yes" xml:space="preserve">
+          <source>Select Target Folder</source>
+          <target state="translated">حدد المجلد الهدف</target>
         </trans-unit>
       </group>
     </body>
