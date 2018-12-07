@@ -1,4 +1,5 @@
 ﻿using Ezz_Helper.Drawing.IconsManager;
+using FolderIconChangerWPF.ViewModels;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
@@ -34,7 +35,12 @@ namespace FolderIconChangerWPF.Controls
         public IconImageControlBase()
         {
             //TODO: Create ViewIconGroupCommand
-            //ViewIconGroupCommand = 
+            ViewIconGroupCommand = new DelegateCommand(() =>
+            {
+                var newWindow = new Windows.IconInfoImagesWindow(this.IconInfo);
+                newWindow.Owner = Application.Current.MainWindow;
+                newWindow.ShowDialog();
+            });
         }
         #region Props
 

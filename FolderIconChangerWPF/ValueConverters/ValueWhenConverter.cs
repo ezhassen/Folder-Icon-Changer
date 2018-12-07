@@ -64,7 +64,8 @@ Note, if you want to use a value of Null, use the following syntax:
         public virtual WhenType When { get; set; } = default(WhenType);
         public virtual WhenType OtherwiseValueBack { get; set; } = default(WhenType);
 
-        public IList MultiWhen { get; set; }
+        //public IList MultiWhen { get; set; }
+
         /// <summary>
         /// Checks if any value in object[] values contains defined MultiWhen values.
         /// Otherwise All object[] values must be in MultiWhen.
@@ -115,7 +116,30 @@ Note, if you want to use a value of Null, use the following syntax:
             try
             {
                 if (values is null) return Otherwise;
-                if (MultiWhen is null)
+                if (When is IList multiWhen)
+                {
+                    if (MultiWhenAny)
+                    {
+                        if (values.Any(val => multiWhen.Contains(val))) return Value;
+
+                        //foreach (var val in values)
+                        //{
+                        //    if (MultiWhen.Contains(val)) return Value;
+                        //}
+                        return Otherwise;
+                    }
+                    else //And
+                    {
+                        if (values.All(val => multiWhen.Contains(val))) return Value;
+
+                        //foreach (var val in values)
+                        //{
+                        //    if (!MultiWhen.Contains(val)) return Otherwise;
+                        //}
+                        return Value;
+                    }
+                }
+                else
                 {
                     var whenObj = When as object;
                     if (MultiWhenAny)
@@ -129,27 +153,7 @@ Note, if you want to use a value of Null, use the following syntax:
 
                     return Otherwise;
                 }
-
-                if (MultiWhenAny)
-                {
-                    if (values.Any(val => MultiWhen.Contains(val))) return Value;
-
-                    //foreach (var val in values)
-                    //{
-                    //    if (MultiWhen.Contains(val)) return Value;
-                    //}
-                    return Otherwise;
-                }
-                else //And
-                {
-                    if (values.All(val => MultiWhen.Contains(val))) return Value;
-
-                    //foreach (var val in values)
-                    //{
-                    //    if (!MultiWhen.Contains(val)) return Otherwise;
-                    //}
-                    return Value;
-                }
+                
             }
             catch
             {

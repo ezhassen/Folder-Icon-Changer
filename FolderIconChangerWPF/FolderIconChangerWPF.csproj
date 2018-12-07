@@ -66,6 +66,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -88,6 +89,7 @@
     <Compile Include="AttachedProperties\BorderAttachedProperties.cs" />
     <Compile Include="AttachedProperties\ButtonHelper.cs" />
     <Compile Include="AttachedProperties\ContextMenuHelper.cs" />
+    <Compile Include="AttachedProperties\ControlOnLoad.cs" />
     <Compile Include="AttachedProperties\ControlUnload.cs" />
     <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
     <Compile Include="AttachedProperties\HandleControlUnload.cs" />
@@ -105,7 +107,7 @@
     <Compile Include="AttachedProperties\TextBoxHelper\EzzTextBox.cs" />
     <Compile Include="AttachedProperties\TextBoxHelper\Filtering.cs" />
     <Compile Include="AttachedProperties\TreeViewItems.cs" />
-    <Compile Include="AttachedProperties\WindowClosing.cs" />
+    <Compile Include="AttachedProperties\WindowHelper.cs" />
     <Compile Include="Controls\EzzSplitButton.xaml.cs">
       <DependentUpon>EzzSplitButton.xaml</DependentUpon>
     </Compile>
@@ -135,6 +137,7 @@
     <Compile Include="Themes\ThemeHelper.cs" />
     <Compile Include="ValueConverters\Base64ImageConverter.cs" />
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
+    <Compile Include="ValueConverters\BitmapSDToSWConverter.cs" />
     <Compile Include="ValueConverters\BooleanInvertConverter.cs" />
     <Compile Include="ValueConverters\BytesBitmapImageConverter.cs" />
     <Compile Include="ValueConverters\CultureToImageConverter.cs" />
@@ -153,9 +156,13 @@
     <Compile Include="ViewModels\Base\IHavePassword.cs" />
     <Compile Include="ViewModels\Base\RelayCommand.cs" />
     <Compile Include="ViewModels\Base\RelayParameterizedCommand.cs" />
+    <Compile Include="ViewModels\IconInfoImagesViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="Win32\FolderBrowserDialog.cs" />
     <Compile Include="Win32\NativeMethods.cs" />
+    <Compile Include="Windows\IconInfoImagesWindow.xaml.cs">
+      <DependentUpon>IconInfoImagesWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Controls\EzzSplitButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -243,6 +250,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Windows\IconInfoImagesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -260,7 +271,7 @@
     </Compile>
     <EmbeddedResource Include="Properties\Resources.ar.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Resource Include="Fonts\fontawesome-webfont.ttf" />
@@ -323,7 +334,6 @@
     <Folder Include="Enums\" />
     <Folder Include="Images\" />
     <Folder Include="Views\" />
-    <Folder Include="Windows\" />
   </ItemGroup>
   <ItemGroup>
     <XliffResource Include="MultilingualResources\FolderIconChangerWPF.ar.xlf" />
@@ -339,6 +349,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.ResxResources.targets" Label="MultilingualAppToolkit" Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\v$(MultilingualAppToolkitVersion)\Microsoft.Multilingual.ResxResources.targets')" />

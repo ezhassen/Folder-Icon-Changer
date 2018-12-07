@@ -1,0 +1,96 @@
+﻿<mm:MetroWindow
+    x:Class="FolderIconChangerWPF.Windows.IconInfoImagesWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ap="clr-namespace:FolderIconChangerWPF.AttachedProperties"
+    xmlns:conv="clr-namespace:FolderIconChangerWPF.ValueConverters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mm="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:vm="clr-namespace:FolderIconChangerWPF.ViewModels"
+    Title="Icon Group"
+    Width="520"
+    MinWidth="200"
+    MinHeight="200"
+    ap:ControlOnLoad.Command="{Binding GetImagesCommand}"
+    d:DataContext="{x:Static vm:IconInfoImagesViewModelDesgin.Instance}"
+    lex:LocalizeDictionary.DesignCulture="en"
+    lex:LocalizeDictionary.OutputMissingKeys="True"
+    lex:ResxLocalizationProvider.DefaultAssembly="Folder Icon Changer"
+    lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+    Icon="pack://application:,,,/Icon.ico"
+    IconOverlayBehavior="Always"
+    OverlayBrush="Red"
+    ShowIconOnTitleBar="False"
+    TitleAlignment="Stretch"
+    WindowButtonCommandsOverlayBehavior="Always"
+    WindowStartupLocation="CenterOwner"
+    mc:Ignorable="d">
+    <!--  DataContext="{x:Static vm:IconInfoImagesViewModelDesgin.Instance}"  -->
+    <!--<mm:MetroWindow.DataContext>
+        <vm:IconInfoImagesViewModel x:Name="ViewModel"/>
+    </mm:MetroWindow.DataContext>-->
+
+    <mm:MetroWindow.Resources>
+
+        <DataTemplate x:Key="ImageInfoTemplate">
+            <Border MinHeight="5" MinWidth="50">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Image Grid.Row="0" StretchDirection="DownOnly" Source="{Binding Image, Converter={conv:BitmapSDToSWConverter}}" />
+                    <!--  return string.Format("{0}, {1}, {2}", iii.Size.ToString_1(), iii.ColorsType.ToString(), iii.IconImageFormat.ToString());  -->
+                    <TextBlock
+                        Grid.Row="1"
+                        HorizontalAlignment="Center"
+                        FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}">
+                        <!--  Size  -->
+                        <Run>
+                            <Run.Text>
+                                <MultiBinding Converter="{conv:StringFormatConverter}" ConverterParameter="{}{0}x{1}">
+                                    <Binding Path="Size.Width" />
+                                    <Binding Path="Size.Height" />
+                                </MultiBinding>
+                            </Run.Text>
+                        </Run>
+
+                        <!--  ColorsType  -->
+                        <Run Text=", " /><lex:EnumRun
+                            EnumValue="{Binding ColorsType}"
+                            PrependType="True"
+                            Separator="_" />
+                        <!--  IconImageFormat  -->
+                        <Run Text=", " /><lex:EnumRun
+                            EnumValue="{Binding IconImageFormat}"
+                            PrependType="True"
+                            Separator="_" />
+                    </TextBlock>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </mm:MetroWindow.Resources>
+    <Grid>
+        <TextBlock>
+            <lex:EnumRun EnumValue="{Binding ColorsType}" />
+        </TextBlock>
+        <ListView 
+            SelectionMode="Single"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            ItemTemplate="{StaticResource ImageInfoTemplate}"
+            ItemsSource="{Binding IconImageInfoCollection}">
+            <!--<ListView.View>
+                <GridView>
+                    
+                </GridView>
+            </ListView.View>-->
+            
+        </ListView>
+        <!--<view-->
+        
+    </Grid>
+</mm:MetroWindow>

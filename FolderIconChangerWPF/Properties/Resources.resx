@@ -358,4 +358,35 @@ Continue?</value>
   <data name="SelectTargetFolder" xml:space="preserve">
     <value>Select Target Folder</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="IconImageFormat_BMP" xml:space="preserve">
+    <value>BMP</value>
+  </data>
+  <data name="IconImageFormat_PNG" xml:space="preserve">
+    <value>PNG</value>
+  </data>
+  <data name="IconImageFormat_UNKNOWN" xml:space="preserve">
+    <value>UNKNOWN</value>
+  </data>
+  <data name="ImageColorsTypes_Alpha_Channel" xml:space="preserve">
+    <value>Alpha Channel</value>
+  </data>
+  <data name="ImageColorsTypes_Monochrome" xml:space="preserve">
+    <value>Monochrome</value>
+  </data>
+  <data name="ImageColorsTypes_True_Colors" xml:space="preserve">
+    <value>True Colors</value>
+  </data>
+  <data name="ImageColorsTypes_Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="ImageColorsTypes__16_IndexedColors" xml:space="preserve">
+    <value>16 IndexedColors</value>
+  </data>
+  <data name="ImageColorsTypes__256_IndexedColors" xml:space="preserve">
+    <value>256 IndexedColors</value>
+  </data>
 </root>

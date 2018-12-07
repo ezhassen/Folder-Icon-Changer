@@ -52,30 +52,6 @@ namespace FolderIconChangerWPF.ViewModels
             }
         }
 
-
-        private bool _IsWorking;
-
-        public bool IsWorking
-        {
-            get { return _IsWorking; }
-            set
-            {
-                if (_IsWorking != value)
-                {
-                    _IsWorking = value;
-                    OnPropertyChanged(); //uses CallerMemberName
-                }
-                if (value)
-                {
-                    Mouse.OverrideCursor = Cursors.Wait;
-                }
-                else
-                {
-                    Mouse.OverrideCursor = null;
-                }
-            }
-        }
-
         private string _StatusMsg;
 
         public string StatusMsg

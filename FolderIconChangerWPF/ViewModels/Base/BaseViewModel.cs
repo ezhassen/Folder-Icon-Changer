@@ -70,15 +70,42 @@ namespace FolderIconChangerWPF.ViewModels
 
         #endregion
 
+        #region Props
+
+        private bool _IsWorking;
+
+        public bool IsWorking
+        {
+            get { return _IsWorking; }
+            set
+            {
+                if (_IsWorking != value)
+                {
+                    _IsWorking = value;
+                    OnPropertyChanged(); //uses CallerMemberName
+                }
+                if (value)
+                {
+                    Mouse.OverrideCursor = Cursors.Wait;
+                }
+                else
+                {
+                    Mouse.OverrideCursor = null;
+                }
+            }
+        }
+
+        #endregion
+
         #region Commands
 
         /// <summary>
-        /// Calls While Window closing Event when canExcut is false then handle the closing event. Must Add the AttachedProperty <see cref="AttachedProperties.WindowClosing"/>
+        /// Calls While Window closing Event when canExcut is false then handle the closing event. Must Add the AttachedProperty <see cref="AttachedProperties.WindowHelper.OnClosingCommandProperty"/>
         /// </summary>
         public ICommand OnClosingCommand { get; set; }
 
         /// <summary>
-        /// Calls While Window Close Event. Must Add the AttachedProperty <see cref="AttachedProperties.WindowClosing"/>
+        /// Calls While Window Close Event. Must Add the AttachedProperty <see cref="AttachedProperties.WindowHelper.ClosedCommandProperty"/>
         /// </summary>
         public ICommand OnClosedCommand { get; set; }
 

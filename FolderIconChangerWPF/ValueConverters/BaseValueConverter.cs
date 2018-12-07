@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Markup;
@@ -68,6 +69,10 @@ namespace FolderIconChangerWPF.ValueConverters
 
 
         public bool Debug { get; set; } = false;
+        protected void DebugMethod()
+        {
+            if (this.Debug) Debugger.Break();
+        }
     }
 
     /// <summary>
@@ -123,7 +128,11 @@ namespace FolderIconChangerWPF.ValueConverters
 
         #endregion
 
-        public virtual bool Debug { get; set; } = false;
+        public bool Debug { get; set; } = false;
+        protected void DebugMethod()
+        {
+            if (this.Debug) Debugger.Break();
+        }
     }
 
 

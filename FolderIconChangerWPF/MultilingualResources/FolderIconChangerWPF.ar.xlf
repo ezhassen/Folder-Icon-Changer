@@ -328,6 +328,46 @@ Continue?</source>
           <source>Select Target Folder</source>
           <target state="translated">حدد المجلد الهدف</target>
         </trans-unit>
+        <trans-unit id="icon" translate="yes" xml:space="preserve" extype="System.Resources.ResXFileRef, System.Windows.Forms">
+          <source>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</source>
+          <target state="translated">..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</target>
+        </trans-unit>
+        <trans-unit id="IconImageFormat_BMP" translate="yes" xml:space="preserve">
+          <source>BMP</source>
+          <target state="translated">BMP</target>
+        </trans-unit>
+        <trans-unit id="IconImageFormat_PNG" translate="yes" xml:space="preserve">
+          <source>PNG</source>
+          <target state="translated">PNG</target>
+        </trans-unit>
+        <trans-unit id="IconImageFormat_UNKNOWN" translate="yes" xml:space="preserve">
+          <source>UNKNOWN</source>
+          <target state="new">UNKNOWN</target>
+        </trans-unit>
+        <trans-unit id="ImageColorsTypes_Alpha_Channel" translate="yes" xml:space="preserve">
+          <source>Alpha Channel</source>
+          <target state="new">Alpha Channel</target>
+        </trans-unit>
+        <trans-unit id="ImageColorsTypes_Monochrome" translate="yes" xml:space="preserve">
+          <source>Monochrome</source>
+          <target state="new">Monochrome</target>
+        </trans-unit>
+        <trans-unit id="ImageColorsTypes_True_Colors" translate="yes" xml:space="preserve">
+          <source>True Colors</source>
+          <target state="new">True Colors</target>
+        </trans-unit>
+        <trans-unit id="ImageColorsTypes_Unknown" translate="yes" xml:space="preserve">
+          <source>Unknown</source>
+          <target state="new">Unknown</target>
+        </trans-unit>
+        <trans-unit id="ImageColorsTypes__16_IndexedColors" translate="yes" xml:space="preserve">
+          <source>16 IndexedColors</source>
+          <target state="new">16 IndexedColors</target>
+        </trans-unit>
+        <trans-unit id="ImageColorsTypes__256_IndexedColors" translate="yes" xml:space="preserve">
+          <source>256 IndexedColors</source>
+          <target state="new">256 IndexedColors</target>
+        </trans-unit>
       </group>
     </body>
   </file>

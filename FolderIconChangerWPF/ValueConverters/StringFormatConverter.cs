@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -35,31 +36,55 @@ With the resource in place, you can use the resource as the Converter when bindi
     /// </summary>
     public class StringFormatConverter : BaseValueConverter
     {
+        public string Format { get; set; }
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            DebugMethod();
             var format = (parameter as string) ?? Format;
-            if (format == null)
+            return FormatMethod(format, culture, value);
+        }
+        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+        //
+        public override object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            DebugMethod();
+            if (values is null || values.Length == 0) return null;
+            var format = (parameter as string) ?? Format;
+            return FormatMethod(format, culture, values);
+        }
+        protected string ValuseToString(params object[] vals)
+        {
+            if (vals is null || vals.Length == 0) return null;
+            if (vals.Length == 1) return vals[0].ToString();
+            var sBuilder = new StringBuilder();
+            foreach (var val in vals)
             {
-                return value;
+                sBuilder.Append(val.ToString());
+            }
+            return sBuilder.ToString();
+        }
+        protected string FormatMethod(string format, CultureInfo culture, params object[] vals)
+        {
+
+            if (string.IsNullOrEmpty(format))
+            {
+                return ValuseToString(vals);
             }
 
             if (culture == null)
             {
-                return string.Format(format, value);
+                return string.Format(format, vals);
             }
 
             try
             {
-                return string.Format(culture, format, value);
+                return string.Format(culture, format, vals);
             }
             catch
             {
-                return string.Format(format, value);
+                return string.Format(format, vals);
             }
         }
-        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
-        //
-        public string Format { get; set; }
     }
 
     public class ObjectToStringConverter : BaseValueConverter
@@ -70,13 +95,14 @@ With the resource in place, you can use the resource as the Converter when bindi
             var format = Format;
             if (format == null) return value.ToString();
 
-            if (value is decimal dec)  return dec.ToString(format);
-            if (value is int integer)  return integer.ToString(format);
-            if (value is double doubl)  return doubl.ToString(format);
-            if (value is float floa)  return floa.ToString(format);
+            //if (value is IFormattable formattable)  return formattable.ToString(format);
+            if (value is decimal dec) return dec.ToString(format);
+            if (value is int integer) return integer.ToString(format);
+            if (value is double doubl) return doubl.ToString(format);
+            if (value is float floa) return floa.ToString(format);
             //
-            if (value is DateTime datet)  return datet.ToString(format);
-            
+            if (value is DateTime datet) return datet.ToString(format);
+
             return value.ToString();
         }
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
@@ -86,4 +112,40 @@ With the resource in place, you can use the resource as the Converter when bindi
     }
 
 
+    public class ObjectPropertyToFormatedStringConverter : BaseValueConverter
+    {
+        public string DefaultValue { get; set; }
+
+        public string PropertyName { get; set; }
+        public string Format { get; set; }
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            DebugMethod();
+            if (value is null) return DefaultValue;
+            //
+            var propVal = value.GetType().GetProperty(PropertyName)?.GetValue(value);
+            if (propVal is null) return DefaultValue;
+            var propValStr = propVal.ToString();
+
+            var format = (parameter as string) ?? Format;
+            if (string.IsNullOrEmpty(format)) return propValStr;
+
+            if (culture is null)
+            {
+                return string.Format(format, propValStr);
+            }
+
+            try
+            {
+                return string.Format(culture, format, propValStr);
+            }
+            catch
+            {
+                return string.Format(format, propValStr);
+            }
+            //
+            return propValStr.ToString();
+        }
+
+    }
 }
