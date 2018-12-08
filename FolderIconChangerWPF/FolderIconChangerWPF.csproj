@@ -89,12 +89,13 @@
     <Compile Include="AttachedProperties\BorderAttachedProperties.cs" />
     <Compile Include="AttachedProperties\ButtonHelper.cs" />
     <Compile Include="AttachedProperties\ContextMenuHelper.cs" />
+    <Compile Include="AttachedProperties\ControlHelper.cs" />
     <Compile Include="AttachedProperties\ControlOnLoad.cs" />
     <Compile Include="AttachedProperties\ControlUnload.cs" />
     <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
     <Compile Include="AttachedProperties\HandleControlUnload.cs" />
     <Compile Include="AttachedProperties\IsBusyProperty.cs" />
-    <Compile Include="AttachedProperties\MoveWindowByMouseDown.cs" />
+    <Compile Include="AttachedProperties\ListViewHelper.cs" />
     <Compile Include="AttachedProperties\MultiBindingHelper.cs" />
     <Compile Include="AttachedProperties\NoFrameHistory.cs" />
     <Compile Include="AttachedProperties\NumberOnly.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="ValueConverters\DateTimeUTCToLocalConverter.cs" />
     <Compile Include="ValueConverters\DateTimeUTCToLocalStringConverter.cs" />
     <Compile Include="ValueConverters\DynamicStringWithColors.cs" />
+    <Compile Include="ValueConverters\LexEnumConverter.cs" />
     <Compile Include="ValueConverters\StringFormatConverter.cs" />
     <Compile Include="ValueConverters\StringSplitConverter.cs" />
     <Compile Include="ValueConverters\ValueWhenConverter.cs" />

@@ -42,7 +42,7 @@ namespace FolderIconChangerWPF
         }
 
         public static IntPtr GetCriticalHandle(this Window window) => (IntPtr)typeof(Window).GetProperty("CriticalHandle", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(window, new object[0]);
-        public static void MoveWindowByMouseDown(this Window window)
+        public static void MoveWindowOnMouseDown(this Window window)
         {
             NativeMethods.ReleaseCapture();
             NativeMethods.SendMessage(window.GetCriticalHandle(), NativeMethods.WM_NCLBUTTONDOWN, NativeMethods.HT_CAPTION, 0);

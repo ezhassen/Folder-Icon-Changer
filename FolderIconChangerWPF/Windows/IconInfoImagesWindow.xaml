@@ -10,10 +10,11 @@
     xmlns:mm="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:vm="clr-namespace:FolderIconChangerWPF.ViewModels"
     Title="Icon Group"
-    Width="520"
-    MinWidth="200"
-    MinHeight="200"
+    Width="570"
+    MinWidth="300"
+    MinHeight="300"
     ap:ControlOnLoad.Command="{Binding GetImagesCommand}"
+    ap:WindowHelper.CloseOnESCKey="True"
     d:DataContext="{x:Static vm:IconInfoImagesViewModelDesgin.Instance}"
     lex:LocalizeDictionary.DesignCulture="en"
     lex:LocalizeDictionary.OutputMissingKeys="True"
@@ -23,74 +24,140 @@
     IconOverlayBehavior="Always"
     OverlayBrush="Red"
     ShowIconOnTitleBar="False"
+    ShowInTaskbar="False"
+    ShowMinButton="False"
     TitleAlignment="Stretch"
     WindowButtonCommandsOverlayBehavior="Always"
-    WindowStartupLocation="CenterOwner"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <!--  DataContext="{x:Static vm:IconInfoImagesViewModelDesgin.Instance}"  -->
-    <!--<mm:MetroWindow.DataContext>
+    <mm:MetroWindow.DataContext>
         <vm:IconInfoImagesViewModel x:Name="ViewModel"/>
-    </mm:MetroWindow.DataContext>-->
+    </mm:MetroWindow.DataContext>
 
     <mm:MetroWindow.Resources>
 
         <DataTemplate x:Key="ImageInfoTemplate">
-            <Border MinHeight="5" MinWidth="50">
+            <Border x:Name="PART_ItemBorder"
+                Width="{Binding CurrentImageViewSize.Width, ElementName=ViewModel}"
+                Height="{Binding CurrentImageViewSize.Height, ElementName=ViewModel}"
+                MinWidth="64"
+                MinHeight="64">
+                <Border.ToolTip>
+                    <MultiBinding Converter="{conv:StringFormatConverter}" ConverterParameter="{}{0}x{1}, {2}, {3}">
+                        <Binding Path="Size.Width"/>
+                        <Binding Path="Size.Height"/>
+                        <Binding Path="ColorsType" Converter="{conv:LexEnumConverter}"/>
+                        <Binding Path="IconImageFormat" Converter="{conv:LexEnumConverter}"/>
+                    </MultiBinding>
+                </Border.ToolTip>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <Image Grid.Row="0" StretchDirection="DownOnly" Source="{Binding Image, Converter={conv:BitmapSDToSWConverter}}" />
+                    <Image
+                        Grid.Row="0"
+                        Source="{Binding Image, Converter={conv:BitmapSDToSWConverter}}"
+                        StretchDirection="DownOnly" />
                     <!--  return string.Format("{0}, {1}, {2}", iii.Size.ToString_1(), iii.ColorsType.ToString(), iii.IconImageFormat.ToString());  -->
                     <TextBlock
                         Grid.Row="1"
-                        HorizontalAlignment="Center"
-                        FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}">
+                        HorizontalAlignment="Center" Text="{Binding ToolTip, ElementName=PART_ItemBorder}" FlowDirection="LeftToRight"
+                       >
+                         <!--FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}"-->
                         <!--  Size  -->
-                        <Run>
+                        <!--<Run>
                             <Run.Text>
                                 <MultiBinding Converter="{conv:StringFormatConverter}" ConverterParameter="{}{0}x{1}">
                                     <Binding Path="Size.Width" />
                                     <Binding Path="Size.Height" />
                                 </MultiBinding>
                             </Run.Text>
-                        </Run>
+                        </Run>-->
 
                         <!--  ColorsType  -->
-                        <Run Text=", " /><lex:EnumRun
+                        <!--<Run Text=", " /><lex:EnumRun
                             EnumValue="{Binding ColorsType}"
                             PrependType="True"
-                            Separator="_" />
+                            Separator="_" />-->
                         <!--  IconImageFormat  -->
-                        <Run Text=", " /><lex:EnumRun
+                        <!--<Run Text=", " /><lex:EnumRun
                             EnumValue="{Binding IconImageFormat}"
                             PrependType="True"
-                            Separator="_" />
+                            Separator="_" />-->
                     </TextBlock>
                 </Grid>
             </Border>
         </DataTemplate>
     </mm:MetroWindow.Resources>
-    <Grid>
-        <TextBlock>
-            <lex:EnumRun EnumValue="{Binding ColorsType}" />
-        </TextBlock>
-        <ListView 
-            SelectionMode="Single"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
+    <Grid ap:ListViewHelper.DeselectOnMouseDown="{Binding ElementName=LV}" ap:WindowHelper.MoveWindowOnMouseDown="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ListView
+            x:Name="LV" 
+            ap:ControlHelper.MouseWheelCommand="{Binding ChangeImageViewSizeCommand}"
+            ap:ControlHelper.MouseWheelCommandOnControlKey="True"
             ItemTemplate="{StaticResource ImageInfoTemplate}"
-            ItemsSource="{Binding IconImageInfoCollection}">
-            <!--<ListView.View>
-                <GridView>
-                    
-                </GridView>
-            </ListView.View>-->
-            
+            ItemsSource="{Binding IconImageInfoCollection}"
+            SelectionMode="Extended">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <!--<WrapPanel />-->
+                    <!--<UniformGrid Columns="3"  />-->
+                    <WrapPanel
+                        Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
+                        MinWidth="{Binding (ListView.View).ItemWidth, RelativeSource={RelativeSource AncestorType=ListView}}"
+                        ItemHeight="{Binding (ListView.View).ItemHeight, RelativeSource={RelativeSource AncestorType=ListView}}"
+                        ItemWidth="{Binding (ListView.View).ItemWidth, RelativeSource={RelativeSource AncestorType=ListView}}" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
         </ListView>
-        <!--<view-->
-        
+
+        <StatusBar
+            Grid.Row="10"
+            Background="{DynamicResource AccentColorBrush2}"
+            FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}">
+            <StatusBar.Effect>
+                <DropShadowEffect
+                    BlurRadius="15"
+                    ShadowDepth="1"
+                    Color="{DynamicResource AccentBaseColor}" />
+            </StatusBar.Effect>
+            <StatusBar.Resources>
+                <Style x:Key="SeparatorStyle" TargetType="Separator">
+                    <!--<Setter Property="Foreground" Value="{DynamicResource WordRedBrush}" />-->
+                    <Setter Property="Background" Value="{DynamicResource GrayBrush5}" />
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect
+                                BlurRadius="8"
+                                Direction="270"
+                                ShadowDepth="1"
+                                Color="{DynamicResource BlackColor}" />
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Margin" Value="5,3" />
+                </Style>
+            </StatusBar.Resources>
+            
+            <!--  All Count  -->
+            <Run Text="{lex:BLoc Select_Icon_Count, TargetNullValue=Count}" />
+            <Run Text=":" />
+            <Run Text="{Binding Items.Count, ElementName=LV, Mode=OneWay}" />
+
+            <Separator Style="{StaticResource SeparatorStyle}" />
+
+            <!--  Selected Count  -->
+            <Run Text="{lex:BLoc Select_Icon_SelectedCount, TargetNullValue=Selected Count}" />
+            <Run Text=":" />
+            <Run Text="{Binding SelectedItems.Count, ElementName=LV, Mode=OneWay}" />
+
+        </StatusBar>
     </Grid>
 </mm:MetroWindow>

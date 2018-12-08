@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -107,5 +103,34 @@ namespace FolderIconChangerWPF.AttachedProperties
 
         #endregion
 
+        #region MoveWindowOnMouseDown
+
+
+        public static Window GetMoveWindowOnMouseDown(DependencyObject obj) => (Window)obj.GetValue(MoveWindowOnMouseDownProperty);
+
+        public static void SetMoveWindowOnMouseDown(DependencyObject obj, Window value) => obj.SetValue(MoveWindowOnMouseDownProperty, value);
+
+        // Using a DependencyProperty as the backing store for MoveWindowOnMouseDown.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MoveWindowOnMouseDownProperty =
+            DependencyProperty.RegisterAttached("MoveWindowOnMouseDown", typeof(Window), typeof(WindowHelper), new PropertyMetadata(null, new PropertyChangedCallback(OnMoveWindowOnMouseDownPropertyChanged)));
+
+        private static void OnMoveWindowOnMouseDownPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(d is FrameworkElement control)) return;
+            control.MouseDown -= Control_MouseDown;
+            if (e.NewValue is Window)
+            {
+                control.MouseDown += Control_MouseDown;
+            }
+        }
+
+        private static void Control_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!(sender is FrameworkElement control)) return;
+            GetMoveWindowOnMouseDown(control)?.MoveWindowOnMouseDown();
+        }
+
+
+        #endregion
     }
 }

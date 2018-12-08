@@ -13,25 +13,23 @@ namespace FolderIconChangerWPF.Windows
         {
             InitializeComponent();
         }
-        public IconInfoImagesWindow(IconInfoImagesViewModel _viewModel) : this()
+      
+        public IconInfoImagesWindow(IconInfo iconInfo) : this()
         {
-            ViewModel = _viewModel;
-        }
-        public IconInfoImagesWindow(IconInfo iconInfo) : this(new IconInfoImagesViewModel(iconInfo))
-        {
+            ViewModel.IconInfo = iconInfo;
         }
 
-        private IconInfoImagesViewModel viewModel;
+        //private IconInfoImagesViewModel viewModel;
 
-        public IconInfoImagesViewModel ViewModel
-        {
-            get { return viewModel; }
-            set
-            {
-                viewModel = value;
-                this.DataContext = this.viewModel;
-            }
-        }
+        //public IconInfoImagesViewModel ViewModel
+        //{
+        //    get { return viewModel; }
+        //    set
+        //    {
+        //        viewModel = value;
+        //        this.DataContext = this.viewModel;
+        //    }
+        //}
 
     }
 }

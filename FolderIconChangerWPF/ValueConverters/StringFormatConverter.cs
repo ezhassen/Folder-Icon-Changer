@@ -52,7 +52,7 @@ With the resource in place, you can use the resource as the Converter when bindi
             var format = (parameter as string) ?? Format;
             return FormatMethod(format, culture, values);
         }
-        protected string ValuseToString(params object[] vals)
+        public static string ValuseToString(params object[] vals)
         {
             if (vals is null || vals.Length == 0) return null;
             if (vals.Length == 1) return vals[0].ToString();
@@ -63,7 +63,7 @@ With the resource in place, you can use the resource as the Converter when bindi
             }
             return sBuilder.ToString();
         }
-        protected string FormatMethod(string format, CultureInfo culture, params object[] vals)
+        public static string FormatMethod(string format, CultureInfo culture, params object[] vals)
         {
 
             if (string.IsNullOrEmpty(format))

@@ -428,7 +428,7 @@
     MouseDown="Window_MouseDown"
     </mm:MetroWindow.TitleTemplate>-->
 
-    <Grid ap:MoveWindowByMouseDown.Window="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mm:MetroWindow}}" Background="{DynamicResource WindowBackgroundBrush}">
+    <Grid ap:WindowHelper.MoveWindowOnMouseDown="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mm:MetroWindow}}" Background="{DynamicResource WindowBackgroundBrush}">
         <!--<Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

@@ -1,6 +1,7 @@
 ﻿using Ezz_Helper.Drawing.IconsManager;
 using FolderIconChangerWPF.Classes;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -105,6 +106,58 @@ namespace FolderIconChangerWPF.ViewModels
             }
 
             IsWorking = false;
+        }
+
+        private IEnumerable<System.Drawing.Size> _ImageViewSizes;
+
+        public IEnumerable<System.Drawing.Size> ImageViewSizes
+        {
+            get
+            {
+                if (_ImageViewSizes is null) _ImageViewSizes = Ezz_Helper.Drawing.IconsManager.Sizes.GetAll().Where(s=>s.Width>64);
+                return _ImageViewSizes;
+            }
+            set { _ImageViewSizes = value; }
+        }
+
+
+        System.Drawing.Size _CurrentImageViewSize = Ezz_Helper.Drawing.IconsManager.Sizes.px_256x256;
+        public System.Drawing.Size CurrentImageViewSize
+        {
+            get
+            {
+                return _CurrentImageViewSize;
+            }
+            set
+            {
+                if (_CurrentImageViewSize != value)
+                {
+                    _CurrentImageViewSize = value;
+                    OnPropertyChanged(); //uses CallerMemberName
+                }
+            }
+        }
+
+
+        DelegateCommand _ChangeImageViewSizeCommand;
+        public DelegateCommand ChangeImageViewSizeCommand
+            => _ChangeImageViewSizeCommand ?? (_ChangeImageViewSizeCommand = new DelegateCommand((Delta) =>
+            {
+                if (Delta is int deltaInt) ChangeImageViewSize(deltaInt);
+            }));
+        void ChangeImageViewSize(int Delta)
+        {
+            //Up
+            if (Delta > 0)
+            {
+                var findNext_ = ImageViewSizes.FirstOrDefault(s => s.Width > this.CurrentImageViewSize.Width || s.Height > this.CurrentImageViewSize.Height);
+                if (findNext_ != System.Drawing.Size.Empty) CurrentImageViewSize = findNext_;
+            }
+            else //Down
+            {
+                var findPre_ = ImageViewSizes.LastOrDefault(s => s.Width < this.CurrentImageViewSize.Width || s.Height < this.CurrentImageViewSize.Height);
+                if (findPre_ != System.Drawing.Size.Empty) CurrentImageViewSize = findPre_;
+            }
         }
     }
 }
