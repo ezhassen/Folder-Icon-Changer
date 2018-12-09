@@ -94,6 +94,7 @@
     <Compile Include="AttachedProperties\ControlUnload.cs" />
     <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
     <Compile Include="AttachedProperties\HandleControlUnload.cs" />
+    <Compile Include="AttachedProperties\IconInfoHelper.cs" />
     <Compile Include="AttachedProperties\IsBusyProperty.cs" />
     <Compile Include="AttachedProperties\ListViewHelper.cs" />
     <Compile Include="AttachedProperties\MultiBindingHelper.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="ValueConverters\DateTimeUTCToLocalConverter.cs" />
     <Compile Include="ValueConverters\DateTimeUTCToLocalStringConverter.cs" />
     <Compile Include="ValueConverters\DynamicStringWithColors.cs" />
+    <Compile Include="ValueConverters\IconInfoToImageConverter.cs" />
     <Compile Include="ValueConverters\LexEnumConverter.cs" />
     <Compile Include="ValueConverters\StringFormatConverter.cs" />
     <Compile Include="ValueConverters\StringSplitConverter.cs" />
@@ -160,10 +162,14 @@
     <Compile Include="ViewModels\Base\RelayParameterizedCommand.cs" />
     <Compile Include="ViewModels\IconInfoImagesViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\SelectIconViewModel.cs" />
     <Compile Include="Win32\FolderBrowserDialog.cs" />
     <Compile Include="Win32\NativeMethods.cs" />
     <Compile Include="Windows\IconInfoImagesWindow.xaml.cs">
       <DependentUpon>IconInfoImagesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SelectIconWindow.xaml.cs">
+      <DependentUpon>SelectIconWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\EzzSplitButton.xaml">
       <SubType>Designer</SubType>
@@ -253,6 +259,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Windows\IconInfoImagesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SelectIconWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

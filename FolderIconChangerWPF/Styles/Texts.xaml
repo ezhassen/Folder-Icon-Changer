@@ -846,7 +846,7 @@
             <Setter.Value>
                 <!--<iconPacks:PackIconFontAwesome Kind="SyncAltSolid"/>-->
                 <!--<DataTemplate>-->
-                    <ContentControl
+                <ContentControl
                         x:Name="PART_PackIcon"
                         Width="{Binding RelativeSource={RelativeSource Self}, Path=(mm:TextBoxHelper.ButtonWidth), Mode=OneWay}"
                         Height="{Binding RelativeSource={RelativeSource Self}, Path=(mm:TextBoxHelper.ButtonWidth), Mode=OneWay}"
@@ -925,7 +925,422 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-   
+
+
+    <Style  x:Key="EzzFilterComboBoxBaseStyle"
+        BasedOn="{StaticResource MetroComboBox}"
+        TargetType="{x:Type ComboBox}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBox}">
+                    <ControlTemplate.Resources>
+                        <Storyboard x:Key="enterGotFocus">
+                            <DoubleAnimation Storyboard.TargetName="PART_WatermarkMessage"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To=".2"
+                                             Duration="0:0:0.2" />
+                        </Storyboard>
+                        <Storyboard x:Key="exitGotFocus">
+                            <DoubleAnimation Storyboard.TargetName="PART_WatermarkMessage"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Duration="0:0:0.2" />
+                        </Storyboard>
+
+                        <Storyboard x:Key="enterHasText">
+                            <DoubleAnimation Storyboard.TargetName="PART_WatermarkMessage"
+                                             Storyboard.TargetProperty="Opacity"
+                                             From=".2"
+                                             To="0"
+                                             Duration="0:0:0.2" />
+                        </Storyboard>
+                        <Storyboard x:Key="exitHasText">
+                            <DoubleAnimation Storyboard.TargetName="PART_WatermarkMessage"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Duration="0:0:0.2" />
+                        </Storyboard>
+                    </ControlTemplate.Resources>
+                    <Grid>
+                        <Border x:Name="Border"
+                                Grid.ColumnSpan="3"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:ControlsHelper.CornerRadius), Mode=OneWay}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+
+                        <Grid Margin="{TemplateBinding BorderThickness}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="TextColumn" Width="*" />
+                                <ColumnDefinition x:Name="ButtonColumn" Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:TextBoxHelper.ButtonWidth), Mode=OneWay}" />
+                                <ColumnDefinition x:Name="ToggleButtonColumn" Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:TextBoxHelper.ButtonWidth), Mode=OneWay}" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition x:Name="ButtonRow" Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <ToggleButton x:Name="PART_DropDownToggle"
+                                          Grid.RowSpan="2"
+                                          Grid.ColumnSpan="3"
+                                          Margin="0"
+                                          Padding="{TemplateBinding Padding}"
+                                          VerticalAlignment="Stretch"
+                                          mm:ControlsHelper.CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:ControlsHelper.CornerRadius), Mode=OneWay}"
+                                          mm:TextBoxHelper.ButtonContent="{TemplateBinding mm:TextBoxHelper.ButtonContent}"
+                                          mm:TextBoxHelper.ButtonContentTemplate="{TemplateBinding mm:TextBoxHelper.ButtonContentTemplate}"
+                                          mm:TextBoxHelper.ButtonFontFamily="{TemplateBinding mm:TextBoxHelper.ButtonFontFamily}"
+                                          mm:TextBoxHelper.ButtonFontSize="{TemplateBinding mm:TextBoxHelper.ButtonFontSize}"
+                                          mm:TextBoxHelper.ButtonWidth="{TemplateBinding mm:TextBoxHelper.ButtonWidth}"
+                                          mm:TextBoxHelper.ClearTextButton="{TemplateBinding mm:TextBoxHelper.ClearTextButton}"
+                                          Background="Transparent"
+                                          BorderThickness="0"
+                                          Foreground="{TemplateBinding Foreground}"
+                                          IsEnabled="{TemplateBinding ap:TextBoxHelper.IsFiltering, Converter={conv:BooleanInvertConverter}}"
+                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                          KeyboardNavigation.IsTabStop="False"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          Style="{DynamicResource MetroComboBoxDropDownToggleButtonStyle}" />
+
+                            <TextBox x:Name="PART_EditableTextBox"
+                                     Grid.Row="1"
+                                     Grid.Column="0"
+                                     Margin="0"
+                                     Padding="{TemplateBinding Padding}"
+                                     HorizontalAlignment="Stretch"
+                                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                     mm:TextBoxHelper.ButtonContent="{TemplateBinding mm:TextBoxHelper.ButtonContent}"
+                                     mm:TextBoxHelper.ButtonContentTemplate="{TemplateBinding mm:TextBoxHelper.ButtonContentTemplate}"
+                                     mm:TextBoxHelper.ButtonFontFamily="{TemplateBinding mm:TextBoxHelper.ButtonFontFamily}"
+                                     mm:TextBoxHelper.ButtonFontSize="{TemplateBinding mm:TextBoxHelper.ButtonFontSize}"
+                                     mm:TextBoxHelper.ButtonWidth="{TemplateBinding mm:TextBoxHelper.ButtonWidth}"
+                                     mm:TextBoxHelper.HasText="{TemplateBinding mm:TextBoxHelper.HasText}"
+                                     mm:TextBoxHelper.UseFloatingWatermark="{TemplateBinding mm:TextBoxHelper.UseFloatingWatermark}"
+                                     mm:TextBoxHelper.Watermark="{TemplateBinding mm:TextBoxHelper.Watermark}"
+                                     mm:TextBoxHelper.WatermarkAlignment="{TemplateBinding mm:TextBoxHelper.WatermarkAlignment}"
+                                     mm:TextBoxHelper.WatermarkTrimming="{TemplateBinding mm:TextBoxHelper.WatermarkTrimming}"
+                                     ap:TextBoxHelper.IsFiltering="{TemplateBinding ap:TextBoxHelper.IsFiltering}"
+                                     ap:TextBoxHelper.AllowToCalculate="{TemplateBinding ap:TextBoxHelper.AllowToCalculate}"
+                                     ap:TextBoxHelper.AllowToTogglesTheSign="{TemplateBinding ap:TextBoxHelper.AllowToTogglesTheSign}"
+                                     ap:TextBoxHelper.ClearButtonIsEnabled="{TemplateBinding ap:TextBoxHelper.ClearButtonIsEnabled}"
+                                     ap:TextBoxHelper.ClearButtonToolTip="{TemplateBinding ap:TextBoxHelper.ClearButtonToolTip}"
+                                     ap:TextBoxHelper.ClearFilterCommand="{TemplateBinding ap:TextBoxHelper.ClearFilterCommand}"
+                                     ap:TextBoxHelper.EditType="{TemplateBinding ap:TextBoxHelper.EditType}"
+                                     ap:TextBoxHelper.EnableEzzTextBox="{TemplateBinding ap:TextBoxHelper.EnableEzzTextBox}"
+                                     ap:TextBoxHelper.FilterButtonContent="{TemplateBinding ap:TextBoxHelper.FilterButtonContent}"
+                                     ap:TextBoxHelper.FilterButtonContentTemplate="{TemplateBinding ap:TextBoxHelper.FilterButtonContentTemplate}"
+                                     ap:TextBoxHelper.FilterButtonIsEnabled="{TemplateBinding ap:TextBoxHelper.FilterButtonIsEnabled}"
+                                     ap:TextBoxHelper.FilterButtonTemplate="{TemplateBinding ap:TextBoxHelper.FilterButtonTemplate}"
+                                     ap:TextBoxHelper.FilterButtonToolTip="{TemplateBinding ap:TextBoxHelper.FilterButtonToolTip}"
+                                     ap:TextBoxHelper.FilterButtonVisibility="{TemplateBinding ap:TextBoxHelper.FilterButtonVisibility}"
+                                     ap:TextBoxHelper.FilterByEnterKey="{TemplateBinding ap:TextBoxHelper.FilterByEnterKey}"
+                                     ap:TextBoxHelper.FilterCommand="{TemplateBinding ap:TextBoxHelper.FilterCommand}"
+                                     ap:TextBoxHelper.FreeInputForCalculating="{TemplateBinding ap:TextBoxHelper.FreeInputForCalculating}"
+                                     ap:TextBoxHelper.MaxNumber="{TemplateBinding ap:TextBoxHelper.MaxNumber}"
+                                     ap:TextBoxHelper.MinNumber="{TemplateBinding ap:TextBoxHelper.MinNumber}"
+                                     ap:TextBoxHelper.NumericType="{TemplateBinding ap:TextBoxHelper.NumericType}"
+                                     ap:TextBoxHelper.RequireFilterAction="{TemplateBinding ap:TextBoxHelper.RequireFilterAction}"
+                                     ap:TextBoxHelper.RequireFilterButtonToolTip="{TemplateBinding ap:TextBoxHelper.RequireFilterButtonToolTip}"
+                                     ap:TextBoxHelper.SelectAllOnFocus="{TemplateBinding ap:TextBoxHelper.SelectAllOnFocus}"
+                                     Background="{x:Null}"
+                                     BorderThickness="0"
+                                     CharacterCasing="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:ComboBoxHelper.CharacterCasing), Mode=OneWay}"
+                                     Focusable="True"
+                                     FontFamily="{TemplateBinding FontFamily}"
+                                     FontSize="{TemplateBinding FontSize}"
+                                     Foreground="{TemplateBinding Foreground}"
+                                     IsReadOnly="{TemplateBinding IsReadOnly}"
+                                     MaxLength="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:ComboBoxHelper.MaxLength), Mode=OneWay}"
+                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                     Style="{StaticResource EzzFilterTextBoxBaseStyle}"
+                                     Visibility="Collapsed" />
+                            <!--Text="{TemplateBinding Text}"-->
+
+                            <TextBlock x:Name="PART_WatermarkMessage"
+                                       Grid.Row="1"
+                                       Grid.Column="0"
+                                       Margin="5 0"
+                                       Padding="{TemplateBinding Padding}"
+                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       Style="{DynamicResource MahApps.Metro.Styles.MetroWatermarkTextBlock}"
+                                       Text="{TemplateBinding mm:TextBoxHelper.Watermark}"
+                                       TextAlignment="{TemplateBinding mm:TextBoxHelper.WatermarkAlignment}"
+                                       TextTrimming="{TemplateBinding mm:TextBoxHelper.WatermarkTrimming}"
+                                       Visibility="Collapsed" />
+                            <ContentControl x:Name="PART_FloatingMessageContainer"
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Style="{DynamicResource FloatingMessageContainerStyle}">
+                                <ContentControl.Height>
+                                    <MultiBinding Converter="{mmConverters:MathMultiplyConverter}">
+                                        <Binding ElementName="PART_FloatingMessage"
+                                                 Mode="OneWay"
+                                                 Path="ActualHeight" />
+                                        <Binding ElementName="PART_FloatingMessageContainer"
+                                                 Mode="OneWay"
+                                                 Path="Opacity" />
+                                    </MultiBinding>
+                                </ContentControl.Height>
+                                <TextBlock x:Name="PART_FloatingMessage"
+                                           Margin="2 2 0 0"
+                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                           Foreground="{TemplateBinding Foreground}"
+                                           Style="{DynamicResource MetroAutoCollapsingTextBlock}"
+                                           Text="{TemplateBinding mm:TextBoxHelper.Watermark}"
+                                           TextAlignment="{TemplateBinding mm:TextBoxHelper.WatermarkAlignment}"
+                                           TextTrimming="{TemplateBinding mm:TextBoxHelper.WatermarkTrimming}">
+                                    <TextBlock.RenderTransform>
+                                        <TranslateTransform x:Name="FloatingMessageTransform">
+                                            <TranslateTransform.Y>
+                                                <MultiBinding Converter="{mmConverters:MathSubtractConverter}">
+                                                    <Binding ElementName="PART_FloatingMessage"
+                                                             Mode="OneWay"
+                                                             Path="ActualHeight" />
+                                                    <Binding ElementName="PART_FloatingMessageContainer"
+                                                             Mode="OneWay"
+                                                             Path="ActualHeight" />
+                                                </MultiBinding>
+                                            </TranslateTransform.Y>
+                                        </TranslateTransform>
+                                    </TextBlock.RenderTransform>
+                                </TextBlock>
+                            </ContentControl>
+
+                            <Grid x:Name="ContentSite"
+                                  Grid.Row="1"
+                                  Grid.Column="0"
+                                  Margin="4 0">
+                                <ContentPresenter Margin="{TemplateBinding Padding}"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  Content="{TemplateBinding SelectionBoxItem}"
+                                                  ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
+                                                  ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                  ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                                  IsHitTestVisible="False"
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </Grid>
+                        </Grid>
+
+                        <Border x:Name="DisabledVisualElement"
+                                Grid.ColumnSpan="3"
+                                Background="{DynamicResource ControlsDisabledBrush}"
+                                BorderBrush="{DynamicResource ControlsDisabledBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:ControlsHelper.CornerRadius), Mode=OneWay}"
+                                IsHitTestVisible="False"
+                                Opacity="0.6"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                Visibility="Collapsed" />
+
+                        <!--  AllowsTransparency="true" fixes the redraw problem under windows vista/7 with a selected non aero theme  -->
+                        <Popup x:Name="PART_Popup"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                               Placement="Bottom"
+                               PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
+                            <Grid MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}" MaxHeight="{Binding MaxDropDownHeight, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Border x:Name="PopupBorder"
+                                        Height="Auto"
+                                        HorizontalAlignment="Stretch"
+                                        Background="{DynamicResource WhiteBrush}"
+                                        BorderBrush="{DynamicResource ComboBoxPopupBorderBrush}"
+                                        BorderThickness="{DynamicResource ComboBoxPopupBorderThemeThickness}"
+                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                    <ScrollViewer Padding="{DynamicResource ComboBoxPopupBorderThemePadding}" BorderThickness="0">
+                                        <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Border>
+                            </Grid>
+                        </Popup>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused" />
+                                <VisualState x:Name="Unfocused" />
+                                <VisualState x:Name="FocusedDropDown">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PopupBorder"
+                                                                       Storyboard.TargetProperty="(UIElement.Visibility)"
+                                                                       Duration="00:00:00">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEditable}" Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=ContextMenu, Converter={x:Static mmConverters:IsNullConverter.Instance}}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="PART_EditableTextBox" Property="ContextMenu" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ContextMenu}" />
+                        </MultiDataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEditable}" Value="False" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=SelectedItem}" Value="{x:Null}" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="PART_WatermarkMessage" Property="Visibility" Value="Visible" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=SelectedItem, Mode=OneWay, Converter={x:Static mmConverters:IsNullConverter.Instance}}" Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsKeyboardFocusWithin}" Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEditable}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource enterGotFocus}" />
+                            </MultiDataTrigger.EnterActions>
+                            <MultiDataTrigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource exitGotFocus}" />
+                            </MultiDataTrigger.ExitActions>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=SelectedItem, Mode=OneWay, Converter={x:Static mmConverters:IsNullConverter.Instance}}" Value="False" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEditable}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource enterHasText}" />
+                            </MultiDataTrigger.EnterActions>
+                            <MultiDataTrigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource exitHasText}" />
+                            </MultiDataTrigger.ExitActions>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Path=IsVisible, RelativeSource={RelativeSource Self}}" Value="True" />
+                                <Condition Binding="{Binding Path=(mm:TextBoxHelper.UseFloatingWatermark), RelativeSource={RelativeSource Self}}" Value="True" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsEditable}" Value="False" />
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=SelectedItem, Mode=OneWay, Converter={x:Static mmConverters:IsNullConverter.Instance}}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource ShowFloatingMessageStoryboard}" />
+                            </MultiDataTrigger.EnterActions>
+                            <MultiDataTrigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource HideFloatingMessageStoryboard}" />
+                            </MultiDataTrigger.ExitActions>
+                        </MultiDataTrigger>
+
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=(mm:TextBoxHelper.ClearTextButton)}" Value="False">
+                            <Setter TargetName="ContentSite" Property="Grid.ColumnSpan" Value="2" />
+                            <Setter TargetName="PART_EditableTextBox" Property="Grid.ColumnSpan" Value="2" />
+                            <Setter TargetName="PART_WatermarkMessage" Property="Grid.ColumnSpan" Value="2" />
+                        </DataTrigger>
+                        <Trigger Property="IsEditable" Value="True">
+                            <Setter Property="IsTabStop" Value="false" />
+                            <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden" />
+                            <Setter TargetName="PART_DropDownToggle" Property="Background" Value="{x:Null}" />
+                            <Setter TargetName="PART_DropDownToggle" Property="Focusable" Value="False" />
+                            <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible" />
+                        </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsEditable" Value="False" />
+                                <Condition Property="IsMouseOver" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{DynamicResource GrayBrush9}" />
+                        </MultiTrigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:ControlsHelper.MouseOverBorderBrush)}" />
+                        </Trigger>
+
+                        <Trigger SourceName="PART_EditableTextBox" Property="IsFocused" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:ControlsHelper.FocusBorderBrush)}" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:ControlsHelper.FocusBorderBrush)}" />
+                            <Setter TargetName="PART_FloatingMessage" Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                            <Setter TargetName="PART_FloatingMessage" Property="Opacity" Value="1" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:ControlsHelper.FocusBorderBrush)}" />
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="DisabledVisualElement" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+
+            </Setter.Value>
+        </Setter>
+        <Setter Property="IsEditable" Value="True"/>
+    </Style>
+    <Style
+        x:Key="EzzFilterComboBoxDynamicIcon"
+        BasedOn="{StaticResource EzzFilterComboBoxBaseStyle}"
+        TargetType="ComboBox">
+
+        <Setter Property="ap:TextBoxHelper.FilterButtonToolTip" Value="{lex:BLoc Search, TargetNullValue=Search}" />
+
+        <Style.Triggers>
+            <Trigger Property="ap:TextBoxHelper.RequireFilterAction" Value="False">
+                <Setter Property="ap:TextBoxHelper.FilterButtonContent">
+                    <Setter.Value>
+                        <iconPacks:PackIconFontAwesome Kind="SyncAltSolid" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style
+        x:Key="PathComboBox"
+        BasedOn="{StaticResource EzzFilterComboBoxBaseStyle}"
+        TargetType="ComboBox">
+        <Setter Property="ap:TextBoxHelper.EditType" Value="Path" />
+        <Setter Property="ap:TextBoxHelper.FilterButtonContent">
+            <Setter.Value>
+                <iconPacks:PackIconFontAwesome Kind="SyncAltSolid" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ap:TextBoxHelper.FilterButtonToolTip" Value="{lex:BLoc Refresh, TargetNullValue=Refresh}" />
+
+        <Style.Triggers>
+            <Trigger Property="ap:TextBoxHelper.RequireFilterAction" Value="True">
+                <Setter Property="ap:TextBoxHelper.FilterButtonContent">
+                    <Setter.Value>
+                        <iconPacks:PackIconFontAwesome Kind="ArrowRightSolid" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style
+        x:Key="PathComboBox2"
+        BasedOn="{StaticResource EzzFilterComboBoxBaseStyle}"
+        TargetType="ComboBox">
+        <Setter Property="ap:TextBoxHelper.EditType" Value="Path" />
+        <Setter Property="ap:TextBoxHelper.FilterButtonContent">
+            <Setter.Value>
+                <iconPacks:PackIconFontAwesome Kind="SyncAltSolid" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ap:TextBoxHelper.FilterButtonToolTip" Value="{lex:BLoc Refresh, TargetNullValue=Refresh}" />
+
+        <Style.Triggers>
+            <Trigger Property="ap:TextBoxHelper.RequireFilterAction" Value="True">
+                <Setter Property="ap:TextBoxHelper.FilterButtonContent">
+                    <Setter.Value>
+                        <iconPacks:PackIconFontAwesome Kind="ArrowRightSolid" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
     <!--#endregion Metro-->
 
 </ResourceDictionary>

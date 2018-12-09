@@ -12,6 +12,7 @@ namespace FolderIconChangerWPF
 {
     public class ThemeInfo : IEqualityComparer<ThemeInfo>, IEquatable<ThemeInfo>
     {
+        public const string DefaultName = "AppLight";
         public string Name { get; }
         public string LocalizedDisplayName => LocalizationProvider.GetLocalizedString(Name, ()=> DisplayName);
         public string DisplayName { get; }

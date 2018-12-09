@@ -207,7 +207,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox
+                <ComboBox
                     x:Name="TBTargetFolder"
                     Grid.Column="0"
                     Margin="5"
@@ -221,9 +221,9 @@
                     mm:TextBoxHelper.UseFloatingWatermark="True"
                     mm:TextBoxHelper.Watermark="{lex:BLoc TargetFolder, TargetNullValue=Target Folder}"
                     IsReadOnly="{Binding IsWorking}"
-                    IsReadOnlyCaretVisible="True"
-                    Style="{StaticResource PathTextBox}"
-                    Text="{Binding TargetFolder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    Style="{StaticResource PathComboBox}"
+                    Text="{Binding TargetFolder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    ItemsSource="{Binding RecentFolders, Source={x:Static serv:SettingsService.Instance}}"/>
 
                 <!--<Button
                     Grid.Column="1"
@@ -361,7 +361,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBox
+                    <ComboBox
                         Grid.Row="0"
                         ap:TextBoxHelper.ClearFilterCommand="{Binding ClearNewIconPathCommand}"
                         ap:TextBoxHelper.EditType="Path"
@@ -373,9 +373,19 @@
                         mm:TextBoxHelper.UseFloatingWatermark="True"
                         mm:TextBoxHelper.Watermark="{lex:BLoc FilePath, TargetNullValue=File Path}"
                         IsReadOnly="{Binding IsWorking}"
-                        IsReadOnlyCaretVisible="True"
-                        Style="{StaticResource PathTextBox2}"
-                        Text="{Binding NewIconPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        Style="{StaticResource PathComboBox2}"
+                        ItemsSource="{Binding RecentFilesWithDefaults, Source={x:Static serv:SettingsService.Instance}}"
+                        Text="{Binding NewIconPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+
+                        <!--ItemsSource="{Binding RecentFilesWithDefaults, Source={x:Static serv:SettingsService.Instance}}"-->
+                        <!--<ComboBox.ItemsSource>
+                            <MultiBinding>
+                                <Binding Source="{x:Static serv:SettingsService.Instance}" Path="RecentFiles"/>
+                                <Binding Source="{x:Static serv:SettingsService.Instance}" Path="DefaultRecentFiles"/>
+                            </MultiBinding>
+                        </ComboBox.ItemsSource>-->
+                        
+                    </ComboBox>
 
                     <mm:NumericUpDown
                         Grid.Column="1"

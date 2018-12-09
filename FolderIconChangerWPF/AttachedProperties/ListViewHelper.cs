@@ -37,7 +37,14 @@ namespace FolderIconChangerWPF.AttachedProperties
             if (e.ChangedButton == MouseButton.Left)
             {
                 if (!(GetDeselectOnMouseDown(control) is ListBox lv)) return;
-                lv.SelectedItems?.Clear();
+                if (lv.SelectionMode == SelectionMode.Single)
+                {
+                    lv.SelectedItem = null;
+                }
+                else
+                {
+                    lv.SelectedItems?.Clear();
+                }
             }
         }
 

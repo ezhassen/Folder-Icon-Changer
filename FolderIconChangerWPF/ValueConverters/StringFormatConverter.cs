@@ -144,7 +144,7 @@ With the resource in place, you can use the resource as the Converter when bindi
                 return string.Format(format, propValStr);
             }
             //
-            return propValStr.ToString();
+            //return propValStr.ToString();
         }
 
     }

@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
+using static Ezz_Helper.Drawing.IconsManager.IconInfo;
 
 namespace FolderIconChangerWPF.IconInfoCore
 {
@@ -27,6 +29,81 @@ namespace FolderIconChangerWPF.IconInfoCore
 
     public static class IconHelper
     {
+        public static byte[] BuildImageBytes(this IconImageInfo IIF)
+        {
+            //byte[] res = null;
+
+            try
+            {
+                //entry.HasValue && RawData != null
+                if (!IIF.iEntry.HasValue || IIF.RawData is null) return null;
+                //BitmapImage Res = null;
+                if (IIF.IconImageFormat == IconImageFormat.BMP)
+                {
+                    using (MemoryStream sMS = new MemoryStream())
+                    {
+                        Icon TempIcon = IconInfo.IconImageInfo.BuildIcon(IIF.iEntry.Value, IIF.RawData);
+                        if (TempIcon != null)
+                        {
+                            return TempIcon.ToBitmap()?.ToByteArray();
+                        }
+                    }
+                }
+                else if (IIF.IconImageFormat == IconImageFormat.PNG)
+                {
+                    return IIF.RawData;
+                    //using (MemoryStream sMS = new MemoryStream(IIF.RawData))
+                    //{
+                    //    Res = new Bitmap(sMS);
+                    //}
+                }
+                return null;
+                //return Res;
+            }
+            catch (Exception)
+            {
+
+                return null;
+                //throw;
+            }
+            //return res;
+        }
+        public static BitmapImage BuildBitmapImage(this IconImageInfo IIF)
+        {
+            try
+            {
+                //entry.HasValue && RawData != null
+                if (!IIF.iEntry.HasValue || IIF.RawData is null) return null;
+                //BitmapImage Res = null;
+                if (IIF.IconImageFormat == IconImageFormat.BMP)
+                {
+                    using (MemoryStream sMS = new MemoryStream())
+                    {
+                        Icon TempIcon = IconInfo.IconImageInfo.BuildIcon(IIF.iEntry.Value, IIF.RawData);
+                        if (TempIcon != null)
+                        {
+                            return TempIcon.ToBitmap()?.ToSWBitmapImage();
+                        }
+                    }
+                }
+                else if (IIF.IconImageFormat == IconImageFormat.PNG)
+                {
+                    return IIF.RawData?.ToBitmapImage();
+                    //using (MemoryStream sMS = new MemoryStream(IIF.RawData))
+                    //{
+                    //    Res = new Bitmap(sMS);
+                    //}
+                }
+                return null;
+                //return Res;
+            }
+            catch (Exception)
+            {
+                return null;
+                //throw;
+            }
+        }
+
         public static Task<Classes.TaskResult<SelectedIconInfo>> DirectSelectIconFromFileAsync(string FilePath, int iconIndex, CancellationToken cancellationToken = default)
         {
             return Classes.TaskResult.RunAsync(func: (cancel) => DirectSelectIconFromFile(FilePath, iconIndex), cancellationToken: cancellationToken);

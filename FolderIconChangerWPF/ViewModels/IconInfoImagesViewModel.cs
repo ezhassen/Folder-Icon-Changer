@@ -1,6 +1,7 @@
 ﻿using Ezz_Helper.Drawing.IconsManager;
 using FolderIconChangerWPF.Classes;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -114,7 +115,7 @@ namespace FolderIconChangerWPF.ViewModels
         {
             get
             {
-                if (_ImageViewSizes is null) _ImageViewSizes = Ezz_Helper.Drawing.IconsManager.Sizes.GetAll().Where(s=>s.Width>64);
+                if (_ImageViewSizes is null) _ImageViewSizes = Ezz_Helper.Drawing.IconsManager.Sizes.GetAll().Where(s => s.Width > MinSize);
                 return _ImageViewSizes;
             }
             set { _ImageViewSizes = value; }
@@ -138,6 +139,19 @@ namespace FolderIconChangerWPF.ViewModels
             }
         }
 
+        int _MinSize = 64;
+        public int MinSize
+        {
+            get { return _MinSize; }
+            set
+            {
+                if (_MinSize != value)
+                {
+                    _MinSize = value;
+                    OnPropertyChanged(); //uses CallerMemberName
+                }
+            }
+        }
 
         DelegateCommand _ChangeImageViewSizeCommand;
         public DelegateCommand ChangeImageViewSizeCommand

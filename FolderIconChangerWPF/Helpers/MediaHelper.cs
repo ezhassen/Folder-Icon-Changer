@@ -45,7 +45,7 @@ namespace FolderIconChangerWPF
                     var rFormat = imageIn.RawFormat;
                     imageIn.Save(ms, new System.Drawing.Imaging.ImageFormat(rFormat.Guid));
                 }
-                catch (Exception ex)
+                catch
                 {
                     imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                 }

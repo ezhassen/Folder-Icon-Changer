@@ -55,9 +55,7 @@ namespace FolderIconChangerWPF.AttachedProperties
 
         private static void OnEnableEzzTextBoxPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(d is TextBox textBox)) return;
-
-            void RemoveOldHandles()
+            if ((d is TextBox textBox))
             {
                 textBox.PreviewTextInput -= PreviewTextInputHandler;
                 textBox.PreviewKeyDown -= PreviewKeyDownHandler;
@@ -67,20 +65,43 @@ namespace FolderIconChangerWPF.AttachedProperties
                 textBox.GotKeyboardFocus -= TextBox_GotKeyboardFocus;
                 textBox.GotMouseCapture -= TextBox_GotMouseCapture;
                 textBox.GotTouchCapture -= TextBox_GotTouchCapture;
-            }
-            RemoveOldHandles();
-            if (e.NewValue is bool && (bool)e.NewValue)
-            {
-                textBox.PreviewTextInput += PreviewTextInputHandler;
-                textBox.PreviewKeyDown += PreviewKeyDownHandler;
-                //DataObject.AddPastingHandler(textBox, PastingHandler);
-                CommandManager.AddPreviewExecutedHandler(textBox, PreviewExecutedHandler);
-                //textBox.GotFocus += this.TextBox_GotFocus;
-                textBox.GotKeyboardFocus += TextBox_GotKeyboardFocus;
-                textBox.GotMouseCapture += TextBox_GotMouseCapture;
-                textBox.GotTouchCapture += TextBox_GotTouchCapture;
+                if (e.NewValue is bool && (bool)e.NewValue)
+                {
+                    textBox.PreviewTextInput += PreviewTextInputHandler;
+                    textBox.PreviewKeyDown += PreviewKeyDownHandler;
+                    //DataObject.AddPastingHandler(textBox, PastingHandler);
+                    CommandManager.AddPreviewExecutedHandler(textBox, PreviewExecutedHandler);
+                    //textBox.GotFocus += this.TextBox_GotFocus;
+                    textBox.GotKeyboardFocus += TextBox_GotKeyboardFocus;
+                    textBox.GotMouseCapture += TextBox_GotMouseCapture;
+                    textBox.GotTouchCapture += TextBox_GotTouchCapture;
 
-                SetCharsChecker(d, new CharsChecker());
+                    SetCharsChecker(d, new CharsChecker());
+                }
+            }
+            else if ((d is ComboBox comboBox))
+            {
+                comboBox.PreviewTextInput -= PreviewTextInputHandler;
+                comboBox.PreviewKeyDown -= PreviewKeyDownHandler;
+                //DataObject.RemovePastingHandler(AssociatedObject, PastingHandler);
+                CommandManager.RemovePreviewExecutedHandler(comboBox, PreviewExecutedHandler);
+                //textBox.GotFocus -= this.TextBox_GotFocus;
+                comboBox.GotKeyboardFocus -= TextBox_GotKeyboardFocus;
+                comboBox.GotMouseCapture -= TextBox_GotMouseCapture;
+                comboBox.GotTouchCapture -= TextBox_GotTouchCapture;
+                if (e.NewValue is bool && (bool)e.NewValue)
+                {
+                    comboBox.PreviewTextInput += PreviewTextInputHandler;
+                    comboBox.PreviewKeyDown += PreviewKeyDownHandler;
+                    //DataObject.AddPastingHandler(textBox, PastingHandler);
+                    CommandManager.AddPreviewExecutedHandler(comboBox, PreviewExecutedHandler);
+                    //textBox.GotFocus += this.TextBox_GotFocus;
+                    comboBox.GotKeyboardFocus += TextBox_GotKeyboardFocus;
+                    comboBox.GotMouseCapture += TextBox_GotMouseCapture;
+                    comboBox.GotTouchCapture += TextBox_GotTouchCapture;
+
+                    SetCharsChecker(d, new CharsChecker());
+                }
             }
             //else
             //{
@@ -90,9 +111,16 @@ namespace FolderIconChangerWPF.AttachedProperties
         }
         static void SelectAllMethod(object sender)
         {
-            if (!(sender is TextBox textBox)) return;
-            if (!GetSelectAllOnFocus(textBox)) return;
-            textBox.SelectAll();
+            if ((sender is TextBox textBox))
+            {
+                if (!GetSelectAllOnFocus(textBox)) return;
+                textBox.SelectAll();
+            }
+            else if (sender is ComboBox comboBox)
+            {
+                //if (!GetSelectAllOnFocus(comboBox)) return;
+                //comboBox.
+            }
         }
         private static void TextBox_GotTouchCapture(object sender, TouchEventArgs e) => SelectAllMethod(sender);
         private static void TextBox_GotMouseCapture(object sender, MouseEventArgs e) => SelectAllMethod(sender);
@@ -238,7 +266,7 @@ namespace FolderIconChangerWPF.AttachedProperties
         {
             if (!GetEnableEzzTextBox(d)) SetEnableEzzTextBox(d, true);
         }
-        
+
 
         #endregion
 
@@ -309,7 +337,7 @@ namespace FolderIconChangerWPF.AttachedProperties
 
         static TextChangingEventArgs GetTextChangingEventArgs(DependencyObject d, EditOperations OperationIs, string theTransText = "")
         {
-            TextBox _CTextBox =  _CTextBox_SetCurrInfo(d);
+            TextBox _CTextBox = _CTextBox_SetCurrInfo(d);
             string TBefore = _CTextBox.Text;
             switch (OperationIs)
             {
@@ -389,7 +417,7 @@ namespace FolderIconChangerWPF.AttachedProperties
                     break;
 
                 case EditTypes.Path:
-                    NotAllowedChars(d).RemoveChars(Path.GetInvalidPathChars());
+                    NotAllowedChars(d)?.RemoveChars(Path.GetInvalidPathChars());
                     break;
                     //case EditTypes.Normal:
                     //default:
@@ -771,7 +799,7 @@ namespace FolderIconChangerWPF.AttachedProperties
             }
             if (TextAfterTheChange.Contains(" ")) return false;
             if (TextAfterTheChange == ".") return true;
-            if (SuccessToAddNumber(d,TextAfterTheChange)) return true;
+            if (SuccessToAddNumber(d, TextAfterTheChange)) return true;
 
             if (TheTransferText == ("-"))
             {
@@ -1169,8 +1197,8 @@ namespace FolderIconChangerWPF.AttachedProperties
         }
 
         #endregion Handle text input/delete, OnKeyDown and cut/copy/paste commands
-        
-        
+
+
         /*
         #region Public Methods
 

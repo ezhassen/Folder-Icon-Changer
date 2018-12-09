@@ -26,7 +26,8 @@ namespace FolderIconChangerWPF
 
         protected override void OnExit(ExitEventArgs e)
         {
-            FolderIconChangerWPF.Properties.Settings.Default.Save();
+            //FolderIconChangerWPF.Properties.Settings.Default.Save();
+            Services.SettingsService.Instance.Save();
             //
             base.OnExit(e);
         }
