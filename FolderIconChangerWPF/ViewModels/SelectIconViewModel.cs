@@ -4,13 +4,13 @@ using FolderIconChangerWPF.Helpers;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using static FolderIconChangerWPF.LocalizationProvider;
 
 namespace FolderIconChangerWPF.ViewModels
@@ -143,8 +143,10 @@ namespace FolderIconChangerWPF.ViewModels
 
         DelegateCommand _LoadIconsCommand;
         public DelegateCommand LoadIconsCommand
-            => _LoadIconsCommand ?? (_LoadIconsCommand = new DelegateCommand(async () =>
+            => _LoadIconsCommand ?? (_LoadIconsCommand = new DelegateCommand(async (file) =>
             {
+                var fileStr = file as string;
+                if (!string.IsNullOrEmpty(fileStr)) _FilePath = fileStr;
                 await LoadIcons();
             }));
 
@@ -181,7 +183,7 @@ namespace FolderIconChangerWPF.ViewModels
             var fPath = this.FilePath;
             var taskResult = await TaskResult.RunAsync((cancel) =>
             {
-                return IconExtractor.ExtractAllIcons_AsIconInfo(fPath, BuildIcons: true);
+                return IconExtractor.ExtractAllIcons_AsIconInfo(fPath, BuildIcons: false);
             }, cancellationTokenSource.Token);
 
             // Remove cancellationTokenSource from running tasks
@@ -201,7 +203,7 @@ namespace FolderIconChangerWPF.ViewModels
                 if (taskResult.OperationWasSuccessful)
                 {
                     Icons = taskResult.Result;
-                    Services.SettingsService.Instance.AddRecentFile(this.FilePath);
+                    if (Icons != null && Icons.Count != 0) Services.SettingsService.Instance.AddRecentFile(this.FilePath);
                 }
                 else if (taskResult.Exception != null)
                 {
@@ -244,7 +246,7 @@ namespace FolderIconChangerWPF.ViewModels
                 Multiselect = false,
                 Title = GetLocalizedString("Select_Icon_Title")
             };
-            FileDialogFilterBuilderHelper.BuildFilter(fd, new string[] { "*.ico", "*.dll", "*.exe" });
+            FileDialogFilterBuilderHelper.BuildFilter(fd, new string[] { "*.ico", "*.dll", "*.exe" }, AllFormatsString_1: GetLocalizedString("Select_Icon_AllSupportedFormats"));
             var DefTarget = string.IsNullOrEmpty(FilePath) ? TargetFolder : Path.GetDirectoryName(FilePath);
             if (!Directory.Exists(DefTarget))
             {
@@ -267,18 +269,18 @@ namespace FolderIconChangerWPF.ViewModels
             }
         }
 
-        System.Drawing.Size _CurrentImageViewSize = Ezz_Helper.Drawing.IconsManager.Sizes.px_64x64;
-        public System.Drawing.Size CurrentImageViewSize
+        int _CurrentImageViewSizeW = 64;
+        public int CurrentImageViewSizeW
         {
             get
             {
-                return _CurrentImageViewSize;
+                return _CurrentImageViewSizeW;
             }
             set
             {
-                if (_CurrentImageViewSize != value)
+                if (_CurrentImageViewSizeW != value)
                 {
-                    _CurrentImageViewSize = value;
+                    _CurrentImageViewSizeW = value;
                     OnPropertyChanged(); //uses CallerMemberName
                 }
             }
@@ -298,11 +300,34 @@ namespace FolderIconChangerWPF.ViewModels
             }
         }
 
+
         DelegateCommand _ChangeImageViewSizeCommand;
         public DelegateCommand ChangeImageViewSizeCommand
-            => _ChangeImageViewSizeCommand ?? (_ChangeImageViewSizeCommand = new DelegateCommand((Delta) =>
+            => _ChangeImageViewSizeCommand ?? (_ChangeImageViewSizeCommand = new DelegateCommand((newSizeW) =>
             {
-                if (Delta is int deltaInt) ChangeImageViewSize(deltaInt);
+                if (newSizeW is string newSizeWStr)
+                {
+                    if (newSizeWStr.IsNumeric())
+                    {
+                        newSizeW = newSizeWStr.ValInt();
+                    }
+                }
+
+                if (newSizeW is int newSizeWInt) CurrentImageViewSizeW = newSizeWInt;
+            }));
+
+        DelegateCommand _ChangeImageViewSizeDeltaCommand;
+        public DelegateCommand ChangeImageViewSizeDeltaCommand
+            => _ChangeImageViewSizeDeltaCommand ?? (_ChangeImageViewSizeDeltaCommand = new DelegateCommand((Delta) =>
+            {
+                if (Delta is string DeltaStr)
+                {
+                    if (DeltaStr.IsNumeric())
+                    {
+                        Delta = DeltaStr.ValInt();
+                    }
+                }
+                if (Delta is int deltaInt) ChangeImageViewSizeDelta(deltaInt);
             }));
 
         private IEnumerable<System.Drawing.Size> _ImageViewSizes;
@@ -311,23 +336,23 @@ namespace FolderIconChangerWPF.ViewModels
         {
             get
             {
-                if (_ImageViewSizes is null) _ImageViewSizes = Ezz_Helper.Drawing.IconsManager.Sizes.GetAll().Where(s => s.Width > MinSize);
+                if (_ImageViewSizes is null) _ImageViewSizes = Sizes.GetAll().Where(s => s.Width > MinSize);
                 return _ImageViewSizes;
             }
             set { _ImageViewSizes = value; }
         }
-        void ChangeImageViewSize(int Delta)
+        void ChangeImageViewSizeDelta(int Delta)
         {
             //Up
             if (Delta > 0)
             {
-                var findNext_ = ImageViewSizes.FirstOrDefault(s => s.Width > this.CurrentImageViewSize.Width || s.Height > this.CurrentImageViewSize.Height);
-                if (findNext_ != System.Drawing.Size.Empty) CurrentImageViewSize = findNext_;
+                var findNext_ = ImageViewSizes.FirstOrDefault(s => s.Width > this.CurrentImageViewSizeW || s.Height > this.CurrentImageViewSizeW);
+                if (findNext_ != System.Drawing.Size.Empty) CurrentImageViewSizeW = findNext_.Width;
             }
             else //Down
             {
-                var findPre_ = ImageViewSizes.LastOrDefault(s => s.Width < this.CurrentImageViewSize.Width || s.Height < this.CurrentImageViewSize.Height);
-                if (findPre_ != System.Drawing.Size.Empty) CurrentImageViewSize = findPre_;
+                var findPre_ = ImageViewSizes.LastOrDefault(s => s.Width < this.CurrentImageViewSizeW || s.Height < this.CurrentImageViewSizeW);
+                if (findPre_ != System.Drawing.Size.Empty) CurrentImageViewSizeW = findPre_.Width;
             }
         }
 
@@ -343,6 +368,129 @@ namespace FolderIconChangerWPF.ViewModels
                 DisposeAllIcons();
                 if (!(OwnerWindow is null)) OwnerWindow.DialogResult = true;
                 CloseCommand?.Execute(null);
+            }));
+
+
+        bool _StretchedImages = true;
+        public bool StretchedImages
+        {
+            get { return _StretchedImages; }
+            set
+            {
+                if (_StretchedImages != value)
+                {
+                    _StretchedImages = value;
+                    OnPropertyChanged(); //uses CallerMemberName
+                    OnPropertyChanged(nameof(ImageStretchDirection));
+                    OnPropertyChanged(nameof(ImageStretch));
+                }
+            }
+        }
+
+
+        bool _StretchSmallImagesToo;
+        public bool StretchSmallImagesToo
+        {
+            get { return _StretchSmallImagesToo; }
+            set
+            {
+                if (_StretchSmallImagesToo != value)
+                {
+                    _StretchSmallImagesToo = value;
+                    OnPropertyChanged(); //uses CallerMemberName
+                    OnPropertyChanged(nameof(ImageStretchDirection));
+                    OnPropertyChanged(nameof(ImageStretch));
+                }
+            }
+        }
+
+
+
+        public StretchDirection ImageStretchDirection
+        {
+            get
+            {
+                if (StretchSmallImagesToo) return StretchDirection.Both;
+                return StretchDirection.DownOnly;
+            }
+            set
+            {
+                if (value == StretchDirection.DownOnly)
+                {
+                    StretchSmallImagesToo = false;
+                }
+                else
+                {
+                    StretchSmallImagesToo = true;
+                }
+                //OnPropertyChanged(); //uses CallerMemberName
+            }
+        }
+
+
+        public Stretch ImageStretch
+        {
+            get
+            {
+                if (StretchedImages) return Stretch.Uniform;
+                return Stretch.None;
+            }
+            set
+            {
+                if (value == Stretch.Uniform)
+                {
+                    StretchedImages = true;
+                }
+                else
+                {
+                    StretchedImages = false;
+                }
+                //OnPropertyChanged(); //uses CallerMemberName
+            }
+        }
+
+
+        DelegateCommand _ViewIconGroupCommandCommand;
+        public DelegateCommand ViewIconGroupCommandCommand
+            => _ViewIconGroupCommandCommand ?? (_ViewIconGroupCommandCommand = new DelegateCommand(() =>
+            {
+                if (this.SelectedIconInfo is null) return;
+                var newWindow = new Windows.IconInfoImagesWindow(this.SelectedIconInfo);
+                newWindow.Owner = this.OwnerWindow;
+                newWindow.ShowDialog();
+            }));
+
+
+        DelegateCommand _ExportSelectedIconCommand;
+        public DelegateCommand ExportSelectedIconCommand
+            => _ExportSelectedIconCommand ?? (_ExportSelectedIconCommand = new DelegateCommand(async () =>
+            {
+                if (SelectedIconInfo is null || !SelectedIndex.HasValue) return;
+                IsWorking = true;
+                var saveFileDialog = new SaveFileDialog();
+                var _FileNameWExt = Path.GetFileNameWithoutExtension(FilePath);
+                saveFileDialog.FileName = (string.IsNullOrEmpty(_FileNameWExt) ? "" : _FileNameWExt + " - ") + "Icon #" + SelectedIndex.Value;
+                saveFileDialog.BuildFilter(new string[] { "*.ico" }, true, false, AllFormatsString_1: GetLocalizedString("Select_Icon_AllSupportedFormats"));
+                saveFileDialog.DefaultExt = ".ico";
+                saveFileDialog.OverwritePrompt = true;
+                var ssIconI = SelectedIconInfo;
+                if (saveFileDialog.ShowDialog(OwnerWindow) == true)
+                {
+                    var sFile = saveFileDialog.FileName;
+                    var TRes = await TaskResult.RunAsync(() =>
+                    {
+                        using (FileStream FS = File.Create(sFile))
+                        {
+                            ssIconI.SourceIcon.Save(FS);
+                        }
+                    });
+                    IsWorking = false;
+                    if (TRes.Exception != null)
+                    {
+                        MessageBox.Show(OwnerWindow, TRes.Exception.ToString());
+                    }
+                }
+                IsWorking = false;
             }));
     }
 }

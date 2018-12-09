@@ -189,9 +189,13 @@ namespace FolderIconChangerWPF.ViewModels
         private DelegateCommand _RefreshCurrentInfoCommand;
 
         public DelegateCommand RefreshCurrentInfoCommand
-            => _RefreshCurrentInfoCommand ?? (_RefreshCurrentInfoCommand = new DelegateCommand(async () =>
+            => _RefreshCurrentInfoCommand ?? (_RefreshCurrentInfoCommand = new DelegateCommand(async (folder) =>
             {
+                var parafolder = folder as string;
+                if (!string.IsNullOrEmpty(parafolder)) _TargetFolder = parafolder;
+
                 await RefreshCurrentInfo();
+
             }, (param) => !IsWorking));
 
         DelegateCommand _ResetTargetFolderIconCommand;
@@ -335,9 +339,9 @@ namespace FolderIconChangerWPF.ViewModels
                 this.CurrentIconInfo = tRes.Item1;
                 this.CurrentIconPath = tRes.Item2;
                 this.CurrentIconIndex = tRes.Item3;
-                var tFolder = TargetFolder;
-                Services.SettingsService.Instance.AddRecentFolder(tFolder);
-                TargetFolder = tFolder;//temp Fix Empty TargetFolder Issue after moving it to top recent list
+                //var tFolder = TargetFolder;
+                Services.SettingsService.Instance.AddRecentFolder(TargetFolder);
+                //TargetFolder = tFolder;//temp Fix Empty TargetFolder Issue after moving it to top recent list
             }
 
             //
@@ -487,8 +491,10 @@ namespace FolderIconChangerWPF.ViewModels
         private DelegateCommand _RefreshNewInfoCommand;
 
         public DelegateCommand RefreshNewInfoCommand
-            => _RefreshNewInfoCommand ?? (_RefreshNewInfoCommand = new DelegateCommand(async () =>
+            => _RefreshNewInfoCommand ?? (_RefreshNewInfoCommand = new DelegateCommand(async (file) =>
             {
+                var parafile = file as string;
+                if (!string.IsNullOrEmpty(parafile)) _NewIconPath = parafile;
                 await RefreshNewInfoFromProps();
             }, (param) => !IsWorking));
 
@@ -791,7 +797,7 @@ namespace FolderIconChangerWPF.ViewModels
                 Multiselect = false,
                 Title = GetLocalizedString("SelectAnyImageToBeConverted")
             };
-            FileDialogFilterBuilderHelper.BuildFilter(fd, new string[] { "*.jpg", "*.Jpeg", "*.png", "*.bmp" });
+            FileDialogFilterBuilderHelper.BuildFilter(fd, new string[] { "*.jpg", "*.Jpeg", "*.png", "*.bmp" }, AllFormatsString_1: GetLocalizedString("Select_Icon_AllSupportedFormats"));
             if (Services.SettingsService.Instance.ShowCurrentFolderForIconFromImage && Directory.Exists(TargetFolder)) fd.InitialDirectory = TargetFolder;
             if (fd.ShowDialog() == true) await IconFromImage(fd.FileName);
         }
@@ -808,7 +814,7 @@ namespace FolderIconChangerWPF.ViewModels
 
             var SaveDefDir = Directory.Exists(TargetFolder) ? TargetFolder : Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             var SaveFD = new SaveFileDialog();
-            FileDialogFilterBuilderHelper.BuildFilter(SaveFD, new string[] { "*.ico" });
+            FileDialogFilterBuilderHelper.BuildFilter(SaveFD, new string[] { "*.ico" }, AllFormatsString_1: GetLocalizedString("Select_Icon_AllSupportedFormats"));
             SaveFD.AddExtension = true;
             SaveFD.DefaultExt = ".ico";
             SaveFD.InitialDirectory = SaveDefDir;
@@ -891,7 +897,7 @@ namespace FolderIconChangerWPF.ViewModels
                 Multiselect = false,
                 Title = GetLocalizedString("Select_Icon_Title")
             };
-            FileDialogFilterBuilderHelper.BuildFilter(fd, new string[] { "*.ico", "*.dll", "*.exe" });
+            FileDialogFilterBuilderHelper.BuildFilter(fd, new string[] { "*.ico", "*.dll", "*.exe" }, AllFormatsString_1: GetLocalizedString("Select_Icon_AllSupportedFormats"));
             if (!Directory.Exists(DefTarget))
             {
                 if (Directory.Exists(TargetFolder))
@@ -919,7 +925,7 @@ namespace FolderIconChangerWPF.ViewModels
                     sWindow.ViewModel.FilePath = fd.FileName;
                     sWindow.ViewModel.TargetFolder = this.TargetFolder;
                     sWindow.Owner = OwnerWindow;
-                    
+
                     if (sWindow.ShowDialog() == true)
                     {
                         this.NewIconIndex = sWindow.ViewModel.SelectedIndex;

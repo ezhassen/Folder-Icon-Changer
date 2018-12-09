@@ -104,6 +104,7 @@
     <Compile Include="AttachedProperties\PanelChildMarginProperty.cs" />
     <Compile Include="AttachedProperties\PasswordBoxAttachedProperties.cs" />
     <Compile Include="AttachedProperties\ScrollViewerAttachedProperties.cs" />
+    <Compile Include="AttachedProperties\SelectorHelper.cs" />
     <Compile Include="AttachedProperties\TextAttachedProperties.cs" />
     <Compile Include="AttachedProperties\TextBlockAttachedProperties.cs" />
     <Compile Include="AttachedProperties\TextBoxHelper\EzzTextBox.cs" />

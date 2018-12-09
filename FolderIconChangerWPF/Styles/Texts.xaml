@@ -1278,6 +1278,9 @@
             </Setter.Value>
         </Setter>
         <Setter Property="IsEditable" Value="True"/>
+        <Setter Property="ap:SelectorHelper.SelectedCommand" Value="{Binding (ap:TextBoxHelper.FilterCommand), RelativeSource={RelativeSource Self}}"/>
+        <Setter Property="ap:TextBoxHelper.ClearButtonToolTip" Value="{lex:BLoc Clear, TargetNullValue=Clear}" />
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
     </Style>
     <Style
         x:Key="EzzFilterComboBoxDynamicIcon"

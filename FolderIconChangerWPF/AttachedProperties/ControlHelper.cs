@@ -12,6 +12,16 @@ namespace FolderIconChangerWPF.AttachedProperties
     {
 
 
+        public static object GetTag2(DependencyObject obj) => (object)obj.GetValue(Tag2Property);
+
+        public static void SetTag2(DependencyObject obj, object value) => obj.SetValue(Tag2Property, value);
+
+        // Using a DependencyProperty as the backing store for Tag2.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty Tag2Property =
+            DependencyProperty.RegisterAttached("Tag2", typeof(object), typeof(ControlHelper), new PropertyMetadata(null));
+
+
+
         public static bool GetMouseWheelCommandOnControlKey(DependencyObject obj) => (bool)obj.GetValue(MouseWheelCommandOnControlKeyProperty);
 
         public static void SetMouseWheelCommandOnControlKey(DependencyObject obj, bool value) => obj.SetValue(MouseWheelCommandOnControlKeyProperty, value);

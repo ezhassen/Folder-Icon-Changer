@@ -147,5 +147,27 @@ namespace FolderIconChangerWPF.AttachedProperties
             var isChecked = toggleButton.IsChecked.GetValueOrDefault(false);
             if (cMenu.IsOpen != isChecked) cMenu.IsOpen = isChecked;
         }
+
+
+
+
+
+        public static object GetMenuDataContext(DependencyObject obj) => (object)obj.GetValue(MenuDataContextProperty);
+
+        public static void SetMenuDataContext(DependencyObject obj, object value) => obj.SetValue(MenuDataContextProperty, value);
+
+        // Using a DependencyProperty as the backing store for MenuDataContext.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MenuDataContextProperty =
+            DependencyProperty.RegisterAttached("MenuDataContext", typeof(object), typeof(ContextMenuHelper), new PropertyMetadata(null, new PropertyChangedCallback(OnMenuDataContextPropertyChanged)));
+
+        private static void OnMenuDataContextPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(d is FrameworkElement control)) return;
+            if (control.ContextMenu is null) return;
+            
+            control.ContextMenu.DataContext = GetMenuDataContext(d);
+        }
+
+
     }
 }

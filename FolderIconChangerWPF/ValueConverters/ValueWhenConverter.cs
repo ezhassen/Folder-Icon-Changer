@@ -153,7 +153,7 @@ Note, if you want to use a value of Null, use the following syntax:
 
                     return Otherwise;
                 }
-                
+
             }
             catch
             {
@@ -186,6 +186,14 @@ Note, if you want to use a value of Null, use the following syntax:
             Otherwise = false;
         }
     }
+    public class BoolWhenIntConverter : ValueWhenConverterBase<int, bool>
+    {
+        public BoolWhenIntConverter()
+        {
+            Value = true;
+            Otherwise = false;
+        }
+    }
 
     public class BoolWhenNullConverter : ValueWhenConverterBase<object, bool>
     {
@@ -196,7 +204,14 @@ Note, if you want to use a value of Null, use the following syntax:
         }
     }
 
-    public class ValueWhenIntConverter : ValueWhenConverterBase<int, object> { }
+    public class ValueWhenIntConverter : ValueWhenConverterBase<int, object>
+    {
+        public ValueWhenIntConverter()
+        {
+            Value = true;
+            Otherwise = false;
+        }
+    }
     public class FalseWhenZeroConverter : ValueWhenConverterBase<int, bool>
     {
         public FalseWhenZeroConverter()

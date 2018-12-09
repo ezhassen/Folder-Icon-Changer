@@ -210,7 +210,7 @@
                 <ComboBox
                     x:Name="TBTargetFolder"
                     Grid.Column="0"
-                    Margin="5"
+                    Margin="5" SelectedItem=""
                     HorizontalAlignment="Stretch"
                     ap:TextBoxHelper.ClearFilterCommand="{Binding ClearTargetFolderCommand}"
                     ap:TextBoxHelper.FilterByEnterKey="True"

@@ -213,16 +213,12 @@ namespace FolderIconChangerWPF.AttachedProperties
 
         private static void OnFilterByEnterKeyPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(d is TextBoxBase tb)) return;
+            if (!(d is Control tb)) return;
+                tb.PreviewKeyDown -= Tb_KeyDown;
             if (e.NewValue is bool && (bool)e.NewValue)
             {
                 //tb.KeyDown += Tb_KeyDown;
                 tb.PreviewKeyDown += Tb_KeyDown;
-            }
-            else
-            {
-                //tb.KeyDown -= Tb_KeyDown;
-                tb.PreviewKeyDown -= Tb_KeyDown;
             }
 
         }
@@ -231,7 +227,7 @@ namespace FolderIconChangerWPF.AttachedProperties
         {
             if (e.Key != Key.Enter) return;
             if (e.IsRepeat) return;
-            if (!(sender is TextBoxBase tb)) return;
+            if (!(sender is Control tb)) return;
             var fcommand = GetFilterCommand(tb);
             if (fcommand.CanExecute(null)) fcommand.Execute(null);
         }

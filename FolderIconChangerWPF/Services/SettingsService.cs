@@ -304,7 +304,7 @@ namespace FolderIconChangerWPF.Services
                 //RecentFiles.CopyTo(res, 0);
                 var rece = RecentFiles.ToList();
 
-                rece.AddRange(this.DefaultRecentFiles.Where(r=> !rece.Contains(r,new StringIEqualityComparer(StringComparison.OrdinalIgnoreCase))));
+                rece.AddRange(this.DefaultRecentFiles.Where(r => !rece.Contains(r, new StringIEqualityComparer(StringComparison.OrdinalIgnoreCase))));
                 return rece;
                 //return res;
             }
@@ -342,7 +342,7 @@ namespace FolderIconChangerWPF.Services
             var res = stringCollection;
             if (res is null)
             {
-                stringCollection = new ObservableCollection<string>
+                res = new ObservableCollection<string>
                 {
                     recent
                 };
@@ -356,14 +356,20 @@ namespace FolderIconChangerWPF.Services
                 //res.Insert(0, recent);
                 //res.RemoveAt(stringIndex + 1);
                 //TODO: Fix TargetFolder Empty Issue When Moving to top of the recent list
-                res.Move(stringIndex, 0);
+
+                if (stringIndex > 0)
+                {
+                    var newRes = new ObservableCollection<string>(res);
+                    newRes.Move(stringIndex, 0);
+                    return newRes;
+                }
             }
             else
             {
-                if (stringCollection.Count != 0 && stringCollection.Count >= max)
+                if (res.Count != 0 && res.Count >= max)
                 {
                     //Remove Old recent
-                    res.RemoveAt(stringCollection.Count - 1);
+                    res.RemoveAt(res.Count - 1);
                 }
                 //Add New recent
                 res.Insert(0, recent);

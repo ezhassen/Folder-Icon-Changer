@@ -37,12 +37,33 @@
 
     <mm:MetroWindow.Resources>
 
+        <Style
+            x:Key="ViewSizeItem"
+            BasedOn="{StaticResource MetroMenuItem}"
+            TargetType="MenuItem">
+            <Setter Property="Command" Value="{Binding ChangeImageViewSizeCommand}" />
+            <Setter Property="CommandParameter" Value="{Binding Tag, RelativeSource={RelativeSource Self}}" />
+            <!--<Setter Property="IsChecked" Value="{Binding CurrentImageViewSizeW}" />-->
+            <!--<Setter Property="Header">
+                <Setter.Value>
+                    <MultiBinding Converter="{conv:StringFormatConverter}" ConverterParameter="{}{0}x{1}">
+                        <Binding Path="Tag" Source="{RelativeSource Mode=FindAncestor, AncestorType=MenuItem}" />
+                        <Binding Path="Tag" Source="{RelativeSource Mode=FindAncestor, AncestorType=MenuItem}" />
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>-->
+        </Style>
+
         <DataTemplate x:Key="ImageInfoTemplate">
             <Border
                 x:Name="PART_ItemBorder"
-                Width="{Binding CurrentImageViewSize.Width, ElementName=ViewModel}"
-                Height="{Binding CurrentImageViewSize.Height, ElementName=ViewModel}"
+                Width="{Binding CurrentImageViewSizeW, ElementName=ViewModel}"
+                Height="{Binding CurrentImageViewSizeW, ElementName=ViewModel}"
                 Margin="5">
+                <Border.InputBindings>
+                    <KeyBinding Key="Return" Command="{Binding OKCommand, ElementName=ViewModel}" />
+                    <MouseBinding Command="{Binding OKCommand, ElementName=ViewModel}" MouseAction="LeftDoubleClick" />
+                </Border.InputBindings>
                 <!--<Border.ToolTip>
                     <MultiBinding Converter="{conv:StringFormatConverter}" ConverterParameter="{}{0}x{1}, {2}, {3}">
                         <Binding Path="Size.Width" />
@@ -62,9 +83,10 @@
                         <Image
                             x:Name="PART_Image"
                             ap:IconInfoHelper.IconInfo="{Binding}"
-                            ap:IconInfoHelper.IconSizeW="{Binding CurrentImageViewSize.Width, ElementName=ViewModel}"
+                            ap:IconInfoHelper.IconSizeW="{Binding CurrentImageViewSizeW, ElementName=ViewModel}"
                             Source="{Binding (ap:IconInfoHelper.ImageSource), RelativeSource={RelativeSource Self}}"
-                            StretchDirection="DownOnly" />
+                            Stretch="{Binding ImageStretch, ElementName=ViewModel}"
+                            StretchDirection="{Binding ImageStretchDirection, ElementName=ViewModel}" />
 
                         <Grid Visibility="{Binding (ap:IconInfoHelper.IsLoading), ElementName=PART_Image, Converter={conv:VisibilityWhenTrueConverter}}">
                             <Viewbox
@@ -118,6 +140,7 @@
 
     <Grid ap:ListViewHelper.DeselectOnMouseDown="{Binding ElementName=LV}" ap:WindowHelper.MoveWindowOnMouseDown="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}">
 
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -134,12 +157,83 @@
                 </Viewbox>
             </Button>
             <Separator Margin="5,8" />
-            <Button Width="50">
+            <Button Width="50" ToolTip="{lex:BLoc Select_Icon_View, TargetNullValue=View}">
                 <Viewbox Margin="5">
                     <iconPacks:PackIconFontAwesome Kind="ThSolid" />
                     <!--<iconPacks:PackIconFontAwesome Kind="ThListSolid" />-->
                     <!--<iconPacks:PackIconFontAwesome Kind="ThLargeSolid" />-->
                 </Viewbox>
+                <ap:ContextMenuHelper.OnClickContextMenu>
+                    <ContextMenu DataContext="{Binding Source={x:Reference ViewModel}}">
+                        <MenuItem
+                            Header="{lex:BLoc Select_Icon_StretchedImage, TargetNullValue=Stretched Image}"
+                            IsCheckable="True"
+                            IsChecked="{Binding StretchedImages, Mode=TwoWay}"
+                            Style="{StaticResource ViewSizeItem}" />
+                        <MenuItem
+                            Header="{lex:BLoc Select_Icon_StretchedSmallImagesToo, TargetNullValue=Stretch Small Images Too}"
+                            IsCheckable="True"
+                            IsChecked="{Binding StretchSmallImagesToo, Mode=TwoWay}"
+                            IsEnabled="{Binding StretchedImages, Converter={conv:BoolWhenBoolConverter}}"
+                            Style="{StaticResource ViewSizeItem}" />
+                        <Separator />
+                        <MenuItem
+                            Header="16x16"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=16}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="16" />
+                        <MenuItem
+                            Header="24x24"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=24}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="24" />
+                        <MenuItem
+                            Header="32x32"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=32}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="32" />
+                        <MenuItem
+                            Header="48x48"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=48}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="48" />
+                        <MenuItem
+                            Header="64x64"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=64}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="64" />
+                        <MenuItem
+                            Header="72x72"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=72}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="72" />
+                        <MenuItem
+                            Header="80x80"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=80}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="80" />
+                        <MenuItem
+                            Header="96x96"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=96}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="96" />
+                        <MenuItem
+                            Header="128x128"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=128}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="128" />
+                        <MenuItem
+                            Header="256x256"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=256}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="256" />
+                        <MenuItem
+                            Header="512x512"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=512}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="512" />
+                    </ContextMenu>
+                </ap:ContextMenuHelper.OnClickContextMenu>
             </Button>
 
         </ToolBar>
@@ -153,7 +247,7 @@
             ap:TextBoxHelper.FilterCommand="{Binding LoadIconsCommand}"
             ap:TextBoxHelper.IsFiltering="{Binding IsLoadingIcons}"
             ap:TextBoxHelper.RequireFilterAction="{Binding RequireRefresh}"
-            ap:TextBoxHelper.RequireFilterButtonToolTip="{lex:BLoc GetIcon, TargetNullValue=Get Icon}"
+            ap:TextBoxHelper.RequireFilterButtonToolTip="{lex:BLoc Select_Icon_GetIcons, TargetNullValue=Get Icons}"
             mm:TextBoxHelper.UseFloatingWatermark="True"
             mm:TextBoxHelper.Watermark="{lex:BLoc FilePath, TargetNullValue=File Path}"
             IsReadOnly="{Binding IsWorking}"
@@ -163,12 +257,109 @@
 
         <ListView
             x:Name="LV"
-            Grid.Row="2" SelectedItem="{Binding SelectedIconInfo}"
-            ap:ControlHelper.MouseWheelCommand="{Binding ChangeImageViewSizeCommand}"
+            Grid.Row="2"
+            ap:ControlHelper.MouseWheelCommand="{Binding ChangeImageViewSizeDeltaCommand}"
             ap:ControlHelper.MouseWheelCommandOnControlKey="True"
             ItemTemplate="{StaticResource ImageInfoTemplate}"
             ItemsSource="{Binding Icons}"
+            SelectedItem="{Binding SelectedIconInfo}"
             SelectionMode="Single">
+            <ListView.ContextMenu>
+                <ContextMenu DataContext="{Binding Source={x:Reference ViewModel}}">
+                    <MenuItem Command="{Binding OKCommand}" Header="{lex:BLoc Select_Icon_Select, TargetNullValue=Select}">
+                        <MenuItem.IsEnabled>
+                            <MultiBinding Converter="{conv:BoolWhenBoolConverter}">
+                                <!--  {Binding IsWorking, Converter={conv:BooleanInvertConverter}}  -->
+                                <Binding Converter="{conv:BooleanInvertConverter}" Path="IsWorking" />
+                                <Binding Converter="{conv:BoolWhenNullConverter Value=False, Otherwise=True}" Path="SelectedIndex" />
+                            </MultiBinding>
+                        </MenuItem.IsEnabled>
+                    </MenuItem>
+                    <MenuItem
+                        Command="{Binding ViewIconGroupCommandCommand}"
+                        Header="{lex:BLoc Select_Icon_ShowIconGroup, TargetNullValue=Show Icon Group}"
+                        IsEnabled="{Binding SelectedIconInfo, Converter={conv:BoolWhenNullConverter}}" />
+                    <Separator />
+                    <MenuItem Header="{lex:BLoc Select_Icon_View, TargetNullValue=View}">
+                        <MenuItem
+                            Header="{lex:BLoc Select_Icon_StretchedImage, TargetNullValue=Stretched Image}"
+                            IsCheckable="True"
+                            IsChecked="{Binding StretchedImages, Mode=TwoWay}"
+                            Style="{StaticResource ViewSizeItem}" />
+                        <MenuItem
+                            Header="{lex:BLoc Select_Icon_StretchedSmallImagesToo, TargetNullValue=Stretch Small Images Too}"
+                            IsCheckable="True"
+                            IsChecked="{Binding StretchSmallImagesToo, Mode=TwoWay}"
+                            IsEnabled="{Binding StretchedImages, Converter={conv:BoolWhenBoolConverter}}"
+                            Style="{StaticResource ViewSizeItem}" />
+                        <Separator />
+                        <MenuItem
+                            Header="16x16"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=16}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="16" />
+                        <MenuItem
+                            Header="24x24"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=24}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="24" />
+                        <MenuItem
+                            Header="32x32"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=32}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="32" />
+                        <MenuItem
+                            Header="48x48"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=48}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="48" />
+                        <MenuItem
+                            Header="64x64"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=64}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="64" />
+                        <MenuItem
+                            Header="72x72"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=72}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="72" />
+                        <MenuItem
+                            Header="80x80"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=80}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="80" />
+                        <MenuItem
+                            Header="96x96"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=96}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="96" />
+                        <MenuItem
+                            Header="128x128"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=128}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="128" />
+                        <MenuItem
+                            Header="256x256"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=256}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="256" />
+                        <MenuItem
+                            Header="512x512"
+                            IsChecked="{Binding CurrentImageViewSizeW, Converter={conv:BoolWhenIntConverter When=512}}"
+                            Style="{StaticResource ViewSizeItem}"
+                            Tag="512" />
+                    </MenuItem>
+                    <Separator />
+                    <MenuItem Command="{Binding LoadIconsCommand}" Header="{lex:BLoc Select_Icon_Refresh, TargetNullValue=Refresh}" />
+                    <Separator />
+                    <MenuItem
+                        Command="{Binding ExportSelectedIconCommand}"
+                        Header="{lex:BLoc Select_Icon_ExportIcon, TargetNullValue=Export Icon}"
+                        IsEnabled="{Binding SelectedIconInfo, Converter={conv:BoolWhenNullConverter}}" />
+                </ContextMenu>
+            </ListView.ContextMenu>
+
+
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <!--<WrapPanel />-->
@@ -189,7 +380,7 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            
+
             <Button
                 Grid.Column="0"
                 Margin="5"
@@ -199,15 +390,23 @@
                 FontSize="{DynamicResource FontSizeLarge}"
                 IsCancel="True" />
 
-            <Button Command="{Binding OKCommand}"
+            <Button
                 Grid.Column="1"
                 Margin="5"
                 HorizontalAlignment="Right"
                 mm:ControlsHelper.ContentCharacterCasing="Upper"
+                Command="{Binding OKCommand}"
                 Content="Select"
                 FontSize="{DynamicResource FontSizeLarge}"
-                IsDefault="True"
-                IsEnabled="{Binding IsWorking, Converter={conv:BooleanInvertConverter}}" />
+                IsDefault="True">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{conv:BoolWhenBoolConverter}">
+                        <!--  {Binding IsWorking, Converter={conv:BooleanInvertConverter}}  -->
+                        <Binding Converter="{conv:BooleanInvertConverter}" Path="IsWorking" />
+                        <Binding Converter="{conv:BoolWhenNullConverter Value=False, Otherwise=True}" Path="SelectedIndex" />
+                    </MultiBinding>
+                </Button.IsEnabled>
+            </Button>
 
         </Grid>
 
@@ -249,6 +448,24 @@
             <Run Text="{lex:BLoc Select_Icon_Index, TargetNullValue=Index}" />
             <Run Text=":" />
             <Run Text="{Binding SelectedItem.Index, ElementName=LV, Mode=OneWay}" />
+
+            <Separator Style="{StaticResource SeparatorStyle}" />
+            <TextBlock HorizontalAlignment="Right">
+                <Run Text="{lex:BLoc Select_Icon_View, TargetNullValue=View}" />
+                <Run Text=":" />
+                <Run>
+                    <Run.Text>
+                        <MultiBinding Converter="{conv:StringFormatConverter}" ConverterParameter="{}{0}x{1}">
+                            <Binding ElementName="ViewModel" Path="CurrentImageViewSizeW" />
+                            <Binding ElementName="ViewModel" Path="CurrentImageViewSizeW" />
+                        </MultiBinding>
+                    </Run.Text>
+                </Run>
+            </TextBlock>
+
+
+
+
 
         </StatusBar>
     </Grid>
