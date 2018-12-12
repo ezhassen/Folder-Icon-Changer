@@ -50,6 +50,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>FolderIconChangerWPF.App</StartupObject>
@@ -90,8 +91,6 @@
     <Compile Include="AttachedProperties\ButtonHelper.cs" />
     <Compile Include="AttachedProperties\ContextMenuHelper.cs" />
     <Compile Include="AttachedProperties\ControlHelper.cs" />
-    <Compile Include="AttachedProperties\ControlOnLoad.cs" />
-    <Compile Include="AttachedProperties\ControlUnload.cs" />
     <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
     <Compile Include="AttachedProperties\HandleControlUnload.cs" />
     <Compile Include="AttachedProperties\IconInfoHelper.cs" />

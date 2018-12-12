@@ -386,7 +386,8 @@
                 Margin="5"
                 HorizontalAlignment="Right"
                 mm:ControlsHelper.ContentCharacterCasing="Upper"
-                Content="Cancel"
+                Command="{Binding CloseCommand}"
+                Content="{lex:BLoc Select_Icon_Cancel, TargetNullValue=Cancel}"
                 FontSize="{DynamicResource FontSizeLarge}"
                 IsCancel="True" />
 
@@ -396,7 +397,7 @@
                 HorizontalAlignment="Right"
                 mm:ControlsHelper.ContentCharacterCasing="Upper"
                 Command="{Binding OKCommand}"
-                Content="Select"
+                Content="{lex:BLoc Select_Icon_Select, TargetNullValue=Select}"
                 FontSize="{DynamicResource FontSizeLarge}"
                 IsDefault="True">
                 <Button.IsEnabled>

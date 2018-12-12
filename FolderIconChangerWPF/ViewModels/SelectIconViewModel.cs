@@ -455,8 +455,11 @@ namespace FolderIconChangerWPF.ViewModels
             => _ViewIconGroupCommandCommand ?? (_ViewIconGroupCommandCommand = new DelegateCommand(() =>
             {
                 if (this.SelectedIconInfo is null) return;
-                var newWindow = new Windows.IconInfoImagesWindow(this.SelectedIconInfo);
-                newWindow.Owner = this.OwnerWindow;
+                var newWindow = new Windows.IconInfoImagesWindow(this.SelectedIconInfo)
+                {
+                    Owner = this.OwnerWindow
+                };
+                //newWindow.Show();
                 newWindow.ShowDialog();
             }));
 

@@ -19,10 +19,10 @@ namespace FolderIconChangerWPF.AttachedProperties
         private static void OnCloseOnESCKeyPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(d is Window window)) return;
-            window.PreviewKeyDown -= Window_PreviewKeyDown;
+            window.KeyDown -= Window_PreviewKeyDown;
             if (e.NewValue is bool && (bool)e.NewValue)
             {
-                window.PreviewKeyDown += Window_PreviewKeyDown;
+                window.KeyDown += Window_PreviewKeyDown;
             }
         }
 
@@ -30,7 +30,10 @@ namespace FolderIconChangerWPF.AttachedProperties
         {
             if (e.Key != System.Windows.Input.Key.Escape || e.IsRepeat) return;
             if (!(sender is Window window)) return;
-            if (GetCloseOnESCKey(window)) window.Close();
+            if (GetCloseOnESCKey(window))//&& window.IsActive
+            {
+                window.Close();
+            }
         }
 
 

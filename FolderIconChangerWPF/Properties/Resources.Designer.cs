@@ -250,6 +250,15 @@ namespace FolderIconChangerWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Icon Images Group.
+        /// </summary>
+        public static string FormIcomGroupTitle {
+            get {
+                return ResourceManager.GetString("FormIcomGroupTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Options.
         /// </summary>
         public static string FormOptionsTitle {

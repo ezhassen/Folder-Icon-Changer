@@ -368,6 +368,10 @@ Continue?</source>
           <source>256 IndexedColors</source>
           <target state="new">256 IndexedColors</target>
         </trans-unit>
+        <trans-unit id="FormIcomGroupTitle" translate="yes" xml:space="preserve">
+          <source>Icon Images Group</source>
+          <target state="new">Icon Images Group</target>
+        </trans-unit>
       </group>
     </body>
   </file>

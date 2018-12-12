@@ -389,4 +389,7 @@ Continue?</value>
   <data name="ImageColorsTypes__256_IndexedColors" xml:space="preserve">
     <value>256 IndexedColors</value>
   </data>
+  <data name="FormIcomGroupTitle" xml:space="preserve">
+    <value>Icon Images Group</value>
+  </data>
 </root>
