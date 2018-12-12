@@ -285,5 +285,55 @@ namespace FolderIconChangerWPF
             //if (string.IsNullOrEmpty(toCheck)) return true;
             return source.IndexOf(toCheck, comp) >= 0;
         }
+
+
+        public static bool ContainsAnyOfAny(this string[] strs, StringComparison stringComparison, params string[][] searchStrings)
+        {
+            foreach (var str in strs)
+            {
+                if (str.ContainsAny(stringComparison, searchStrings)) return true;
+            }
+            return false;
+        }
+
+        public static bool ContainsAny(this string str, StringComparison stringComparison, params string[][] searchStrings)
+        {
+            foreach (var searchStrs in searchStrings)
+            {
+                if (str.ContainsAny(stringComparison, searchStrs)) return true;
+            }
+            return false;
+        }
+
+        public static bool ContainsAny(this string str, StringComparison stringComparison, params string[] searchStrings)
+        {
+            foreach (var search in searchStrings)
+            {
+                if (str.Contains(search, stringComparison)) return true;
+            }
+            return false;
+        }
+
+        public static bool ContainsAny(this string str, params string[] searchStrings) => ContainsAny(str, StringComparison.Ordinal, searchStrings);
+
+        //public static bool Contains(this string str, string search, StringComparison stringComparison) => str.IndexOf(search, stringComparison) >= 0;
+        public static bool EndsWithAny(this string str, params string[][] searchStrings) => EndsWithAny(str, StringComparison.Ordinal, searchStrings);
+        public static bool EndsWithAny(this string str, StringComparison stringComparison, params string[][] searchStrings)
+        {
+            foreach (var endStrs in searchStrings)
+            {
+                if (str.EndsWithAny(stringComparison, endStrs)) return true;
+            }
+            return false;
+        }
+        public static bool EndsWithAny(this string str, params string[] searchStrings) => EndsWithAny(str, StringComparison.Ordinal, searchStrings);
+        public static bool EndsWithAny(this string str, StringComparison stringComparison, params string[] searchStrings)
+        {
+            foreach (var endStr in searchStrings)
+            {
+                if (str.EndsWith(endStr, stringComparison)) return true;
+            }
+            return false;
+        }
     }
 }

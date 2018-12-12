@@ -17,6 +17,7 @@
     Width="520"
     MinWidth="520"
     MinHeight="480"
+    ap:ControlHelper.DragNDropCommand="{Binding DragNDropCommand}"
     lex:LocalizeDictionary.DesignCulture="en"
     lex:LocalizeDictionary.OutputMissingKeys="True"
     lex:ResxLocalizationProvider.DefaultAssembly="Folder Icon Changer"
@@ -28,17 +29,17 @@
     OverlayBrush="Red"
     ResizeMode="CanMinimize"
     ShowIconOnTitleBar="False"
-    SizeToContent="Height" 
-    Topmost="{Binding IsTopMost, Source={x:Static serv:SettingsService.Instance}}"
+    SizeToContent="Height"
     TitleAlignment="Stretch"
     TitleTemplate="{StaticResource WindowTitleTemplateBig}"
     TitlebarHeight="42"
+    Topmost="{Binding IsTopMost, Source={x:Static serv:SettingsService.Instance}}"
     WindowButtonCommandsOverlayBehavior="Always"
     WindowStartupLocation="CenterScreen"
     WindowTitleBrush="{DynamicResource WindowBackgroundBrush}"
     mc:Ignorable="d">
     <!--  LeftWindowCommands="{DynamicResource MainWindowLeftCommands}"  -->
-    <mm:MetroWindow.Resources />
+    <!--<mm:MetroWindow.Resources />-->
 
     <mm:MetroWindow.LeftWindowCommands>
         <mm:WindowCommands ShowLastSeparator="False" ShowSeparators="False">
@@ -138,13 +139,13 @@
                         StaysOpen="False"
                         TextOptions.TextFormattingMode="Ideal"
                         VerticalOffset="0">
-                        <MenuItem x:Name="AppMenu_SettingsPageItem"
+                        <MenuItem
+                            x:Name="AppMenu_SettingsPageItem"
                             Command="{Binding GoToPageCommand, Source={x:Static vm:ApplicationViewModel.Instance}}"
                             CommandParameter="SettingsPage"
-                            Visibility="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}, 
-                            Converter={conv:VisibilityWhenStringConverter When=SettingsPage, Value=Collapsed, Otherwise=Visible}}"
                             Header="{lex:BLoc Settings, TargetNullValue={}Settings}"
-                            Style="{StaticResource NormalMenuItem}">
+                            Style="{StaticResource NormalMenuItem}"
+                            Visibility="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}, Converter={conv:VisibilityWhenStringConverter When=SettingsPage, Value=Collapsed, Otherwise=Visible}}">
                             <MenuItem.Icon>
                                 <Viewbox Margin="5,0" StretchDirection="Both">
                                     <iconPacks:PackIconMaterial
@@ -156,16 +157,14 @@
                                 </Viewbox>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <Separator  Visibility="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}, 
-                            Converter={conv:VisibilityWhenStringConverter When=SettingsPage, Value=Collapsed, Otherwise=Visible}}" Margin="{StaticResource SeparatorMargin}" />
+                        <Separator Margin="{StaticResource SeparatorMargin}" Visibility="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}, Converter={conv:VisibilityWhenStringConverter When=SettingsPage, Value=Collapsed, Otherwise=Visible}}" />
                         <MenuItem
                             x:Name="AppMenu_AboutPage"
                             Command="{Binding GoToPageCommand, Source={x:Static vm:ApplicationViewModel.Instance}}"
                             CommandParameter="AboutPage"
-                            Visibility="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}, 
-                            Converter={conv:VisibilityWhenStringConverter When=AboutPage, Value=Collapsed, Otherwise=Visible}}"
                             Header="{lex:BLoc About, TargetNullValue={}About}"
-                            Style="{StaticResource NormalMenuItem}">
+                            Style="{StaticResource NormalMenuItem}"
+                            Visibility="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}, Converter={conv:VisibilityWhenStringConverter When=AboutPage, Value=Collapsed, Otherwise=Visible}}">
                             <MenuItem.Icon>
                                 <Viewbox Margin="5,0" StretchDirection="Both">
                                     <iconPacks:PackIconMaterial
@@ -177,8 +176,7 @@
                                 </Viewbox>
                             </MenuItem.Icon>
                         </MenuItem>
-                        <Separator Visibility="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}, 
-                            Converter={conv:VisibilityWhenStringConverter When=AboutPage, Value=Collapsed, Otherwise=Visible}}" Margin="{StaticResource SeparatorMargin}" />
+                        <Separator Margin="{StaticResource SeparatorMargin}" Visibility="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}, Converter={conv:VisibilityWhenStringConverter When=AboutPage, Value=Collapsed, Otherwise=Visible}}" />
                         <MenuItem
                             Command="{Binding AppExitCommand, Source={x:Static vm:ApplicationViewModel.Instance}}"
                             FontSize="{StaticResource FontSizeRegular}"
@@ -206,18 +204,19 @@
                 </ap:ContextMenuHelper.ToggleButtonContextMenu>
 
             </ToggleButton>
-            <!--Home-->
+            <!--  Home  -->
             <Button
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Command="{Binding GoToPageCommand}"
-            CommandParameter="MainPage" Margin="5"
-            DataContext="{Binding Source={x:Static vm:ApplicationViewModel.Instance}}"
-            Foreground="{DynamicResource GrayBrush1}"
-            Style="{StaticResource ChromelessButtonStyle}"
-            Visibility="{Binding CurrentPage, Converter={conv:VisibilityWhenStringConverter When=MainPage, Value=Collapsed, Otherwise=Visible}}">
+                Margin="5"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Command="{Binding GoToPageCommand}"
+                CommandParameter="MainPage"
+                DataContext="{Binding Source={x:Static vm:ApplicationViewModel.Instance}}"
+                Foreground="{DynamicResource GrayBrush1}"
+                Style="{StaticResource ChromelessButtonStyle}"
+                Visibility="{Binding CurrentPage, Converter={conv:VisibilityWhenStringConverter When=MainPage, Value=Collapsed, Otherwise=Visible}}">
                 <Viewbox>
-                <!--<iconPacks:PackIconFontAwesome Kind="ArrowLeftSolid" />-->
+                    <!--<iconPacks:PackIconFontAwesome Kind="ArrowLeftSolid" />-->
                     <iconPacks:PackIconFontAwesome Kind="HomeSolid" />
                 </Viewbox>
             </Button>
@@ -434,7 +433,10 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>-->
-        
-        <controls:PageHost Grid.Row="1" CurrentPage="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}}" CurrentPageViewModel="{Binding CurrentPageViewModel, Source={x:Static vm:ApplicationViewModel.Instance}}" />
+
+        <controls:PageHost
+            Grid.Row="1"
+            CurrentPage="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}}"
+            CurrentPageViewModel="{Binding CurrentPageViewModel, Source={x:Static vm:ApplicationViewModel.Instance}}" />
     </Grid>
 </mm:MetroWindow>

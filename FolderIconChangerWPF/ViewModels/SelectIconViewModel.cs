@@ -260,6 +260,7 @@ namespace FolderIconChangerWPF.ViewModels
                 }
             }
             fd.InitialDirectory = DefTarget;
+            if (!string.IsNullOrEmpty(FilePath)) fd.FileName = Path.GetFileName(FilePath);
             //
             if (fd.ShowDialog() == true)
             {

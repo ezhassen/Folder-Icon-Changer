@@ -1,5 +1,6 @@
 ﻿using FolderIconChangerWPF.Pages;
 using System;
+using System.Windows;
 
 namespace FolderIconChangerWPF.ViewModels
 {
@@ -153,7 +154,27 @@ namespace FolderIconChangerWPF.ViewModels
             }
         }
 
-        
+
+        DelegateCommand _DragNDropCommand;
+        public DelegateCommand DragNDropCommand
+            => _DragNDropCommand ?? (_DragNDropCommand = new DelegateCommand((e) =>
+            {
+                if (!(e is DragEventArgs dragEvent)) return;
+                MainPageViewModel.Instance.DragNDropCommand?.Execute(e);
+            }, (e) =>
+            {
+                if (!(e is DragEventArgs dragEvent)) return false;
+                if (MainPageViewModel.Instance.DragNDropCommand?.CanExecute(e) ?? false)
+                {
+                    if (!CurrentPage.Equals("MainPage", StringComparison.OrdinalIgnoreCase))
+                    {
+                        GoToPage("MainPage");
+                    }
+                    return true;
+                }
+                return false;
+                //return MainPageViewModel.Instance.DragNDropCommand?.CanExecute(e) ?? false;
+            }));
     }
 
 }

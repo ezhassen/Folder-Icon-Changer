@@ -54,9 +54,11 @@ namespace FolderIconChangerWPF.AttachedProperties
             if (!(sender is FrameworkElement control)) return;
             if (!(GetMouseWheelCommand(control) is ICommand command)) return;
             if (GetMouseWheelCommandOnControlKey(control) && !Keyboard.Modifiers.HasFlag(ModifierKeys.Control)) return;
-            if (command.CanExecute(e.Delta)) {
+            if (command.CanExecute(e.Delta))
+            {
                 e.Handled = true;//Handle if there is scroll bar
-                command.Execute(e.Delta); }
+                command.Execute(e.Delta);
+            }
         }
 
         #region ControlOnLoad
@@ -114,7 +116,7 @@ namespace FolderIconChangerWPF.AttachedProperties
         private static void OnOnUnloadedCommandPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (!(d is FrameworkElement control)) return;
-                control.Unloaded -= Control_Unloaded;
+            control.Unloaded -= Control_Unloaded;
             if (e.NewValue is ICommand)
             {
                 control.Unloaded += Control_Unloaded;
@@ -133,7 +135,7 @@ namespace FolderIconChangerWPF.AttachedProperties
                 else
                 {
                     e.Handled = true;
-                    var onHandledCommand = GetOnUnloadHandledCommand(sender as Control);
+                    var onHandledCommand = GetOnUnloadHandledCommand(control);
                     if (onHandledCommand != null && onHandledCommand.CanExecute(null)) onHandledCommand.Execute(null);
                 }
             }
@@ -153,6 +155,51 @@ namespace FolderIconChangerWPF.AttachedProperties
 
         #endregion
 
+        #region Drag & Drop
 
+
+        public static ICommand GetDragNDropCommand(DependencyObject obj) => (ICommand)obj.GetValue(DragNDropCommandProperty);
+
+        public static void SetDragNDropCommand(DependencyObject obj, ICommand value) => obj.SetValue(DragNDropCommandProperty, value);
+
+        // Using a DependencyProperty as the backing store for DragNDropCommand.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DragNDropCommandProperty =
+            DependencyProperty.RegisterAttached("DragNDropCommand", typeof(ICommand), typeof(ControlHelper), new PropertyMetadata(null, new PropertyChangedCallback(OnDragNDropCommandPropertyChanged)));
+
+        private static void OnDragNDropCommandPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(d is FrameworkElement control)) return;
+            control.DragEnter -= Control_DragEnter;
+            control.Drop -= Control_Drop;
+            if (e.NewValue is ICommand)
+            {
+                if (!control.AllowDrop) control.AllowDrop = true;
+                control.DragEnter += Control_DragEnter;
+                control.Drop += Control_Drop;
+            }
+        }
+
+        private static void Control_DragEnter(object sender, DragEventArgs e)
+        {
+            if (!(sender is FrameworkElement control)) return;
+            var command = GetDragNDropCommand(control);
+            if (command is null) return;
+
+            if (!command.CanExecute(e))
+            {
+                e.Effects = DragDropEffects.None;
+            }
+
+        }
+
+        private static void Control_Drop(object sender, DragEventArgs e)
+        {
+            if (!(sender is FrameworkElement control)) return;
+            //var command = GetDragNDropCommand(control);
+            //if (command is null) return;
+            GetDragNDropCommand(control)?.Execute(e);
+        }
+
+        #endregion
     }
 }

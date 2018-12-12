@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
@@ -27,12 +28,33 @@ namespace FolderIconChangerWPF.AttachedProperties
 
         private static void Selector_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            if (!(sender is Selector selector)) return;
+            if (!(sender is ComboBox selector)) return;
+            if (GetIgnoreSelectionChangedWhenTextNotEmpty(selector)
+                && (selector.SelectedItem is null && !string.IsNullOrEmpty(selector.Text))) return;
+
             var command = GetSelectedCommand(selector);
             if (command.CanExecute(selector.SelectedItem))
             {
                 command.Execute(selector.SelectedItem);
             }
         }
+
+
+
+        public static bool GetIgnoreSelectionChangedWhenTextNotEmpty(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(IgnoreSelectionChangedWhenTextNotEmptyProperty);
+        }
+
+        public static void SetIgnoreSelectionChangedWhenTextNotEmpty(DependencyObject obj, bool value)
+        {
+            obj.SetValue(IgnoreSelectionChangedWhenTextNotEmptyProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for IgnoreSelectionChangedWhenTextNotEmpty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IgnoreSelectionChangedWhenTextNotEmptyProperty =
+            DependencyProperty.RegisterAttached("IgnoreSelectionChangedWhenTextNotEmpty", typeof(bool), typeof(SelectorHelper), new PropertyMetadata(true));
+
+
     }
 }

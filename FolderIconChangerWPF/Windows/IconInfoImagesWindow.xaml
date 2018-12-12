@@ -14,7 +14,7 @@
     MinWidth="300"
     MinHeight="300"
     ap:ControlHelper.OnLoadCommand="{Binding GetImagesCommand}"
-    ap:WindowHelper.CloseOnESCKey="False"
+    ap:WindowHelper.CloseOnESCKey="True"
     d:DataContext="{x:Static vm:IconInfoImagesViewModelDesgin.Instance}"
     lex:LocalizeDictionary.DesignCulture="en"
     lex:LocalizeDictionary.OutputMissingKeys="True"

@@ -15,7 +15,7 @@
     Width="570"
     MinWidth="300"
     MinHeight="300"
-    ap:ControlOnLoad.Command="{Binding LoadIconsCommand}"
+    ap:ControlHelper.OnLoadCommand="{Binding LoadIconsCommand}"
     ap:WindowHelper.CloseOnESCKey="True"
     lex:LocalizeDictionary.DesignCulture="en"
     lex:LocalizeDictionary.OutputMissingKeys="True"

@@ -602,7 +602,7 @@ namespace FolderIconChangerWPF.ViewModels
                     if (!IsWorking)
                     {
                         //NewRequireRefresh = true;
-                        RefreshNewInfoCommand.Execute(null);
+                        if (!NewRequireRefresh) RefreshNewInfoCommand.Execute(null);
                     }
                 }
             }
@@ -921,20 +921,24 @@ namespace FolderIconChangerWPF.ViewModels
                 }
                 else
                 {
-                    var sWindow = new Windows.SelectIconWindow();
-                    sWindow.ViewModel.FilePath = fd.FileName;
-                    sWindow.ViewModel.TargetFolder = this.TargetFolder;
-                    sWindow.Owner = OwnerWindow;
-
-                    if (sWindow.ShowDialog() == true)
-                    {
-                        this.NewIconIndex = sWindow.ViewModel.SelectedIndex;
-                        this.NewIconPath = sWindow.ViewModel.FilePath;
-                        this.RefreshNewInfoCommand.Execute(null);
-                    }
+                    ShowSelectIconWindow(fd.FileName);
                 }
             }
 
+        }
+        void ShowSelectIconWindow(string filePath)
+        {
+            var sWindow = new Windows.SelectIconWindow();
+            sWindow.ViewModel.FilePath = filePath;
+            sWindow.ViewModel.TargetFolder = this.TargetFolder;
+            sWindow.Owner = OwnerWindow;
+
+            if (sWindow.ShowDialog() == true)
+            {
+                this.NewIconIndex = sWindow.ViewModel.SelectedIndex;
+                this.NewIconPath = sWindow.ViewModel.FilePath;
+                this.RefreshNewInfoCommand.Execute(null);
+            }
         }
 
         #endregion NewIconInfo
@@ -995,5 +999,71 @@ namespace FolderIconChangerWPF.ViewModels
         #endregion Helper Methods
 
 
+        #region Drag N Drop
+
+        public static string[] SupportedImagesExtensions => new string[] { "jpg", "Jpeg", "png", "bmp" };
+        public static string[] SupporteResExtensions => new string[] { "dll", "exe" };
+        public static string[] SupportedFilesExtensions => new string[] { "ico", "dll", "exe", "jpg", "Jpeg", "png", "bmp" };
+
+        DelegateCommand _DragNDropCommand;
+        public DelegateCommand DragNDropCommand
+            => _DragNDropCommand ?? (_DragNDropCommand = new DelegateCommand(async (e) =>
+            {
+                if (!(e is DragEventArgs dragEvent)) return;
+                if (!dragEvent.Data.GetDataPresent(DataFormats.FileDrop)) return;
+                var DFiles = (string[])dragEvent.Data.GetData(DataFormats.FileDrop);
+                var DDD = DFiles[0];
+
+                if (Directory.Exists(DDD))//Change Target folder
+                {
+                    this.TargetFolder = DDD;
+                    this.RefreshCurrentInfoCommand?.Execute(null);
+                }
+                else if (DDD.EndsWith("ico", StringComparison.OrdinalIgnoreCase))//Get Icon from file
+                {
+                    //await this.GetNewIconInfo(DDD, 0);
+                    this.NewIconIndex = 0;
+                    this.NewIconPath = DDD;
+                    this.RefreshNewInfoCommand.Execute(null);
+                }//TODO: Get File Location if it is a link file (lnk)//, new string[] { "lnk" }
+                else if (DDD.EndsWithAny(StringComparison.OrdinalIgnoreCase, SupporteResExtensions))//Select Icon
+                {
+                    ShowSelectIconWindow(DDD);
+                }
+                else if (DDD.EndsWithAny(StringComparison.OrdinalIgnoreCase, SupportedImagesExtensions))//Ico from image
+                {
+                    await IconFromImage(DDD);
+                }
+
+            }, (e) =>
+            {
+                if (!(e is DragEventArgs dragEvent)) return false;
+                if (dragEvent.Data.GetDataPresent(DataFormats.FileDrop))
+                {
+                    ///"*.jpg", "*.Jpeg", "*.png", "*.bmp"
+                    var DFiles = (string[])dragEvent.Data.GetData(DataFormats.FileDrop);
+                    var DDD = DFiles[0];
+                    //TODO: Get File Location if it is a link file (lnk)// new string[] { "lnk" }
+                    if (Directory.Exists(DDD) || DDD.EndsWithAny(StringComparison.CurrentCultureIgnoreCase, SupportedFilesExtensions))
+                    {
+                        dragEvent.Effects = DragDropEffects.Copy;
+                        return true;
+                    }
+                    //if (Directory.Exists(DDD) || DDD.EndsWith("ico", StringComparison.CurrentCultureIgnoreCase) ||
+                    //    DDD.EndsWith("dll", StringComparison.CurrentCultureIgnoreCase) ||
+                    //    DDD.EndsWith("exe", StringComparison.CurrentCultureIgnoreCase) ||
+                    //    DDD.EndsWith("jpg", StringComparison.CurrentCultureIgnoreCase) ||
+                    //    DDD.EndsWith("Jpeg", StringComparison.CurrentCultureIgnoreCase) ||
+                    //    DDD.EndsWith("png", StringComparison.CurrentCultureIgnoreCase) ||
+                    //    DDD.EndsWith("bmp", StringComparison.CurrentCultureIgnoreCase))
+                    //{
+                    //    dragEvent.Effects = DragDropEffects.Copy;
+                    //    return true;
+                    //}
+                }
+                return false;
+            }));
+
+        #endregion
     }
 }
