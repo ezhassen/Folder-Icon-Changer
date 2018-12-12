@@ -163,6 +163,7 @@
     <Compile Include="ViewModels\IconInfoImagesViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\SelectIconViewModel.cs" />
+    <Compile Include="ViewModels\AboutPageViewModel.cs" />
     <Compile Include="Win32\FolderBrowserDialog.cs" />
     <Compile Include="Win32\NativeMethods.cs" />
     <Compile Include="Windows\IconInfoImagesWindow.xaml.cs">

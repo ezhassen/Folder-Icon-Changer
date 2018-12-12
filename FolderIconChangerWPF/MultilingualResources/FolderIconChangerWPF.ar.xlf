@@ -372,6 +372,14 @@ Continue?</source>
           <source>Icon Images Group</source>
           <target state="new">Icon Images Group</target>
         </trans-unit>
+        <trans-unit id="bClearRecentFiles" translate="yes" xml:space="preserve">
+          <source>Clear Recent Files</source>
+          <target state="new">Clear Recent Files</target>
+        </trans-unit>
+        <trans-unit id="bClearRecentFolders" translate="yes" xml:space="preserve">
+          <source>Clear Recent Folders</source>
+          <target state="new">Clear Recent Folders</target>
+        </trans-unit>
       </group>
     </body>
   </file>

@@ -10,6 +10,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Windows.Input;
 
 namespace FolderIconChangerWPF.Services
 {
@@ -58,6 +59,8 @@ namespace FolderIconChangerWPF.Services
         public void RefreshOtherSettings()
         {
             //this.IsTopMost = IsTopMost;
+            AllowClearRecentFiles = this.RecentFiles?.Count > 0;
+            AllowClearRecentFolders = this.RecentFolders?.Count > 0;
         }
         //public SettingsService()
         //{
@@ -278,6 +281,7 @@ namespace FolderIconChangerWPF.Services
                 this.Save();
                 OnPropertyChanged(); //uses CallerMemberName
                 //}
+                AllowClearRecentFolders = value?.Count > 0;
             }
         }
 
@@ -331,6 +335,7 @@ namespace FolderIconChangerWPF.Services
                 OnPropertyChanged(); //uses CallerMemberName
                 OnPropertyChanged(nameof(RecentFilesWithDefaults));
                 //}
+                AllowClearRecentFiles = value?.Count > 0;
             }
         }
 
@@ -401,6 +406,58 @@ namespace FolderIconChangerWPF.Services
             return -1;
         }
 
+
+        DelegateCommand _ClearRecentsFoldersCommand;
+        public DelegateCommand ClearRecentFoldersCommand
+            => _ClearRecentsFoldersCommand ?? (_ClearRecentsFoldersCommand = new DelegateCommand(() =>
+            {
+                if (!(Mouse.OverrideCursor is null)) return;
+                Mouse.OverrideCursor = Cursors.Wait;
+                this.RecentFolders?.Clear();
+                AllowClearRecentFolders = false;
+                Save();
+                Mouse.OverrideCursor = null;
+            }));
+
+        bool _AllowClearRecentFolders;
+        public bool AllowClearRecentFolders
+        {
+            get { return _AllowClearRecentFolders; }
+            set
+            {
+                if (_AllowClearRecentFolders != value)
+                {
+                    _AllowClearRecentFolders = value;
+                    OnPropertyChanged(); //uses CallerMemberName
+                }
+            }
+        }
+
+        DelegateCommand _ClearRecentsFilesCommand;
+        public DelegateCommand ClearRecentFilesCommand
+            => _ClearRecentsFilesCommand ?? (_ClearRecentsFilesCommand = new DelegateCommand(() =>
+            {
+                if (!(Mouse.OverrideCursor is null)) return;
+                Mouse.OverrideCursor = Cursors.Wait;
+                this.RecentFiles?.Clear();
+                AllowClearRecentFiles = false;
+                Save();
+                Mouse.OverrideCursor = null;
+            }));
+
+        bool _AllowClearRecentFiles;
+        public bool AllowClearRecentFiles
+        {
+            get { return _AllowClearRecentFiles; }
+            set
+            {
+                if (_AllowClearRecentFiles != value)
+                {
+                    _AllowClearRecentFiles = value;
+                    OnPropertyChanged(); //uses CallerMemberName
+                }
+            }
+        }
 
         public override void Save()
         {

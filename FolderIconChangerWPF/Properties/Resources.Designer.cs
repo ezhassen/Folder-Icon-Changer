@@ -115,6 +115,24 @@ namespace FolderIconChangerWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear Recent Files.
+        /// </summary>
+        public static string bClearRecentFiles {
+            get {
+                return ResourceManager.GetString("bClearRecentFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear Recent Folders.
+        /// </summary>
+        public static string bClearRecentFolders {
+            get {
+                return ResourceManager.GetString("bClearRecentFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Browse for an icon file.
         /// </summary>
         public static string BrowseForAnIconFile {
