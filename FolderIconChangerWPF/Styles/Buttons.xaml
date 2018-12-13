@@ -1068,6 +1068,7 @@
     </Style>
     <Style x:Key="HyperLinkButtonStyle" TargetType="Button">
         <Setter Property="Focusable" Value="False" />
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="TextBlock.FontWeight" Value="Bold" />
         <Setter Property="Foreground" Value="{StaticResource AccentBaseColorBrush}" />
         <Setter Property="Template">

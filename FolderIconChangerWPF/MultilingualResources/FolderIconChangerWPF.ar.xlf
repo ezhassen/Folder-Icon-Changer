@@ -380,6 +380,30 @@ Continue?</source>
           <source>Clear Recent Folders</source>
           <target state="new">Clear Recent Folders</target>
         </trans-unit>
+        <trans-unit id="tAppName" translate="yes" xml:space="preserve">
+          <source>App Name</source>
+          <target state="new">App Name</target>
+        </trans-unit>
+        <trans-unit id="tCopyright" translate="yes" xml:space="preserve">
+          <source>Copyright</source>
+          <target state="new">Copyright</target>
+        </trans-unit>
+        <trans-unit id="Version" translate="yes" xml:space="preserve">
+          <source>Version</source>
+          <target state="new">Version</target>
+        </trans-unit>
+        <trans-unit id="DevName" translate="yes" xml:space="preserve">
+          <source>Ezz Hasan</source>
+          <target state="new">Ezz Hasan</target>
+        </trans-unit>
+        <trans-unit id="tDescription" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <target state="new">Description</target>
+        </trans-unit>
+        <trans-unit id="tDevName" translate="yes" xml:space="preserve">
+          <source>Developer Name</source>
+          <target state="new">Developer Name</target>
+        </trans-unit>
       </group>
     </body>
   </file>

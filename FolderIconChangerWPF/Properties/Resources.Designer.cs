@@ -223,6 +223,15 @@ namespace FolderIconChangerWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ezz Hasan.
+        /// </summary>
+        public static string DevName {
+            get {
+                return ResourceManager.GetString("DevName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Done :).
         /// </summary>
         public static string Done {
@@ -847,11 +856,47 @@ namespace FolderIconChangerWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to App Name.
+        /// </summary>
+        public static string tAppName {
+            get {
+                return ResourceManager.GetString("tAppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Target folder.
         /// </summary>
         public static string TargetFolder {
             get {
                 return ResourceManager.GetString("TargetFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copyright.
+        /// </summary>
+        public static string tCopyright {
+            get {
+                return ResourceManager.GetString("tCopyright", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string tDescription {
+            get {
+                return ResourceManager.GetString("tDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Developer Name.
+        /// </summary>
+        public static string tDevName {
+            get {
+                return ResourceManager.GetString("tDevName", resourceCulture);
             }
         }
         
@@ -870,6 +915,15 @@ namespace FolderIconChangerWPF.Properties {
         public static string TopMost {
             get {
                 return ResourceManager.GetString("TopMost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        public static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
         

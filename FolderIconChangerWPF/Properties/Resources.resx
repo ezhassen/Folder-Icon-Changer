@@ -398,4 +398,22 @@ Continue?</value>
   <data name="bClearRecentFolders" xml:space="preserve">
     <value>Clear Recent Folders</value>
   </data>
+  <data name="DevName" xml:space="preserve">
+    <value>Ezz Hasan</value>
+  </data>
+  <data name="tAppName" xml:space="preserve">
+    <value>App Name</value>
+  </data>
+  <data name="tCopyright" xml:space="preserve">
+    <value>Copyright</value>
+  </data>
+  <data name="tDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="tDevName" xml:space="preserve">
+    <value>Developer Name</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
 </root>
