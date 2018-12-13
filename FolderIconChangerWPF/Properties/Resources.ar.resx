@@ -262,4 +262,64 @@
   <data name="IconImageFormat_PNG" xml:space="preserve">
     <value>PNG</value>
   </data>
+  <data name="IconImageFormat_UNKNOWN" xml:space="preserve">
+    <value>UNKNOWN</value>
+  </data>
+  <data name="ImageColorsTypes_Alpha_Channel" xml:space="preserve">
+    <value>Alpha Channel</value>
+  </data>
+  <data name="ImageColorsTypes_Monochrome" xml:space="preserve">
+    <value>Monochrome</value>
+  </data>
+  <data name="ImageColorsTypes_True_Colors" xml:space="preserve">
+    <value>True Colors</value>
+  </data>
+  <data name="ImageColorsTypes_Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="ImageColorsTypes__16_IndexedColors" xml:space="preserve">
+    <value>16 IndexedColors</value>
+  </data>
+  <data name="ImageColorsTypes__256_IndexedColors" xml:space="preserve">
+    <value>256 IndexedColors</value>
+  </data>
+  <data name="FormIcomGroupTitle" xml:space="preserve">
+    <value>مجموعة صور الأيقونة</value>
+  </data>
+  <data name="bClearRecentFiles" xml:space="preserve">
+    <value>مسح تاريخ الملفات الأخيرة</value>
+  </data>
+  <data name="bClearRecentFolders" xml:space="preserve">
+    <value>مسح تاريخ المجلدات الأخيرة</value>
+  </data>
+  <data name="tAppName" xml:space="preserve">
+    <value>اسم البرنامج</value>
+  </data>
+  <data name="tCopyright" xml:space="preserve">
+    <value>حق النشر</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>الاصدار</value>
+  </data>
+  <data name="DevName" xml:space="preserve">
+    <value>عز حسن</value>
+  </data>
+  <data name="tDescription" xml:space="preserve">
+    <value>الوصف</value>
+  </data>
+  <data name="tDevName" xml:space="preserve">
+    <value>اسم المطور</value>
+  </data>
+  <data name="WindowCloseToolTip" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="WindowMaximizeToolTip" xml:space="preserve">
+    <value>تكبير</value>
+  </data>
+  <data name="WindowMinimizeToolTip" xml:space="preserve">
+    <value>تصغير</value>
+  </data>
+  <data name="WindowRestoreToolTip" xml:space="preserve">
+    <value>إستعادة</value>
+  </data>
 </root>

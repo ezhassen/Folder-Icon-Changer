@@ -17,6 +17,7 @@
     MinHeight="300"
     ap:ControlHelper.OnLoadCommand="{Binding LoadIconsCommand}"
     ap:WindowHelper.CloseOnESCKey="True"
+    ap:WindowHelper.MoveWindowOnMouseDown="{Binding RelativeSource={RelativeSource Mode=Self}}"
     lex:LocalizeDictionary.DesignCulture="en"
     lex:LocalizeDictionary.OutputMissingKeys="True"
     lex:ResxLocalizationProvider.DefaultAssembly="Folder Icon Changer"
@@ -138,7 +139,7 @@
 
     </mm:MetroWindow.Resources>
 
-    <Grid ap:ListViewHelper.DeselectOnMouseDown="{Binding ElementName=LV}" ap:WindowHelper.MoveWindowOnMouseDown="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}">
+    <Grid ap:ListViewHelper.DeselectOnMouseDown="{Binding ElementName=LV}">
 
 
         <Grid.RowDefinitions>
@@ -149,8 +150,13 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ToolBar Grid.Row="0" MinHeight="50">
-            <Button Width="50" Command="{Binding BrowseForFileCommand}">
+        <ToolBar
+            Grid.Row="0"
+            MinHeight="50" HorizontalAlignment="Left">
+            <Button
+                Width="50"
+                Command="{Binding BrowseForFileCommand}"
+                ToolTip="{lex:BLoc BrowseForAnIconFile}">
                 <Viewbox Margin="5">
                     <!--<iconPacks:PackIconFontAwesome Kind="FolderOpenSolid" />-->
                     <iconPacks:PackIconFontAwesome Kind="FileSolid" />
@@ -375,6 +381,8 @@
         </ListView>
 
         <!--  Buttons  -->
+        <!--<Grid Grid.Row="3">-->
+
         <Grid Grid.Row="3" HorizontalAlignment="Right">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -410,6 +418,7 @@
             </Button>
 
         </Grid>
+        <!--</Grid>-->
 
         <StatusBar
             Grid.Row="10"
@@ -463,10 +472,6 @@
                     </Run.Text>
                 </Run>
             </TextBlock>
-
-
-
-
 
         </StatusBar>
     </Grid>

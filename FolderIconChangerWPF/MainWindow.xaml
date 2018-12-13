@@ -49,6 +49,7 @@
                 MinWidth="20"
                 MinHeight="20"
                 Margin="0,10"
+                Cursor="Hand"
                 Foreground="{DynamicResource GrayBrush1}"
                 ToolTip="{lex:BLoc MainWindowMenu, TargetNullValue=Menu}">
                 <ToggleButton.Effect>
@@ -211,6 +212,7 @@
                 VerticalAlignment="Top"
                 Command="{Binding GoToPageCommand}"
                 CommandParameter="MainPage"
+                Cursor="Hand"
                 DataContext="{Binding Source={x:Static vm:ApplicationViewModel.Instance}}"
                 Foreground="{DynamicResource GrayBrush1}"
                 Style="{StaticResource ChromelessButtonStyle}"
@@ -231,6 +233,7 @@
                 ArrowVisibility="Collapsed"
                 Background="{DynamicResource WindowBackgroundBrush}"
                 BorderThickness="0"
+                Cursor="Hand"
                 FlowDirection="LeftToRight"
                 ItemsSource="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SupportedCultures}"
                 ToolTip="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SelectedCulture.NativeName}">
@@ -311,6 +314,7 @@
                 ArrowVisibility="Collapsed"
                 Background="{DynamicResource WindowBackgroundBrush}"
                 BorderThickness="0"
+                Cursor="Hand"
                 FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}"
                 ItemsSource="{Binding Source={x:Static serv:SettingsService.Instance}, Path=Themes}"
                 ToolTip="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SelectedTheme.LocalizedDisplayName}">

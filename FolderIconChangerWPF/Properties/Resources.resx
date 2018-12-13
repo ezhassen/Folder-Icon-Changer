@@ -416,4 +416,16 @@ Continue?</value>
   <data name="Version" xml:space="preserve">
     <value>Version</value>
   </data>
+  <data name="WindowCloseToolTip" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="WindowMaximizeToolTip" xml:space="preserve">
+    <value>Maximize</value>
+  </data>
+  <data name="WindowMinimizeToolTip" xml:space="preserve">
+    <value>Minimize</value>
+  </data>
+  <data name="WindowRestoreToolTip" xml:space="preserve">
+    <value>Restore</value>
+  </data>
 </root>

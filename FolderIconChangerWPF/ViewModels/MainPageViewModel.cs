@@ -214,27 +214,20 @@ namespace FolderIconChangerWPF.ViewModels
             }, (param) => !IsWorking));
 
 
-        DelegateCommand _CurrentOpenTargetFolderCommand;
-        public DelegateCommand CurrentOpenTargetFolderCommand
-            => _CurrentOpenTargetFolderCommand ?? (_CurrentOpenTargetFolderCommand = new DelegateCommand(() =>
+        DelegateCommand _OpenFolderCommand;
+        public DelegateCommand OpenFolderCommand
+            => _OpenFolderCommand ?? (_OpenFolderCommand = new DelegateCommand((param) =>
             {
-                OpenFolder(TargetFolder);
-            }, (param) => !IsWorking));
-
-        DelegateCommand _CurrentIconOpenContainingFolderCommand;
-        public DelegateCommand CurrentIconOpenContainingFolderCommand
-            => _CurrentIconOpenContainingFolderCommand ?? (_CurrentIconOpenContainingFolderCommand = new DelegateCommand(() =>
-            {
-                OpenContainingFolder(GetFileFullPathIfInFolder(TargetFolder, CurrentIconPath));
-            }, (param) => !IsWorking));
-
-        void OpenContainingFolder(string file)
-        {
-            if (string.IsNullOrEmpty(file)) return;
-            OpenFolder(Path.GetDirectoryName(file));
-        }
+                if (!(param is string path)) return;
+                OpenFolder(path);
+            }));
+        /// <summary>
+        /// Open folder in windows explorer if it's a file then it will Open the Containing Folder
+        /// </summary>
+        /// <param name="folder"></param>
         void OpenFolder(string folder)
         {
+            if (File.Exists(folder)) folder = Path.GetDirectoryName(folder);
             if (!Directory.Exists(folder)) return;
 
             //%SystemRoot%\explorer.exe
@@ -879,7 +872,15 @@ namespace FolderIconChangerWPF.ViewModels
         private void BrowseIcon()
         {
             if (IsWorking) return;
-            BrowseIcon(string.IsNullOrEmpty(NewIconPath) ? TargetFolder : Path.GetDirectoryName(NewIconPath), NewIconIndex.GetValueOrDefault(0));
+            if (this.NewIconMaxIndex >= 1 && File.Exists(NewIconPath))
+            {
+                //BrowseIcon(string.IsNullOrEmpty(NewIconPath) ? TargetFolder : Path.GetDirectoryName(NewIconPath), NewIconIndex.GetValueOrDefault(0));
+                SelectIconWindow(NewIconPath);
+            }
+            else
+            {
+                BrowseIcon(string.IsNullOrEmpty(NewIconPath) ? TargetFolder : Path.GetDirectoryName(NewIconPath), NewIconIndex.GetValueOrDefault(0));
+            }
         }
 
         private void BrowseIcon(string DefTarget, int defindex = 0)
@@ -914,20 +915,24 @@ namespace FolderIconChangerWPF.ViewModels
             //
             if (fd.ShowDialog() == true)
             {
-                if (fd.FileName.EndsWith("ico", StringComparison.OrdinalIgnoreCase))
-                {
-                    this.NewIconIndex = 0;
-                    this.NewIconPath = fd.FileName;
-                    this.RefreshNewInfoCommand.Execute(null);
-                }
-                else
-                {
-                    ShowSelectIconWindow(fd.FileName);
-                }
+                GetBrowseIconData(fd.FileName);
             }
 
         }
-        void ShowSelectIconWindow(string filePath)
+        void GetBrowseIconData(string filePath)
+        {
+            if (filePath.EndsWith("ico", StringComparison.OrdinalIgnoreCase))
+            {
+                this.NewIconIndex = 0;
+                this.NewIconPath = filePath;
+                this.RefreshNewInfoCommand.Execute(null);
+            }
+            else //if (filePath.EndsWithAny(StringComparison.OrdinalIgnoreCase, SupportedResExtensions))
+            {
+                SelectIconWindow(filePath);
+            }
+        }
+        void SelectIconWindow(string filePath)
         {
             var sWindow = new Windows.SelectIconWindow();
             sWindow.ViewModel.FilePath = filePath;
@@ -1003,7 +1008,7 @@ namespace FolderIconChangerWPF.ViewModels
         #region Drag N Drop
 
         public static string[] SupportedImagesExtensions => new string[] { "jpg", "Jpeg", "png", "bmp" };
-        public static string[] SupporteResExtensions => new string[] { "dll", "exe" };
+        public static string[] SupportedResExtensions => new string[] { "dll", "exe" };
         public static string[] SupportedFilesExtensions => new string[] { "ico", "dll", "exe", "jpg", "Jpeg", "png", "bmp" };
 
         DelegateCommand _DragNDropCommand;
@@ -1027,9 +1032,9 @@ namespace FolderIconChangerWPF.ViewModels
                     this.NewIconPath = DDD;
                     this.RefreshNewInfoCommand.Execute(null);
                 }//TODO: Get File Location if it is a link file (lnk)//, new string[] { "lnk" }
-                else if (DDD.EndsWithAny(StringComparison.OrdinalIgnoreCase, SupporteResExtensions))//Select Icon
+                else if (DDD.EndsWithAny(StringComparison.OrdinalIgnoreCase, SupportedResExtensions))//Select Icon
                 {
-                    ShowSelectIconWindow(DDD);
+                    GetBrowseIconData(DDD);
                 }
                 else if (DDD.EndsWithAny(StringComparison.OrdinalIgnoreCase, SupportedImagesExtensions))//Ico from image
                 {
@@ -1062,6 +1067,7 @@ namespace FolderIconChangerWPF.ViewModels
                     //    return true;
                     //}
                 }
+                dragEvent.Effects = DragDropEffects.None;
                 return false;
             }));
 

@@ -210,7 +210,7 @@
                 <ComboBox
                     x:Name="TBTargetFolder"
                     Grid.Column="0"
-                    Margin="5" SelectedItem=""
+                    Margin="5"
                     HorizontalAlignment="Stretch"
                     ap:TextBoxHelper.ClearFilterCommand="{Binding ClearTargetFolderCommand}"
                     ap:TextBoxHelper.FilterByEnterKey="True"
@@ -221,9 +221,10 @@
                     mm:TextBoxHelper.UseFloatingWatermark="True"
                     mm:TextBoxHelper.Watermark="{lex:BLoc TargetFolder, TargetNullValue=Target Folder}"
                     IsReadOnly="{Binding IsWorking}"
+                    ItemsSource="{Binding RecentFolders, Source={x:Static serv:SettingsService.Instance}}"
+                    SelectedItem=""
                     Style="{StaticResource PathComboBox}"
-                    Text="{Binding TargetFolder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                    ItemsSource="{Binding RecentFolders, Source={x:Static serv:SettingsService.Instance}}"/>
+                    Text="{Binding TargetFolder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <!--<Button
                     Grid.Column="1"
@@ -244,7 +245,8 @@
                     <controls:EzzSplitButton.ArrowContextMenu>
                         <ContextMenu FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}" HorizontalOffset="-70">
                             <MenuItem
-                                Command="{Binding CurrentOpenTargetFolderCommand}"
+                                Command="{Binding OpenFolderCommand}"
+                                CommandParameter="{Binding TargetFolder}"
                                 Header="{lex:BLoc OpenFolderInExplorer, TargetNullValue=Open Folder In Explorer}"
                                 IsEnabled="{Binding TargetFolder, Converter={conv:BoolWhenStringConverter}}"
                                 ToolTip="{Binding Header, RelativeSource={RelativeSource Self}}">
@@ -282,7 +284,8 @@
                         Badge="{Binding CurrentIconIndex}"
                         ToolTip="{lex:BLoc Select_Icon_Index, TargetNullValue=Index}">
                         <TextBox
-                            mm:TextBoxHelper.ButtonCommand="{Binding CurrentIconOpenContainingFolderCommand}"
+                            mm:TextBoxHelper.ButtonCommand="{Binding OpenFolderCommand}"
+                            mm:TextBoxHelper.ButtonCommandParameter="{Binding CurrentIconPath}"
                             mm:TextBoxHelper.TextButton="{Binding CurrentIconPath, Converter={conv:BoolWhenStringConverter}}"
                             IsReadOnly="True"
                             Style="{DynamicResource MetroButtonTextBox}"
@@ -373,18 +376,18 @@
                         mm:TextBoxHelper.UseFloatingWatermark="True"
                         mm:TextBoxHelper.Watermark="{lex:BLoc FilePath, TargetNullValue=File Path}"
                         IsReadOnly="{Binding IsWorking}"
-                        Style="{StaticResource PathComboBox2}"
                         ItemsSource="{Binding RecentFilesWithDefaults, Source={x:Static serv:SettingsService.Instance}}"
-                        Text="{Binding NewIconPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                        Style="{StaticResource PathComboBox2}"
+                        Text="{Binding NewIconPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
-                        <!--ItemsSource="{Binding RecentFilesWithDefaults, Source={x:Static serv:SettingsService.Instance}}"-->
+                        <!--  ItemsSource="{Binding RecentFilesWithDefaults, Source={x:Static serv:SettingsService.Instance}}"  -->
                         <!--<ComboBox.ItemsSource>
                             <MultiBinding>
                                 <Binding Source="{x:Static serv:SettingsService.Instance}" Path="RecentFiles"/>
                                 <Binding Source="{x:Static serv:SettingsService.Instance}" Path="DefaultRecentFiles"/>
                             </MultiBinding>
                         </ComboBox.ItemsSource>-->
-                        
+
                     </ComboBox>
 
                     <mm:NumericUpDown
@@ -415,6 +418,17 @@
                                     Command="{Binding IconFromImageCommand}"
                                     Header="{lex:BLoc IconFromImage, TargetNullValue=Icon From Image}"
                                     ToolTip="{lex:BLoc GenerateNewIconFromAnImage, TargetNullValue=Generate new Icon from an image}">
+                                    <MenuItem.Icon>
+                                        <iconPacks:PackIconFontAwesome Margin="3" Kind="FileImageSolid" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <Separator />
+                                <MenuItem
+                                    Command="{Binding OpenFolderCommand}"
+                                    CommandParameter="{Binding NewIconPath}"
+                                    Header="{lex:BLoc OpenContainingFolder, TargetNullValue=Open Containing Folder}"
+                                    IsEnabled="{Binding NewIconPath, Converter={conv:BoolWhenStringConverter}}"
+                                    ToolTip="{Binding Header, RelativeSource={RelativeSource Self}}">
                                     <MenuItem.Icon>
                                         <iconPacks:PackIconFontAwesome Margin="3" Kind="FileImageSolid" />
                                     </MenuItem.Icon>

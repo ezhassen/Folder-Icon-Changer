@@ -119,7 +119,7 @@ namespace FolderIconChangerWPF.AttachedProperties
 
         private static void OnMoveWindowOnMouseDownPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(d is FrameworkElement control)) return;
+            if (!(d is UIElement control)) return;
             control.MouseDown -= Control_MouseDown;
             if (e.NewValue is Window)
             {
@@ -129,10 +129,35 @@ namespace FolderIconChangerWPF.AttachedProperties
 
         private static void Control_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (!(sender is FrameworkElement control)) return;
+            if (!(sender is DependencyObject control)) return;
             GetMoveWindowOnMouseDown(control)?.MoveWindowOnMouseDown();
         }
 
+
+        public static Window GetMoveWindowOnPreviewMouseDown(DependencyObject obj) => (Window)obj.GetValue(MoveWindowOnPreviewMouseDownProperty);
+
+        public static void SetMoveWindowOnPreviewMouseDown(DependencyObject obj, Window value) => obj.SetValue(MoveWindowOnPreviewMouseDownProperty, value);
+
+        // Using a DependencyProperty as the backing store for MoveWindowOnPreviewMouseDown.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MoveWindowOnPreviewMouseDownProperty =
+            DependencyProperty.RegisterAttached("MoveWindowOnPreviewMouseDown", typeof(Window), typeof(WindowHelper), new PropertyMetadata(null, new PropertyChangedCallback(OnMoveWindowOnPreviewMouseDownPropertyChanged)));
+
+        private static void OnMoveWindowOnPreviewMouseDownPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(d is UIElement control)) return;
+            control.PreviewMouseDown -= Control_PreviewMouseDown;
+            if (e.NewValue is Window)
+            {
+                control.PreviewMouseDown += Control_PreviewMouseDown; ;
+            }
+        }
+
+        private static void Control_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!(sender is DependencyObject control)) return;
+            e.Handled = false;
+            GetMoveWindowOnPreviewMouseDown(control)?.MoveWindowOnMouseDown();
+        }
 
         #endregion
     }

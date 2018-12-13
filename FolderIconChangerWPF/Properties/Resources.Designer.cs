@@ -937,6 +937,42 @@ namespace FolderIconChangerWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string WindowCloseToolTip {
+            get {
+                return ResourceManager.GetString("WindowCloseToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximize.
+        /// </summary>
+        public static string WindowMaximizeToolTip {
+            get {
+                return ResourceManager.GetString("WindowMaximizeToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimize.
+        /// </summary>
+        public static string WindowMinimizeToolTip {
+            get {
+                return ResourceManager.GetString("WindowMinimizeToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore.
+        /// </summary>
+        public static string WindowRestoreToolTip {
+            get {
+                return ResourceManager.GetString("WindowRestoreToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Working....
         /// </summary>
         public static string Working {
