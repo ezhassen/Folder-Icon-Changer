@@ -3,7 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ap="clr-namespace:FolderIconChangerWPF.AttachedProperties"
     xmlns:conv="clr-namespace:FolderIconChangerWPF.ValueConverters"
-    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:lex="http://wpflocalizeextension.codeplex.com"
     xmlns:mm="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mmConverters="clr-namespace:MahApps.Metro.Converters;assembly=MahApps.Metro"
@@ -874,7 +873,8 @@
             <Trigger Property="ap:TextBoxHelper.RequireFilterAction" Value="False">
                 <Setter Property="ap:TextBoxHelper.FilterButtonContent">
                     <Setter.Value>
-                        <iconPacks:PackIconFontAwesome Kind="SyncAltSolid" />
+                        <!--<iconPacks:PackIconFontAwesome Kind="SyncAltSolid" />-->
+                        <TextBlock FontFamily="{StaticResource FontAwesome}" Text="{StaticResource FontAwesomeSyncSolid}" />
                     </Setter.Value>
                 </Setter>
             </Trigger>
@@ -888,7 +888,8 @@
         <Setter Property="ap:TextBoxHelper.EditType" Value="Path" />
         <Setter Property="ap:TextBoxHelper.FilterButtonContent">
             <Setter.Value>
-                <iconPacks:PackIconFontAwesome Kind="SyncAltSolid" />
+                <!--<iconPacks:PackIconFontAwesome Kind="SyncAltSolid" />-->
+                <TextBlock FontFamily="{StaticResource FontAwesome}" Text="{StaticResource FontAwesomeSyncSolid}" />
             </Setter.Value>
         </Setter>
         <Setter Property="ap:TextBoxHelper.FilterButtonToolTip" Value="{lex:BLoc Refresh, TargetNullValue=Refresh}" />
@@ -897,7 +898,8 @@
             <Trigger Property="ap:TextBoxHelper.RequireFilterAction" Value="True">
                 <Setter Property="ap:TextBoxHelper.FilterButtonContent">
                     <Setter.Value>
-                        <iconPacks:PackIconFontAwesome Kind="ArrowRightSolid" />
+                        <!--<iconPacks:PackIconFontAwesome Kind="ArrowRightSolid" />-->
+                        <TextBlock FontFamily="{StaticResource FontAwesome}" Text="{StaticResource FontAwesomeArrowRightSolid}" />
                     </Setter.Value>
                 </Setter>
             </Trigger>
@@ -910,7 +912,8 @@
         <Setter Property="ap:TextBoxHelper.EditType" Value="Path" />
         <Setter Property="ap:TextBoxHelper.FilterButtonContent">
             <Setter.Value>
-                <iconPacks:PackIconFontAwesome Kind="SyncAltSolid" />
+                <!--<iconPacks:PackIconFontAwesome Kind="SyncAltSolid" />-->
+                <TextBlock FontFamily="{StaticResource FontAwesome}" Text="{StaticResource FontAwesomeSyncSolid}" />
             </Setter.Value>
         </Setter>
         <Setter Property="ap:TextBoxHelper.FilterButtonToolTip" Value="{lex:BLoc Refresh, TargetNullValue=Refresh}" />
@@ -919,7 +922,8 @@
             <Trigger Property="ap:TextBoxHelper.RequireFilterAction" Value="True">
                 <Setter Property="ap:TextBoxHelper.FilterButtonContent">
                     <Setter.Value>
-                        <iconPacks:PackIconFontAwesome Kind="ArrowRightSolid" />
+                        <!--<iconPacks:PackIconFontAwesome Kind="ArrowRightSolid" />-->
+                        <TextBlock FontFamily="{StaticResource FontAwesome}" Text="{StaticResource FontAwesomeArrowRightSolid}" />
                     </Setter.Value>
                 </Setter>
             </Trigger>
@@ -1293,7 +1297,8 @@
             <Trigger Property="ap:TextBoxHelper.RequireFilterAction" Value="False">
                 <Setter Property="ap:TextBoxHelper.FilterButtonContent">
                     <Setter.Value>
-                        <iconPacks:PackIconFontAwesome Kind="SyncAltSolid" />
+                        <!--<iconPacks:PackIconFontAwesome Kind="SyncAltSolid" />-->
+                        <TextBlock FontFamily="{StaticResource FontAwesome}" Text="{StaticResource FontAwesomeSyncSolid}" />
                     </Setter.Value>
                 </Setter>
             </Trigger>
@@ -1307,7 +1312,8 @@
         <Setter Property="ap:TextBoxHelper.EditType" Value="Path" />
         <Setter Property="ap:TextBoxHelper.FilterButtonContent">
             <Setter.Value>
-                <iconPacks:PackIconFontAwesome Kind="SyncAltSolid" />
+                <!--<iconPacks:PackIconFontAwesome Kind="SyncAltSolid" />-->
+                <TextBlock FontFamily="{StaticResource FontAwesome}" Text="{StaticResource FontAwesomeSyncSolid}" />
             </Setter.Value>
         </Setter>
         <Setter Property="ap:TextBoxHelper.FilterButtonToolTip" Value="{lex:BLoc Refresh, TargetNullValue=Refresh}" />
@@ -1316,7 +1322,8 @@
             <Trigger Property="ap:TextBoxHelper.RequireFilterAction" Value="True">
                 <Setter Property="ap:TextBoxHelper.FilterButtonContent">
                     <Setter.Value>
-                        <iconPacks:PackIconFontAwesome Kind="ArrowRightSolid" />
+                        <!--<iconPacks:PackIconFontAwesome Kind="ArrowRightSolid" />-->
+                        <TextBlock FontFamily="{StaticResource FontAwesome}" Text="{StaticResource FontAwesomeArrowRightSolid}" />
                     </Setter.Value>
                 </Setter>
             </Trigger>
@@ -1329,7 +1336,8 @@
         <Setter Property="ap:TextBoxHelper.EditType" Value="Path" />
         <Setter Property="ap:TextBoxHelper.FilterButtonContent">
             <Setter.Value>
-                <iconPacks:PackIconFontAwesome Kind="SyncAltSolid" />
+                <!--<iconPacks:PackIconFontAwesome Kind="SyncAltSolid" />-->
+                <TextBlock FontFamily="{StaticResource FontAwesome}" Text="{StaticResource FontAwesomeSyncSolid}" />
             </Setter.Value>
         </Setter>
         <Setter Property="ap:TextBoxHelper.FilterButtonToolTip" Value="{lex:BLoc Refresh, TargetNullValue=Refresh}" />
@@ -1338,7 +1346,8 @@
             <Trigger Property="ap:TextBoxHelper.RequireFilterAction" Value="True">
                 <Setter Property="ap:TextBoxHelper.FilterButtonContent">
                     <Setter.Value>
-                        <iconPacks:PackIconFontAwesome Kind="ArrowRightSolid" />
+                        <!--<iconPacks:PackIconFontAwesome Kind="ArrowRightSolid" />-->
+                        <TextBlock FontFamily="{StaticResource FontAwesome}" Text="{StaticResource FontAwesomeArrowRightSolid}" />
                     </Setter.Value>
                 </Setter>
             </Trigger>

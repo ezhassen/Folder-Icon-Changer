@@ -6,9 +6,7 @@
     xmlns:controls="clr-namespace:FolderIconChangerWPF.Controls"
     xmlns:conv="clr-namespace:FolderIconChangerWPF.ValueConverters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:lex="http://wpflocalizeextension.codeplex.com"
-    xmlns:local="clr-namespace:FolderIconChangerWPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mm="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:serv="clr-namespace:FolderIconChangerWPF.Services"
@@ -33,7 +31,7 @@
     TitleAlignment="Stretch"
     TitleTemplate="{StaticResource WindowTitleTemplateBig}"
     TitlebarHeight="42"
-    Topmost="{Binding IsTopMost, Source={x:Static serv:SettingsService.Instance}}"
+    Topmost="{Binding IsTopMost, Source={x:Static serv:SettingsService.Instance}, Mode=OneWay}"
     WindowButtonCommandsOverlayBehavior="Always"
     WindowStartupLocation="CenterScreen"
     WindowTitleBrush="{DynamicResource WindowBackgroundBrush}"
@@ -48,7 +46,7 @@
             <ToggleButton
                 MinWidth="20"
                 MinHeight="20"
-                Margin="0,10"
+                Margin="8,10,5,8"
                 Cursor="Hand"
                 Foreground="{DynamicResource GrayBrush1}"
                 ToolTip="{lex:BLoc MainWindowMenu, TargetNullValue=Menu}">
@@ -69,7 +67,8 @@
                                 ShadowDepth="2" />
                         </Viewbox.Effect>
                         <!--<iconPacks:PackIconMaterial Kind="Settings" />-->
-                        <iconPacks:PackIconFontAwesome Kind="EllipsisVSolid" />
+                        <TextBlock FontFamily="{StaticResource FontAwesome}" Text="&#xf142;" />
+                        <!--<iconPacks:PackIconFontAwesome Kind="EllipsisVSolid" />-->
                     </Viewbox>
                 </ToggleButton.Content>
                 <ToggleButton.Resources>
@@ -149,12 +148,20 @@
                             Visibility="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}, Converter={conv:VisibilityWhenStringConverter When=SettingsPage, Value=Collapsed, Otherwise=Visible}}">
                             <MenuItem.Icon>
                                 <Viewbox Margin="5,0" StretchDirection="Both">
-                                    <iconPacks:PackIconMaterial
+                                    <TextBlock
+                                        Margin="{StaticResource MenuIconMargin}"
+                                        Effect="{StaticResource ButtonShadowEffect}"
+                                        FontFamily="{StaticResource FontAwesome}"
+                                        FontSize="{StaticResource FontSizeLarge}"
+                                        Foreground="{DynamicResource AccentBaseColorBrush}"
+                                        Text="{StaticResource FontAwesomeCogIcon}" />
+
+                                    <!--<iconPacks:PackIconMaterial
                                         Margin="{StaticResource MenuIconMargin}"
                                         Padding="{StaticResource MenuIconPadding}"
                                         Effect="{StaticResource ButtonShadowEffect}"
                                         Foreground="{DynamicResource AccentBaseColorBrush}"
-                                        Kind="Settings" />
+                                        Kind="Settings" />-->
                                 </Viewbox>
                             </MenuItem.Icon>
                         </MenuItem>
@@ -168,12 +175,20 @@
                             Visibility="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}, Converter={conv:VisibilityWhenStringConverter When=AboutPage, Value=Collapsed, Otherwise=Visible}}">
                             <MenuItem.Icon>
                                 <Viewbox Margin="5,0" StretchDirection="Both">
-                                    <iconPacks:PackIconMaterial
+                                    <TextBlock
+                                        Margin="{StaticResource MenuIconMargin}"
+                                        Effect="{StaticResource ButtonShadowEffect}"
+                                        FontFamily="{StaticResource FontAwesome}"
+                                        FontSize="{StaticResource FontSizeLarge}"
+                                        Foreground="{DynamicResource AccentBaseColorBrush}"
+                                        Text="{StaticResource FontAwesomeInfoCircleSolid}" />
+
+                                    <!--<iconPacks:PackIconMaterial
                                         Margin="{StaticResource MenuIconMargin}"
                                         Padding="{StaticResource MenuIconPadding}"
                                         Effect="{StaticResource ButtonShadowEffect}"
                                         Foreground="{DynamicResource AccentBaseColorBrush}"
-                                        Kind="Information" />
+                                        Kind="Information" />-->
                                 </Viewbox>
                             </MenuItem.Icon>
                         </MenuItem>
@@ -193,11 +208,19 @@
                                                 Effect="{StaticResource ButtonShadowEffect}"
                                                 Foreground="{DynamicResource WordRedBrush}"
                                                 Kind="WindowCloseSolid" />-->
-                                    <iconPacks:PackIconMaterial
+                                    <!--<iconPacks:PackIconMaterial
                                         Margin="{StaticResource MenuIconMargin}"
                                         Effect="{StaticResource ButtonShadowEffect}"
                                         Foreground="{DynamicResource WordRedBrush}"
-                                        Kind="CloseBox" />
+                                        Kind="CloseBox" />-->
+                                    <TextBlock
+                                        Margin="{StaticResource MenuIconMargin}"
+                                        Effect="{StaticResource ButtonShadowEffect}"
+                                        FontFamily="{StaticResource FontAwesome}"
+                                        FontSize="{StaticResource FontSizeLarge}"
+                                        Foreground="{DynamicResource WordRedBrush}"
+                                        Text="{StaticResource FontAwesomeTimesSquareSolid}" />
+
                                 </Viewbox>
                             </MenuItem.Icon>
                         </MenuItem>
@@ -219,7 +242,8 @@
                 Visibility="{Binding CurrentPage, Converter={conv:VisibilityWhenStringConverter When=MainPage, Value=Collapsed, Otherwise=Visible}}">
                 <Viewbox>
                     <!--<iconPacks:PackIconFontAwesome Kind="ArrowLeftSolid" />-->
-                    <iconPacks:PackIconFontAwesome Kind="HomeSolid" />
+                    <!--<iconPacks:PackIconFontAwesome Kind="HomeSolid" />-->
+                    <TextBlock FontFamily="{StaticResource FontAwesome}" Text="{StaticResource FontAwesomeHomeSolid}" />
                 </Viewbox>
             </Button>
             <!--<Separator Style="{StaticResource WindowCommandsSeparator}" />-->
@@ -390,12 +414,13 @@
     <mm:MetroWindow.RightWindowCommands>
         <mm:WindowCommands ShowLastSeparator="True" ShowSeparators="True">
             <ToggleButton
+                Margin="5,0"
                 Padding="6"
                 Background="Transparent"
                 BorderThickness="0"
                 Cursor="Hand"
                 Foreground="{DynamicResource AccentBaseColorBrush}"
-                IsChecked="{Binding IsTopMost, Source={x:Static serv:SettingsService.Instance}}"
+                IsChecked="{Binding IsTopMost, Source={x:Static serv:SettingsService.Instance}, Mode=TwoWay}"
                 ToolTip="{lex:BLoc TopMost, TargetNullValue={}Stay On Top}">
                 <ToggleButton.Effect>
                     <DropShadowEffect
@@ -414,14 +439,113 @@
                                 Opacity=".6"
                                 ShadowDepth="2" />
                         </Viewbox.Effect>
+                        <TextBlock Text="&#xf08d;">
+                            <!--<TextBlock.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform />
+                                <SkewTransform />
+                                <RotateTransform Angle="130" />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </TextBlock.RenderTransform-->
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FontFamily" Value="{StaticResource FontAwesome}" />
+                                    <Setter Property="RenderTransform">
+                                        <Setter.Value>
+                                            <RotateTransform Angle="130" />
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
+                                    <!--<Setter Property="Text" Value="&#xf08d;" />-->
+                                    <Style.Resources>
+                                        <Storyboard x:Key="ToPin">
+                                            <DoubleAnimation
+                                                Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                                                From="130"
+                                                To="0"
+                                                Duration="0:0:0.2" />
+                                        </Storyboard>
+                                        <Storyboard x:Key="ToPinOff">
+                                            <DoubleAnimation
+                                                Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                                                From="0"
+                                                To="130"
+                                                Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </Style.Resources>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}}" Value="True">
+                                            <!--<Setter Property="Text" Value="sss" />-->
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard Name="ToPinStoryboard" Storyboard="{StaticResource ToPin}" />
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <RemoveStoryboard BeginStoryboardName="ToPinStoryboard" />
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}}" Value="False">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard Name="ToPinOffStoryboard" Storyboard="{StaticResource ToPinOff}" />
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <RemoveStoryboard BeginStoryboardName="ToPinOffStoryboard" />
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+
+
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+
+                        </TextBlock>
+
                         <!--<iconPacks:PackIconMaterial Kind="Settings" />-->
+                        <!--<Grid>-->
+                        <!--<iconPacks:PackIconMaterial Kind="PinOff" Visibility="{Binding IsChecked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}, Converter={conv:VisibilityWhenFalseConverter}}" />-->
+                        <!--<iconPacks:PackIconMaterial Kind="Pin" Visibility="{Binding IsChecked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}, Converter={conv:VisibilityWhenTrueConverter}}" />-->
+                        <!--</Grid>-->
+                    </Viewbox>
+                </ToggleButton.Content>
+            </ToggleButton>
+
+            <!--<ToggleButton
+                Padding="6"
+                Background="Transparent"
+                BorderThickness="0"
+                Cursor="Hand"
+                Foreground="{DynamicResource AccentBaseColorBrush}"
+                IsChecked="{Binding IsTopMost, Source={x:Static serv:SettingsService.Instance}}"
+                ToolTip="{lex:BLoc TopMost, TargetNullValue={}Stay On Top}">
+                <ToggleButton.Effect>
+                    <DropShadowEffect
+                        BlurRadius="10"
+                        Direction="250"
+                        Opacity=".6"
+                        ShadowDepth="3" />
+                </ToggleButton.Effect>
+                <ToggleButton.Content>
+            -->
+            <!--<iconPacks:PackIconFontAwesome Kind="ThumbtackSolid" />-->
+            <!--
+                    <Viewbox>
+                        <Viewbox.Effect>
+                            <DropShadowEffect
+                                BlurRadius="3"
+                                Direction="250"
+                                Opacity=".6"
+                                ShadowDepth="2" />
+                        </Viewbox.Effect>
+            -->
+            <!--<iconPacks:PackIconMaterial Kind="Settings" />-->
+            <!--
                         <Grid>
                             <iconPacks:PackIconMaterial Kind="PinOff" Visibility="{Binding IsChecked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}, Converter={conv:VisibilityWhenFalseConverter}}" />
                             <iconPacks:PackIconMaterial Kind="Pin" Visibility="{Binding IsChecked, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton}, Converter={conv:VisibilityWhenTrueConverter}}" />
                         </Grid>
                     </Viewbox>
                 </ToggleButton.Content>
-            </ToggleButton>
+            </ToggleButton>-->
             <!--<Separator Style="{StaticResource WindowCommandsSeparator}" />-->
         </mm:WindowCommands>
     </mm:MetroWindow.RightWindowCommands>
@@ -434,9 +558,16 @@
 
     <Grid ap:WindowHelper.MoveWindowOnMouseDown="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mm:MetroWindow}}" Background="{DynamicResource WindowBackgroundBrush}">
         <!--<Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>-->
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock FontFamily="{StaticResource FontAwesome}" Text="&#xf1c5;" />-->
+
+        <!--
+            Text="{Binding IsChecked,
+            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton},
+            Converter={conv:ValueWhenBoolConverter Value=&#xf08d;, Otherwise=&#xf015;}}" />
+        -->
 
         <controls:PageHost
             Grid.Row="1"

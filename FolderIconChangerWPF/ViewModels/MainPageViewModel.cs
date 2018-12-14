@@ -167,8 +167,13 @@ namespace FolderIconChangerWPF.ViewModels
                 {
                     _CurrentIconPath = value;
                     OnPropertyChanged(); //uses CallerMemberName
+                    OnPropertyChanged(nameof(CurrentIconFullPath)); //uses CallerMemberName
                 }
             }
+        }
+        public string CurrentIconFullPath
+        {
+            get { return GetFileFullPathIfInFolder(TargetFolder, _CurrentIconPath); }
         }
 
         private int? _CurrentIconIndex;
@@ -227,8 +232,12 @@ namespace FolderIconChangerWPF.ViewModels
         /// <param name="folder"></param>
         void OpenFolder(string folder)
         {
-            if (File.Exists(folder)) folder = Path.GetDirectoryName(folder);
-            if (!Directory.Exists(folder)) return;
+            if (!Directory.Exists(folder))
+            {
+                var file = GetFileFullPathIfInFolder(TargetFolder, folder);
+                if (!File.Exists(file)) return;
+                folder = Path.GetDirectoryName(file);
+            }
 
             //%SystemRoot%\explorer.exe
             IsWorking = true;
@@ -562,7 +571,12 @@ namespace FolderIconChangerWPF.ViewModels
                     OnPropertyChanged(); //uses CallerMemberName
                     if (!IsWorking) NewRequireRefresh = true;
                 }
+                OnPropertyChanged(nameof(NewIconFullPath));
             }
+        }
+        public string NewIconFullPath
+        {
+            get { return GetFileFullPathIfInFolder(TargetFolder, _NewIconPath); }
         }
 
         private bool _NewRequireRefresh;

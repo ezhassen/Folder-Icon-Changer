@@ -195,25 +195,23 @@ namespace FolderIconChangerWPF.Services
         {
             get
             {
-                return (bool)this["IsTopMost"];
-                //var val = (bool)this["IsTopMost"];
-                //var mainW = Application.Current.MainWindow;
-                //if (mainW != null && val != mainW.Topmost) mainW.Topmost = val;
-                //return val;
+                //return (bool)this["IsTopMost"];
+                var val = (bool)this["IsTopMost"];
+                var mainW = Application.Current.MainWindow;
+                if (mainW != null && val != mainW.Topmost) mainW.Topmost = val;
+                return val;
             }
             set
             {
                 if (IsTopMost != value)
                 {
                     this["IsTopMost"] = value;
+                    //this.Save();
                     OnPropertyChanged(); //uses CallerMemberName
                 }
                 //
-                //var mainW = Application.Current.MainWindow;
-                //if (mainW != null)
-                //{
-                //    mainW.Topmost = value;
-                //}
+                var mainW = Application.Current.MainWindow;
+                if (mainW != null && value != mainW.Topmost) mainW.Topmost = value;
             }
         }
 

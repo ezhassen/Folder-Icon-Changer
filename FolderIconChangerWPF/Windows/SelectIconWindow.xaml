@@ -5,7 +5,6 @@
     xmlns:ap="clr-namespace:FolderIconChangerWPF.AttachedProperties"
     xmlns:conv="clr-namespace:FolderIconChangerWPF.ValueConverters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:lex="http://wpflocalizeextension.codeplex.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mm="http://metro.mahapps.com/winfx/xaml/controls"
@@ -152,20 +151,31 @@
 
         <ToolBar
             Grid.Row="0"
-            MinHeight="50" HorizontalAlignment="Left">
+            MinHeight="50"
+            HorizontalAlignment="Left">
             <Button
                 Width="50"
                 Command="{Binding BrowseForFileCommand}"
                 ToolTip="{lex:BLoc BrowseForAnIconFile}">
                 <Viewbox Margin="5">
                     <!--<iconPacks:PackIconFontAwesome Kind="FolderOpenSolid" />-->
-                    <iconPacks:PackIconFontAwesome Kind="FileSolid" />
+                    <TextBlock
+                        FontFamily="{StaticResource FontAwesome}"
+                        Opacity="0.9"
+                        Text="&#xf15B;" />
+                    <!--<iconPacks:PackIconFontAwesome Kind="FileSolid" />-->
                 </Viewbox>
             </Button>
             <Separator Margin="5,8" />
             <Button Width="50" ToolTip="{lex:BLoc Select_Icon_View, TargetNullValue=View}">
                 <Viewbox Margin="5">
-                    <iconPacks:PackIconFontAwesome Kind="ThSolid" />
+                    <TextBlock
+                        FontFamily="{StaticResource FontAwesome}"
+                        Opacity="0.9"
+                        Text="&#xf0CE;" />
+                    <!--<TextBlock FontFamily="{StaticResource FontAwesome}" Text="&#xf00A;" Opacity="0.9" />-->
+                    <!--<TextBlock Text="&#xf107;" Opacity="0.8" />-->
+                    <!--<iconPacks:PackIconFontAwesome Kind="ThSolid" />-->
                     <!--<iconPacks:PackIconFontAwesome Kind="ThListSolid" />-->
                     <!--<iconPacks:PackIconFontAwesome Kind="ThLargeSolid" />-->
                 </Viewbox>

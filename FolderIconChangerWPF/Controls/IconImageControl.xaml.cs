@@ -37,8 +37,10 @@ namespace FolderIconChangerWPF.Controls
             //TODO: Create ViewIconGroupCommand
             ViewIconGroupCommand = new DelegateCommand(() =>
             {
-                var newWindow = new Windows.IconInfoImagesWindow(this.IconInfo);
-                newWindow.Owner = Application.Current.MainWindow;
+                var newWindow = new Windows.IconInfoImagesWindow(this.IconInfo, this.FilePath)
+                {
+                    Owner = Application.Current.MainWindow
+                };
                 newWindow.ShowDialog();
             });
         }
@@ -50,6 +52,18 @@ namespace FolderIconChangerWPF.Controls
             get { return (IconInfo)GetValue(IconInfoProperty); }
             set { SetValue(IconInfoProperty, value); }
         }
+
+
+        public string FilePath
+        {
+            get { return (string)GetValue(FilePathProperty); }
+            set { SetValue(FilePathProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for FilePath.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FilePathProperty =
+            DependencyProperty.Register("FilePath", typeof(string), typeof(IconImageControlBase), new PropertyMetadata(null));
+
 
 
 

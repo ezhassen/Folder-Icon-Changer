@@ -172,8 +172,8 @@ UpgradeLog*.XML
 UpgradeLog*.htm
 
 # SQL Server files
-*.mdf
-*.ldf
+#*.mdf
+#*.ldf
 
 # Business Intelligence projects
 *.rdl.data
@@ -184,23 +184,34 @@ UpgradeLog*.htm
 FakesAssemblies/
 
 # LightSwitch generated files
-GeneratedArtifacts/
-_Pvt_Extensions/
-ModelManifest.xml
-*.gitignore
-*.gitattributes
+#GeneratedArtifacts/
+#_Pvt_Extensions/
+#ModelManifest.xml
+#*.gitignore
+#*.gitattributes
 #/desktop.ini
 *.db
 
 # Visual Studio 2015 cache/options directory
 .vs/
 
-#Others
-Folder Icon Changer Setup-SetupFiles/
-Folder Icon Changer Setup-cache/
-/.vscode/
-packages/
-
 #Ignore all .aip Except the main one to remove backups created after upgrading advanced installer
-*.aip
-!Folder Icon Changer Setup.aip
+#*.aip
+#!El Forsan Setup.aip
+#Or Ignore .back files
+*.back*.aip
+
+#Ignore packages
+#/packages/
+#!packages/repositories.config
+# NuGet Packages
+**/packages/*
+!**/packages/repositories.config
+
+#Others
+Prerequisites/
+*SetupFiles/
+*-cache/
+.NET Framework 4.0/
+Setup Files/
+*Setup*.exe

@@ -51,4 +51,19 @@
     <system:String x:Key="FontAwesomeTickIcon">&#xf00c;</system:String>
     <system:String x:Key="FontAwesomeCloseIcon">&#xf00d;</system:String>
 
+    <system:String x:Key="FontAwesomeAngleDown">&#xf107;</system:String>
+    <system:String x:Key="FontAwesomeSyncSolid">&#xf021;</system:String>
+    <system:String x:Key="FontAwesomeArrowRightSolid">&#xf061;</system:String>
+    <system:String x:Key="FontAwesomeInfoCircleSolid">&#xf05a;</system:String>
+    <system:String x:Key="FontAwesomeTimesSquareSolid">&#xf2D3;</system:String>
+    <system:String x:Key="FontAwesomeHomeSolid">&#xf015;</system:String>
+    <system:String x:Key="FontAwesomethumbtackSolid">&#xf08d;</system:String>
+    <system:String x:Key="FontAwesomeFolderSolid">&#xf07b;</system:String>
+    <system:String x:Key="FontAwesomeFolderOpenSolid">&#xf07c;</system:String>
+    <system:String x:Key="FontAwesomeFile">&#xf15B;</system:String>
+    <system:String x:Key="FontAwesomeFileImage">&#xf1c5;</system:String>
+    <system:String x:Key="FontAwesomeFileImageSolid">&#xf1c5;</system:String>
+    <system:String x:Key="FontAwesomeEye">&#xf06e;</system:String>
+    <system:String x:Key="FontAwesomeExpand">&#xf065;</system:String>
+
 </ResourceDictionary>

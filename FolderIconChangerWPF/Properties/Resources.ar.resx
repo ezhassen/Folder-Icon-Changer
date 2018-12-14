@@ -287,10 +287,10 @@
     <value>مجموعة صور الأيقونة</value>
   </data>
   <data name="bClearRecentFiles" xml:space="preserve">
-    <value>مسح تاريخ الملفات الأخيرة</value>
+    <value>مسح سجل الملفات الأخيرة</value>
   </data>
   <data name="bClearRecentFolders" xml:space="preserve">
-    <value>مسح تاريخ المجلدات الأخيرة</value>
+    <value>مسح سجل المجلدات الأخيرة</value>
   </data>
   <data name="tAppName" xml:space="preserve">
     <value>اسم البرنامج</value>

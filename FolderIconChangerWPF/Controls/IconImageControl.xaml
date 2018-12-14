@@ -5,13 +5,9 @@
     xmlns:ap="clr-namespace:FolderIconChangerWPF.AttachedProperties"
     xmlns:conv="clr-namespace:FolderIconChangerWPF.ValueConverters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-    xmlns:input="clr-namespace:System.Windows.Input;assembly=System"
     xmlns:lex="http://wpflocalizeextension.codeplex.com"
     xmlns:local="clr-namespace:FolderIconChangerWPF.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    xmlns:sysCollections="clr-namespace:System.Collections;assembly=mscorlib"
     d:DesignHeight="128"
     d:DesignWidth="128"
     lex:LocalizeDictionary.DesignCulture="en"
@@ -89,7 +85,12 @@
                     </Style>
                 </StackPanel.Style>-->
                     <Button Command="{Binding Path=ViewIconGroupCommand}" ToolTip="{lex:BLoc ShowIconGroup, TargetNullValue=Show icon group}">
-                        <iconPacks:PackIconFontAwesome Kind="EyeRegular" />
+                        <!--<iconPacks:PackIconFontAwesome Kind="EyeRegular" />-->
+                        <TextBlock
+                            FontFamily="{StaticResource FontAwesome}"
+                            FontSize="{StaticResource FontSizeLarge}"
+                            Text="{StaticResource FontAwesomeEye}" />
+
                         <!--<iconPacks:PackIconMaterial Kind="FileExport"
                             Effect="{StaticResource IconDropShadowEffect}"
 
@@ -98,7 +99,12 @@
                     <Button Command="{Binding GenerateBestFitCommand}" ToolTip="{lex:BLoc GenerateBestFit, TargetNullValue={}Generate Best Icon Fit}">
 
                         <!--  Visibility="{Binding GenerateBestFitCommand, Converter={conv:VisibilityWhenNullConverter  Value=Collapsed, Otherwise=Visible}}"  -->
-                        <iconPacks:PackIconFontAwesome Kind="ExpandSolid" />
+
+                        <TextBlock
+                            FontFamily="{StaticResource FontAwesome}"
+                            FontSize="{StaticResource FontSizeLarge}"
+                            Text="{StaticResource FontAwesomeExpand}" />
+                        <!--<iconPacks:PackIconFontAwesome Kind="ExpandSolid" />-->
 
                         <!--<iconPacks:PackIconMaterial Kind="FileExport"
                             Effect="{StaticResource IconDropShadowEffect}"
@@ -114,15 +120,17 @@
                                         <conv:VisibilityWhenConverter.MultiWhen>
                                             <sysCollections:ArrayList>
                                                 <sys:Boolean>False</sys:Boolean>
-                                                --><!--OR--><!--
+                                -->
+                                <!--  OR  -->
+                                <!--
                                                 <x:Null />
                                             </sysCollections:ArrayList>
                                         </conv:VisibilityWhenConverter.MultiWhen>
                                     </conv:VisibilityWhenConverter>
                                 </MultiBinding.Converter>-->
 
-                                <Binding Path="AllowToGenerateBestFit" Converter="{conv:BoolWhenBoolConverter}" />
-                                <Binding Path="GenerateBestFitCommand" Converter="{conv:BoolWhenNullConverter Value=False, Otherwise=True}" />
+                                <Binding Converter="{conv:BoolWhenBoolConverter}" Path="AllowToGenerateBestFit" />
+                                <Binding Converter="{conv:BoolWhenNullConverter Value=False, Otherwise=True}" Path="GenerateBestFitCommand" />
                                 <!--<Binding Path="GenerateBestFitCommand"/>-->
                             </MultiBinding>
                         </Button.Visibility>

@@ -374,11 +374,11 @@ Continue?</source>
         </trans-unit>
         <trans-unit id="bClearRecentFiles" translate="yes" xml:space="preserve">
           <source>Clear Recent Files</source>
-          <target state="translated">مسح تاريخ الملفات الأخيرة</target>
+          <target state="translated">مسح سجل الملفات الأخيرة</target>
         </trans-unit>
         <trans-unit id="bClearRecentFolders" translate="yes" xml:space="preserve">
           <source>Clear Recent Folders</source>
-          <target state="translated">مسح تاريخ المجلدات الأخيرة</target>
+          <target state="translated">مسح سجل المجلدات الأخيرة</target>
         </trans-unit>
         <trans-unit id="tAppName" translate="yes" xml:space="preserve">
           <source>App Name</source>

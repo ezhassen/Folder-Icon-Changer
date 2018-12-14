@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="12.3" version="14.8" Modules="architect" RootPath="." Language="en" Id="{1A12290F-81EB-492E-8C5B-D05D236ED864}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="12.3" version="15.2" Modules="architect" RootPath="." Language="en" Id="{1A12290F-81EB-492E-8C5B-D05D236ED864}">
   <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
     <ROW Name="HiddenItems" Value="AppXAppDetailsComponent;AppXCapabilitiesComponent;AppXDependenciesComponent;AppXProductDetailsComponent;AppXVisualAssetsComponent;AppXAppDeclarationsComponent;AppXUriRulesComponent"/>
   </COMPONENT>
@@ -20,14 +20,15 @@
     <ROW Property="ARPNOREPAIR" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="ARPPRODUCTICON" Value="icon.exe" Type="8"/>
     <ROW Property="ARPSYSTEMCOMPONENT" Value="1"/>
+    <ROW Property="ARPURLINFOABOUT" Value="http://fp.com/ezhassen"/>
     <ROW Property="AiPreferFastOem" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="CTRLS" Value="2"/>
     <ROW Property="MSIFASTINSTALL" MultiBuildValue="DefaultBuild:3"/>
     <ROW Property="Manufacturer" Value="ezhassen"/>
-    <ROW Property="ProductCode" Value="1025:{9851CFD5-3272-4F6A-9493-752FEA1F2591} 1033:{4F837470-E52D-47AA-975D-A349B3ED5F04} " Type="16"/>
+    <ROW Property="ProductCode" Value="1025:{ABE68DA1-C8DE-476B-8E6C-961BB3B28BCC} 1033:{282524B0-87FC-4ED6-AE68-26BEAD63C000} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Folder Icon Changer"/>
-    <ROW Property="ProductVersion" Value="2.3.212.1102" Type="32" TargetFile="FolderIconChanger.exe"/>
+    <ROW Property="ProductVersion" Value="3.0.0.0" Type="32" TargetFile="FolderIconChanger.exe"/>
     <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{D78498AB-B8F3-4B42-B190-EF4E1846EB89}"/>
@@ -50,32 +51,53 @@
     <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
     <ROW Directory="StartMenuFolder" Directory_Parent="TARGETDIR" DefaultDir="STARTM~1|StartMenuFolder" IsPseudoRoot="1"/>
     <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
-    <ROW Directory="langs_Dir" Directory_Parent="APPDIR" DefaultDir="langs"/>
+    <ROW Directory="ar_Dir" Directory_Parent="APPDIR" DefaultDir="ar"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
-    <ROW Component="AI_CustomARPName" ComponentId="{F62ADF61-A923-4EC3-A5F5-280B8CE668F1}" Directory_="APPDIR" Attributes="4" KeyPath="DisplayName" Options="1"/>
+    <ROW Component="AI_CustomARPName" ComponentId="{4D57D16D-4AF5-470E-8A01-FFD6EF1BF827}" Directory_="APPDIR" Attributes="4" KeyPath="DisplayName" Options="1"/>
     <ROW Component="AI_ExePath" ComponentId="{837D3728-B391-4FFC-A45F-B7104EF0A2F1}" Directory_="APPDIR" Attributes="4" KeyPath="AI_ExePath"/>
     <ROW Component="AI_InstallLanguage" ComponentId="{91080BD5-627F-4319-928A-5062BFA97350}" Directory_="APPDIR" Attributes="4" KeyPath="AI_InstallLanguage" Options="1"/>
-    <ROW Component="FolderIconChanger.VisualElementsManifest.xml" ComponentId="{5F5CBA53-1C1E-4948-A074-67FEAD39E308}" Directory_="APPDIR" Attributes="0" KeyPath="FolderIconChanger.VisualElementsManifest.xml"/>
-    <ROW Component="FolderIconChanger.exe" ComponentId="{F826CF95-9B96-4E91-A21E-D79196321088}" Directory_="APPDIR" Attributes="0" KeyPath="FolderIconChanger.exe"/>
+    <ROW Component="CommonServiceLocator.dll" ComponentId="{2408296B-FA8E-4623-8E56-73CDA3AF3921}" Directory_="APPDIR" Attributes="0" KeyPath="CommonServiceLocator.dll"/>
+    <ROW Component="ControlzEx.dll" ComponentId="{717343B2-60C3-4C27-8478-9421A47ACCE0}" Directory_="APPDIR" Attributes="0" KeyPath="ControlzEx.dll"/>
+    <ROW Component="EzzHelper.dll" ComponentId="{FAF0749A-84BD-46B5-AF76-CF4B3B76A757}" Directory_="APPDIR" Attributes="0" KeyPath="EzzHelper.dll"/>
+    <ROW Component="FolderIconChanger.exe" ComponentId="{24E1DF46-3124-4DFF-994B-F9FE1C3C9B47}" Directory_="APPDIR" Attributes="0" KeyPath="FolderIconChanger.exe"/>
+    <ROW Component="FolderIconChanger.resources.dll" ComponentId="{BAB4EC6B-984C-4E34-AA04-DEDA0B35A951}" Directory_="ar_Dir" Attributes="0" KeyPath="FolderIconChanger.resources.dll"/>
+    <ROW Component="GalaSoft.MvvmLight.Extras.dll" ComponentId="{1C4354B2-F3CA-4855-80AE-8505620F9F92}" Directory_="APPDIR" Attributes="0" KeyPath="GalaSoft.MvvmLight.Extras.dll"/>
+    <ROW Component="GalaSoft.MvvmLight.Platform.dll" ComponentId="{0F03DD9C-0E0C-47F4-964A-3057C3E2CA34}" Directory_="APPDIR" Attributes="0" KeyPath="GalaSoft.MvvmLight.Platform.dll"/>
+    <ROW Component="GalaSoft.MvvmLight.dll" ComponentId="{80D9B729-7B82-451F-989F-469A56512293}" Directory_="APPDIR" Attributes="0" KeyPath="GalaSoft.MvvmLight.dll"/>
     <ROW Component="InstallLanguage" ComponentId="{3A43F35A-3027-4292-9229-C01A9FBA3AB4}" Directory_="APPDIR" Attributes="4" KeyPath="InstallLanguage" Options="1"/>
+    <ROW Component="MahApps.Metro.IconPacks.dll" ComponentId="{7F45325D-DFDD-4E44-9398-A5137C199748}" Directory_="APPDIR" Attributes="0" KeyPath="MahApps.Metro.IconPacks.dll"/>
+    <ROW Component="MahApps.Metro.dll" ComponentId="{995687EF-1F59-4A7B-A1BD-F8F21D2E2D09}" Directory_="APPDIR" Attributes="0" KeyPath="MahApps.Metro.dll"/>
+    <ROW Component="Microsoft.Windows.Shell.dll" ComponentId="{965E064D-D796-46AA-BD9F-6404D671605F}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Windows.Shell.dll"/>
     <ROW Component="ProductInformation" ComponentId="{FA65A2FC-6A7D-4F9E-9169-DA3CC3F7F503}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
     <ROW Component="QuickLaunch" ComponentId="{B58D7F29-66BB-4450-8C5A-024D1473DAAF}" Directory_="QuickLaunch_Dir" Attributes="0"/>
-    <ROW Component="SHORTCUTDIR" ComponentId="{39FAA962-CB95-4831-A33C-6DC07C13409B}" Directory_="SHORTCUTDIR" Attributes="0"/>
-    <ROW Component="langs" ComponentId="{A76E397F-D290-4F69-A311-59FF3A9F103D}" Directory_="langs_Dir" Attributes="0"/>
+    <ROW Component="SHORTCUTDIR" ComponentId="{D00EB5D5-0E35-4E14-A624-1B4C6E353525}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="System.Windows.Interactivity.dll" ComponentId="{B3147A91-9526-4107-9395-FD885B30BB4D}" Directory_="APPDIR" Attributes="0" KeyPath="System.Windows.Interactivity.dll"/>
+    <ROW Component="WPFLocalizeExtension.dll" ComponentId="{BF90B046-B8AB-47E7-B1C1-DC473A3BDC15}" Directory_="APPDIR" Attributes="0" KeyPath="WPFLocalizeExtension.dll"/>
+    <ROW Component="XAMLMarkupExtensions.dll" ComponentId="{AE943677-B7AF-4498-8021-CD95193FA41C}" Directory_="APPDIR" Attributes="0" KeyPath="XAMLMarkupExtensions.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
-    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0" Components="AI_CustomARPName AI_ExePath AI_InstallLanguage FolderIconChanger.exe InstallLanguage ProductInformation QuickLaunch SHORTCUTDIR langs"/>
-    <ROW Feature="TileAssets_DefaultBuild" Title="TileAssets_DefaultBuild" Description="Description" Display="0" Level="1" Directory_="APPDIR" Attributes="0" Options="271" Components="AI_CustomARPName AI_ExePath AI_InstallLanguage FolderIconChanger.VisualElementsManifest.xml" Builds="DefaultBuild"/>
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="3" Level="1" Directory_="APPDIR" Attributes="0" Components="AI_CustomARPName AI_ExePath AI_InstallLanguage CommonServiceLocator.dll ControlzEx.dll EzzHelper.dll FolderIconChanger.exe FolderIconChanger.resources.dll GalaSoft.MvvmLight.Extras.dll GalaSoft.MvvmLight.Platform.dll GalaSoft.MvvmLight.dll InstallLanguage MahApps.Metro.IconPacks.dll MahApps.Metro.dll Microsoft.Windows.Shell.dll ProductInformation QuickLaunch SHORTCUTDIR System.Windows.Interactivity.dll WPFLocalizeExtension.dll XAMLMarkupExtensions.dll"/>
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
-    <ROW File="FolderIconChanger.VisualElementsManifest.xml" Component_="FolderIconChanger.VisualElementsManifest.xml" FileName="FOLDER~1.XML|Folder Icon Changer.VisualElementsManifest.xml" Attributes="0" SourcePath="&lt;AI_RES&gt;app.VisualElementsManifest.xml" SelfReg="false"/>
-    <ROW File="FolderIconChanger.exe" Component_="FolderIconChanger.exe" FileName="FOLDER~1.EXE|Folder Icon Changer.exe" Attributes="0" SourcePath="..\Folder Icon Changer\bin\Release\Folder Icon Changer_St.exe" SelfReg="false" NextFile="FolderIconChanger.VisualElementsManifest.xml" DigSign="true"/>
+    <ROW File="CommonServiceLocator.dll" Component_="CommonServiceLocator.dll" FileName="COMMON~1.DLL|CommonServiceLocator.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\CommonServiceLocator.dll" SelfReg="false" NextFile="ControlzEx.dll"/>
+    <ROW File="ControlzEx.dll" Component_="ControlzEx.dll" FileName="CONTRO~1.DLL|ControlzEx.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\ControlzEx.dll" SelfReg="false" NextFile="EzzHelper.dll"/>
+    <ROW File="EzzHelper.dll" Component_="EzzHelper.dll" FileName="EZZHEL~1.DLL|Ezz Helper.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\Ezz Helper.dll" SelfReg="false" NextFile="FolderIconChanger.exe"/>
+    <ROW File="FolderIconChanger.exe" Component_="FolderIconChanger.exe" FileName="FOLDER~1.EXE|Folder Icon Changer.exe" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\Folder Icon Changer.exe" SelfReg="false" NextFile="GalaSoft.MvvmLight.dll" DigSign="true"/>
+    <ROW File="FolderIconChanger.resources.dll" Component_="FolderIconChanger.resources.dll" FileName="FOLDER~1.DLL|Folder Icon Changer.resources.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\ar\Folder Icon Changer.resources.dll" SelfReg="false" NextFile="CommonServiceLocator.dll"/>
+    <ROW File="GalaSoft.MvvmLight.Extras.dll" Component_="GalaSoft.MvvmLight.Extras.dll" FileName="GALASO~2.DLL|GalaSoft.MvvmLight.Extras.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\GalaSoft.MvvmLight.Extras.dll" SelfReg="false" NextFile="GalaSoft.MvvmLight.Platform.dll"/>
+    <ROW File="GalaSoft.MvvmLight.Platform.dll" Component_="GalaSoft.MvvmLight.Platform.dll" FileName="GALASO~3.DLL|GalaSoft.MvvmLight.Platform.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\GalaSoft.MvvmLight.Platform.dll" SelfReg="false" NextFile="MahApps.Metro.dll"/>
+    <ROW File="GalaSoft.MvvmLight.dll" Component_="GalaSoft.MvvmLight.dll" FileName="GALASO~1.DLL|GalaSoft.MvvmLight.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\GalaSoft.MvvmLight.dll" SelfReg="false" NextFile="GalaSoft.MvvmLight.Extras.dll"/>
+    <ROW File="MahApps.Metro.IconPacks.dll" Component_="MahApps.Metro.IconPacks.dll" FileName="MAHAPP~2.DLL|MahApps.Metro.IconPacks.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\MahApps.Metro.IconPacks.dll" SelfReg="false" NextFile="Microsoft.Windows.Shell.dll"/>
+    <ROW File="MahApps.Metro.dll" Component_="MahApps.Metro.dll" FileName="MAHAPP~1.DLL|MahApps.Metro.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\MahApps.Metro.dll" SelfReg="false" NextFile="MahApps.Metro.IconPacks.dll"/>
+    <ROW File="Microsoft.Windows.Shell.dll" Component_="Microsoft.Windows.Shell.dll" FileName="MICROS~1.DLL|Microsoft.Windows.Shell.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\Microsoft.Windows.Shell.dll" SelfReg="false" NextFile="System.Windows.Interactivity.dll"/>
+    <ROW File="System.Windows.Interactivity.dll" Component_="System.Windows.Interactivity.dll" FileName="SYSTEM~1.DLL|System.Windows.Interactivity.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\System.Windows.Interactivity.dll" SelfReg="false" NextFile="WPFLocalizeExtension.dll"/>
+    <ROW File="WPFLocalizeExtension.dll" Component_="WPFLocalizeExtension.dll" FileName="WPFLOC~1.DLL|WPFLocalizeExtension.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\WPFLocalizeExtension.dll" SelfReg="false"/>
+    <ROW File="XAMLMarkupExtensions.dll" Component_="XAMLMarkupExtensions.dll" FileName="XAMLMA~1.DLL|XAMLMarkupExtensions.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\XAMLMarkupExtensions.dll" SelfReg="false" NextFile="FolderIconChanger.resources.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AiRemoveFileComponent">
     <ROW RemoveFile="_" Condition="(AI_CLEAN_RESOURCES_UNINSTALL = &quot;1&quot;) AND (NOT UPGRADINGPRODUCTCODE)" Options="3"/>
-    <ROW RemoveFile="__1" Condition="(AI_CLEAN_RESOURCES_UNINSTALL = &quot;1&quot;) AND (NOT UPGRADINGPRODUCTCODE)" Options="1"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AiRemoveRegComponent">
     <ROW RemoveReg="_" InstallMode="2" Condition="(AI_CLEAN_RESOURCES_UNINSTALL = &quot;1&quot;) AND (NOT UPGRADINGPRODUCTCODE)"/>
@@ -110,20 +132,6 @@
     <ROW Fragment="WelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\WelcomeDlg.aip"/>
     <ROW Fragment="WelcomePrereqDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\WelcomePrereqDlg.aip"/>
   </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.GenericXmlAttributeComponent">
-    <ROW XmlAttribute="BackgroundColor" XmlElement="VisualElements" Name="BackgroundColor" Flags="14" Order="0" Value="System default"/>
-    <ROW XmlAttribute="Executable" XmlElement="VisualElements" Name="Executable" Flags="14" Order="0" FileId="FolderIconChanger.exe"/>
-    <ROW XmlAttribute="ForegroundText" XmlElement="VisualElements" Name="ForegroundText" Flags="14" Order="0" Value="light"/>
-    <ROW XmlAttribute="ShowNameOnSquare150x150Logo" XmlElement="VisualElements" Name="ShowNameOnSquare150x150Logo" Flags="14" Order="0" Value="on"/>
-    <ROW XmlAttribute="xmlnsxsi" XmlElement="Application" Name="xmlns:xsi" Flags="14" Order="0" Value="http://www.w3.org/2001/XMLSchema-instance"/>
-  </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.GenericXmlElementComponent">
-    <ROW XmlElement="Application" Name="Application" Order="0" Flags="0" Type="53"/>
-    <ROW XmlElement="VisualElements" ParentElement="Application" Name="VisualElements" Order="0" Flags="0" Type="0"/>
-  </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.GenericXmlFileComponent">
-    <ROW XmlFile="FolderIconChanger.VisualElementsMan" FileName="Folder Icon Changer.VisualElementsManifest.xml" RootElement="Application" Flags="89" Version="1.0" Encoding="UTF-8" IndentUnits="2"/>
-  </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiActionTextComponent">
     <ROW Action="AI_AiRemoveFilesCommit" Description="Executing file removal operations" DescriptionLocId="ActionText.Description.AI_AiRemoveFilesCommit" Template="Executing file removal: [1]" TemplateLocId="ActionText.Template.AI_AiRemoveFilesCommit"/>
     <ROW Action="AI_AiRemoveFilesDeferred_Permanent" Description="Preparing files for removal" DescriptionLocId="ActionText.Description.AI_AiRemoveFilesDeferred_Permanent" Template="Preparing file: [1]" TemplateLocId="ActionText.Template.AI_AiRemoveFilesDeferred_Permanent"/>
@@ -150,9 +158,6 @@
     <ROW Name="ResourceCleaner.dll" SourcePath="&lt;AI_CUSTACTS&gt;ResourceCleaner.dll"/>
     <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
     <ROW Name="lzmaextractor.dll" SourcePath="&lt;AI_CUSTACTS&gt;lzmaextractor.dll"/>
-  </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.MsiConditionComponent">
-    <ROW Feature_="TileAssets_DefaultBuild" Level="4" Condition="VersionNT &lt; 603"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
     <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
@@ -248,9 +253,8 @@
     <ROW Dialog_="VerifyRepairDlg" Control_="Repair" Event="ReinstallMode" Argument="ecmus" Condition="OutOfDiskSpace &lt;&gt; 1" Ordering="100" MsiKey="VerifyRepairDlg#Repair#ReinstallMode#ecmus#OutOfDiskSpace &lt;&gt; 1"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
-    <ROW Directory_="SHORTCUTDIR" Component_="SHORTCUTDIR" ManualDelete="false"/>
     <ROW Directory_="QuickLaunch_Dir" Component_="QuickLaunch" ManualDelete="false"/>
-    <ROW Directory_="langs_Dir" Component_="langs" ManualDelete="false"/>
+    <ROW Directory_="SHORTCUTDIR" Component_="SHORTCUTDIR" ManualDelete="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
     <ROW Action="AI_AiRemoveFilesCommit" Type="11777" Source="ResourceCleaner.dll" Target="OnAiRemoveFilesCommit" WithoutSeq="true"/>
@@ -335,14 +339,11 @@
     <ROW Action="AI_EnableDebugLog" Sequence="51"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
-    <ROW Condition="(VersionNT &lt;&gt; 400)" Description="[ProductName] cannot be installed on the following Windows versions: [WindowsTypeNT40Display]" DescriptionLocId="AI.LaunchCondition.NoNT40" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="(VersionNT &lt;&gt; 400)" Description="[ProductName] cannot be installed on [WindowsTypeNT40Display]." DescriptionLocId="AI.LaunchCondition.NoNT40" IsPredefined="true" Builds="DefaultBuild"/>
     <ROW Condition="(VersionNT &lt;&gt; 500)" Description="[ProductName] cannot be installed on [WindowsTypeNT50Display]." DescriptionLocId="AI.LaunchCondition.NoNT50" IsPredefined="true" Builds="DefaultBuild"/>
     <ROW Condition="(VersionNT64 OR ((VersionNT &lt;&gt; 501) OR (ServicePackLevel = 3))) AND ((VersionNT &lt;&gt; 502) OR (ServicePackLevel = 2))" Description="[ProductName] cannot be installed on [WindowsTypeNT5XDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT5X" IsPredefined="true" Builds="DefaultBuild"/>
     <ROW Condition="SETUPEXEDIR OR (REMOVE=&quot;ALL&quot;)" Description="This package can only be run from a bootstrapper." DescriptionLocId="AI.LaunchCondition.RequireBootstrapper" IsPredefined="true" Builds="DefaultBuild"/>
     <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]." DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
-  </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.msicomp.MsiLockPermComponent">
-    <ROW LockObject="langs_Dir" Table="CreateFolder" User="Everyone" Permission="1880096767" Flags="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiRegLocatorComponent">
     <ROW Signature_="AI_EXE_PATH_CU" Root="1" Key="Software\Caphyon\Advanced Installer\LZMA\[ProductCode]\[ProductVersion]" Name="AI_ExePath" Type="2"/>
@@ -372,17 +373,16 @@
     <ROW Registry="VersionMinor" Root="-1" Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[ProductName] [ProductVersion]" Name="VersionMinor" Value="#2" Component_="AI_CustomARPName"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiRemoveFileComponent">
-    <ROW FileKey="_" Component_="FolderIconChanger.exe" DirProperty="APPDIR" InstallMode="2"/>
-    <ROW FileKey="__1" Component_="FolderIconChanger.exe" FileName="*" DirProperty="APPDIR" InstallMode="2"/>
+    <ROW FileKey="_" Component_="AI_ExePath" DirProperty="APPDIR" InstallMode="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiRemoveRegComponent">
-    <ROW RemoveRegistry="_" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="-" Component_="SHORTCUTDIR"/>
+    <ROW RemoveRegistry="_" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="-" Component_="QuickLaunch"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
-    <ROW Shortcut="FolderIconChanger" Directory_="SHORTCUTDIR" Name="FOLDER~1|Folder Icon Changer" Component_="FolderIconChanger.exe" Target="[#FolderIconChanger.exe]" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
-    <ROW Shortcut="FolderIconChanger_1" Directory_="DesktopFolder" Name="FOLDER~1|Folder Icon Changer" Component_="FolderIconChanger.exe" Target="[#FolderIconChanger.exe]" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
-    <ROW Shortcut="FolderIconChanger_2" Directory_="QuickLaunch_Dir" Name="FOLDER~1|Folder Icon Changer" Component_="FolderIconChanger.exe" Target="[#FolderIconChanger.exe]" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
-    <ROW Shortcut="FolderIconChanger_3" Directory_="StartMenuFolder" Name="FOLDER~1|Folder Icon Changer" Component_="FolderIconChanger.exe" Target="[#FolderIconChanger.exe]" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="FolderIconChanger" Directory_="SHORTCUTDIR" Name="FOLDER~1|Folder Icon Changer" Component_="FolderIconChanger.exe" Target="[#FolderIconChanger.exe]" Description="Easy to use and fast way to change folder icon" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="FolderIconChanger_1" Directory_="DesktopFolder" Name="FOLDER~1|Folder Icon Changer" Component_="FolderIconChanger.exe" Target="[#FolderIconChanger.exe]" Description="Easy to use and fast way to change folder icon" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="FolderIconChanger_2" Directory_="QuickLaunch_Dir" Name="FOLDER~1|Folder Icon Changer" Component_="FolderIconChanger.exe" Target="[#FolderIconChanger.exe]" Description="Easy to use and fast way to change folder icon" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="FolderIconChanger_3" Directory_="StartMenuFolder" Name="FOLDER~1|Folder Icon Changer" Component_="FolderIconChanger.exe" Target="[#FolderIconChanger.exe]" Description="Easy to use and fast way to change folder icon" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
     <ATTRIBUTE name="UsedTheme" value="classic"/>
@@ -397,5 +397,8 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.PreReqSearchComponent">
     <ROW SearchKey="C673FE9433B49AFAC9592AB26B8F8E4Install" Prereq="C673FE9433B49AFAC9592AB26B8F8E4" SearchType="9" SearchString="HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\Install" RefContent="M1" Order="1" Property="PreReqSearch_C673FE9433B49AFAC9592A"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.SynchronizedFolderComponent">
+    <ROW Directory_="APPDIR" SourcePath="..\FolderIconChangerWPF\bin\Release" Feature="MainFeature" IncludePattern="*.exe|*.dll" ExcludePattern="*~|#*#|%*%|._|CVS|.cvsignore|SCCS|vssver.scc|mssccprj.scc|vssver2.scc|.svn|.DS_Store" ExcludeFlags="6"/>
   </COMPONENT>
 </DOCUMENT>

@@ -1,5 +1,4 @@
 ﻿using Ezz_Helper.Drawing.IconsManager;
-using FolderIconChangerWPF.ViewModels;
 using MahApps.Metro.Controls;
 
 namespace FolderIconChangerWPF.Windows
@@ -14,9 +13,10 @@ namespace FolderIconChangerWPF.Windows
             InitializeComponent();
         }
       
-        public IconInfoImagesWindow(IconInfo iconInfo) : this()
+        public IconInfoImagesWindow(IconInfo iconInfo, string filePath = null) : this()
         {
             ViewModel.IconInfo = iconInfo;
+            ViewModel.FilePath = filePath;
         }
 
         //private IconInfoImagesViewModel viewModel;

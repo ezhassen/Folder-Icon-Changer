@@ -165,8 +165,20 @@ Note, if you want to use a value of Null, use the following syntax:
 
     }
     public class ValueWhenConverter : ValueWhenConverterBase<object, object> { }
-    public class ValueWhenBoolConverter : ValueWhenConverterBase<bool, object> { }
-    public class ValueWhenBoolConverterInt : ValueWhenConverterBase<bool, int> { }
+    public class ValueWhenBoolConverter : ValueWhenConverterBase<bool, object>
+    {
+        public ValueWhenBoolConverter()
+        {
+            When = true;
+        }
+    }
+    public class ValueWhenBoolConverterInt : ValueWhenConverterBase<bool, int>
+    {
+        public ValueWhenBoolConverterInt()
+        {
+            When = true;
+        }
+    }
     public class ValueWhenNullConverter : ValueWhenConverterBase<object, object> { }
 
     public class BoolWhenBoolConverter : ValueWhenConverterBase<bool, bool>

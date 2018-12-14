@@ -6,14 +6,11 @@
     xmlns:controls="clr-namespace:FolderIconChangerWPF.Controls"
     xmlns:conv="clr-namespace:FolderIconChangerWPF.ValueConverters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:lex="http://wpflocalizeextension.codeplex.com"
     xmlns:local="clr-namespace:FolderIconChangerWPF.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mm="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:serv="clr-namespace:FolderIconChangerWPF.Services"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    xmlns:sysCollections="clr-namespace:System.Collections;assembly=mscorlib"
     xmlns:vm="clr-namespace:FolderIconChangerWPF.ViewModels"
     Width="520"
     MinWidth="520"
@@ -66,7 +63,9 @@
                 <!--<Setter Property="Foreground" Value="{DynamicResource AccentBaseColorBrush}"/>-->
                 <Setter Property="Content">
                     <Setter.Value>
-                        <iconPacks:PackIconOcticons Kind="FileDirectory" />
+                        <!--<iconPacks:PackIconOcticons Kind="FileDirectory" />-->
+                        <TextBlock FontFamily="{StaticResource FontAwesome}" Text="{StaticResource FontAwesomeFolderSolid}" />
+
                         <!--<iconPacks:PackIconMaterial Kind="FolderEdit" />-->
                     </Setter.Value>
                 </Setter>
@@ -238,7 +237,11 @@
                     ToolTip="{lex:BLoc SelectTargetFolder}">
                     <controls:EzzSplitButton.ButtonContent>
                         <Viewbox>
-                            <iconPacks:PackIconOcticons Kind="FileDirectory" />
+                            <TextBlock
+                                FontFamily="{StaticResource FontAwesome}"
+                                FontSize="18"
+                                Text="{StaticResource FontAwesomeFolderSolid}" />
+                            <!--<iconPacks:PackIconOcticons Kind="FileDirectory" />-->
                             <!--<iconPacks:PackIconMaterial Kind="FolderEdit" />-->
                         </Viewbox>
                     </controls:EzzSplitButton.ButtonContent>
@@ -251,7 +254,11 @@
                                 IsEnabled="{Binding TargetFolder, Converter={conv:BoolWhenStringConverter}}"
                                 ToolTip="{Binding Header, RelativeSource={RelativeSource Self}}">
                                 <MenuItem.Icon>
-                                    <iconPacks:PackIconFontAwesome Margin="3" Kind="FileImageSolid" />
+                                    <!--<iconPacks:PackIconFontAwesome Margin="3" Kind="FileImageSolid" />-->
+                                    <TextBlock
+                                        Margin="5,0"
+                                        FontFamily="{StaticResource FontAwesome}"
+                                        Text="{StaticResource FontAwesomeFolderOpenSolid}" />
                                 </MenuItem.Icon>
                             </MenuItem>
                         </ContextMenu>
@@ -267,6 +274,7 @@
                 <controls:IconImageControl
                     Grid.Column="0"
                     AllowToGenerateBestFit="{Binding CurrentIconPath, Converter={conv:BoolWhenStringConverter Value=False, Otherwise=True}}"
+                    FilePath="{Binding CurrentIconFullPath}"
                     GenerateBestFitCommand="{Binding CurrentGenBestFitCommand}"
                     IconInfo="{Binding CurrentIconInfo}"
                     IsLoading="{Binding IsLoadingCurrentInfo}" />
@@ -293,7 +301,12 @@
                             ToolTip="{lex:BLoc FilePath, TargetNullValue=File Path}">
                             <mm:TextBoxHelper.ButtonContentTemplate>
                                 <ItemContainerTemplate>
-                                    <iconPacks:PackIconMaterial Kind="FolderOpen" ToolTip="{lex:BLoc OpenContainingFolder, TargetNullValue=Open Containing Folder}" />
+                                    <TextBlock
+                                        FontFamily="{StaticResource FontAwesome}"
+                                        Text="{StaticResource FontAwesomeFolderOpenSolid}"
+                                        ToolTip="{lex:BLoc OpenContainingFolder, TargetNullValue=Open Containing Folder}" />
+
+                                    <!--<iconPacks:PackIconMaterial Kind="FolderOpen" ToolTip="{lex:BLoc OpenContainingFolder, TargetNullValue=Open Containing Folder}" />-->
                                 </ItemContainerTemplate>
                             </mm:TextBoxHelper.ButtonContentTemplate>
                         </TextBox>
@@ -329,14 +342,26 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <iconPacks:PackIconOcticons
+
+                        <TextBlock
+                            Grid.Row="0"
+                            Margin="0,5,0,0"
+                            HorizontalAlignment="Center"
+                            Effect="{StaticResource IconShadowEffect}"
+                            Focusable="False"
+                            FontFamily="{StaticResource FontAwesome}"
+                            FontSize="{StaticResource FontSizeLarge}"
+                            Opacity="0.9"
+                            Text="&#xf1F8;" />
+
+                        <!--<iconPacks:PackIconOcticons
                             Grid.Row="0"
                             Margin="0,5,0,0"
                             Padding="-5"
                             HorizontalAlignment="Center"
                             Effect="{StaticResource IconShadowEffect}"
                             Focusable="False"
-                            Kind="Trashcan" />
+                            Kind="Trashcan" />-->
                         <TextBlock
                             Grid.Row="1"
                             Margin="0,3"
@@ -409,7 +434,11 @@
                         ButtonToolTip="{lex:BLoc BrowseForAnIconFile}">
                         <controls:EzzSplitButton.ButtonContent>
                             <Viewbox>
-                                <iconPacks:PackIconFontAwesome Kind="FileSolid" />
+                                <TextBlock
+                                    FontFamily="{StaticResource FontAwesome}"
+                                    FontSize="{StaticResource FontSizeLarge}"
+                                    Text="{StaticResource FontAwesomeFile}" />
+                                <!--<iconPacks:PackIconFontAwesome Kind="FileSolid" />-->
                             </Viewbox>
                         </controls:EzzSplitButton.ButtonContent>
                         <controls:EzzSplitButton.ArrowContextMenu>
@@ -419,7 +448,11 @@
                                     Header="{lex:BLoc IconFromImage, TargetNullValue=Icon From Image}"
                                     ToolTip="{lex:BLoc GenerateNewIconFromAnImage, TargetNullValue=Generate new Icon from an image}">
                                     <MenuItem.Icon>
-                                        <iconPacks:PackIconFontAwesome Margin="3" Kind="FileImageSolid" />
+                                        <!--<iconPacks:PackIconFontAwesome Margin="3" Kind="FileImageSolid" />-->
+                                        <TextBlock
+                                            Margin="5,0"
+                                            FontFamily="{StaticResource FontAwesome}"
+                                            Text="{StaticResource FontAwesomeFileImage}" />
                                     </MenuItem.Icon>
                                 </MenuItem>
                                 <Separator />
@@ -430,7 +463,11 @@
                                     IsEnabled="{Binding NewIconPath, Converter={conv:BoolWhenStringConverter}}"
                                     ToolTip="{Binding Header, RelativeSource={RelativeSource Self}}">
                                     <MenuItem.Icon>
-                                        <iconPacks:PackIconFontAwesome Margin="3" Kind="FileImageSolid" />
+                                        <!--<iconPacks:PackIconFontAwesome Margin="3" Kind="FileImageSolid" />-->
+                                        <TextBlock
+                                            Margin="5,0"
+                                            FontFamily="{StaticResource FontAwesome}"
+                                            Text="{StaticResource FontAwesomeFolderOpenSolid}" />
                                     </MenuItem.Icon>
                                 </MenuItem>
                             </ContextMenu>
@@ -464,6 +501,7 @@
                     <controls:IconImageControl
                         Grid.Column="0"
                         VerticalAlignment="Top"
+                        FilePath="{Binding NewIconFullPath, Mode=OneWay}"
                         IconInfo="{Binding NewIconInfo}"
                         IsLoading="{Binding IsLoadingNewInfo}" />
 
@@ -540,14 +578,25 @@
                                     <RowDefinition />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
-                                <iconPacks:PackIconFontAwesome
+                                <!--<iconPacks:PackIconFontAwesome
                                     Grid.Row="0"
                                     Margin="0,3,0,0"
                                     Padding="-5"
                                     HorizontalAlignment="Center"
                                     Effect="{StaticResource IconShadowEffect}"
                                     Focusable="False"
-                                    Kind="CheckSolid" />
+                                    Kind="CheckSolid" />-->
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Margin="0,3,0,0"
+                                    HorizontalAlignment="Center"
+                                    Effect="{StaticResource IconShadowEffect}"
+                                    Focusable="False"
+                                    FontFamily="{StaticResource FontAwesome}"
+                                    FontSize="{StaticResource FontSizeLarge}"
+                                    Opacity="0.9"
+                                    Text="&#xf00C;" />
+
                                 <TextBlock
                                     Grid.Row="1"
                                     Margin="0,3"

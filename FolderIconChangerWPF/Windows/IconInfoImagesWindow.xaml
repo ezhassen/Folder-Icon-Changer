@@ -103,8 +103,19 @@
             ap:ControlHelper.MouseWheelCommand="{Binding ChangeImageViewSizeCommand}"
             ap:ControlHelper.MouseWheelCommandOnControlKey="True"
             ItemTemplate="{StaticResource ImageInfoTemplate}"
+            SelectedItem="{Binding SelectedImage}"
             ItemsSource="{Binding IconImageInfoCollection}"
-            SelectionMode="Extended">
+            SelectionMode="Single">
+            <ListView.ContextMenu>
+                <ContextMenu DataContext="{Binding Source={x:Reference ViewModel}}">
+                    <MenuItem
+                        Command="{Binding ExportImageCommand}"
+                        Header="{lex:BLoc Select_Icon_ExportImage, TargetNullValue=Export Image}"
+                        IsEnabled="{Binding SelectedImage, Converter={conv:BoolWhenNullConverter}}" />
+                </ContextMenu>
+            </ListView.ContextMenu>
+
+
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <!--<WrapPanel />-->
@@ -145,7 +156,7 @@
                     <Setter Property="Margin" Value="5,3" />
                 </Style>
             </StatusBar.Resources>
-            
+
             <!--  All Count  -->
             <Run Text="{lex:BLoc Select_Icon_Count, TargetNullValue=Count}" />
             <Run Text=":" />
