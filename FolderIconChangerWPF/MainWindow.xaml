@@ -557,17 +557,34 @@
     </mm:MetroWindow.TitleTemplate>-->
 
     <Grid ap:WindowHelper.MoveWindowOnMouseDown="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mm:MetroWindow}}" Background="{DynamicResource WindowBackgroundBrush}">
-        <!--<Grid.RowDefinitions>
+        <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock FontFamily="{StaticResource FontAwesome}" Text="&#xf1c5;" />-->
-
-        <!--
-            Text="{Binding IsChecked,
-            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ToggleButton},
-            Converter={conv:ValueWhenBoolConverter Value=&#xf08d;, Otherwise=&#xf015;}}" />
-        -->
+        <!--  Drop Shadow Line  -->
+        <Border
+            Grid.Row="0"
+            Height="6"
+            BorderThickness="0,0.2,0,0">
+            <!--  UnderLine  -->
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Offset="0.0" Color="{DynamicResource WhiteColor}" />
+                    <GradientStop Offset="0.5" Color="{DynamicResource BlackColor}" />
+                    <GradientStop Offset="1.0" Color="{DynamicResource WhiteColor}" />
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <!--  Drop Shadow  -->
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" Direction="260" ShadowDepth="1" />
+            </Border.Effect>
+            <!--<Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="{DynamicResource Gray10}" Offset="0.0"/>
+                    <GradientStop Color="{DynamicResource Gray6}" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Border.Background>-->
+        </Border>
 
         <controls:PageHost
             Grid.Row="1"
