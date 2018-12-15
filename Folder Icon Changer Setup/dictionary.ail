@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DICTIONARY type="multilanguage">
+  <!-- Property table -->
+  <ENTRY id="Property.ARPCOMMENTS">
+    <STRING lang="ar" value="هذه حمزة التثبيت تحتوي على البيانات الازمة لتثبيت [|ProductName]"/>
+  </ENTRY>
+</DICTIONARY>

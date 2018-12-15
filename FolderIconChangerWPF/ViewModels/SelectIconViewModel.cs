@@ -337,7 +337,7 @@ namespace FolderIconChangerWPF.ViewModels
         {
             get
             {
-                if (_ImageViewSizes is null) _ImageViewSizes = Sizes.GetAll().Where(s => s.Width > MinSize);
+                if (_ImageViewSizes is null) _ImageViewSizes = Sizes.GetAll().Where(s => s.Width >= MinSize);
                 return _ImageViewSizes;
             }
             set { _ImageViewSizes = value; }

@@ -151,7 +151,7 @@ namespace FolderIconChangerWPF.ViewModels
         {
             get
             {
-                if (_ImageViewSizes is null) _ImageViewSizes = Ezz_Helper.Drawing.IconsManager.Sizes.GetAll().Where(s => s.Width > MinSize);
+                if (_ImageViewSizes is null) _ImageViewSizes = Ezz_Helper.Drawing.IconsManager.Sizes.GetAll().Where(s => s.Width >= MinSize);
                 return _ImageViewSizes;
             }
             set { _ImageViewSizes = value; }
@@ -175,7 +175,7 @@ namespace FolderIconChangerWPF.ViewModels
             }
         }
 
-        int _MinSize = 64;
+        int _MinSize = 16;
         public int MinSize
         {
             get { return _MinSize; }

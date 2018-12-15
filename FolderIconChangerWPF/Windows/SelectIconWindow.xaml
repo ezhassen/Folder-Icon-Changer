@@ -57,13 +57,14 @@
         <DataTemplate x:Key="ImageInfoTemplate">
             <Border
                 x:Name="PART_ItemBorder"
-                Width="{Binding CurrentImageViewSizeW, ElementName=ViewModel}"
-                Height="{Binding CurrentImageViewSizeW, ElementName=ViewModel}"
-                Margin="5">
+                Margin="5"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
                 <Border.InputBindings>
                     <KeyBinding Key="Return" Command="{Binding OKCommand, ElementName=ViewModel}" />
                     <MouseBinding Command="{Binding OKCommand, ElementName=ViewModel}" MouseAction="LeftDoubleClick" />
                 </Border.InputBindings>
+
                 <!--<Border.ToolTip>
                     <MultiBinding Converter="{conv:StringFormatConverter}" ConverterParameter="{}{0}x{1}, {2}, {3}">
                         <Binding Path="Size.Width" />
@@ -78,7 +79,10 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0">
+                    <Grid
+                        Grid.Row="0"
+                        Width="{Binding CurrentImageViewSizeW, ElementName=ViewModel}"
+                        Height="{Binding CurrentImageViewSizeW, ElementName=ViewModel}">
 
                         <Image
                             x:Name="PART_Image"
@@ -107,6 +111,7 @@
                     <!--  return string.Format("{0}, {1}, {2}", iii.Size.ToString_1(), iii.ColorsType.ToString(), iii.IconImageFormat.ToString());  -->
                     <TextBlock
                         Grid.Row="1"
+                        Margin="0,2,0,0"
                         HorizontalAlignment="Center"
                         FlowDirection="LeftToRight"
                         Text="{Binding Index}">
@@ -271,15 +276,22 @@
             Style="{StaticResource PathComboBox2}"
             Text="{Binding FilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
+
         <ListView
             x:Name="LV"
             Grid.Row="2"
+            Margin="5"
             ap:ControlHelper.MouseWheelCommand="{Binding ChangeImageViewSizeDeltaCommand}"
             ap:ControlHelper.MouseWheelCommandOnControlKey="True"
+            BorderBrush="{DynamicResource ControlBorderBrush}"
+            BorderThickness="1"
             ItemTemplate="{StaticResource ImageInfoTemplate}"
             ItemsSource="{Binding Icons}"
             SelectedItem="{Binding SelectedIconInfo}"
             SelectionMode="Single">
+            <!--<ListView.Effect>
+                <DropShadowEffect BlurRadius="5" ShadowDepth="1" />
+            </ListView.Effect>-->
             <ListView.ContextMenu>
                 <ContextMenu DataContext="{Binding Source={x:Reference ViewModel}}">
                     <MenuItem Command="{Binding OKCommand}" Header="{lex:BLoc Select_Icon_Select, TargetNullValue=Select}">

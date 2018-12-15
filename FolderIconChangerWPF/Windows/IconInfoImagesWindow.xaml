@@ -32,23 +32,19 @@
     mc:Ignorable="d">
     <!--  DataContext="{x:Static vm:IconInfoImagesViewModelDesgin.Instance}"  -->
     <mm:MetroWindow.DataContext>
-        <vm:IconInfoImagesViewModel x:Name="ViewModel"/>
+        <vm:IconInfoImagesViewModel x:Name="ViewModel" />
     </mm:MetroWindow.DataContext>
 
     <mm:MetroWindow.Resources>
 
         <DataTemplate x:Key="ImageInfoTemplate">
-            <Border x:Name="PART_ItemBorder"
-                Width="{Binding CurrentImageViewSize.Width, ElementName=ViewModel}"
-                Height="{Binding CurrentImageViewSize.Height, ElementName=ViewModel}"
-                MinWidth="50"
-                MinHeight="16">
+            <Border x:Name="PART_ItemBorder">
                 <Border.ToolTip>
                     <MultiBinding Converter="{conv:StringFormatConverter}" ConverterParameter="{}{0}x{1}, {2}, {3}">
-                        <Binding Path="Size.Width"/>
-                        <Binding Path="Size.Height"/>
-                        <Binding Path="ColorsType" Converter="{conv:LexEnumConverter}"/>
-                        <Binding Path="IconImageFormat" Converter="{conv:LexEnumConverter}"/>
+                        <Binding Path="Size.Width" />
+                        <Binding Path="Size.Height" />
+                        <Binding Converter="{conv:LexEnumConverter}" Path="ColorsType" />
+                        <Binding Converter="{conv:LexEnumConverter}" Path="IconImageFormat" />
                     </MultiBinding>
                 </Border.ToolTip>
                 <Grid>
@@ -59,14 +55,17 @@
 
                     <Image
                         Grid.Row="0"
+                        Width="{Binding CurrentImageViewSize.Width, ElementName=ViewModel}"
+                        Height="{Binding CurrentImageViewSize.Height, ElementName=ViewModel}"
                         Source="{Binding Image, Converter={conv:BitmapSDToSWConverter}}"
                         StretchDirection="DownOnly" />
                     <!--  return string.Format("{0}, {1}, {2}", iii.Size.ToString_1(), iii.ColorsType.ToString(), iii.IconImageFormat.ToString());  -->
                     <TextBlock
                         Grid.Row="1"
-                        HorizontalAlignment="Center" Text="{Binding ToolTip, ElementName=PART_ItemBorder}" FlowDirection="LeftToRight"
-                       >
-                         <!--FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}"-->
+                        HorizontalAlignment="Center"
+                        FlowDirection="LeftToRight"
+                        Text="{Binding ToolTip, ElementName=PART_ItemBorder}">
+                        <!--  FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}"  -->
                         <!--  Size  -->
                         <!--<Run>
                             <Run.Text>
@@ -99,12 +98,12 @@
         </Grid.RowDefinitions>
 
         <ListView
-            x:Name="LV" 
+            x:Name="LV"
             ap:ControlHelper.MouseWheelCommand="{Binding ChangeImageViewSizeCommand}"
             ap:ControlHelper.MouseWheelCommandOnControlKey="True"
             ItemTemplate="{StaticResource ImageInfoTemplate}"
-            SelectedItem="{Binding SelectedImage}"
             ItemsSource="{Binding IconImageInfoCollection}"
+            SelectedItem="{Binding SelectedImage}"
             SelectionMode="Single">
             <ListView.ContextMenu>
                 <ContextMenu DataContext="{Binding Source={x:Reference ViewModel}}">

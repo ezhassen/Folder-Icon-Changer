@@ -25,13 +25,13 @@
     <ROW Property="CTRLS" Value="2"/>
     <ROW Property="MSIFASTINSTALL" MultiBuildValue="DefaultBuild:3"/>
     <ROW Property="Manufacturer" Value="ezhassen"/>
-    <ROW Property="ProductCode" Value="1025:{59A6343A-46BE-40D2-A215-E9213C40484D} 1033:{505E65BF-192A-4132-AA69-5325DEF84C8B} " Type="16"/>
+    <ROW Property="ProductCode" Value="1025:{996D8BAD-04B0-4C41-A5C8-9B817261F064} 1033:{CB1B10E3-15DB-44A0-9563-6D1C837B6551} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Folder Icon Changer"/>
     <ROW Property="ProductVersion" Value="3.0.0.0" Type="32" TargetFile="FolderIconChanger.exe"/>
     <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
-    <ROW Property="UpgradeCode" Value="{D78498AB-B8F3-4B42-B190-EF4E1846EB89}"/>
+    <ROW Property="UpgradeCode" Value="{F8EA8863-20B9-453C-8959-68C74C39F289}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
     <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT40" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
@@ -80,19 +80,19 @@
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
-    <ROW File="CommonServiceLocator.dll" Component_="CommonServiceLocator.dll" FileName="COMMON~1.DLL|CommonServiceLocator.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\CommonServiceLocator.dll" SelfReg="false" NextFile="ControlzEx.dll"/>
-    <ROW File="ControlzEx.dll" Component_="ControlzEx.dll" FileName="CONTRO~1.DLL|ControlzEx.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\ControlzEx.dll" SelfReg="false" NextFile="EzzHelper.dll"/>
-    <ROW File="EzzHelper.dll" Component_="EzzHelper.dll" FileName="EZZHEL~1.DLL|Ezz Helper.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\Ezz Helper.dll" SelfReg="false" NextFile="FolderIconChanger.exe"/>
-    <ROW File="FolderIconChanger.exe" Component_="FolderIconChanger.exe" FileName="FOLDER~1.EXE|Folder Icon Changer.exe" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\Folder Icon Changer.exe" SelfReg="false" NextFile="GalaSoft.MvvmLight.dll" DigSign="true"/>
+    <ROW File="CommonServiceLocator.dll" Component_="CommonServiceLocator.dll" FileName="COMMON~1.DLL|CommonServiceLocator.dll" Version="65535.65535.65535.65535" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\CommonServiceLocator.dll" SelfReg="false" NextFile="ControlzEx.dll"/>
+    <ROW File="ControlzEx.dll" Component_="ControlzEx.dll" FileName="CONTRO~1.DLL|ControlzEx.dll" Version="65535.65535.65535.65535" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\ControlzEx.dll" SelfReg="false" NextFile="EzzHelper.dll"/>
+    <ROW File="EzzHelper.dll" Component_="EzzHelper.dll" FileName="EZZHEL~1.DLL|Ezz Helper.dll" Version="65535.65535.65535.65535" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\Ezz Helper.dll" SelfReg="false" NextFile="FolderIconChanger.exe"/>
+    <ROW File="FolderIconChanger.exe" Component_="FolderIconChanger.exe" FileName="FOLDER~1.EXE|Folder Icon Changer.exe" Version="65535.65535.65535.65535" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\Folder Icon Changer.exe" SelfReg="false" NextFile="GalaSoft.MvvmLight.dll" DigSign="true"/>
     <ROW File="FolderIconChanger.resources.dll" Component_="FolderIconChanger.resources.dll" FileName="FOLDER~1.DLL|Folder Icon Changer.resources.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\ar\Folder Icon Changer.resources.dll" SelfReg="false" NextFile="CommonServiceLocator.dll"/>
-    <ROW File="GalaSoft.MvvmLight.Extras.dll" Component_="GalaSoft.MvvmLight.Extras.dll" FileName="GALASO~2.DLL|GalaSoft.MvvmLight.Extras.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\GalaSoft.MvvmLight.Extras.dll" SelfReg="false" NextFile="GalaSoft.MvvmLight.Platform.dll"/>
-    <ROW File="GalaSoft.MvvmLight.Platform.dll" Component_="GalaSoft.MvvmLight.Platform.dll" FileName="GALASO~3.DLL|GalaSoft.MvvmLight.Platform.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\GalaSoft.MvvmLight.Platform.dll" SelfReg="false" NextFile="MahApps.Metro.dll"/>
-    <ROW File="GalaSoft.MvvmLight.dll" Component_="GalaSoft.MvvmLight.dll" FileName="GALASO~1.DLL|GalaSoft.MvvmLight.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\GalaSoft.MvvmLight.dll" SelfReg="false" NextFile="GalaSoft.MvvmLight.Extras.dll"/>
-    <ROW File="MahApps.Metro.dll" Component_="MahApps.Metro.dll" FileName="MAHAPP~1.DLL|MahApps.Metro.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\MahApps.Metro.dll" SelfReg="false" NextFile="Microsoft.Windows.Shell.dll"/>
-    <ROW File="Microsoft.Windows.Shell.dll" Component_="Microsoft.Windows.Shell.dll" FileName="MICROS~1.DLL|Microsoft.Windows.Shell.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\Microsoft.Windows.Shell.dll" SelfReg="false" NextFile="System.Windows.Interactivity.dll"/>
-    <ROW File="System.Windows.Interactivity.dll" Component_="System.Windows.Interactivity.dll" FileName="SYSTEM~1.DLL|System.Windows.Interactivity.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\System.Windows.Interactivity.dll" SelfReg="false" NextFile="WPFLocalizeExtension.dll"/>
-    <ROW File="WPFLocalizeExtension.dll" Component_="WPFLocalizeExtension.dll" FileName="WPFLOC~1.DLL|WPFLocalizeExtension.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\WPFLocalizeExtension.dll" SelfReg="false"/>
-    <ROW File="XAMLMarkupExtensions.dll" Component_="XAMLMarkupExtensions.dll" FileName="XAMLMA~1.DLL|XAMLMarkupExtensions.dll" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\XAMLMarkupExtensions.dll" SelfReg="false" NextFile="FolderIconChanger.resources.dll"/>
+    <ROW File="GalaSoft.MvvmLight.Extras.dll" Component_="GalaSoft.MvvmLight.Extras.dll" FileName="GALASO~2.DLL|GalaSoft.MvvmLight.Extras.dll" Version="65535.65535.65535.65535" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\GalaSoft.MvvmLight.Extras.dll" SelfReg="false" NextFile="GalaSoft.MvvmLight.Platform.dll"/>
+    <ROW File="GalaSoft.MvvmLight.Platform.dll" Component_="GalaSoft.MvvmLight.Platform.dll" FileName="GALASO~3.DLL|GalaSoft.MvvmLight.Platform.dll" Version="65535.65535.65535.65535" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\GalaSoft.MvvmLight.Platform.dll" SelfReg="false" NextFile="MahApps.Metro.dll"/>
+    <ROW File="GalaSoft.MvvmLight.dll" Component_="GalaSoft.MvvmLight.dll" FileName="GALASO~1.DLL|GalaSoft.MvvmLight.dll" Version="65535.65535.65535.65535" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\GalaSoft.MvvmLight.dll" SelfReg="false" NextFile="GalaSoft.MvvmLight.Extras.dll"/>
+    <ROW File="MahApps.Metro.dll" Component_="MahApps.Metro.dll" FileName="MAHAPP~1.DLL|MahApps.Metro.dll" Version="65535.65535.65535.65535" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\MahApps.Metro.dll" SelfReg="false" NextFile="Microsoft.Windows.Shell.dll"/>
+    <ROW File="Microsoft.Windows.Shell.dll" Component_="Microsoft.Windows.Shell.dll" FileName="MICROS~1.DLL|Microsoft.Windows.Shell.dll" Version="65535.65535.65535.65535" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\Microsoft.Windows.Shell.dll" SelfReg="false" NextFile="System.Windows.Interactivity.dll"/>
+    <ROW File="System.Windows.Interactivity.dll" Component_="System.Windows.Interactivity.dll" FileName="SYSTEM~1.DLL|System.Windows.Interactivity.dll" Version="65535.65535.65535.65535" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\System.Windows.Interactivity.dll" SelfReg="false" NextFile="WPFLocalizeExtension.dll"/>
+    <ROW File="WPFLocalizeExtension.dll" Component_="WPFLocalizeExtension.dll" FileName="WPFLOC~1.DLL|WPFLocalizeExtension.dll" Version="65535.65535.65535.65535" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\WPFLocalizeExtension.dll" SelfReg="false"/>
+    <ROW File="XAMLMarkupExtensions.dll" Component_="XAMLMarkupExtensions.dll" FileName="XAMLMA~1.DLL|XAMLMarkupExtensions.dll" Version="65535.65535.65535.65535" Attributes="0" SourcePath="..\FolderIconChangerWPF\bin\Release\XAMLMarkupExtensions.dll" SelfReg="false" NextFile="FolderIconChanger.resources.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AiRemoveFileComponent">
     <ROW RemoveFile="_" Condition="(AI_CLEAN_RESOURCES_UNINSTALL = &quot;1&quot;) AND (NOT UPGRADINGPRODUCTCODE)" Options="3"/>
@@ -110,6 +110,9 @@
     <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
     <ROW Path="&lt;AI_DICTS&gt;ui_en.ail"/>
     <ROW Path="&lt;AI_DICTS&gt;ui_ar.ail"/>
+    <ROW Path="&lt;AI_REPOSITORY&gt;dictionaries\ui_ar.ail"/>
+    <ROW Path="dictionary.ail" Options="1"/>
+    <ROW Path="&lt;AI_REPOSITORY&gt;dictionaries\ui_en.ail"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
     <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
@@ -156,6 +159,10 @@
     <ROW Name="ResourceCleaner.dll" SourcePath="&lt;AI_CUSTACTS&gt;ResourceCleaner.dll"/>
     <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
     <ROW Name="lzmaextractor.dll" SourcePath="&lt;AI_CUSTACTS&gt;lzmaextractor.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiControlComponent">
+    <ROW Dialog_="PrerequisitesDlg" Control="Logo" Type="Text" X="4" Y="228" Width="70" Height="12" Attributes="1" Text="Advanced Installer" Order="800" TextLocId="Control.Text.PrerequisitesDlg#Logo" MsiKey="PrerequisitesDlg#Logo"/>
+    <ROW Dialog_="ProgressDlg" Control="Logo" Type="Text" X="4" Y="228" Width="70" Height="12" Attributes="1" Text="Advanced Installer" Order="400" TextLocId="Control.Text.ProgressDlg#Logo" MsiKey="ProgressDlg#Logo"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
     <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
