@@ -2,12 +2,10 @@
 using FolderIconChangerWPF.Classes;
 using FolderIconChangerWPF.IconInfoCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace FolderIconChangerWPF.AttachedProperties
 {
@@ -67,8 +65,6 @@ namespace FolderIconChangerWPF.AttachedProperties
         static readonly DependencyProperty OneTaskHandlerProperty =
             DependencyProperty.RegisterAttached("OneTaskHandler", typeof(OneTaskHandler), typeof(IconInfoHelper), new PropertyMetadata(null));
 
-
-
         static async Task LoadImageFromIconInfo(DependencyObject d, IconInfo iconInfo)
         {
             var LoadImageFromIconInfoOneTaskHandler = GetOneTaskHandler(d);
@@ -106,12 +102,12 @@ namespace FolderIconChangerWPF.AttachedProperties
                 if (sizeW.HasValue)
                 {
                     //return iconInfo?.GetBestFitIcon(new System.Drawing.Size(sizeW.Value, sizeW.Value))?.Image?.ToSWBitmapImage();
-                    return iconInfo?.GetBestFitIcon(new System.Drawing.Size(sizeW.Value, sizeW.Value))?.BuildImageBytes();
+                    return iconInfo?.GetBestFitIcon(new System.Drawing.Size(sizeW.Value, sizeW.Value))?.BuildBitmapImage();
                 }
                 else
                 {
                     //return iconInfo?.GetBestFitIcon()?.Image?.ToSWBitmapImage();
-                    return iconInfo?.GetBestFitIcon()?.BuildImageBytes();
+                    return iconInfo?.GetBestFitIcon()?.BuildBitmapImage();
                 }
             }, cancellationTokenSource.Token);
 
@@ -119,21 +115,91 @@ namespace FolderIconChangerWPF.AttachedProperties
             LoadImageFromIconInfoOneTaskHandler.AfterTask(cancellationTokenSource);
 
             //If the task is Canceled by a newer task or other things
-            if (cancellationTokenSource.IsCancellationRequested)
+            //If the operation is Canceled and there is an other task running Let next task to reset props
+            if (cancellationTokenSource.IsCancellationRequested && LoadImageFromIconInfoOneTaskHandler.ContainsAnyTask) return;
+
+            //Set Result Code from TaskResult
+            if (taskResult.OperationWasSuccessful)
             {
-                //Cleanup TaskResult
-                //If the operation is Canceled and there is an other task running Let next task to reset props
-                if (LoadImageFromIconInfoOneTaskHandler.ContainsTask()) return;
+                //var bitmapImage = await taskResult.Result?.ToBitmapImageAsync();
+                //if (!(bitmapImage is null))
+                //{
+                //SetImageSource(d, bitmapImage);
+                //}
+                //SetImageSource(d, taskResult.Result?.ToBitmapImage());
+                SetImageSource(d, taskResult.Result);
+                //SetImageSource(d, taskResult.Result.Clone());
             }
-            else
+            //Reset props code here
+            ResetPropsMethod();
+        }
+
+
+        public static IconInfo.IconImageInfo GetIconImageInfo(DependencyObject obj) => (IconInfo.IconImageInfo)obj.GetValue(IconImageInfoProperty);
+
+        public static void SetIconImageInfo(DependencyObject obj, IconInfo.IconImageInfo value) => obj.SetValue(IconImageInfoProperty, value);
+
+        // Using a DependencyProperty as the backing store for IconImageInfo.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IconImageInfoProperty =
+            DependencyProperty.RegisterAttached("IconImageInfo", typeof(IconInfo.IconImageInfo), typeof(IconInfoHelper), new PropertyMetadata(null, new PropertyChangedCallback(OnIconImageInfoPropertyChangedAsync)));
+
+        private static async void OnIconImageInfoPropertyChangedAsync(DependencyObject d, DependencyPropertyChangedEventArgs e) => await LoadImageFromIconImageInfo(d, e.NewValue as IconInfo.IconImageInfo);
+
+        static async Task LoadImageFromIconImageInfo(DependencyObject d, IconInfo.IconImageInfo iconImageInfo)
+        {
+            var LoadImageFromIconInfoOneTaskHandler = GetOneTaskHandler(d);
+            if (LoadImageFromIconInfoOneTaskHandler is null)
             {
-                //Set Result Code from TaskResult
-                if (taskResult.OperationWasSuccessful)
-                {
-                    SetImageSource(d, taskResult.Result?.ToBitmapImage());
-                    //SetImageSource(d, taskResult.Result);
-                    //SetImageSource(d, taskResult.Result.Clone());
-                }
+                LoadImageFromIconInfoOneTaskHandler = new OneTaskHandler();
+                SetOneTaskHandler(d, LoadImageFromIconInfoOneTaskHandler);
+            }
+
+            void ResetPropsMethod()
+            {
+                //Reset props code here like
+                SetIsLoading(d, false);
+            }
+
+            //Add Waiting props Here Like
+            SetIsLoading(d, true);
+            SetImageSource(d, null);
+
+            LoadImageFromIconInfoOneTaskHandler.CancelRunningTasks();
+
+            //Add your code to check to run a new operation. Like
+            if (iconImageInfo is null)
+            {
+                ResetPropsMethod();
+                return;
+            }
+
+            //A CancellationTokenSource for the new Task
+            var cancellationTokenSource = LoadImageFromIconInfoOneTaskHandler.PrepareNewTask();
+            var sizeW = GetIconSizeW(d);
+            //Await for the task
+            var taskResult = await TaskResult.RunAsync((cancel) =>
+            {
+                return iconImageInfo?.BuildBitmapImage();
+            }, cancellationTokenSource.Token);
+
+            // Remove cancellationTokenSource from running tasks
+            LoadImageFromIconInfoOneTaskHandler.AfterTask(cancellationTokenSource);
+
+            //If the task is Canceled by a newer task or other things
+            //If the operation is Canceled and there is an other task running Let next task to reset props
+            if (cancellationTokenSource.IsCancellationRequested && LoadImageFromIconInfoOneTaskHandler.ContainsAnyTask) return;
+
+            //Set Result Code from TaskResult
+            if (taskResult.OperationWasSuccessful)
+            {
+                //var bitmapImage = await taskResult.Result?.ToBitmapImageAsync();
+                //if (!(bitmapImage is null))
+                //{
+                //SetImageSource(d, bitmapImage);
+                //}
+                //SetImageSource(d, taskResult.Result?.ToBitmapImage());
+                SetImageSource(d, taskResult.Result);
+                //SetImageSource(d, taskResult.Result.Clone());
             }
             //Reset props code here
             ResetPropsMethod();

@@ -19,7 +19,7 @@
     mc:Ignorable="d">
 
     <Grid DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:IconImageControlBase}}">
-        <Image
+        <Image Margin="5"
             x:Name="ImageControl"
             Source="{Binding ImageSource}"
             Stretch="{Binding ImageStretch}"

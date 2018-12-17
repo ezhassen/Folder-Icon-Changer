@@ -703,7 +703,7 @@ namespace FolderIconChangerWPF.ViewModels
             { //TODO: Handle Exception
                 await GetNewIconInfo(res.Result, false);
             }
-            else if (cancellationTokenSource.IsCancellationRequested && TaskManager_GetNewInfoByFilePath.ContainsTask())
+            else if (cancellationTokenSource.IsCancellationRequested && TaskManager_GetNewInfoByFilePath.ContainsAnyTask)
             {
                 return;
             }
@@ -771,7 +771,7 @@ namespace FolderIconChangerWPF.ViewModels
                 {
                     iconInfoTask?.Dispose();
                     //Let next task to reset props
-                    if (TaskManager_GetNewInfoByFilePath.ContainsTask()) return;
+                    if (TaskManager_GetNewInfoByFilePath.ContainsAnyTask) return;
                 }
                 //CheckNSetAllowToApply(); //TODO: CheckNSetAllowToApply
             }

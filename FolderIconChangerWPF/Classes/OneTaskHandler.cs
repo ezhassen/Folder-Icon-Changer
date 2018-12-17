@@ -91,11 +91,14 @@ namespace FolderIconChangerWPF.Classes
                 return RunningTasksCancellationTokenSources.Remove(cancellationTokenSource);
             }
         }
-        public bool ContainsTask()
+        public bool ContainsAnyTask
         {
-            lock (RunningTasksCancellationTokenSources)
+            get
             {
-                return RunningTasksCancellationTokenSources.Any();
+                lock (RunningTasksCancellationTokenSources)
+                {
+                    return RunningTasksCancellationTokenSources.Any();
+                }
             }
         }
     }

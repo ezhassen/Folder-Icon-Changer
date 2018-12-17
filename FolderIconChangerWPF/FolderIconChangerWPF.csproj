@@ -94,6 +94,7 @@
     <Compile Include="AttachedProperties\FrameworkElementAnimationAttachedProperties.cs" />
     <Compile Include="AttachedProperties\HandleControlUnload.cs" />
     <Compile Include="AttachedProperties\IconInfoHelper.cs" />
+    <Compile Include="AttachedProperties\ImageHelper.cs" />
     <Compile Include="AttachedProperties\IsBusyProperty.cs" />
     <Compile Include="AttachedProperties\ListViewHelper.cs" />
     <Compile Include="AttachedProperties\MultiBindingHelper.cs" />

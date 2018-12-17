@@ -1,4 +1,5 @@
 ﻿using Ezz_Helper.Drawing.IconsManager;
+using FolderIconChangerWPF.IconInfoCore;
 using FolderIconChangerWPF.ViewModels;
 using System;
 using System.Threading.Tasks;
@@ -72,6 +73,15 @@ namespace FolderIconChangerWPF.Controls
             DependencyProperty.Register("IconInfo", typeof(IconInfo), typeof(IconImageControlBase), new PropertyMetadata(null, new PropertyChangedCallback(OnIconInfoPropertyChanged)));
 
 
+
+        public static int GetIconSizeW(DependencyObject obj) => (int)obj.GetValue(IconSizeWProperty);
+
+        public static void SetIconSizeW(DependencyObject obj, int value) => obj.SetValue(IconSizeWProperty, value);
+
+        // Using a DependencyProperty as the backing store for IconSizeW.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IconSizeWProperty =
+            DependencyProperty.RegisterAttached("IconSizeW", typeof(int), typeof(IconImageControlBase), new PropertyMetadata(256));
+
         private static void OnIconInfoPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as IconImageControlBase)?.OnIconInfoChanged(e);
         private async void OnIconInfoChanged(DependencyPropertyChangedEventArgs e)
         {
@@ -86,20 +96,20 @@ namespace FolderIconChangerWPF.Controls
                 }
                 else
                 {
-                    var tRes = await Task.Run(() =>
-                    {
-                        try
-                        {
-                            return newIconInfo.GetBestFitIcon(new System.Drawing.Size(256, 256))?.Image;
-                        }
-                        catch (Exception)
-                        {
-                            //throw;
-                            return null;
-                        }
+                    var iconSizeW = GetIconSizeW(this);
+                    ImageSource = await Task.Run(() =>
+                         {
+                             try
+                             {
+                                 return newIconInfo.GetBestFitIcon(new System.Drawing.Size(iconSizeW, iconSizeW))?.BuildBitmapImage();
+                             }
+                             catch (Exception)
+                             {
+                                 //throw;
+                                 return null;
+                             }
 
-                    });
-                    ImageSource = tRes?.ToSWBitmapImage();
+                         });
                 }
 
             }

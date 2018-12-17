@@ -559,14 +559,21 @@
     <Grid ap:WindowHelper.MoveWindowOnMouseDown="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=mm:MetroWindow}}" Background="{DynamicResource WindowBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <!--  Drop Shadow Line  -->
         <ContentPresenter Grid.Row="0" ContentTemplate="{StaticResource CenterShadowLine}" />
 
+        <!--Test-->
+        <StackPanel Grid.Row="1">
+            <TextBox HorizontalAlignment="Left" MinWidth="200" Margin="10"  Style="{StaticResource EzzFilterTextBoxDynamicIcon}"/>
+            <ComboBox HorizontalAlignment="Left" MinWidth="200" Margin="10"  Style="{StaticResource EzzFilterComboBoxDynamicIcon}"/>
+            <ComboBox HorizontalAlignment="Left" MinWidth="200" Margin="10" />
 
+        </StackPanel>
         <controls:PageHost
-            Grid.Row="1"
+            Grid.Row="2"
             CurrentPage="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}}"
             CurrentPageViewModel="{Binding CurrentPageViewModel, Source={x:Static vm:ApplicationViewModel.Instance}}" />
     </Grid>

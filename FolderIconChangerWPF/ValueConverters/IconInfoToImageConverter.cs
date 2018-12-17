@@ -1,15 +1,16 @@
 ﻿using Ezz_Helper.Drawing.IconsManager;
+using FolderIconChangerWPF.IconInfoCore;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FolderIconChangerWPF.ValueConverters
 {
-    public class IconInfoToImageConverter : BaseValueConverter
+    /// <summary>
+    /// Async load image (Use Binding.IsAsync = true)
+    /// </summary>
+    public class IconInfoToImageAsyncConverter : BaseValueConverter
     {
         public int? SizeWidth { get; set; }
 
@@ -17,25 +18,42 @@ namespace FolderIconChangerWPF.ValueConverters
         {
             if (Debug) Debugger.Break();
             if (!(value is IconInfo iconInfo)) return null;
+            var paraStr = parameter as string;
+
             int? sizeW = null;
-            if (parameter is int param)
+
+            if ((!string.IsNullOrEmpty(paraStr)) && paraStr.IsNumeric())
             {
-                sizeW = param;
+                var paraInt = paraStr.ValInt();
+                sizeW = paraInt > 0 ? paraStr.ValInt() : SizeWidth;
             }
-            else if (SizeWidth.HasValue)
+            else// if (SizeWidth.HasValue)
             {
-                sizeW = SizeWidth.Value;
+                sizeW = SizeWidth;//.Value;
             }
             //
             if (sizeW.HasValue)
             {
-                return iconInfo?.GetBestFitIcon(new System.Drawing.Size(sizeW.Value, sizeW.Value))?.Image?.ToSWBitmapImage();
+                return Task.Run(() => iconInfo?.GetBestFitIcon(new System.Drawing.Size(sizeW.Value, sizeW.Value))?.BuildBitmapImage());
             }
             else
             {
-                return iconInfo?.GetBestFitIcon()?.Image?.ToSWBitmapImage();
+                return Task.Run(() => iconInfo?.GetBestFitIcon()?.BuildBitmapImage());
             }
         }
+    }
+    /// <summary>
+    /// Async load image (Use Binding.IsAsync = true)
+    /// </summary>
+    public class IconImageInfoToImageAsyncConverter : BaseValueConverter
+    {
 
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (Debug) Debugger.Break();
+            if (!(value is IconInfo.IconImageInfo iconImageInfo)) return null;
+
+            return Task.Run(() => iconImageInfo?.BuildBitmapImage());
+        }
     }
 }

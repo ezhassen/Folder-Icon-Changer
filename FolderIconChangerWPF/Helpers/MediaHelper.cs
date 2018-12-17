@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using SDColor = System.Drawing.Color;
 using SWMColor = System.Windows.Media.Color;
+using System.Threading.Tasks;
 
 namespace FolderIconChangerWPF
 {
@@ -42,8 +43,9 @@ namespace FolderIconChangerWPF
             {
                 try
                 {
-                    var rFormat = imageIn.RawFormat;
-                    imageIn.Save(ms, new System.Drawing.Imaging.ImageFormat(rFormat.Guid));
+                    //var rFormat = imageIn.RawFormat;
+                    //imageIn.Save(ms, new System.Drawing.Imaging.ImageFormat(rFormat.Guid));
+                    imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                 }
                 catch
                 {
@@ -76,7 +78,38 @@ namespace FolderIconChangerWPF
             return res;
         }
 
-        public static BitmapImage ToBitmapImage(this byte[] byteArrayIn)
+        //public static Task<BitmapImage> ToBitmapImageAsync(this byte[] byteArrayIn)
+        //{
+        //    return null;
+        //    //var tcs = new TaskCompletionSource<BitmapImage>();
+        //    //var bitmapImage = new BitmapImage();
+
+        //    //bitmapImage.DownloadCompleted += (o, e) =>
+        //    //{
+        //    //    tcs.SetResult(bitmapImage);
+        //    //};
+
+        //    //bitmapImage.DownloadFailed += (o, e) =>
+        //    //{
+        //    //    tcs.SetResult(null);
+        //    //};
+
+        //    //using (var ms = new MemoryStream(byteArrayIn))
+        //    //{
+        //    //    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+        //    //    bitmapImage.StreamSource = ms;
+        //    //}
+
+        //    //return tcs.Task;
+        //}
+
+        /// <summary>
+        /// Converts <see cref="byte[]"/> to BitmapImage.
+        /// </summary>
+        /// <param name="byteArrayIn"></param>
+        /// <param name="freeze">calls image.Freeze() to make it cross-thread accessible</param>
+        /// <returns></returns>
+        public static BitmapImage ToBitmapImage(this byte[] byteArrayIn, bool freeze = true)
         {
             if (byteArrayIn == null) return null;
             var res = new BitmapImage();
@@ -86,14 +119,33 @@ namespace FolderIconChangerWPF
                 res.CacheOption = BitmapCacheOption.OnLoad;
                 res.StreamSource = ms;
                 res.EndInit();
+                if (freeze) res.Freeze();
             }
             return res;
         }
-        public static BitmapImage ToSWBitmapImage(this System.Drawing.Bitmap SDBitmap)
-        {
-            return SDBitmap?.ToByteArray()?.ToBitmapImage();
-        }
+        public static Task<BitmapImage> ToSWBitmapImageAsync(this System.Drawing.Bitmap SDBitmap) => Task.Run(() => SDBitmap?.ToByteArray()?.ToBitmapImage());
 
+        public static BitmapImage ToSWBitmapImage(this System.Drawing.Bitmap SDBitmap) => SDBitmap?.ToByteArray()?.ToBitmapImage();
+
+
+        public static Task<bool> SetSourceAsync(this BitmapImage image, Stream stream)
+        {
+            var tcs = new TaskCompletionSource<bool>();
+
+            image.DownloadCompleted += (o, e) =>
+            {
+                tcs.SetResult(true);
+            };
+
+            image.DownloadFailed += (o, e) =>
+            {
+                tcs.SetResult(false);
+            };
+
+            image.StreamSource = stream;
+
+            return tcs.Task;
+        }
 
 
         public static string ToBase64(this BitmapImage imageIn, bool throwOnException = false)

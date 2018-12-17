@@ -57,7 +57,8 @@
                         Grid.Row="0"
                         Width="{Binding CurrentImageViewSize.Width, ElementName=ViewModel}"
                         Height="{Binding CurrentImageViewSize.Height, ElementName=ViewModel}"
-                        Source="{Binding Image, Converter={conv:BitmapSDToSWConverter}}"
+                        ap:IconInfoHelper.IconImageInfo="{Binding}"
+                        Source="{Binding (ap:IconInfoHelper.ImageSource), RelativeSource={RelativeSource Self}}"
                         StretchDirection="DownOnly" />
                     <!--  return string.Format("{0}, {1}, {2}", iii.Size.ToString_1(), iii.ColorsType.ToString(), iii.IconImageFormat.ToString());  -->
                     <TextBlock

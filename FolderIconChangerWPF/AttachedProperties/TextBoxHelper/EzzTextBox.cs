@@ -63,7 +63,7 @@ namespace FolderIconChangerWPF.AttachedProperties
                 CommandManager.RemovePreviewExecutedHandler(textBox, PreviewExecutedHandler);
                 //textBox.GotFocus -= this.TextBox_GotFocus;
                 textBox.GotKeyboardFocus -= TextBox_GotKeyboardFocus;
-                textBox.GotMouseCapture -= TextBox_GotMouseCapture;
+                //textBox.GotMouseCapture -= TextBox_GotMouseCapture;
                 textBox.GotTouchCapture -= TextBox_GotTouchCapture;
                 if (e.NewValue is bool && (bool)e.NewValue)
                 {
@@ -73,8 +73,8 @@ namespace FolderIconChangerWPF.AttachedProperties
                     CommandManager.AddPreviewExecutedHandler(textBox, PreviewExecutedHandler);
                     //textBox.GotFocus += this.TextBox_GotFocus;
                     textBox.GotKeyboardFocus += TextBox_GotKeyboardFocus;
-                    textBox.GotMouseCapture += TextBox_GotMouseCapture;
-                    textBox.GotTouchCapture += TextBox_GotTouchCapture;
+                    //textBox.GotMouseCapture += TextBox_GotMouseCapture;
+                    //textBox.GotTouchCapture += TextBox_GotTouchCapture;
 
                     SetCharsChecker(d, new CharsChecker());
                 }
@@ -87,7 +87,7 @@ namespace FolderIconChangerWPF.AttachedProperties
                 CommandManager.RemovePreviewExecutedHandler(comboBox, PreviewExecutedHandler);
                 //textBox.GotFocus -= this.TextBox_GotFocus;
                 comboBox.GotKeyboardFocus -= TextBox_GotKeyboardFocus;
-                comboBox.GotMouseCapture -= TextBox_GotMouseCapture;
+                //comboBox.GotMouseCapture -= TextBox_GotMouseCapture;
                 comboBox.GotTouchCapture -= TextBox_GotTouchCapture;
                 if (e.NewValue is bool && (bool)e.NewValue)
                 {
@@ -97,8 +97,8 @@ namespace FolderIconChangerWPF.AttachedProperties
                     CommandManager.AddPreviewExecutedHandler(comboBox, PreviewExecutedHandler);
                     //textBox.GotFocus += this.TextBox_GotFocus;
                     comboBox.GotKeyboardFocus += TextBox_GotKeyboardFocus;
-                    comboBox.GotMouseCapture += TextBox_GotMouseCapture;
-                    comboBox.GotTouchCapture += TextBox_GotTouchCapture;
+                    //comboBox.GotMouseCapture += TextBox_GotMouseCapture;
+                    //comboBox.GotTouchCapture += TextBox_GotTouchCapture;
 
                     SetCharsChecker(d, new CharsChecker());
                 }

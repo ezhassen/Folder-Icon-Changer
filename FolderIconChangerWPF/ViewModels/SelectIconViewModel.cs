@@ -189,26 +189,19 @@ namespace FolderIconChangerWPF.ViewModels
             // Remove cancellationTokenSource from running tasks
             LoadIconsOneTaskHandler.AfterTask(cancellationTokenSource);
 
-            //If the task is Canceled by a newer task or other things
-            if (cancellationTokenSource.IsCancellationRequested)
+            //If the task is Canceled by a newer task
+            if (cancellationTokenSource.IsCancellationRequested && LoadIconsOneTaskHandler.ContainsAnyTask) return;
+
+            //Set Result Code from TaskResult
+            //Icons
+            if (taskResult.OperationWasSuccessful)
             {
-                //Cleanup TaskResult
-                //If the operation is Canceled and there is an other task running Let next task to reset props
-                if (LoadIconsOneTaskHandler.ContainsTask()) return;
+                Icons = taskResult.Result;
+                if (!(Icons is null) && Icons.Count != 0) Services.SettingsService.Instance.AddRecentFile(this.FilePath);
             }
-            else
+            else if (taskResult.Exception != null)
             {
-                //Set Result Code from TaskResult
-                //Icons
-                if (taskResult.OperationWasSuccessful)
-                {
-                    Icons = taskResult.Result;
-                    if (Icons != null && Icons.Count != 0) Services.SettingsService.Instance.AddRecentFile(this.FilePath);
-                }
-                else if (taskResult.Exception != null)
-                {
-                    MessageBox.Show(taskResult.Exception.Message);
-                }
+                MessageBox.Show(taskResult.Exception.Message);
             }
             //Reset props code here
             ResetPropsMethod();
