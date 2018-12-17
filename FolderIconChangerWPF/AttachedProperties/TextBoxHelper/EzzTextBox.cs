@@ -347,7 +347,10 @@ namespace FolderIconChangerWPF.AttachedProperties
                     break;
 
                 case EditOperations.CSelectedText:
+                    var oldSelectedLen = _CTextBox.SelectedText.Length;
                     _CTextBox.SelectedText = theTransText;
+                    _CTextBox.SelectionStart = Math.Max(_CTextBox.SelectionStart - oldSelectedLen, 0);
+                    _CTextBox.SelectionStart += theTransText?.Length ?? 0;
                     break;
 
                 case EditOperations.BackSpace:

@@ -25,13 +25,13 @@
     <ROW Property="CTRLS" Value="2"/>
     <ROW Property="MSIFASTINSTALL" MultiBuildValue="DefaultBuild:3"/>
     <ROW Property="Manufacturer" Value="ezhassen"/>
-    <ROW Property="ProductCode" Value="1025:{996D8BAD-04B0-4C41-A5C8-9B817261F064} 1033:{CB1B10E3-15DB-44A0-9563-6D1C837B6551} " Type="16"/>
+    <ROW Property="ProductCode" Value="1025:{02C67BDD-14FA-4C50-A5FE-83D80EEBE373} 1033:{B12B399A-B3FF-427D-954F-DBCD72A1C142} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="Folder Icon Changer"/>
     <ROW Property="ProductVersion" Value="3.0.0.0" Type="32" TargetFile="FolderIconChanger.exe"/>
     <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
-    <ROW Property="UpgradeCode" Value="{F8EA8863-20B9-453C-8959-68C74C39F289}"/>
+    <ROW Property="UpgradeCode" Value="{E7C0B9ED-5A35-4F93-BC41-B69E1572516B}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
     <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
     <ROW Property="WindowsTypeNT40" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
