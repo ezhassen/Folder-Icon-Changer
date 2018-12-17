@@ -60,6 +60,15 @@ namespace FolderIconChangerWPF.ValueConverters
     }
 
     public class VisibilityWhenConverter : VisibilityWhenConverterBase<object> { }
+    public class VisibilityWhenVisibilityConverter : VisibilityWhenConverterBase<Visibility> {
+        public VisibilityWhenVisibilityConverter()
+        {
+            When = Visibility.Visible;
+            Value = Visibility.Visible;
+            Otherwise = Visibility.Hidden;
+        }
+
+    }
     //Boolean
     public class VisibilityWhenBoolConverter : VisibilityWhenConverterBase<bool>
     {
