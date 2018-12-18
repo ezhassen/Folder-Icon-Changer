@@ -12,7 +12,7 @@
         <ResourceDictionary Source="pack://application:,,,/Styles/MetroControls.TextBox.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <!--Place holders for buttons-->
+    <!--  Place holders for buttons  -->
     <Style
         x:Key="EzzFilterEditableTextBoxStyle"
         BasedOn="{StaticResource MetroTextBox}"
@@ -314,9 +314,9 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition x:Name="TextColumn" Width="*" />
                             <ColumnDefinition x:Name="FilterButtonColumn" Width="Auto" />
-                            <ColumnDefinition  x:Name="FilterButtonSeparator"  Width="Auto" />                          
+                            <ColumnDefinition x:Name="FilterButtonSeparator" Width="Auto" />
                             <ColumnDefinition x:Name="ClearButtonColumn" Width="Auto" />
-                            <ColumnDefinition  x:Name="ClearButtonSeparator"  Width="Auto" />
+                            <ColumnDefinition x:Name="ClearButtonSeparator" Width="Auto" />
                             <ColumnDefinition x:Name="ToggleButtonColumn" Width="Auto" />
                         </Grid.ColumnDefinitions>
 
@@ -335,10 +335,13 @@
                             Style="{DynamicResource ChromelessButtonStyle}"
                             ToolTip="{TemplateBinding ap:TextBoxHelper.FilterButtonToolTip}"
                             Visibility="{TemplateBinding ap:TextBoxHelper.FilterButtonVisibility}" />
-                        
+
                         <!--  Separator  -->
-                        <Grid Grid.Column="2" Width="3" Visibility="{Binding Visibility, ElementName=PART_FilterButton}" />
-                        
+                        <Grid
+                            Grid.Column="2"
+                            Width="3"
+                            Visibility="{Binding Visibility, ElementName=PART_FilterButton}" />
+
                         <Button
                             x:Name="PART_ClearText"
                             Grid.Column="3"
@@ -358,8 +361,11 @@
                             Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}, Path=Text, Mode=OneWay, Converter={conv:VisibilityWhenStringConverter Value=Collapsed, Otherwise=Visible}}" />
 
                         <!--  Separator  -->
-                        <Grid Grid.Column="4" Width="4" Visibility="{Binding Visibility, ElementName=PART_ClearText}" />
-                        
+                        <Grid
+                            Grid.Column="4"
+                            Width="4"
+                            Visibility="{Binding Visibility, ElementName=PART_ClearText}" />
+
                         <Grid
                             x:Name="BtnArrowBackground"
                             Grid.Column="5"
@@ -449,6 +455,18 @@
         x:Key="EzzFilterComboBoxBaseStyle"
         BasedOn="{StaticResource MetroComboBox}"
         TargetType="{x:Type ComboBox}">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock HorizontalAlignment="Stretch" 
+                               Text="{TemplateBinding Content}" 
+                               ToolTip="{TemplateBinding Content}" 
+                               TextTrimming="CharacterEllipsis"
+                               MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}}"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
         <Setter Property="IsEditable" Value="True" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Template">
@@ -908,4 +926,9 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <!--<ItemContainerTemplate x:Key="SingleLineTextTemplate">
+        <TextBlock HorizontalAlignment="Stretch"
+    </ItemContainerTemplate>-->
+
 </ResourceDictionary>
