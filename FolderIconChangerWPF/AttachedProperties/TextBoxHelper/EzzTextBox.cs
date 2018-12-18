@@ -2,492 +2,45 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace FolderIconChangerWPF.AttachedProperties
 {
     public static partial class TextBoxHelper
     {
-        #region EzzTextBox
 
-        #region Enums
-
-        public enum EditTypes
-        {
-            Normal = 0,
-            Numeric = 1,
-            FileName = 2,
-            Path = 3
-        }
-        public enum NumericTypes
-        {
-            AcceptAny = 0,
-            DoNotAcceptDecimalSymbol = 1,
-            DoNotAcceptSign = 2,
-            DoNotAcceptBoth = 3
-        }
-        public enum EditOperations
-        {
-            CText,
-            CSelectedText,
-            BackSpace,
-            Delete,
-            Cut,
-            Paste,
-            Other
-        }
-
-        #endregion
-
-        public static bool GetEnableEzzTextBox(DependencyObject obj) => (bool)obj.GetValue(EnableEzzTextBoxProperty);
-
-        public static void SetEnableEzzTextBox(DependencyObject obj, bool value) => obj.SetValue(EnableEzzTextBoxProperty, value);
-
-        // Using a DependencyProperty as the backing store for EnableEzzTextBox.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty EnableEzzTextBoxProperty =
-            DependencyProperty.RegisterAttached("EnableEzzTextBox", typeof(bool), typeof(TextBoxHelper), new PropertyMetadata(false, new PropertyChangedCallback(OnEnableEzzTextBoxPropertyChanged)));
-
-        private static void OnEnableEzzTextBoxPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if ((d is TextBox textBox))
-            {
-                textBox.PreviewTextInput -= PreviewTextInputHandler;
-                textBox.PreviewKeyDown -= PreviewKeyDownHandler;
-                //DataObject.RemovePastingHandler(AssociatedObject, PastingHandler);
-                CommandManager.RemovePreviewExecutedHandler(textBox, PreviewExecutedHandler);
-                //textBox.GotFocus -= this.TextBox_GotFocus;
-                textBox.GotKeyboardFocus -= TextBox_GotKeyboardFocus;
-                //textBox.GotMouseCapture -= TextBox_GotMouseCapture;
-                textBox.GotTouchCapture -= TextBox_GotTouchCapture;
-                if (e.NewValue is bool && (bool)e.NewValue)
-                {
-                    textBox.PreviewTextInput += PreviewTextInputHandler;
-                    textBox.PreviewKeyDown += PreviewKeyDownHandler;
-                    //DataObject.AddPastingHandler(textBox, PastingHandler);
-                    CommandManager.AddPreviewExecutedHandler(textBox, PreviewExecutedHandler);
-                    //textBox.GotFocus += this.TextBox_GotFocus;
-                    textBox.GotKeyboardFocus += TextBox_GotKeyboardFocus;
-                    //textBox.GotMouseCapture += TextBox_GotMouseCapture;
-                    //textBox.GotTouchCapture += TextBox_GotTouchCapture;
-
-                    SetCharsChecker(d, new CharsChecker());
-                }
-            }
-            else if ((d is ComboBox comboBox))
-            {
-                comboBox.PreviewTextInput -= PreviewTextInputHandler;
-                comboBox.PreviewKeyDown -= PreviewKeyDownHandler;
-                //DataObject.RemovePastingHandler(AssociatedObject, PastingHandler);
-                CommandManager.RemovePreviewExecutedHandler(comboBox, PreviewExecutedHandler);
-                //textBox.GotFocus -= this.TextBox_GotFocus;
-                comboBox.GotKeyboardFocus -= TextBox_GotKeyboardFocus;
-                //comboBox.GotMouseCapture -= TextBox_GotMouseCapture;
-                comboBox.GotTouchCapture -= TextBox_GotTouchCapture;
-                if (e.NewValue is bool && (bool)e.NewValue)
-                {
-                    comboBox.PreviewTextInput += PreviewTextInputHandler;
-                    comboBox.PreviewKeyDown += PreviewKeyDownHandler;
-                    //DataObject.AddPastingHandler(textBox, PastingHandler);
-                    CommandManager.AddPreviewExecutedHandler(comboBox, PreviewExecutedHandler);
-                    //textBox.GotFocus += this.TextBox_GotFocus;
-                    comboBox.GotKeyboardFocus += TextBox_GotKeyboardFocus;
-                    //comboBox.GotMouseCapture += TextBox_GotMouseCapture;
-                    //comboBox.GotTouchCapture += TextBox_GotTouchCapture;
-
-                    SetCharsChecker(d, new CharsChecker());
-                }
-            }
-            //else
-            //{
-            //    RemoveOldHandles();
-            //}
-
-        }
-        static void SelectAllMethod(object sender)
-        {
-            if ((sender is TextBox textBox))
-            {
-                if (!GetSelectAllOnFocus(textBox)) return;
-                textBox.SelectAll();
-            }
-            else if (sender is ComboBox comboBox)
-            {
-                //if (!GetSelectAllOnFocus(comboBox)) return;
-                //comboBox.
-            }
-        }
-        private static void TextBox_GotTouchCapture(object sender, TouchEventArgs e) => SelectAllMethod(sender);
-        private static void TextBox_GotMouseCapture(object sender, MouseEventArgs e) => SelectAllMethod(sender);
-        private static void TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e) => SelectAllMethod(sender);
-
-        //
-        //private static void PreviewExecutedHandler(object sender, ExecutedRoutedEventArgs e) => throw new NotImplementedException();
-        //private static void PreviewKeyDownHandler(object sender, KeyEventArgs e) => throw new NotImplementedException();
-        //private static void PreviewTextInputHandler(object sender, TextCompositionEventArgs e) => throw new NotImplementedException();
-
-
-        #region Ezz TextBox Props
-
-        public static EditTypes GetEditType(DependencyObject obj) => (EditTypes)obj.GetValue(EditTypeProperty);
-
-        public static void SetEditType(DependencyObject obj, EditTypes value) => obj.SetValue(EditTypeProperty, value);
-
-        // Using a DependencyProperty as the backing store for EditType.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty EditTypeProperty =
-            DependencyProperty.RegisterAttached("EditType", typeof(EditTypes), typeof(TextBoxHelper), new PropertyMetadata(EditTypes.Normal, new PropertyChangedCallback(OnEditTypePropertyChanged)));
-
-        private static void OnEditTypePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            CheckToEnableEzzTextBox(d);
-            UpdateLists(d);
-        }
-
-        public static NumericTypes GetNumericType(DependencyObject obj) => (NumericTypes)obj.GetValue(NumericTypeProperty);
-
-        public static void SetNumericType(DependencyObject obj, NumericTypes value) => obj.SetValue(NumericTypeProperty, value);
-
-        // Using a DependencyProperty as the backing store for NumericType.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty NumericTypeProperty =
-            DependencyProperty.RegisterAttached("NumericType", typeof(NumericTypes), typeof(TextBoxHelper), new PropertyMetadata(NumericTypes.AcceptAny, new PropertyChangedCallback(OnNumericTypePropertyChanged)));
-
-        private static void OnNumericTypePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            CheckToEnableEzzTextBox(d);
-            UpdateLists(d);
-        }
-
-        public static decimal GetMinNumber(DependencyObject obj) => (decimal)obj.GetValue(MinNumberProperty);
-
-        public static void SetMinNumber(DependencyObject obj, decimal value) => obj.SetValue(MinNumberProperty, value);
-
-        // Using a DependencyProperty as the backing store for MinNumber.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MinNumberProperty =
-            DependencyProperty.RegisterAttached("MinNumber", typeof(decimal), typeof(TextBoxHelper), new PropertyMetadata(decimal.MinValue, new PropertyChangedCallback(OnMinNumberPropertyChanged)));
-
-        private static void OnMinNumberPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => CheckToEnableEzzTextBox(d);
-
-
-        public static decimal GetMaxNumber(DependencyObject obj) => (decimal)obj.GetValue(MaxNumberProperty);
-
-        public static void SetMaxNumber(DependencyObject obj, decimal value) => obj.SetValue(MaxNumberProperty, value);
-
-        // Using a DependencyProperty as the backing store for MaxNumber.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty MaxNumberProperty =
-            DependencyProperty.RegisterAttached("MaxNumber", typeof(decimal), typeof(TextBoxHelper), new PropertyMetadata(decimal.MaxValue, new PropertyChangedCallback(OnMaxNumberPropertyChanged)));
-
-        private static void OnMaxNumberPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => CheckToEnableEzzTextBox(d);
-
-
-        public static bool GetAllowToTogglesTheSign(DependencyObject obj) => (bool)obj.GetValue(AllowToTogglesTheSignProperty);
-
-        public static void SetAllowToTogglesTheSign(DependencyObject obj, bool value) => obj.SetValue(AllowToTogglesTheSignProperty, value);
-
-        // Using a DependencyProperty as the backing store for AllowToTogglesTheSign.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty AllowToTogglesTheSignProperty =
-            DependencyProperty.RegisterAttached("AllowToTogglesTheSign", typeof(bool), typeof(TextBoxHelper), new PropertyMetadata(false, new PropertyChangedCallback(OnAllowToTogglesTheSignPropertyChanged)));
-
-        private static void OnAllowToTogglesTheSignPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => CheckToEnableEzzTextBox(d);
-
-
-        public static bool GetAllowToCalculate(DependencyObject obj) => (bool)obj.GetValue(AllowToCalculateProperty);
-
-        public static void SetAllowToCalculate(DependencyObject obj, bool value) => obj.SetValue(AllowToCalculateProperty, value);
-
-        // Using a DependencyProperty as the backing store for AllowToCalculate.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty AllowToCalculateProperty =
-            DependencyProperty.RegisterAttached("AllowToCalculate", typeof(bool), typeof(TextBoxHelper), new PropertyMetadata(false, new PropertyChangedCallback(OnAllowToCalculatePropertyChanged)));
-
-        private static void OnAllowToCalculatePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => CheckToEnableEzzTextBox(d);
-
-
-        public static bool GetFreeInputForCalculating(DependencyObject obj) => (bool)obj.GetValue(FreeInputForCalculatingProperty);
-
-        public static void SetFreeInputForCalculating(DependencyObject obj, bool value) => obj.SetValue(FreeInputForCalculatingProperty, value);
-
-        // Using a DependencyProperty as the backing store for FreeInputForCalculating.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty FreeInputForCalculatingProperty =
-            DependencyProperty.RegisterAttached("FreeInputForCalculating", typeof(bool), typeof(TextBoxHelper), new PropertyMetadata(false, new PropertyChangedCallback(OnFreeInputForCalculatingPropertyChanged)));
-
-        private static void OnFreeInputForCalculatingPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => CheckToEnableEzzTextBox(d);
-
-
-
-        public static bool GetSelectAllOnFocus(DependencyObject obj) => (bool)obj.GetValue(SelectAllOnFocusProperty);
-
-        public static void SetSelectAllOnFocus(DependencyObject obj, bool value) => obj.SetValue(SelectAllOnFocusProperty, value);
-
-        // Using a DependencyProperty as the backing store for SelectAllOnFocus.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty SelectAllOnFocusProperty =
-            DependencyProperty.RegisterAttached("SelectAllOnFocus", typeof(bool), typeof(TextBoxHelper), new PropertyMetadata(false, new PropertyChangedCallback(OnSelectAllOnFocusPropertyChanged)));
-
-        private static void OnSelectAllOnFocusPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => CheckToEnableEzzTextBox(d);
-
-        static HashSet<CharWithProperties> AllowedChars(DependencyObject d) => GetCharsChecker(d)?.AllowedChars;
-        static HashSet<CharWithProperties> NotAllowedChars(DependencyObject d) => GetCharsChecker(d)?.NotAllowedChars;
-
-        #endregion
-
-        #region private props
-
-
-        static CharsChecker GetCharsChecker(DependencyObject obj) => (CharsChecker)obj.GetValue(CharsCheckerProperty);
-
-        static void SetCharsChecker(DependencyObject obj, CharsChecker value) => obj.SetValue(CharsCheckerProperty, value);
+        #region Private Fields
 
         // Using a DependencyProperty as the backing store for CharsChecker.  This enables animation, styling, binding, etc...
-        static readonly DependencyProperty CharsCheckerProperty =
+        private static readonly DependencyProperty CharsCheckerProperty =
             DependencyProperty.RegisterAttached("CharsChecker", typeof(CharsChecker), typeof(TextBoxHelper), new PropertyMetadata(null));
 
-
-
-        static TextBox GetCTextBox(DependencyObject obj) => (TextBox)obj.GetValue(CTextBoxProperty);
-
-        static void SetCTextBox(DependencyObject obj, TextBox value) => obj.SetValue(CTextBoxProperty, value);
-
-        // Using a DependencyProperty as the backing store for CTextBox.  This enables animation, styling, binding, etc...
-        static readonly DependencyProperty CTextBoxProperty =
-            DependencyProperty.RegisterAttached("CTextBox", typeof(TextBox), typeof(TextBoxHelper), new PropertyMetadata(null));
-
-
-
-        #endregion
-
-
-
-        #region DP Methods
-
-        static void CheckToEnableEzzTextBox(DependencyObject d)
-        {
-            if (!GetEnableEzzTextBox(d)) SetEnableEzzTextBox(d, true);
-        }
-
-
-        #endregion
-
-        #region Methods
-
-        //public event InputEventHandler NotAllowedInput;
-        static void OnNotAllowedInput(InputEventArgs e)
-        {
-            System.Media.SystemSounds.Beep.Play();
-            //if (NotAllowedInput != null) NotAllowedInput(this, e);
-        }
-
-        //public event InputEventHandler AllowedInput;
-        static void OnAllowedInput(InputEventArgs e) { /*if (AllowedInput != null) AllowedInput(this, e);*/ }
-
-        //public event TextChangingEventHandler TextChanging;
-        static void OnTextChanging(TextChangingEventArgs e) { /*if (TextChanging != null) TextChanging(this, e);*/ }
+        #endregion Private Fields
 
         #region Private Methods
 
-        static TextChangingEventArgs RaiseTextChangingEvent_NCheck(DependencyObject d, EditOperations OperationIs, string theTransText = "")
+        private static NewTextBoxProps _CTextBox_SetCurrInfo(DependencyObject d)
         {
-            return RaiseTextChangingEvent_NCheck(d, GetTextChangingEventArgs(d, OperationIs, theTransText));
-        }
-
-        static TextChangingEventArgs RaiseTextChangingEvent_NCheck(DependencyObject d, TextChangingEventArgs NewTC)
-        {
-            if (!(d is TextBox textBox)) return NewTC;
-
-            if (NewTC.TheTransferText.IsNullOrEmpty())
+            if (!(d is TextBox textBox)) return null;
+            var _CTextBox = GetNewTextBoxProps(d);
+            if (_CTextBox == null)
             {
-                NewTC.Cancel = true;
+                _CTextBox = new NewTextBoxProps(textBox);
+                SetNewTextBoxProps(d, _CTextBox);
             }
             else
             {
-                CheckTextChanging(d, NewTC);
+                _CTextBox.SetPropsFromTextBox();
             }
-            if (!NewTC.Cancel)
-            {
-                OnTextChanging(NewTC);
-                if (!NewTC.Cancel)
-                {
-                    textBox.Text = NewTC.TextAfterTheChange;
-                    textBox.SelectionStart = NewTC.SelectionStart;
-                }
-            }
-
-            return NewTC;
-        }
-
-        //
-
-        static TextBox _CTextBox_SetCurrInfo(DependencyObject d)
-        {
-            if (!(d is TextBox textBox)) return null;
-            TextBox _CTextBox = GetCTextBox(d);
-            if (_CTextBox == null)
-            {
-                _CTextBox = new TextBox();
-                SetCTextBox(d, _CTextBox);
-            }
-
-            _CTextBox.Text = textBox.Text;
-            _CTextBox.SelectionStart = textBox.SelectionStart;
-            _CTextBox.SelectionLength = textBox.SelectionLength;
             return _CTextBox;
         }
 
-        static TextChangingEventArgs GetTextChangingEventArgs(DependencyObject d, EditOperations OperationIs, string theTransText = "")
-        {
-            TextBox _CTextBox = _CTextBox_SetCurrInfo(d);
-            string TBefore = _CTextBox.Text;
-            switch (OperationIs)
-            {
-                case EditOperations.CText:
-                case EditOperations.Other:
-                    _CTextBox.Text = theTransText;
-                    break;
+        private static HashSet<CharWithProperties> AllowedChars(DependencyObject d) => GetCharsChecker(d)?.AllowedChars;
 
-                case EditOperations.CSelectedText:
-                    var oldSelectedLen = _CTextBox.SelectedText.Length;
-                    _CTextBox.SelectedText = theTransText;
-                    _CTextBox.SelectionStart = Math.Max(_CTextBox.SelectionStart - oldSelectedLen, 0);
-                    _CTextBox.SelectionStart += theTransText?.Length ?? 0;
-                    break;
-
-                case EditOperations.BackSpace:
-                    if (_CTextBox.SelectedText.IsNullOrEmpty())
-                    {
-                        if (_CTextBox.Text.Length != 0 && _CTextBox.SelectionStart != 0)
-                        {
-                            int NewSStart = _CTextBox.SelectionStart - 1;
-                            theTransText = _CTextBox.Text.Substring(NewSStart, 1);//_CTextBox.Text[NewSStart].ToString();
-                            _CTextBox.Text = _CTextBox.Text.Remove(NewSStart, 1);
-                            _CTextBox.SelectionStart = NewSStart;
-                        }
-                    }
-                    else
-                    {
-                        theTransText = _CTextBox.SelectedText;
-                        _CTextBox.SelectedText = string.Empty;
-                    }
-                    break;
-
-                case EditOperations.Delete:
-                    if (_CTextBox.SelectedText.IsNullOrEmpty())
-                    {
-                        if (_CTextBox.Text.Length != 0 && _CTextBox.SelectionStart < _CTextBox.Text.Length)
-                        {
-                            int NewSStart = _CTextBox.SelectionStart;
-                            theTransText = _CTextBox.Text.Substring(NewSStart, 1);//_CTextBox.Text[NewSStart].ToString();
-                            _CTextBox.Text = _CTextBox.Text.Remove(NewSStart, 1);
-                            _CTextBox.SelectionStart = NewSStart;
-                        }
-                    }
-                    else
-                    {
-                        theTransText = _CTextBox.SelectedText;
-                        _CTextBox.SelectedText = string.Empty;
-                    }
-                    break;
-
-                case EditOperations.Cut:
-                    if (!_CTextBox.SelectedText.IsNullOrEmpty())
-                    {
-                        theTransText = _CTextBox.SelectedText;
-                        _CTextBox.SelectedText = string.Empty;
-                    }
-                    break;
-
-                case EditOperations.Paste:
-                    theTransText = Clipboard.GetText();
-                    _CTextBox.SelectedText = theTransText;
-                    _CTextBox.SelectionStart += theTransText.Length;
-                    break;
-            }
-            return new TextChangingEventArgs(_CTextBox, theTransText, TBefore, _CTextBox.Text, _CTextBox.SelectionStart, OperationIs);
-        }
-
-        //
-        static void ClearLists(DependencyObject d)
-        {
-            switch (GetEditType(d))
-            {
-                case EditTypes.Numeric:
-                    AllowedChars(d)?.RemoveChars(NumericValues(d));
-                    break;
-
-                case EditTypes.FileName:
-                    NotAllowedChars(d)?.RemoveChars(Path.GetInvalidFileNameChars());
-                    break;
-
-                case EditTypes.Path:
-                    NotAllowedChars(d)?.RemoveChars(Path.GetInvalidPathChars());
-                    break;
-                    //case EditTypes.Normal:
-                    //default:
-                    //    break;
-            }
-        }
-
-        static void UpdateLists(DependencyObject d, bool clear = true)
-        {
-            if (clear) ClearLists(d);
-            switch (GetEditType(d))
-            {
-                case EditTypes.Numeric:
-                    AllowedChars(d)?.UnionWith(NumericValues(d));
-                    break;
-
-                case EditTypes.FileName:
-                    NotAllowedChars(d)?.AddChars(Path.GetInvalidFileNameChars(), 0);
-                    break;
-
-                case EditTypes.Path:
-                    NotAllowedChars(d)?.AddChars(Path.GetInvalidPathChars(), 0);
-                    break;
-                    //case EditTypes.Normal:
-                    //default:
-                    //    break;
-            }
-        }
-
-        static HashSet<CharWithProperties> NumericValues(DependencyObject d)
-        {
-            var newL = new HashSet<CharWithProperties>();
-            for (int i = 0; i <= 9; i++)
-            {
-                newL.AddChar(i.ToString()[0]);
-            }
-            //if (AllowToCalculate)
-            //{
-            //    if (NumericType == NumericTypes.AcceptAny || NumericType == NumericTypes.DoNotAcceptSign) newL.AddChar('.', 1);
-            //    newL.AddChars(Operators);
-            //}
-            //else
-            //{
-            switch (GetNumericType(d))
-            {
-                case NumericTypes.AcceptAny:
-                    newL.AddChars(new char[] { '.', '-', '+' }, 1);
-                    break;
-
-                case NumericTypes.DoNotAcceptDecimalSymbol:
-                    newL.AddChars(new char[] { '-', '+' }, 1);
-                    break;
-
-                case NumericTypes.DoNotAcceptSign:
-                    newL.AddChars(new char[] { '.' }, 1);
-                    break;
-                    //case NumericTypes.DoNotAcceptBoth:
-                    //    break;
-            }
-            //}
-
-            return newL;
-        }
-
-        //
-
-        static void CheckTextChanging(DependencyObject d, TextChangingEventArgs e)
+        private static void CheckTextChanging(DependencyObject d, TextChangingEventArgs e)
         {
             if (!(d is TextBox textBox)) return;
 
@@ -768,11 +321,8 @@ namespace FolderIconChangerWPF.AttachedProperties
             OnAllowedInput(new InputEventArgs(e.TheTransferText, e.TextAfterTheChange));
         }
 
-        #endregion Private Methods
-
-        #region Numeric
-
-        static bool CheckToAddNumber(DependencyObject d, string TheTransferText, string TextAfterTheChange)
+        //
+        private static bool CheckToAddNumber(DependencyObject d, string TheTransferText, string TextAfterTheChange)
         {
             if (!(d is TextBox textBox)) return true;
             switch (GetNumericType(d))
@@ -850,14 +400,12 @@ namespace FolderIconChangerWPF.AttachedProperties
             return false;
         }
 
-        static bool SuccessToAddNumber(DependencyObject d, string TextAfterTheChange)
+        private static void CheckToEnableEzzTextBox(DependencyObject d)
         {
-            if (!TextAfterTheChange.IsNumeric()) return false;
-            decimal Num = TextAfterTheChange.ValDecimal();
-            return (Num >= GetMinNumber(d) && Num <= GetMaxNumber(d));
+            if (!GetEnableEzzTextBox(d)) SetEnableEzzTextBox(d, true);
         }
 
-        static void CheckZero(ref string string_1, ref int Pos_)
+        private static void CheckZero(ref string string_1, ref int Pos_)
         {
             if (string_1 == "." || string_1 == "0.")
             {
@@ -925,7 +473,29 @@ namespace FolderIconChangerWPF.AttachedProperties
             }
         }
 
-        static bool ContainsInvaildNumValues(DependencyObject d, string str, bool includeBrackets = false)
+        //
+        private static void ClearLists(DependencyObject d)
+        {
+            switch (GetEditType(d))
+            {
+                case EditTypes.Numeric:
+                    AllowedChars(d)?.RemoveChars(NumericValues(d));
+                    break;
+
+                case EditTypes.FileName:
+                    NotAllowedChars(d)?.RemoveChars(Path.GetInvalidFileNameChars());
+                    break;
+
+                case EditTypes.Path:
+                    NotAllowedChars(d)?.RemoveChars(Path.GetInvalidPathChars());
+                    break;
+                    //case EditTypes.Normal:
+                    //default:
+                    //    break;
+            }
+        }
+
+        private static bool ContainsInvaildNumValues(DependencyObject d, string str, bool includeBrackets = false)
         {
             if (includeBrackets)
             {
@@ -937,57 +507,161 @@ namespace FolderIconChangerWPF.AttachedProperties
             }
         }
 
-        static bool IsAMathOperation(DependencyObject d)
+        private static CharsChecker GetCharsChecker(DependencyObject obj) => (CharsChecker)obj.GetValue(CharsCheckerProperty);
+
+        private static TextChangingEventArgs GetTextChangingEventArgs(DependencyObject d, EditOperations OperationIs, string theTransText = "")
+        {
+            var _CTextBox = _CTextBox_SetCurrInfo(d);
+            string TBefore = _CTextBox.Text;
+            _CTextBox.GenNewProps(OperationIs, ref theTransText, false);
+            return new TextChangingEventArgs(_CTextBox, theTransText, TBefore, _CTextBox.Text, _CTextBox.SelectionStart, OperationIs);
+        }
+
+        private static bool IsAMathOperation(DependencyObject d)
         {
             if (!(d is TextBox textBox)) return false;
             return IsAMathOperation(textBox.Text);
         }
 
-        public static bool IsAMathOperation(string str)
-        {
-            if (IsAnOperationOfTwoBrackets(str)) return true;
-            return (!str.IsNumeric() && ContainsOperator(str));
-        }
-
-        static bool IsAnOperationOfTwoBrackets(DependencyObject d)
+        private static bool IsAnOperationOfTwoBrackets(DependencyObject d)
         {
             if (!(d is TextBox textBox)) return false;
             return IsAnOperationOfTwoBrackets(textBox.Text);
         }
 
-        public static bool IsAnOperationOfTwoBrackets(string str)
+        private static HashSet<CharWithProperties> NotAllowedChars(DependencyObject d) => GetCharsChecker(d)?.NotAllowedChars;
+
+        private static HashSet<CharWithProperties> NumericValues(DependencyObject d)
         {
-            return str.StartsWith("(", StringComparison.Ordinal) && str.EndsWith(")", StringComparison.Ordinal);
+            var newL = new HashSet<CharWithProperties>();
+            for (int i = 0; i <= 9; i++)
+            {
+                newL.AddChar(i.ToString()[0]);
+            }
+            //if (AllowToCalculate)
+            //{
+            //    if (NumericType == NumericTypes.AcceptAny || NumericType == NumericTypes.DoNotAcceptSign) newL.AddChar('.', 1);
+            //    newL.AddChars(Operators);
+            //}
+            //else
+            //{
+            switch (GetNumericType(d))
+            {
+                case NumericTypes.AcceptAny:
+                    newL.AddChars(new char[] { '.', '-', '+' }, 1);
+                    break;
+
+                case NumericTypes.DoNotAcceptDecimalSymbol:
+                    newL.AddChars(new char[] { '-', '+' }, 1);
+                    break;
+
+                case NumericTypes.DoNotAcceptSign:
+                    newL.AddChars(new char[] { '.' }, 1);
+                    break;
+                    //case NumericTypes.DoNotAcceptBoth:
+                    //    break;
+            }
+            //}
+
+            return newL;
         }
 
-        public static char[] Operators = { '-', '+', '/', '*', '%' };
-        public static char[] Brackets = { '(', ')' };
+        //public event InputEventHandler AllowedInput;
+        private static void OnAllowedInput(InputEventArgs e)
+        { /*if (AllowedInput != null) AllowedInput(this, e);*/ }
 
-        public static char[] OperatorsNBrackets()
+        private static void OnAllowToCalculatePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => CheckToEnableEzzTextBox(d);
+
+        private static void OnAllowToTogglesTheSignPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => CheckToEnableEzzTextBox(d);
+
+        private static void OnEditTypePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            char[] Res = new char[(Operators.Count() - 1) + (Brackets.Count() - 1)];
-            Operators.CopyTo(Res, 0);
-            Brackets.CopyTo(Res, 0);
-            return Res;
+            CheckToEnableEzzTextBox(d);
+            UpdateLists(d);
         }
 
-        public static bool IsOperator(string str)
+        private static void OnEnableEzzTextBoxPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            return (str == "-" || str == "+" || str == "/" || str == "*"
-                || str == "%");
+            if ((d is TextBox textBox))
+            {
+                textBox.PreviewTextInput -= PreviewTextInputHandler;
+                textBox.PreviewKeyDown -= PreviewKeyDownHandler;
+                //DataObject.RemovePastingHandler(AssociatedObject, PastingHandler);
+                CommandManager.RemovePreviewExecutedHandler(textBox, PreviewExecutedHandler);
+                //textBox.GotFocus -= this.TextBox_GotFocus;
+                textBox.GotKeyboardFocus -= TextBox_GotKeyboardFocus;
+                //textBox.GotMouseCapture -= TextBox_GotMouseCapture;
+                textBox.GotTouchCapture -= TextBox_GotTouchCapture;
+                if (e.NewValue is bool && (bool)e.NewValue)
+                {
+                    textBox.PreviewTextInput += PreviewTextInputHandler;
+                    textBox.PreviewKeyDown += PreviewKeyDownHandler;
+                    //DataObject.AddPastingHandler(textBox, PastingHandler);
+                    CommandManager.AddPreviewExecutedHandler(textBox, PreviewExecutedHandler);
+                    //textBox.GotFocus += this.TextBox_GotFocus;
+                    textBox.GotKeyboardFocus += TextBox_GotKeyboardFocus;
+                    //textBox.GotMouseCapture += TextBox_GotMouseCapture;
+                    //textBox.GotTouchCapture += TextBox_GotTouchCapture;
+
+                    SetCharsChecker(d, new CharsChecker());
+                }
+            }
+            else if ((d is ComboBox comboBox))
+            {
+                comboBox.PreviewTextInput -= PreviewTextInputHandler;
+                comboBox.PreviewKeyDown -= PreviewKeyDownHandler;
+                //DataObject.RemovePastingHandler(AssociatedObject, PastingHandler);
+                CommandManager.RemovePreviewExecutedHandler(comboBox, PreviewExecutedHandler);
+                //textBox.GotFocus -= this.TextBox_GotFocus;
+                comboBox.GotKeyboardFocus -= TextBox_GotKeyboardFocus;
+                //comboBox.GotMouseCapture -= TextBox_GotMouseCapture;
+                comboBox.GotTouchCapture -= TextBox_GotTouchCapture;
+                if (e.NewValue is bool && (bool)e.NewValue)
+                {
+                    comboBox.PreviewTextInput += PreviewTextInputHandler;
+                    comboBox.PreviewKeyDown += PreviewKeyDownHandler;
+                    //DataObject.AddPastingHandler(textBox, PastingHandler);
+                    CommandManager.AddPreviewExecutedHandler(comboBox, PreviewExecutedHandler);
+                    //textBox.GotFocus += this.TextBox_GotFocus;
+                    comboBox.GotKeyboardFocus += TextBox_GotKeyboardFocus;
+                    //comboBox.GotMouseCapture += TextBox_GotMouseCapture;
+                    //comboBox.GotTouchCapture += TextBox_GotTouchCapture;
+
+                    SetCharsChecker(d, new CharsChecker());
+                }
+            }
+            //else
+            //{
+            //    RemoveOldHandles();
+            //}
         }
 
-        public static bool ContainsOperator(string str)
+        private static void OnFreeInputForCalculatingPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => CheckToEnableEzzTextBox(d);
+
+        private static void OnMaxNumberPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => CheckToEnableEzzTextBox(d);
+
+        private static void OnMinNumberPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => CheckToEnableEzzTextBox(d);
+
+        //public event InputEventHandler NotAllowedInput;
+        private static void OnNotAllowedInput(InputEventArgs e)
         {
-            return (str.Contains("-") || str.Contains("+") ||
-                str.Contains("/") || str.Contains("*") || str.Contains("%"));
+            System.Media.SystemSounds.Beep.Play();
+            //if (NotAllowedInput != null) NotAllowedInput(this, e);
         }
 
-        #endregion Numeric
+        private static void OnNumericTypePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            CheckToEnableEzzTextBox(d);
+            UpdateLists(d);
+        }
 
-        #region Handle text input/delete, OnKeyDown and cut/copy/paste commands
+        private static void OnSelectAllOnFocusPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => CheckToEnableEzzTextBox(d);
 
-        static void PreviewExecutedHandler(object sender, ExecutedRoutedEventArgs e)
+        //public event TextChangingEventHandler TextChanging;
+        private static void OnTextChanging(TextChangingEventArgs e)
+        { /*if (TextChanging != null) TextChanging(this, e);*/ }
+
+        private static void PreviewExecutedHandler(object sender, ExecutedRoutedEventArgs e)
         {
             if (!(sender is TextBox textBox)) return;
 
@@ -1057,35 +731,7 @@ namespace FolderIconChangerWPF.AttachedProperties
             }
         }
 
-        static void PreviewTextInputHandler(object sender, TextCompositionEventArgs e)
-        {
-            if (!(sender is TextBox textBox)) return;
-            if (e.Text.Length == 1 && !char.IsControl(e.Text[0]))
-            {
-                string TransText = e.Text;
-                TextChangingEventArgs NewTC = GetTextChangingEventArgs(textBox, EditOperations.CSelectedText, TransText);
-                string TAfter = NewTC.TextAfterTheChange;
-                CheckTextChanging(textBox, NewTC);
-                bool _Handled = NewTC.Cancel;
-                if (!NewTC.Cancel)
-                {
-                    OnTextChanging(NewTC);
-                    _Handled = NewTC.Cancel;
-                    if (!NewTC.Cancel)
-                    {
-                        if (NewTC.TheTransferText != TransText || TAfter != NewTC.TextAfterTheChange)
-                        {
-                            _Handled = true;
-                            textBox.Text = NewTC.TextAfterTheChange;
-                            textBox.SelectionStart = NewTC.SelectionStart;
-                        }
-                    }
-                }
-                e.Handled = _Handled;
-            }
-        }
-
-        static void PreviewKeyDownHandler(object sender, KeyEventArgs e)
+        private static void PreviewKeyDownHandler(object sender, KeyEventArgs e)
         {
             if (!(sender is TextBox textBox)) return;
             if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
@@ -1156,7 +802,81 @@ namespace FolderIconChangerWPF.AttachedProperties
             //
         }
 
-        static bool SubmitCurrent(DependencyObject d)
+        private static void PreviewTextInputHandler(object sender, TextCompositionEventArgs e)
+        {
+            if (!(sender is TextBox textBox)) return;
+            if (e.Text.Length == 1 && !char.IsControl(e.Text[0]))
+            {
+                string TransText = e.Text;
+                TextChangingEventArgs NewTC = GetTextChangingEventArgs(textBox, EditOperations.CSelectedText, TransText);
+                string TAfter = NewTC.TextAfterTheChange;
+                CheckTextChanging(textBox, NewTC);
+                bool _Handled = NewTC.Cancel;
+                if (!NewTC.Cancel)
+                {
+                    OnTextChanging(NewTC);
+                    _Handled = NewTC.Cancel;
+                    if (!NewTC.Cancel)
+                    {
+                        if (NewTC.TheTransferText != TransText || TAfter != NewTC.TextAfterTheChange)
+                        {
+                            _Handled = true;
+                            textBox.Text = NewTC.TextAfterTheChange;
+                            textBox.SelectionStart = NewTC.SelectionStart;
+                        }
+                    }
+                }
+                e.Handled = _Handled;
+            }
+        }
+
+        private static TextChangingEventArgs RaiseTextChangingEvent_NCheck(DependencyObject d, EditOperations OperationIs, string theTransText = "")
+        {
+            return RaiseTextChangingEvent_NCheck(d, GetTextChangingEventArgs(d, OperationIs, theTransText));
+        }
+
+        private static TextChangingEventArgs RaiseTextChangingEvent_NCheck(DependencyObject d, TextChangingEventArgs NewTC)
+        {
+            if (!(d is TextBox textBox)) return NewTC;
+
+            if (NewTC.TheTransferText.IsNullOrEmpty())
+            {
+                NewTC.Cancel = true;
+            }
+            else
+            {
+                CheckTextChanging(d, NewTC);
+            }
+            if (!NewTC.Cancel)
+            {
+                OnTextChanging(NewTC);
+                if (!NewTC.Cancel)
+                {
+                    textBox.Text = NewTC.TextAfterTheChange;
+                    textBox.SelectionStart = NewTC.SelectionStart;
+                }
+            }
+
+            return NewTC;
+        }
+
+        private static void SelectAllMethod(object sender)
+        {
+            if ((sender is TextBox textBox))
+            {
+                if (!GetSelectAllOnFocus(textBox)) return;
+                textBox.SelectAll();
+            }
+            else if (sender is ComboBox comboBox)
+            {
+                //if (!GetSelectAllOnFocus(comboBox)) return;
+                //comboBox.
+            }
+        }
+
+        private static void SetCharsChecker(DependencyObject obj, CharsChecker value) => obj.SetValue(CharsCheckerProperty, value);
+
+        private static bool SubmitCurrent(DependencyObject d)
         {
             if (!(d is TextBox textBox)) return true;
             if (GetEditType(d) == EditTypes.Numeric && IsAMathOperation(textBox.Text))
@@ -1199,11 +919,447 @@ namespace FolderIconChangerWPF.AttachedProperties
             }
         }
 
-        #endregion Handle text input/delete, OnKeyDown and cut/copy/paste commands
+        private static bool SuccessToAddNumber(DependencyObject d, string TextAfterTheChange)
+        {
+            if (!TextAfterTheChange.IsNumeric()) return false;
+            decimal Num = TextAfterTheChange.ValDecimal();
+            return (Num >= GetMinNumber(d) && Num <= GetMaxNumber(d));
+        }
 
+        private static void TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e) => SelectAllMethod(sender);
 
-        /*
+        private static void TextBox_GotMouseCapture(object sender, MouseEventArgs e) => SelectAllMethod(sender);
+
+        private static void TextBox_GotTouchCapture(object sender, TouchEventArgs e) => SelectAllMethod(sender);
+
+        private static void UpdateLists(DependencyObject d, bool clear = true)
+        {
+            if (clear) ClearLists(d);
+            switch (GetEditType(d))
+            {
+                case EditTypes.Numeric:
+                    AllowedChars(d)?.UnionWith(NumericValues(d));
+                    break;
+
+                case EditTypes.FileName:
+                    NotAllowedChars(d)?.AddChars(Path.GetInvalidFileNameChars(), 0);
+                    break;
+
+                case EditTypes.Path:
+                    NotAllowedChars(d)?.AddChars(Path.GetInvalidPathChars(), 0);
+                    break;
+                    //case EditTypes.Normal:
+                    //default:
+                    //    break;
+            }
+        }
+
+        #endregion Private Methods
+
+        #region Public Fields
+
+        // Using a DependencyProperty as the backing store for AllowToCalculate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AllowToCalculateProperty =
+            DependencyProperty.RegisterAttached("AllowToCalculate", typeof(bool), typeof(TextBoxHelper), new PropertyMetadata(false, new PropertyChangedCallback(OnAllowToCalculatePropertyChanged)));
+
+        // Using a DependencyProperty as the backing store for AllowToTogglesTheSign.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AllowToTogglesTheSignProperty =
+            DependencyProperty.RegisterAttached("AllowToTogglesTheSign", typeof(bool), typeof(TextBoxHelper), new PropertyMetadata(false, new PropertyChangedCallback(OnAllowToTogglesTheSignPropertyChanged)));
+
+        // Using a DependencyProperty as the backing store for EditType.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty EditTypeProperty =
+            DependencyProperty.RegisterAttached("EditType", typeof(EditTypes), typeof(TextBoxHelper), new PropertyMetadata(EditTypes.Normal, new PropertyChangedCallback(OnEditTypePropertyChanged)));
+
+        // Using a DependencyProperty as the backing store for EnableEzzTextBox.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty EnableEzzTextBoxProperty =
+            DependencyProperty.RegisterAttached("EnableEzzTextBox", typeof(bool), typeof(TextBoxHelper), new PropertyMetadata(false, new PropertyChangedCallback(OnEnableEzzTextBoxPropertyChanged)));
+
+        // Using a DependencyProperty as the backing store for FreeInputForCalculating.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty FreeInputForCalculatingProperty =
+            DependencyProperty.RegisterAttached("FreeInputForCalculating", typeof(bool), typeof(TextBoxHelper), new PropertyMetadata(false, new PropertyChangedCallback(OnFreeInputForCalculatingPropertyChanged)));
+
+        // Using a DependencyProperty as the backing store for MaxNumber.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MaxNumberProperty =
+            DependencyProperty.RegisterAttached("MaxNumber", typeof(decimal), typeof(TextBoxHelper), new PropertyMetadata(decimal.MaxValue, new PropertyChangedCallback(OnMaxNumberPropertyChanged)));
+
+        // Using a DependencyProperty as the backing store for MinNumber.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MinNumberProperty =
+            DependencyProperty.RegisterAttached("MinNumber", typeof(decimal), typeof(TextBoxHelper), new PropertyMetadata(decimal.MinValue, new PropertyChangedCallback(OnMinNumberPropertyChanged)));
+
+        // Using a DependencyProperty as the backing store for NewTextBoxProps.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty NewTextBoxPropsProperty =
+            DependencyProperty.RegisterAttached("NewTextBoxProps", typeof(NewTextBoxProps), typeof(TextBoxHelper), new PropertyMetadata(null));
+
+        // Using a DependencyProperty as the backing store for NumericType.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty NumericTypeProperty =
+            DependencyProperty.RegisterAttached("NumericType", typeof(NumericTypes), typeof(TextBoxHelper), new PropertyMetadata(NumericTypes.AcceptAny, new PropertyChangedCallback(OnNumericTypePropertyChanged)));
+
+        // Using a DependencyProperty as the backing store for SelectAllOnFocus.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectAllOnFocusProperty =
+            DependencyProperty.RegisterAttached("SelectAllOnFocus", typeof(bool), typeof(TextBoxHelper), new PropertyMetadata(false, new PropertyChangedCallback(OnSelectAllOnFocusPropertyChanged)));
+
+        public static char[] Brackets = { '(', ')' };
+
+        public static char[] Operators = { '-', '+', '/', '*', '%' };
+
+        #endregion Public Fields
+
+        #region Public Delegates
+
+        //
+        public delegate void InputEventHandler(object sender, InputEventArgs e);
+
+        //
+        public delegate void TextChangingEventHandler(object sender, TextChangingEventArgs e);
+
+        //
+        public delegate void TextCopyEventHandler(object sender, TextCopyEventArgs e);
+
+        //
+        public delegate void TextCutPasteEventHandler(object sender, TextCutPasteEventArgs e);
+
+        #endregion Public Delegates
+
+        #region Public Enums
+
+        public enum EditOperations
+        {
+            CText,
+            CSelectedText,
+            BackSpace,
+            Delete,
+            Cut,
+            Paste,
+            Other
+        }
+
+        public enum EditTypes
+        {
+            Normal = 0,
+            Numeric = 1,
+            FileName = 2,
+            Path = 3
+        }
+
+        public enum NumericTypes
+        {
+            AcceptAny = 0,
+            DoNotAcceptDecimalSymbol = 1,
+            DoNotAcceptSign = 2,
+            DoNotAcceptBoth = 3
+        }
+
+        #endregion Public Enums
+
         #region Public Methods
+
+        public static bool ContainsOperator(string str)
+        {
+            return (str.Contains("-") || str.Contains("+") ||
+                str.Contains("/") || str.Contains("*") || str.Contains("%"));
+        }
+
+        public static bool GetAllowToCalculate(DependencyObject obj) => (bool)obj.GetValue(AllowToCalculateProperty);
+
+        public static bool GetAllowToTogglesTheSign(DependencyObject obj) => (bool)obj.GetValue(AllowToTogglesTheSignProperty);
+
+        public static EditTypes GetEditType(DependencyObject obj) => (EditTypes)obj.GetValue(EditTypeProperty);
+
+        public static bool GetEnableEzzTextBox(DependencyObject obj) => (bool)obj.GetValue(EnableEzzTextBoxProperty);
+
+        public static bool GetFreeInputForCalculating(DependencyObject obj) => (bool)obj.GetValue(FreeInputForCalculatingProperty);
+
+        public static decimal GetMaxNumber(DependencyObject obj) => (decimal)obj.GetValue(MaxNumberProperty);
+
+        public static decimal GetMinNumber(DependencyObject obj) => (decimal)obj.GetValue(MinNumberProperty);
+
+        public static NewTextBoxProps GetNewTextBoxProps(DependencyObject obj) => (NewTextBoxProps)obj.GetValue(NewTextBoxPropsProperty);
+
+        public static NumericTypes GetNumericType(DependencyObject obj) => (NumericTypes)obj.GetValue(NumericTypeProperty);
+
+        public static bool GetSelectAllOnFocus(DependencyObject obj) => (bool)obj.GetValue(SelectAllOnFocusProperty);
+
+        public static bool IsAMathOperation(string str)
+        {
+            if (IsAnOperationOfTwoBrackets(str)) return true;
+            return (!str.IsNumeric() && ContainsOperator(str));
+        }
+
+        public static bool IsAnOperationOfTwoBrackets(string str)
+        {
+            return str.StartsWith("(", StringComparison.Ordinal) && str.EndsWith(")", StringComparison.Ordinal);
+        }
+
+        public static bool IsOperator(string str)
+        {
+            return (str == "-" || str == "+" || str == "/" || str == "*"
+                || str == "%");
+        }
+
+        public static char[] OperatorsNBrackets()
+        {
+            char[] Res = new char[(Operators.Count() - 1) + (Brackets.Count() - 1)];
+            Operators.CopyTo(Res, 0);
+            Brackets.CopyTo(Res, 0);
+            return Res;
+        }
+
+        public static void SetAllowToCalculate(DependencyObject obj, bool value) => obj.SetValue(AllowToCalculateProperty, value);
+
+        public static void SetAllowToTogglesTheSign(DependencyObject obj, bool value) => obj.SetValue(AllowToTogglesTheSignProperty, value);
+
+        //
+        //private static void PreviewExecutedHandler(object sender, ExecutedRoutedEventArgs e) => throw new NotImplementedException();
+        //private static void PreviewKeyDownHandler(object sender, KeyEventArgs e) => throw new NotImplementedException();
+        //private static void PreviewTextInputHandler(object sender, TextCompositionEventArgs e) => throw new NotImplementedException();
+        public static void SetEditType(DependencyObject obj, EditTypes value) => obj.SetValue(EditTypeProperty, value);
+
+        public static void SetEnableEzzTextBox(DependencyObject obj, bool value) => obj.SetValue(EnableEzzTextBoxProperty, value);
+        public static void SetFreeInputForCalculating(DependencyObject obj, bool value) => obj.SetValue(FreeInputForCalculatingProperty, value);
+
+        public static void SetMaxNumber(DependencyObject obj, decimal value) => obj.SetValue(MaxNumberProperty, value);
+
+        public static void SetMinNumber(DependencyObject obj, decimal value) => obj.SetValue(MinNumberProperty, value);
+
+        public static void SetNewTextBoxProps(DependencyObject obj, NewTextBoxProps value) => obj.SetValue(NewTextBoxPropsProperty, value);
+
+        public static void SetNumericType(DependencyObject obj, NumericTypes value) => obj.SetValue(NumericTypeProperty, value);
+        public static void SetSelectAllOnFocus(DependencyObject obj, bool value) => obj.SetValue(SelectAllOnFocusProperty, value);
+
+        #endregion Public Methods
+
+        #region Public Classes
+
+        public class InputEventArgs : EventArgs
+        {
+            #region Public Constructors
+
+            public InputEventArgs(string TheTransferText_, string TextAfterTheChange_)
+            {
+                this.TheTransferText = TheTransferText_;
+                this.TextAfterTheChange = TextAfterTheChange_;
+            }
+
+            #endregion Public Constructors
+
+            #region Public Properties
+
+            public string TextAfterTheChange { get; }
+            public string TheTransferText { get; }
+
+            #endregion Public Properties
+        }
+
+        //
+        public class NewTextBoxProps
+        {
+            #region Private Fields
+
+            private string _text;
+
+            #endregion Private Fields
+
+            #region Public Constructors
+
+            public NewTextBoxProps(TextBox textBox)
+            {
+                this.TextBox = textBox ?? throw new ArgumentNullException(nameof(textBox));
+                this.SetPropsFromTextBox();
+            }
+
+            #endregion Public Constructors
+
+            #region Public Properties
+
+            /// <summary>
+            /// New <see cref="TextBox.SelectedText"/>
+            /// </summary>
+            public string SelectedText
+            {
+                get
+                {
+                    if (this.SelectionLength == 0 || string.IsNullOrEmpty(this.Text)) return null;
+                    return this.Text.Substring(this.SelectionStart, this.SelectionLength);
+                }
+                set
+                {
+                    var TText = this.Text;
+                    var TSelectionStart = this.SelectionStart;
+                    var TSelectionLength = this.SelectionLength;
+                    //
+                    ReplaceSelectedText(ref TText, ref TSelectionStart, ref TSelectionLength, value);
+                    this.Text = TText;
+                    this.SelectionStart = TSelectionStart;
+                    this.SelectionLength = TSelectionLength;
+                }
+            }
+
+            /// <summary>
+            /// New <see cref="TextBox.SelectionLength"/> After change
+            /// </summary>
+            public int SelectionLength { get; set; }
+
+            /// <summary>
+            /// New <see cref="TextBox.SelectionStart"/> after change
+            /// </summary>
+            public int SelectionStart { get; set; }
+
+            /// <summary>
+            /// New <see cref="TextBox.Text"/> (TextAfterChange)
+            /// </summary>
+            public string Text
+            {
+                get => _text; set
+                {
+                    _text = value;
+                    SelectionStart = 0;
+                    SelectionLength = 0;
+                }
+            }
+
+            public TextBox TextBox { get; }
+
+            #endregion Public Properties
+
+            #region Public Methods
+
+            //public string SelectedText { get; set; }
+            public static void ReplaceSelectedText(ref string text, ref int selectionStart, ref int selectionLength, string replaceWith)
+            {
+                if (selectionLength > 0)//Remove SelectedText
+                {
+                    text = text.Remove(selectionStart, selectionLength);
+                    //selectionStart = Math.Max(selectionStart - selectionLength, 0);
+                }
+                if (!string.IsNullOrEmpty(replaceWith))//Insert New Text
+                {
+                    text = text.Insert(selectionStart, replaceWith);
+                    selectionStart += replaceWith.Length;
+                }
+                selectionLength = replaceWith?.Length ?? 0;
+            }
+
+            /// <summary>
+            /// Do BackSpace operation and return theTransText (Deleted string)
+            /// </summary>
+            /// <returns></returns>
+            public string DoBackSpace()
+            {
+                var theTransText = "";
+                if (this.SelectionLength == 0)
+                {
+                    if (this.Text.Length != 0 && this.SelectionStart != 0)
+                    {
+                        int NewSStart = this.SelectionStart - 1;
+                        theTransText = this.Text.Substring(NewSStart, 1);//_CTextBox.Text[NewSStart].ToString();
+                        this.Text = this.Text.Remove(NewSStart, 1);
+                        this.SelectionStart = NewSStart;
+                    }
+                }
+                else
+                {
+                    theTransText = this.SelectedText;
+                    //ReplaceSelectedText(ref TText, ref TSelectionStart, ref TSelectionLength, string.Empty);
+                    this.SelectedText = string.Empty;
+                }
+                return theTransText;
+            }
+
+            /// <summary>
+            /// Do Cut operation and return theTransText (Deleted/Copied string)
+            /// </summary>
+            /// <param name="copyToClipoard"></param>
+            /// <returns></returns>
+            public string DoCut(bool copyToClipoard = false)
+            {
+                var theTransText = this.SelectedText;
+                if (copyToClipoard) Clipboard.SetText(theTransText);
+                this.SelectedText = string.Empty;
+                return theTransText;
+            }
+
+            /// <summary>
+            /// Do BackSpace operation and return theTransText (Deleted string)
+            /// </summary>
+            public string DoDelete()
+            {
+                var theTransText = "";
+                if (this.SelectionLength == 0)
+                {
+                    if (this.Text.Length != 0 && this.SelectionStart < this.Text.Length)
+                    {
+                        int NewSStart = this.SelectionStart;
+                        theTransText = this.Text.Substring(NewSStart, 1);//_CTextBox.Text[NewSStart].ToString();
+                        this.Text = this.Text.Remove(NewSStart, 1);
+                        this.SelectionStart = NewSStart;
+                    }
+                }
+                else
+                {
+                    theTransText = this.SelectedText;
+                    //ReplaceSelectedText(ref TText, ref TSelectionStart, ref TSelectionLength, string.Empty);
+                    this.SelectedText = string.Empty;
+                }
+                return theTransText;
+            }
+
+            /// <summary>
+            /// Do Paste operation and return theTransText (Pasted string)
+            /// </summary>
+            /// <returns></returns>
+            public string DoPaste()
+            {
+                var theTransText = Clipboard.GetText();
+                this.SelectedText = theTransText;
+                return theTransText;
+            }
+
+            public void GenNewProps(EditOperations OperationIs, ref string theTransText, bool ReloadFromTextBox = false)
+            {
+                if (ReloadFromTextBox) SetPropsFromTextBox();
+
+                switch (OperationIs)
+                {
+                    case EditOperations.CSelectedText:
+                        this.SelectedText = theTransText;
+                        break;
+
+                    case EditOperations.BackSpace:
+                        theTransText = DoBackSpace();
+                        break;
+
+                    case EditOperations.Delete:
+                        theTransText = DoDelete();
+                        break;
+
+                    case EditOperations.Cut:
+                        theTransText = DoCut();
+                        break;
+
+                    case EditOperations.Paste:
+                        theTransText = DoPaste();
+                        break;
+
+                    case EditOperations.CText:
+                    case EditOperations.Other:
+                    default:
+                        this.Text = theTransText;
+                        //this.SelectionStart = 0;
+                        //this.SelectionLength = 0;
+                        break;
+                }
+            }
+
+            public void SetPropsFromTextBox()
+            {
+                this.Text = this.TextBox.Text;
+                this.SelectionStart = this.TextBox.SelectionStart;
+                this.SelectionLength = this.TextBox.SelectionLength;
+            }
+
+            #endregion Public Methods
+        }
+        /*
 
         /// <summary>
         /// To focus the control without selecting the text
@@ -1274,18 +1430,369 @@ namespace FolderIconChangerWPF.AttachedProperties
                 }
             }
         }
-        
-            #endregion Public Methods
+
         */
 
+        public class TextChangingEventArgs : TextTransfer
+        {
+            #region Private Fields
 
-        #endregion
+            private EditOperations _OperationIs;
 
+            private int _SelectionStart;
 
-        #region Events Handlers and Args
+            private string _TextAfterTheChange;
+
+            private string _TextBeforeTheChange;
+
+            private string _TheTransferText;
+
+            #endregion Private Fields
+
+            #region Private Methods
+
+            private void SetTheTransferText(string theTransText)
+            {
+                //if (_CTextBox == null) _CTextBox = new TextBox();
+                //_CTextBox.Text = _TextBeforeTheChange;
+                //_CTextBox.SelectionStart = _TextBoxEzz.SelectionStart;
+                //_CTextBox.SelectionLength = _TextBoxEzz.SelectionLength;
+                //
+                //string TBefore = _CTextBox.Text;
+                switch (this.OperationIs)
+                {
+                    case EditOperations.CText:
+                    case EditOperations.Other:
+                        this.NewTextBoxProps.Text = theTransText;
+                        break;
+
+                    case EditOperations.CSelectedText:
+                        this.NewTextBoxProps.SelectedText = theTransText;
+                        break;
+
+                    case EditOperations.BackSpace:
+                    case EditOperations.Delete:
+                        this._TheTransferText = theTransText;
+                        return;
+                    //break;
+                    case EditOperations.Cut:
+                        if (!this.NewTextBoxProps.SelectedText.IsNullOrEmpty())
+                        {
+                            this.NewTextBoxProps.SelectedText = string.Empty;
+                        }
+                        break;
+
+                    case EditOperations.Paste:
+                        this.NewTextBoxProps.SelectedText = theTransText;
+                        break;
+                }
+                //
+                this._TheTransferText = theTransText;
+                this._TextAfterTheChange = this.NewTextBoxProps.Text;
+                this._SelectionStart = this.NewTextBoxProps.SelectionStart;
+            }
+
+            #endregion Private Methods
+
+            #region Public Constructors
+
+            public TextChangingEventArgs(NewTextBoxProps CTextBox_, string TheTransferText_, string TextBeforeTheChange_, string TextAfterTheChange_, int SelectionStart_,
+                                                                                                                     EditOperations OperationsIs_)
+                : base()
+            {
+                this.NewTextBoxProps = CTextBox_;
+                this._TheTransferText = TheTransferText_;
+                this._TextBeforeTheChange = TextBeforeTheChange_;
+                this._TextAfterTheChange = TextAfterTheChange_;
+                //
+                this._OperationIs = OperationsIs_;
+                this._SelectionStart = SelectionStart_;
+            }
+
+            #endregion Public Constructors
+
+            #region Public Properties
+
+            public bool IsManuallyChanged { get; private set; }
+
+            public NewTextBoxProps NewTextBoxProps { get; }
+
+            public EditOperations OperationIs
+            {
+                get { return this._OperationIs; }
+            }
+
+            /// <summary>
+            /// Gets or sets the starting point of text selected in the control after the event . If the value is less than zero then it will be modified to zero(0).
+            /// </summary>
+            /// <value></value>
+            /// <returns>The starting position of text selected in the control.</returns>
+            /// <remarks></remarks>
+            public int SelectionStart
+            {
+                get
+                {
+                    if (this._SelectionStart < 0)
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        return this._SelectionStart;
+                    }
+                }
+                set
+                {
+                    if (value < 0)
+                    {
+                        this._SelectionStart = 0;
+                    }
+                    else
+                    {
+                        this._SelectionStart = value;
+                    }
+                    //textChangingMethod.NewSelectionStart_ = _NewSelectionStart;
+                }
+            }
+
+            /// <summary>
+            /// Gets or sets the text after the change. Note that: The SelectionStart will be rest if you changed it as the Text will be replaced with it.
+            /// </summary>
+            public string TextAfterTheChange
+            {
+                get { return this._TextAfterTheChange; }
+                set
+                {
+                    this._TextAfterTheChange = value;
+                    this._SelectionStart = 0;
+                    this.IsManuallyChanged = true;
+                }
+            }
+
+            /// <summary>
+            /// Gets the text before the change.
+            /// </summary>
+            public string TextBeforeTheChange { get { return this._TextBeforeTheChange; } }
+
+            /// <summary>
+            /// Gets or Sets the transfer text.(it may change _TextAfterTheChange too)
+            /// </summary>
+            public new string TheTransferText
+            {
+                get { return this._TheTransferText; }
+                set { this.SetTheTransferText(value); }
+            }
+
+            #endregion Public Properties
+
+            #region Public Methods
+
+            //
+            public void FromTextCutPasteEventArgs(TextCutPasteEventArgs TCPEv)
+            {
+                this._TheTransferText = TCPEv.TheTransferText;
+                this._TextBeforeTheChange = TCPEv.TextBeforeTheChange;
+                this._TextAfterTheChange = TCPEv.TextAfterTheChange;
+                this._OperationIs = TCPEv.OperationIs == TextCutPasteEventArgs.CutPasteOperations.Cut ? EditOperations.Cut : EditOperations.Paste;
+                this._SelectionStart = TCPEv.SelectionStart;
+            }
+
+            public bool OperationIsDelete() => (this._OperationIs == EditOperations.Cut ||
+                    this._OperationIs == EditOperations.Delete ||
+                    this._OperationIs == EditOperations.BackSpace);
+
+            public bool OperationIsInput() => (this._OperationIs == EditOperations.CText || this._OperationIs == EditOperations.CSelectedText
+                                                    || this._OperationIs == EditOperations.Paste || this._OperationIs == EditOperations.Other);
+            public TextCutPasteEventArgs ToTextCutPasteEventArgs()
+            {
+                TextCutPasteEventArgs newT = new TextCutPasteEventArgs(this.NewTextBoxProps, this._TheTransferText, this._TextBeforeTheChange, this._TextAfterTheChange, this._SelectionStart, this._OperationIs == EditOperations.Cut ? TextCutPasteEventArgs.CutPasteOperations.Cut : TextCutPasteEventArgs.CutPasteOperations.Paste);
+                newT.Cancel = this.Cancel;
+                return newT;
+            }
+
+            #endregion Public Methods
+        }
+
+        public class TextCopyEventArgs : TextTransfer
+        {
+            #region Public Constructors
+
+            public TextCopyEventArgs(string TheTransferText_)
+                : base()
+            {
+                this.TheTransferText = TheTransferText_;
+            }
+
+            #endregion Public Constructors
+        }
+
+        public class TextCutPasteEventArgs : TextTransfer
+        {
+            #region Private Fields
+
+            private int _SelectionStart;
+
+            private string _TextAfterTheChange;
+
+            private string _TheTransferText;
+
+            #endregion Private Fields
+
+            #region Private Methods
+
+            private void SetTheTransferText(string theTransText)
+            {
+                //if (_CTextBox == null) _CTextBox = new TextBox();
+                //_CTextBox.Text = _TextBeforeTheChange;
+                //_CTextBox.SelectionStart = _TextBoxEzz.SelectionStart;
+                //_CTextBox.SelectionLength = _TextBoxEzz.SelectionLength;
+                //
+                //string TBefore = this.NewTextBoxProps.Text;
+                switch (this.OperationIs)
+                {
+                    case CutPasteOperations.Cut:
+                        if (!this.NewTextBoxProps.SelectedText.IsNullOrEmpty())
+                        {
+                            this.NewTextBoxProps.SelectedText = string.Empty;
+                        }
+                        break;
+
+                    case CutPasteOperations.Paste:
+                        this.NewTextBoxProps.SelectedText = theTransText;
+                        break;
+                }
+
+                //
+                this._TheTransferText = theTransText;
+                this._TextAfterTheChange = this.NewTextBoxProps.Text;
+                this._SelectionStart = this.NewTextBoxProps.SelectionStart;
+            }
+
+            #endregion Private Methods
+
+            #region Public Constructors
+
+            public TextCutPasteEventArgs(NewTextBoxProps CTextBox_, string TheTransferText_, string TextBeforeTheChange_, string TextAfterTheChange_, int SelectionStart_, CutPasteOperations OperationIs_)
+                                                                : base()
+            {
+                this.NewTextBoxProps = CTextBox_;
+                this._TheTransferText = TheTransferText_;
+                this.TextBeforeTheChange = TextBeforeTheChange_;
+                this._TextAfterTheChange = TextAfterTheChange_;
+                this._SelectionStart = SelectionStart_;
+                this.OperationIs = OperationIs_;
+            }
+
+            #endregion Public Constructors
+
+            #region Public Enums
+
+            //
+            public enum CutPasteOperations
+            {
+                Cut,
+                Paste
+            }
+
+            #endregion Public Enums
+
+            #region Public Properties
+
+            public CutPasteOperations CutOrPaste { get; set; }
+
+            public NewTextBoxProps NewTextBoxProps { get; set; }
+
+            public CutPasteOperations OperationIs { get; private set; }
+
+            /// <summary>
+            /// Gets or sets the starting point of text selected in the control after the event . If the value is less than zero then it will be modified to zero(0).
+            /// </summary>
+            /// <value></value>
+            /// <returns>The starting position of text selected in the control.</returns>
+            /// <remarks></remarks>
+            public int SelectionStart
+            {
+                get
+                {
+                    if (this._SelectionStart < 0)
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        return this._SelectionStart;
+                    }
+                }
+                set
+                {
+                    if (value < 0)
+                    {
+                        this._SelectionStart = 0;
+                    }
+                    else
+                    {
+                        this._SelectionStart = value;
+                    }
+                    //textChangingMethod.NewSelectionStart_ = _NewSelectionStart;
+                }
+            }
+
+            /// <summary>
+            /// Gets or sets the text after the change. Note that: The SelectionStart will be rest if you changed it as the Text will be replaced with it.
+            /// </summary>
+            public string TextAfterTheChange
+            {
+                get { return this._TextAfterTheChange; }
+                set
+                {
+                    this._TextAfterTheChange = value;
+                    this._SelectionStart = 0;
+                }
+            }
+
+            /// <summary>
+            /// Gets the text before the change.
+            /// </summary>
+            public string TextBeforeTheChange { get; private set; }
+
+            /// <summary>
+            /// Gets or Sets the transfer text.(it may change _TextAfterTheChange too)
+            /// </summary>
+            public new string TheTransferText
+            {
+                get { return this._TheTransferText; }
+                set { this.SetTheTransferText(value); }
+            }
+
+            #endregion Public Properties
+
+            #region Public Methods
+
+            //
+            public void FromTextChangingEventArgs(TextChangingEventArgs TCEv)
+            {
+                this._TheTransferText = TCEv.TheTransferText;
+                this.TextBeforeTheChange = TCEv.TextBeforeTheChange;
+                this._TextAfterTheChange = TCEv.TextAfterTheChange;
+                this.OperationIs = TCEv.OperationIs == EditOperations.Cut ? CutPasteOperations.Cut : CutPasteOperations.Paste;
+                this._SelectionStart = TCEv.SelectionStart;
+            }
+
+            public TextChangingEventArgs ToTextChangingEventArgs()
+            {
+                var newT = new TextChangingEventArgs(this.NewTextBoxProps, this._TheTransferText, this.TextBeforeTheChange, this._TextAfterTheChange, this._SelectionStart, this.OperationIs == CutPasteOperations.Cut ? EditOperations.Cut : EditOperations.Paste)
+                {
+                    Cancel = this.Cancel
+                };
+                return newT;
+            }
+
+            #endregion Public Methods
+        }
 
         public abstract class TextTransfer : EventArgs
         {
+            #region Public Properties
 
             /// <summary>
             ///  To cancel the operation.
@@ -1300,13 +1807,10 @@ namespace FolderIconChangerWPF.AttachedProperties
             /// <remarks></remarks>
             public string TheTransferText { get; set; }
 
-            //
-            /// <summary>
-            /// Checks if The TransferText contains a control character
-            /// </summary>
-            /// <returns></returns>
-            /// <remarks></remarks>
-            public bool ContainsControlCharacter() => ContainsControlCharacter(TheTransferText);
+            #endregion Public Properties
+
+            #region Public Methods
+
             /// <summary>
             /// Checks if TextToCheckFor contains a control character
             /// </summary>
@@ -1321,26 +1825,6 @@ namespace FolderIconChangerWPF.AttachedProperties
                 return false;
             }
 
-            /// <summary>
-            /// Replace control characters in The TransferText
-            /// </summary>
-            /// <param name="Replacement"></param>
-            /// <remarks></remarks>
-            public void ReplaceControlCharacters(string Replacement = "")
-            {
-                List<char> ControlChars = new List<char>();
-                foreach (char Char_ in TheTransferText)
-                {
-                    if (char.IsControl(Char_) == true)
-                    {
-                        ControlChars.Add(Char_);
-                    }
-                }
-                foreach (char Char_ in ControlChars)
-                {
-                    TheTransferText = Regex.Replace(TheTransferText, Char_.ToString(), Replacement);
-                }
-            }
             /// <summary>
             /// Replace control characters in Text_
             /// </summary>
@@ -1362,334 +1846,38 @@ namespace FolderIconChangerWPF.AttachedProperties
                 }
             }
 
-        }
-
-        //
-        public delegate void TextCopyEventHandler(object sender, TextCopyEventArgs e);
-        public class TextCopyEventArgs : TextTransfer
-        {
-            public TextCopyEventArgs(string TheTransferText_)
-                : base()
-            {
-                TheTransferText = TheTransferText_;
-            }
-        }
-
-        //
-        public delegate void TextCutPasteEventHandler(object sender, TextCutPasteEventArgs e);
-        public class TextCutPasteEventArgs : TextTransfer
-        {
-            public TextCutPasteEventArgs(TextBox CTextBox_, string TheTransferText_, string TextBeforeTheChange_, string TextAfterTheChange_, int SelectionStart_, CutPasteOperations OperationIs_)
-                : base()
-            {
-                _CTextBox = CTextBox_;
-                _TheTransferText = TheTransferText_;
-                _TextBeforeTheChange = TextBeforeTheChange_;
-                _TextAfterTheChange = TextAfterTheChange_;
-                _SelectionStart = SelectionStart_;
-                _OperationIs = OperationIs_;
-            }
-
-
-            private string _TheTransferText;
+            //
             /// <summary>
-            /// Gets or Sets the transfer text.(it may change _TextAfterTheChange too)
+            /// Checks if The TransferText contains a control character
             /// </summary>
-            public new string TheTransferText
-            {
-                get { return _TheTransferText; }
-                set { SetTheTransferText(value); }
-            }
-            private TextBox _CTextBox;
-            private void SetTheTransferText(string theTransText)
-            {
-                //if (_CTextBox == null) _CTextBox = new TextBox();
-                //_CTextBox.Text = _TextBeforeTheChange;
-                //_CTextBox.SelectionStart = _TextBoxEzz.SelectionStart;
-                //_CTextBox.SelectionLength = _TextBoxEzz.SelectionLength;
-                //
-                string TBefore = _CTextBox.Text;
-                switch (OperationIs)
-                {
-                    case CutPasteOperations.Cut:
-                        if (!_CTextBox.SelectedText.IsNullOrEmpty())
-                        {
-                            _CTextBox.SelectedText = string.Empty;
-                        }
-                        break;
-                    case CutPasteOperations.Paste:
-                        _CTextBox.SelectedText = theTransText;
-                        break;
-                }
-
-                //
-                _TheTransferText = theTransText;
-                _TextAfterTheChange = _CTextBox.Text;
-                _SelectionStart = _CTextBox.SelectionStart;
-            }
-
-
-            private string _TextBeforeTheChange;
-            /// <summary>
-            /// Gets the text before the change.
-            /// </summary>
-            public string TextBeforeTheChange { get { return _TextBeforeTheChange; } }
-
-
-            private string _TextAfterTheChange;
-            /// <summary>
-            /// Gets or sets the text after the change. Note that: The SelectionStart will be rest if you changed it as the Text will be replaced with it.
-            /// </summary>
-            public string TextAfterTheChange
-            {
-                get { return _TextAfterTheChange; }
-                set
-                {
-                    _TextAfterTheChange = value;
-                    _SelectionStart = 0;
-                }
-            }
-
-
-            private int _SelectionStart;
-            /// <summary>
-            /// Gets or sets the starting point of text selected in the control after the event . If the value is less than zero then it will be modified to zero(0).
-            /// </summary>
-            /// <value></value>
-            /// <returns>The starting position of text selected in the control.</returns>
+            /// <returns></returns>
             /// <remarks></remarks>
-            public int SelectionStart
-            {
-                get
-                {
-                    if (_SelectionStart < 0)
-                    {
-                        return 0;
-                    }
-                    else
-                    {
-                        return _SelectionStart;
-                    }
-                }
-                set
-                {
-                    if (value < 0)
-                    {
-                        _SelectionStart = 0;
-                    }
-                    else
-                    {
-                        _SelectionStart = value;
-                    }
-                    //textChangingMethod.NewSelectionStart_ = _NewSelectionStart;
-                }
-            }
-
-            public CutPasteOperations CutOrPaste { get; set; }
-            //
-            public enum CutPasteOperations
-            {
-                Cut,
-                Paste
-            }
-            private CutPasteOperations _OperationIs;
-            public CutPasteOperations OperationIs
-            {
-                get { return _OperationIs; }
-            }
-
-            //
-            public void FromTextChangingEventArgs(TextChangingEventArgs TCEv)
-            {
-                _TheTransferText = TCEv.TheTransferText;
-                _TextBeforeTheChange = TCEv.TextBeforeTheChange;
-                _TextAfterTheChange = TCEv.TextAfterTheChange;
-                _OperationIs = TCEv.OperationIs == EditOperations.Cut ? CutPasteOperations.Cut : CutPasteOperations.Paste;
-                _SelectionStart = TCEv.SelectionStart;
-            }
-            public TextChangingEventArgs ToTextChangingEventArgs()
-            {
-                TextChangingEventArgs newT = new TextChangingEventArgs(_CTextBox, _TheTransferText, _TextBeforeTheChange, _TextAfterTheChange, _SelectionStart, _OperationIs == CutPasteOperations.Cut ? EditOperations.Cut : EditOperations.Paste);
-                newT.Cancel = this.Cancel;
-                return newT;
-            }
-        }
-
-        //
-        public delegate void TextChangingEventHandler(object sender, TextChangingEventArgs e);
-        public class TextChangingEventArgs : TextTransfer
-        {
-
-            public TextChangingEventArgs(TextBox CTextBox_, string TheTransferText_, string TextBeforeTheChange_, string TextAfterTheChange_, int SelectionStart_,
-                                             EditOperations OperationsIs_)
-                : base()
-            {
-                _CTextBox = CTextBox_;
-                _TheTransferText = TheTransferText_;
-                _TextBeforeTheChange = TextBeforeTheChange_;
-                _TextAfterTheChange = TextAfterTheChange_;
-                //
-                _OperationIs = OperationsIs_;
-                _SelectionStart = SelectionStart_;
-            }
-
-
-            private string _TheTransferText;
+            public bool ContainsControlCharacter() => ContainsControlCharacter(this.TheTransferText);
             /// <summary>
-            /// Gets or Sets the transfer text.(it may change _TextAfterTheChange too)
+            /// Replace control characters in The TransferText
             /// </summary>
-            public new string TheTransferText
-            {
-                get { return _TheTransferText; }
-                set { SetTheTransferText(value); }
-            }
-            private TextBox _CTextBox;
-            private void SetTheTransferText(string theTransText)
-            {
-                //if (_CTextBox == null) _CTextBox = new TextBox();
-                //_CTextBox.Text = _TextBeforeTheChange;
-                //_CTextBox.SelectionStart = _TextBoxEzz.SelectionStart;
-                //_CTextBox.SelectionLength = _TextBoxEzz.SelectionLength;
-                //
-                //string TBefore = _CTextBox.Text;
-                switch (OperationIs)
-                {
-                    case EditOperations.CText:
-                    case EditOperations.Other:
-                        _CTextBox.Text = theTransText;
-                        break;
-                    case EditOperations.CSelectedText:
-                        _CTextBox.SelectedText = theTransText;
-                        break;
-                    case EditOperations.BackSpace:
-                    case EditOperations.Delete:
-                        _TheTransferText = theTransText;
-                        return;
-                    //break;
-                    case EditOperations.Cut:
-                        if (!_CTextBox.SelectedText.IsNullOrEmpty())
-                        {
-                            _CTextBox.SelectedText = string.Empty;
-                        }
-                        break;
-                    case EditOperations.Paste:
-                        _CTextBox.SelectedText = theTransText;
-                        break;
-                }
-                //
-                _TheTransferText = theTransText;
-                _TextAfterTheChange = _CTextBox.Text;
-                _SelectionStart = _CTextBox.SelectionStart;
-            }
-
-
-            private string _TextBeforeTheChange;
-
-            /// <summary>
-            /// Gets the text before the change.
-            /// </summary>
-            public string TextBeforeTheChange { get { return _TextBeforeTheChange; } }
-
-            private string _TextAfterTheChange;
-            /// <summary>
-            /// Gets or sets the text after the change. Note that: The SelectionStart will be rest if you changed it as the Text will be replaced with it.
-            /// </summary>
-            public string TextAfterTheChange
-            {
-                get { return _TextAfterTheChange; }
-                set
-                {
-                    _TextAfterTheChange = value;
-                    _SelectionStart = 0;
-                    IsManuallyChanged = true;
-                }
-            }
-            public bool IsManuallyChanged { get; private set; }
-
-            private int _SelectionStart;
-            /// <summary>
-            /// Gets or sets the starting point of text selected in the control after the event . If the value is less than zero then it will be modified to zero(0).
-            /// </summary>
-            /// <value></value>
-            /// <returns>The starting position of text selected in the control.</returns>
+            /// <param name="Replacement"></param>
             /// <remarks></remarks>
-            public int SelectionStart
+            public void ReplaceControlCharacters(string Replacement = "")
             {
-                get
+                List<char> ControlChars = new List<char>();
+                foreach (char Char_ in this.TheTransferText)
                 {
-                    if (_SelectionStart < 0)
+                    if (char.IsControl(Char_) == true)
                     {
-                        return 0;
-                    }
-                    else
-                    {
-                        return _SelectionStart;
+                        ControlChars.Add(Char_);
                     }
                 }
-                set
+                foreach (char Char_ in ControlChars)
                 {
-                    if (value < 0)
-                    {
-                        _SelectionStart = 0;
-                    }
-                    else
-                    {
-                        _SelectionStart = value;
-                    }
-                    //textChangingMethod.NewSelectionStart_ = _NewSelectionStart;
+                    this.TheTransferText = Regex.Replace(this.TheTransferText, Char_.ToString(), Replacement);
                 }
             }
 
-
-
-            private EditOperations _OperationIs;
-            public EditOperations OperationIs
-            {
-                get { return _OperationIs; }
-            }
-
-            public bool OperationIsInput() => (_OperationIs == EditOperations.CText || _OperationIs == EditOperations.CSelectedText
-                            || _OperationIs == EditOperations.Paste || _OperationIs == EditOperations.Other);
-            public bool OperationIsDelete() => (_OperationIs == EditOperations.Cut ||
-                    _OperationIs == EditOperations.Delete ||
-                    _OperationIs == EditOperations.BackSpace);
-            //
-            public void FromTextCutPasteEventArgs(TextCutPasteEventArgs TCPEv)
-            {
-                _TheTransferText = TCPEv.TheTransferText;
-                _TextBeforeTheChange = TCPEv.TextBeforeTheChange;
-                _TextAfterTheChange = TCPEv.TextAfterTheChange;
-                _OperationIs = TCPEv.OperationIs == TextCutPasteEventArgs.CutPasteOperations.Cut ? EditOperations.Cut : EditOperations.Paste;
-                _SelectionStart = TCPEv.SelectionStart;
-            }
-            public TextCutPasteEventArgs ToTextCutPasteEventArgs()
-            {
-                TextCutPasteEventArgs newT = new TextCutPasteEventArgs(_CTextBox, _TheTransferText, _TextBeforeTheChange, _TextAfterTheChange, _SelectionStart, _OperationIs == EditOperations.Cut ? TextCutPasteEventArgs.CutPasteOperations.Cut : TextCutPasteEventArgs.CutPasteOperations.Paste);
-                newT.Cancel = this.Cancel;
-                return newT;
-            }
+            #endregion Public Methods
         }
 
-        //
-        public delegate void InputEventHandler(object sender, InputEventArgs e);
-        public class InputEventArgs : EventArgs
-        {
-            public InputEventArgs(string TheTransferText_, string TextAfterTheChange_)
-            {
-                _TheTransferText = TheTransferText_;
-                _TextAfterTheChange = TextAfterTheChange_;
-            }
-            string _TheTransferText;
-            public string TheTransferText
-            {
-                get { return _TheTransferText; }
-            }
-            string _TextAfterTheChange;
-            public string TextAfterTheChange
-            {
-                get { return _TextAfterTheChange; }
-            }
-        }
+        #endregion Public Classes
 
         ////Submit
         //public delegate void SubmitEventHandler(object sender, SubmitEventArgs e);
@@ -1711,10 +1899,6 @@ namespace FolderIconChangerWPF.AttachedProperties
         //        get { return _TextAfterTheChange; }
         //    }
         //}
-
-        #endregion  //Events Handlers and Args
-
-        #endregion //EzzTextBox
 
     }
 }

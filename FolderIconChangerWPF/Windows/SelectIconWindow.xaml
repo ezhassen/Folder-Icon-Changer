@@ -392,9 +392,19 @@
                 <ItemsPanelTemplate>
                     <!--<WrapPanel />-->
                     <!--<UniformGrid Columns="3"  />-->
+                    <!--<VirtualizingStackPanel
+                        IsItemsHost="True" Orientation="Vertical"
+                        IsVirtualizing="True"
+                        KeyboardNavigation.DirectionalNavigation="Contained"
+                        VirtualizationMode="Recycling"
+                         Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
+                        MinWidth="{Binding (ListView.View).ItemWidth, RelativeSource={RelativeSource AncestorType=ListView}}"
+                        />-->
+
                     <WrapPanel
                         Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
                         MinWidth="{Binding (ListView.View).ItemWidth, RelativeSource={RelativeSource AncestorType=ListView}}"
+                        IsItemsHost="True"
                         ItemHeight="{Binding (ListView.View).ItemHeight, RelativeSource={RelativeSource AncestorType=ListView}}"
                         ItemWidth="{Binding (ListView.View).ItemWidth, RelativeSource={RelativeSource AncestorType=ListView}}" />
                 </ItemsPanelTemplate>

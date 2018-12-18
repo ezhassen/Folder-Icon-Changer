@@ -37,7 +37,7 @@
     mc:Ignorable="d">
     <!--  LeftWindowCommands="{DynamicResource MainWindowLeftCommands}"  -->
     <!--<mm:MetroWindow.Resources />-->
-    <!--Topmost="{Binding IsTopMost, Source={x:Static serv:SettingsService.Instance}, Mode=OneWay}"-->
+    <!--  Topmost="{Binding IsTopMost, Source={x:Static serv:SettingsService.Instance}, Mode=OneWay}"  -->
 
     <mm:MetroWindow.LeftWindowCommands>
         <mm:WindowCommands ShowLastSeparator="False" ShowSeparators="False">
@@ -565,17 +565,30 @@
         <!--  Drop Shadow Line  -->
         <ContentPresenter Grid.Row="0" ContentTemplate="{StaticResource CenterShadowLine}" />
 
-        <!--Test-->
-        <StackPanel Grid.Row="1">
-            <TextBox HorizontalAlignment="Left" MinWidth="200" 
-                     ap:TextBoxHelper.EditType="FileName" />
-            <TextBox HorizontalAlignment="Left" MinWidth="200" 
-                     ap:TextBoxHelper.EditType="FileName"
-                     Margin="10"  Style="{StaticResource EzzFilterTextBoxDynamicIcon}"/>
-            <ComboBox HorizontalAlignment="Left" MinWidth="200" Margin="10"  Style="{StaticResource EzzFilterComboBoxDynamicIcon}"/>
-            <ComboBox HorizontalAlignment="Left" MinWidth="200" Margin="10" />
-
-        </StackPanel>
+        <!--#region Test-->
+        <!--<StackPanel Grid.Row="1">
+            <TextBox
+                MinWidth="200"
+                HorizontalAlignment="Left"
+                ap:TextBoxHelper.EditType="FileName" />
+            <TextBox
+                MinWidth="200"
+                Margin="10"
+                HorizontalAlignment="Left"
+                ap:TextBoxHelper.EditType="FileName"
+                Style="{StaticResource EzzFilterTextBoxDynamicIcon}" />
+            <ComboBox
+                MinWidth="200"
+                Margin="10"
+                HorizontalAlignment="Left"
+                Style="{StaticResource EzzFilterComboBoxDynamicIcon}" />
+            <ComboBox
+                MinWidth="200"
+                Margin="10"
+                HorizontalAlignment="Left" />
+        </StackPanel>-->
+        <!--#endregion-->
+        
         <controls:PageHost
             Grid.Row="2"
             CurrentPage="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}}"
