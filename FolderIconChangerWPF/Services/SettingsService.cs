@@ -289,7 +289,9 @@ namespace FolderIconChangerWPF.Services
         {
             get
             {
-                if (_DefaultRecentFiles is null) _DefaultRecentFiles = new string[] { Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "shell32.dll") };
+                if (_DefaultRecentFiles is null) _DefaultRecentFiles = new string[] {
+                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "shell32.dll"),
+                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "imageres.dll") };
                 return _DefaultRecentFiles;
             }
             protected set { _DefaultRecentFiles = value; }

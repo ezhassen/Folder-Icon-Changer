@@ -16,7 +16,7 @@
     lex:ResxLocalizationProvider.DefaultDictionary="Resources"
     MouseEnter="IconImageControlBase_MouseEnter"
     MouseLeave="IconImageControlBase_MouseLeave"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Background="Transparent">
 
     <Grid DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:IconImageControlBase}}">
         <Image Margin="5"

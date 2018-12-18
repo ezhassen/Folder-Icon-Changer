@@ -55,9 +55,9 @@
         </Style>
 
         <DataTemplate x:Key="ImageInfoTemplate">
-            <Border
+            <Border Background="Transparent"
                 x:Name="PART_ItemBorder"
-                Margin="5"
+                Margin="5" IsHitTestVisible="True" Focusable="True"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center">
                 <Border.InputBindings>
@@ -73,7 +73,7 @@
                         <Binding Converter="{conv:LexEnumConverter}" Path="IconImageFormat" />
                     </MultiBinding>
                 </Border.ToolTip>-->
-                <Grid>
+                <Grid Focusable="True" IsHitTestVisible="True">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
