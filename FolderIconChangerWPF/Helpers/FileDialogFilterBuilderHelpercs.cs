@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Ezz_Helper.Custom_Comparers;
 using Ezz_Helper.Files.GetInfo;
 using Microsoft.Win32;

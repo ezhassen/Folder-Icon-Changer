@@ -295,7 +295,7 @@
                             mm:TextBoxHelper.ButtonCommand="{Binding OpenFolderCommand}"
                             mm:TextBoxHelper.ButtonCommandParameter="{Binding CurrentIconPath}"
                             mm:TextBoxHelper.TextButton="{Binding CurrentIconPath, Converter={conv:BoolWhenStringConverter}}"
-                            IsReadOnly="True"
+                            IsReadOnly="True" IsReadOnlyCaretVisible="True"
                             Style="{DynamicResource MetroButtonTextBox}"
                             Text="{Binding CurrentIconPath}"
                             ToolTip="{lex:BLoc FilePath, TargetNullValue=File Path}">
@@ -559,14 +559,16 @@
                         <!--  IsEnabled="{Binding NewIconInfo, Converter={conv:BoolWhenNullConverter}}"  -->
                         <Button
                             x:Name="ApplyButton"
-                            Grid.Row="1"
-                            Margin="0,10,10,10"
+                            Grid.Row="1" Foreground="White"
+                            Margin="0,10,10,10" Background="{DynamicResource WordGreenBrush}"
                             HorizontalAlignment="Right"
                             Command="{Binding ApplyNewIconCommand}"
                             Style="{StaticResource MainCommandButtonStyle}">
                             <Button.IsEnabled>
                                 <MultiBinding Converter="{conv:BoolWhenBoolConverter MultiWhenAny=False}">
-
+                                   
+                                    <Binding Path="AllowToApply" />
+                                    <Binding Converter="{conv:BooleanInvertConverter}" Path="IsLoadingNewInfo" />
                                     <Binding Converter="{conv:BoolWhenFolderExistsConverter}" Path="TargetFolder" />
                                     <Binding Converter="{conv:BoolWhenNullConverter}" Path="NewIconInfo" />
                                     <!--<Binding Path="GenerateBestFitCommand"/>-->

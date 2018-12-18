@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
 
 namespace FolderIconChangerWPF
@@ -18,9 +13,6 @@ namespace FolderIconChangerWPF
             base.OnStartup(e);
             //
             Services.SettingsService.Instance.RefreshAllSettings();
-            //Services.SettingsService.Instance.RefreshCurrentCulture();
-            //Services.SettingsService.Instance.RefreshCurrentTheme();
-            //Services.SettingsService.Instance.RefreshOtherSettings();
             //
         }
 
@@ -30,6 +22,13 @@ namespace FolderIconChangerWPF
             Services.SettingsService.Instance.Save();
             //
             base.OnExit(e);
+        }
+
+        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            e.Handled = true;
+            if (e.Exception is TaskCanceledException) return;
+            MessageBox.Show(e.Exception.ToString());
         }
     }
 }

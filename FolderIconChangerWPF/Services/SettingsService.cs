@@ -6,7 +6,6 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.ComponentModel;
 using FolderIconChangerWPF.ViewModels;
-using System.Collections.Specialized;
 using System.IO;
 using System.Collections.Generic;
 using System.Configuration;
@@ -227,6 +226,7 @@ namespace FolderIconChangerWPF.Services
                     this["CopyIconToFolder"] = value;
                     OnPropertyChanged(); //uses CallerMemberName
                 }
+                MainPageViewModel.Instance?.CheckAllowToApply();
             }
         }
 

@@ -56,14 +56,7 @@ namespace FolderIconChangerWPF.Classes
             {
                 foreach (var item in RunningTasksCancellationTokenSources)
                 {
-                    try
-                    {
-                        item.Cancel(ThrowOnCancel);
-                    }
-                    catch (System.Exception)
-                    {
-                        //throw;
-                    }
+                    item.Cancel(ThrowOnCancel);
                 }
                 RunningTasksCancellationTokenSources.Clear();
             }

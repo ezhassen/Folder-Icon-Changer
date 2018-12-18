@@ -1,11 +1,9 @@
 ﻿using Ezz_Helper.Drawing.IconsManager;
 using FolderIconChangerWPF.Classes;
 using FolderIconChangerWPF.IconInfoCore;
-using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace FolderIconChangerWPF.AttachedProperties
 {
