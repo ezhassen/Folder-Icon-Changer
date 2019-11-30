@@ -220,6 +220,7 @@ namespace FolderIconChangerWPF.ViewModels
             {
                 icon.Dispose();
             }
+            
             Icons = null;
         }
 

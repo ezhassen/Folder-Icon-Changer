@@ -97,6 +97,9 @@ namespace FolderIconChangerWPF.Controls
                 else
                 {
                     var iconSizeW = GetIconSizeW(this);
+                    //ImageSource = null;
+                    SetValue(ImageSourceProperty, null);
+
                     ImageSource = await Task.Run(() =>
                          {
                              try
