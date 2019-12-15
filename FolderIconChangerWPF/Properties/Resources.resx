@@ -428,4 +428,7 @@ Continue?</value>
   <data name="WindowRestoreToolTip" xml:space="preserve">
     <value>Restore</value>
   </data>
+  <data name="SetTargetFolderFromNewIcon" xml:space="preserve">
+    <value>Set Target Folder From Icon Folder</value>
+  </data>
 </root>

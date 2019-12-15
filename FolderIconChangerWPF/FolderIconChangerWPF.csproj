@@ -153,6 +153,7 @@
     <Compile Include="ValueConverters\StringFormatConverter.cs" />
     <Compile Include="ValueConverters\StringSplitConverter.cs" />
     <Compile Include="ValueConverters\ValueWhenConverter.cs" />
+    <Compile Include="ValueConverters\ValueWhenFileExistsConverter.cs" />
     <Compile Include="ValueConverters\ValueWhenFolderExistsConverter.cs" />
     <Compile Include="ValueConverters\ValueWhenStringConverter.cs" />
     <Compile Include="ValueConverters\VisibilityConverters.cs" />

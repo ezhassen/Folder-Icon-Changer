@@ -457,10 +457,25 @@
                                 </MenuItem>
                                 <Separator />
                                 <MenuItem
+                                    Command="{Binding SetTargetFolderFromNewIconCommand}"
+                                    CommandParameter="{Binding NewIconPath}"
+                                    Header="{lex:BLoc SetTargetFolderFromNewIcon, TargetNullValue=Set Target Folder From Icon Folder}"
+                                    IsEnabled="{Binding NewIconPath, Converter={conv:BoolWhenFileExistsConverter}}"
+                                    ToolTip="{Binding Header, RelativeSource={RelativeSource Self}}">
+                                    <MenuItem.Icon>
+                                        <!--<iconPacks:PackIconFontAwesome Margin="3" Kind="FileImageSolid" />-->
+                                        <TextBlock
+                                            Margin="5,0"
+                                            FontFamily="{StaticResource FontAwesome}"
+                                            Text="{StaticResource FontAwesomeFolderOpenSolid}" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <Separator />
+                                <MenuItem
                                     Command="{Binding OpenFolderCommand}"
                                     CommandParameter="{Binding NewIconPath}"
                                     Header="{lex:BLoc OpenContainingFolder, TargetNullValue=Open Containing Folder}"
-                                    IsEnabled="{Binding NewIconPath, Converter={conv:BoolWhenStringConverter}}"
+                                    IsEnabled="{Binding NewIconPath, Converter={conv:BoolWhenFileExistsConverter}}"
                                     ToolTip="{Binding Header, RelativeSource={RelativeSource Self}}">
                                     <MenuItem.Icon>
                                         <!--<iconPacks:PackIconFontAwesome Margin="3" Kind="FileImageSolid" />-->

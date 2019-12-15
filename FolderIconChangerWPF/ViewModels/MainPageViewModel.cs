@@ -231,6 +231,29 @@ namespace FolderIconChangerWPF.ViewModels
                 if (!(param is string path)) return;
                 OpenFolder(path);
             }));
+        private DelegateCommand _SetTargetFolderFromNewIconCommand;
+
+        public DelegateCommand SetTargetFolderFromNewIconCommand
+            => _SetTargetFolderFromNewIconCommand ?? (_SetTargetFolderFromNewIconCommand = new DelegateCommand(async (param) =>
+            {
+                if (!(param is string path)) return;
+                await SetTargetFolderFromNewIconAsync(path);
+            }));
+
+        /// <summary>
+        /// Sets current Target folder to the icon parent folder
+        /// </summary>
+        private async Task SetTargetFolderFromNewIconAsync(string iconFullPath)
+        {
+            if (string.IsNullOrEmpty(iconFullPath)) return;
+            if (!File.Exists(iconFullPath)) return;
+            var folder = Path.GetDirectoryName(iconFullPath);
+            if (Directory.Exists(folder))
+            {
+                this.TargetFolder = folder;
+                await this.RefreshCurrentInfo();
+            }
+        }
 
         /// <summary>
         /// Open folder in windows explorer if it's a file then it will Open the Containing Folder
