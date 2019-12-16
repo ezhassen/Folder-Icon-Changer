@@ -48,9 +48,37 @@ namespace FolderIconChangerWPF.Services
 
         #endregion
 
+        #region Settings upgrade from old app version
 
-        public void RefreshAllSettings()
+        public void CheckToUpgradeSettings()
         {
+            if (RequiresSettingsUpgrade)
+            {
+                Instance.Upgrade();
+                RequiresSettingsUpgrade = false;
+                Instance.Save();
+            }
+        }
+
+        [UserScopedSetting, DefaultSettingValue("True")]
+        public bool RequiresSettingsUpgrade
+        {
+            get { return ((bool)(this["RequiresSettingsUpgrade"])); }
+            set
+            {
+                if (RequiresSettingsUpgrade != value)
+                {
+                    this["RequiresSettingsUpgrade"] = value;
+                    OnPropertyChanged(); //uses CallerMemberName
+                }
+            }
+        }
+
+        #endregion
+
+        public void RefreshAllSettings(bool CheckToUpgradeSettings = true)
+        {
+            if (CheckToUpgradeSettings) this.CheckToUpgradeSettings();
             this.RefreshCurrentCulture();
             this.RefreshCurrentTheme();
             this.RefreshOtherSettings();
