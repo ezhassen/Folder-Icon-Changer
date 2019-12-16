@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Folder Icon Changer", "Folder Icon Changer\Folder Icon Changer.csproj", "{C45D39F1-9B35-4135-9BCB-75A9D0A0972D}"
 EndProject
@@ -19,6 +19,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ezz Helper", "Ezz Helper\Ezz Helper\Ezz Helper.csproj", "{27C9B90F-A9D9-4721-AD99-E7F6CBBE0BE7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FolderIconChangerWPF", "FolderIconChangerWPF\FolderIconChangerWPF.csproj", "{668A3B74-BBA7-4CEC-A511-C9ED01ED52DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FolderIconChangerNetCoreApp", "FolderIconChangerNetCoreApp\FolderIconChangerNetCoreApp.csproj", "{5D4026D2-BFD8-4205-B41B-03D4022764F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +42,10 @@ Global
 		{668A3B74-BBA7-4CEC-A511-C9ED01ED52DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{668A3B74-BBA7-4CEC-A511-C9ED01ED52DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{668A3B74-BBA7-4CEC-A511-C9ED01ED52DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D4026D2-BFD8-4205-B41B-03D4022764F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D4026D2-BFD8-4205-B41B-03D4022764F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D4026D2-BFD8-4205-B41B-03D4022764F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D4026D2-BFD8-4205-B41B-03D4022764F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
