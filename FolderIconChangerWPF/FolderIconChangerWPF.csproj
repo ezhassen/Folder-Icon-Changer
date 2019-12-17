@@ -26,8 +26,8 @@
     <NeutralLanguage>en</NeutralLanguage>
     <Description>easy-to-use &amp; fast way to change folder's icon</Description>
     <Copyright>Copyright ©  2019</Copyright>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.0.0</FileVersion>
+    <AssemblyVersion>3.0.1.0</AssemblyVersion>
+    <FileVersion>3.0.1.0</FileVersion>
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <LangVersion>latest</LangVersion>
     <UseWPF>true</UseWPF>
@@ -108,5 +108,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Ezz14_Left.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

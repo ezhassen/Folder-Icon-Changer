@@ -829,6 +829,15 @@ namespace FolderIconChangerWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set the Target Folder to the folder that containing the new icon file.
+        /// </summary>
+        public static string SetTargetFolderFromNewIconToolTip {
+            get {
+                return ResourceManager.GetString("SetTargetFolderFromNewIconToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string Settings {

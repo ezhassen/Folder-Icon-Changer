@@ -322,4 +322,10 @@
   <data name="WindowRestoreToolTip" xml:space="preserve">
     <value>إستعادة</value>
   </data>
+  <data name="SetTargetFolderFromNewIcon" xml:space="preserve">
+    <value>تغيير المجلد الهدف لمجلد الأيقونة</value>
+  </data>
+  <data name="SetTargetFolderFromNewIconToolTip" xml:space="preserve">
+    <value>تغيير المجلد الهدف الي المجلد الذي يحتوي على الأيقونة الجديدة</value>
+  </data>
 </root>

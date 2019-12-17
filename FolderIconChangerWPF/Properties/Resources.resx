@@ -431,4 +431,7 @@ Continue?</value>
   <data name="SetTargetFolderFromNewIcon" xml:space="preserve">
     <value>Set Target Folder From Icon Folder</value>
   </data>
+  <data name="SetTargetFolderFromNewIconToolTip" xml:space="preserve">
+    <value>Set the Target Folder to the folder that containing the new icon file</value>
+  </data>
 </root>

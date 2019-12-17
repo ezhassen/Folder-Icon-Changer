@@ -420,6 +420,14 @@ Continue?</source>
           <source>Restore</source>
           <target state="translated">إستعادة</target>
         </trans-unit>
+        <trans-unit id="SetTargetFolderFromNewIcon" translate="yes" xml:space="preserve">
+          <source>Set Target Folder From Icon Folder</source>
+          <target state="translated">تغيير المجلد الهدف لمجلد الأيقونة</target>
+        </trans-unit>
+        <trans-unit id="SetTargetFolderFromNewIconToolTip" translate="yes" xml:space="preserve">
+          <source>Set the Target Folder to the folder that containing the new icon file</source>
+          <target state="translated">تغيير المجلد الهدف الي المجلد الذي يحتوي على الأيقونة الجديدة</target>
+        </trans-unit>
       </group>
     </body>
   </file>
