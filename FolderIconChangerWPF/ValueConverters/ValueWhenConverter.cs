@@ -10,7 +10,7 @@ namespace FolderIconChangerWPF.ValueConverters
     /*Usage
      * https://github.com/Windows-XAML/Template10/wiki/Converters#changetypeconverter
 Implementation
-xmlns:s="clr-namespace:System;assembly=mscorlib"
+xmlns:s="clr-namespace:System;assembly=System.Runtime"
 
 You can add this binding as a Resource to another XAML element.
 

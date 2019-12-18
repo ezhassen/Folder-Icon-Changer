@@ -60,7 +60,7 @@ namespace FolderIconChangerWPF
     public class StringIEqualityComparer : IEqualityComparer<string>
     {
         private StringComparison _SComparison;
-        public StringIEqualityComparer(StringComparison SComparison_1 = StringComparison.CurrentCultureIgnoreCase)
+        public StringIEqualityComparer(StringComparison SComparison_1 = StringComparison.OrdinalIgnoreCase)
         {
             _SComparison = SComparison_1;
         }

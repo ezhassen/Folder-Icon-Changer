@@ -1,6 +1,6 @@
 ﻿using Ezz_Helper.Drawing.IconsManager;
+using Ezz_Helper.WinForms.IconsManager;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Threading;
@@ -10,20 +10,20 @@ using static Ezz_Helper.Drawing.IconsManager.IconInfo;
 
 namespace FolderIconChangerWPF.IconInfoCore
 {
-    public enum IconViewTypes
-    {
-        /// <summary>
-        /// To show icon group of one icon.
-        /// </summary>
-        /// <remarks></remarks>
-        OneIcon = 0,
-        /// <summary>
-        /// To show icons of MultiIcons.
-        /// </summary>
-        /// <remarks></remarks>
-        MultiIcons = 1
-        //Custom
-    }
+    //public enum IconViewTypes
+    //{
+    //    /// <summary>
+    //    /// To show icon group of one icon.
+    //    /// </summary>
+    //    /// <remarks></remarks>
+    //    OneIcon = 0,
+    //    /// <summary>
+    //    /// To show icons of MultiIcons.
+    //    /// </summary>
+    //    /// <remarks></remarks>
+    //    MultiIcons = 1
+    //    //Custom
+    //}
 
     public static class IconHelper
     {
@@ -156,76 +156,76 @@ namespace FolderIconChangerWPF.IconInfoCore
 
     }
 
-    public class SelectedIconInfo
-    {
-        public bool? DialogResult { get; set; }
+    //public class SelectedIconInfo
+    //{
+    //    public bool? DialogResult { get; set; }
 
-        public IconViewTypes IconViewType { get; set; }
+    //    public IconViewTypes IconViewType { get; set; }
 
-        public Icon SourceIcon { get; set; }
+    //    public Icon SourceIcon { get; set; }
 
-        public IconInfo.IconImageInfo SelectedIconImageInfo { get; set; }
+    //    public IconInfo.IconImageInfo SelectedIconImageInfo { get; set; }
 
-        /// <summary>
-        /// Icon Index in the file
-        /// </summary>
-        public int Index { get; set; }
+    //    /// <summary>
+    //    /// Icon Index in the file
+    //    /// </summary>
+    //    public int Index { get; set; }
 
-        public string FilePath { get; set; }
+    //    public string FilePath { get; set; }
 
-        /// <summary>
-        /// Icons Count in the file
-        /// </summary>
-        public int ICount { get; set; }
+    //    /// <summary>
+    //    /// Icons Count in the file
+    //    /// </summary>
+    //    public int ICount { get; set; }
 
-    }
-    public sealed class SelectedIcons : List<SelectedIconInfo>
-    {
+    //}
+    //public sealed class SelectedIcons : List<SelectedIconInfo>
+    //{
 
-        public bool? DialogResult { get; set; }
+    //    public bool? DialogResult { get; set; }
 
-        public DrawIconsToListView.IconViewTypes IconViewType { get; set; }
+    //    public IconViewTypes IconViewType { get; set; }
 
-        public string FilePath { get; set; }
+    //    public string FilePath { get; set; }
 
-        public int ICount { get; set; }
+    //    public int ICount { get; set; }
 
-        public SelectedIconInfo GetFirstItem()
-        {
-            if (this.Count == 0) return null;
-            return this[0];
-        }
-        public IconInfo.IconImageInfo GetFirstIconImageInfo()
-        {
-            if (this.Count == 0) return null;
-            return this[0].SelectedIconImageInfo;
-        }
-        public List<IconInfo.IconImageInfo> GetAllIconImageInfo()
-        {
-            var newL = new List<IconInfo.IconImageInfo>();
-            foreach (SelectedIconInfo item in this)
-            {
-                newL.Add(item.SelectedIconImageInfo);
-            }
-            return newL;
-        }
+    //    public SelectedIconInfo GetFirstItem()
+    //    {
+    //        if (this.Count == 0) return null;
+    //        return this[0];
+    //    }
+    //    public IconInfo.IconImageInfo GetFirstIconImageInfo()
+    //    {
+    //        if (this.Count == 0) return null;
+    //        return this[0].SelectedIconImageInfo;
+    //    }
+    //    public List<IconInfo.IconImageInfo> GetAllIconImageInfo()
+    //    {
+    //        var newL = new List<IconInfo.IconImageInfo>();
+    //        foreach (SelectedIconInfo item in this)
+    //        {
+    //            newL.Add(item.SelectedIconImageInfo);
+    //        }
+    //        return newL;
+    //    }
 
-        public Icon GetFirstSourceIcon()
-        {
-            if (this.Count == 0) return null;
-            return this[0].SourceIcon;
-        }
-        //public IEnumerable<Icon> GetAllSourceIcons() => this.Select(sii => sii.SourceIcon);
-        public List<Icon> GetAllSourceIcons()
-        {
-            var newL = new List<Icon>();
-            foreach (SelectedIconInfo item in this)
-            {
-                newL.Add(item.SourceIcon);
-            }
-            return newL;
-        }
+    //    public Icon GetFirstSourceIcon()
+    //    {
+    //        if (this.Count == 0) return null;
+    //        return this[0].SourceIcon;
+    //    }
+    //    //public IEnumerable<Icon> GetAllSourceIcons() => this.Select(sii => sii.SourceIcon);
+    //    public List<Icon> GetAllSourceIcons()
+    //    {
+    //        var newL = new List<Icon>();
+    //        foreach (SelectedIconInfo item in this)
+    //        {
+    //            newL.Add(item.SourceIcon);
+    //        }
+    //        return newL;
+    //    }
 
-    }
+    //}
 
 }

@@ -301,7 +301,7 @@ namespace FolderIconChangerWPF.ViewModels
 
             var tRes = await Task.Run(() =>
              {
-                 Select_Icon.SelectedIconInfo FIInfo = null;
+                 Ezz_Helper.WinForms.IconsManager.SelectedIconInfo FIInfo = null;
                  Exception Exception = null;
                  string IconFilePath = null;
                  int? IconIndex = null;

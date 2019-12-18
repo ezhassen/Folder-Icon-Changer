@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Ezz_Helper.Custom_Comparers;
 using Ezz_Helper.Files.GetInfo;
 using Microsoft.Win32;
 
@@ -79,7 +78,7 @@ namespace FolderIconChangerWPF.Helpers
             {
                 foreach (string name in item.Names)
                 {
-                    if (!newl.Contains(name, new stringIEqualityComparer())) newl.Add(name);
+                    if (!newl.Contains(name, new StringIEqualityComparer())) newl.Add(name);
                 }
             }
             return newl;
