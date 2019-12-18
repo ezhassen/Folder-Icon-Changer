@@ -36,7 +36,7 @@
         <Border
             Grid.Column="1"
             Margin="0,2"
-            Background="{DynamicResource GrayBrush2}"
+            Background="{DynamicResource MahApps.Brushes.Gray2}"
             CornerRadius="1" />
 
         <ToggleButton

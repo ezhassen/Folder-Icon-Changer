@@ -58,9 +58,9 @@
           
             <Style
                 x:Key="BrowseButtonStyle"
-                BasedOn="{StaticResource MetroButton}"
+                BasedOn="{StaticResource MahApps.Styles.Button}"
                 TargetType="{x:Type ButtonBase}">
-                <!--<Setter Property="Foreground" Value="{DynamicResource AccentBaseColorBrush}"/>-->
+                <!--<Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.AccentBase}"/>-->
                 <Setter Property="Content">
                     <Setter.Value>
                         <!--<iconPacks:PackIconOcticons Kind="FileDirectory" />-->
@@ -74,7 +74,7 @@
                 <Setter Property="MinWidth" Value="50" />
             </Style>
             
-            <Style x:Key="MetroButtonWithOverlay" BasedOn="{StaticResource MahApps.Metro.Styles.MetroButton}" TargetType="{x:Type ButtonBase}">
+            <Style x:Key="MetroButtonWithOverlay" BasedOn="{StaticResource MahApps.Styles.Button}" TargetType="{x:Type ButtonBase}">
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ButtonBase}">
@@ -82,12 +82,12 @@
                                 <Border Name="Background" Background="{TemplateBinding Background}" CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:ControlsHelper.CornerRadius), Mode=OneWay}" />
                                 <Border Name="Overlay"/>
                                 <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Background="{x:Null}" CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:ControlsHelper.CornerRadius), Mode=OneWay}" />
-                                <Border Name="DisabledVisualElement" Background="{DynamicResource ControlsDisabledBrush}" IsHitTestVisible="false" Opacity="0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:ControlsHelper.CornerRadius), Mode=OneWay}" />
+                                <Border Name="DisabledVisualElement" Background="{DynamicResource MahApps.Brushes.Controls.Disabled}" IsHitTestVisible="false" Opacity="0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:ControlsHelper.CornerRadius), Mode=OneWay}" />
                                 <mm:ContentControlEx Name="PART_ContentPresenter" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}" RecognizesAccessKey="true" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" ContentCharacterCasing="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:ControlsHelper.ContentCharacterCasing)}" />
                             </Grid>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="true">
-                                    <Setter TargetName="Overlay" Value="{DynamicResource SemiTransparentGreyBrush}" Property="Background" />
+                                    <Setter TargetName="Overlay" Value="{DynamicResource MahApps.Brushes.SemiTransparentGray}" Property="Background" />
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="true">
                                     <Setter TargetName="Overlay" Value="{DynamicResource SemiTransparentWhiteBrush}" Property="Background" />
@@ -152,7 +152,7 @@
                         <Setter Value="{DynamicResource SemiTransparentWhiteBrush}" Property="Background" />
                     </Trigger>
                     <Trigger Property="IsPressed" Value="true">
-                        <Setter TargetName="Background" Value="{DynamicResource SemiTransparentGreyBrush}" Property="Background" />
+                        <Setter TargetName="Background" Value="{DynamicResource MahApps.Brushes.SemiTransparentGray}" Property="Background" />
                     </Trigger>-->
                     <EventTrigger RoutedEvent="MouseEnter">
                         <BeginStoryboard>
@@ -332,7 +332,7 @@
                             mm:TextBoxHelper.ButtonCommandParameter="{Binding CurrentIconPath}"
                             mm:TextBoxHelper.TextButton="{Binding CurrentIconPath, Converter={conv:BoolWhenStringConverter}}"
                             IsReadOnly="True" IsReadOnlyCaretVisible="True"
-                            Style="{DynamicResource MetroButtonTextBox}"
+                            Style="{DynamicResource MahApps.Styles.TextBox.Button}"
                             Text="{Binding CurrentIconPath}"
                             ToolTip="{lex:BLoc FilePath, TargetNullValue=File Path}">
                             <mm:TextBoxHelper.ButtonContentTemplate>
@@ -459,7 +459,7 @@
                         Maximum="{Binding NewIconMaxIndex}"
                         Minimum="0"
                         NumericInputMode="Numbers"
-                        SelectAllOnFocus="True"
+                        mm:TextBoxHelper.SelectAllOnFocus="True"
                         ToolTip="{lex:BLoc Select_Icon_Index, TargetNullValue=Index}"
                         Value="{Binding NewIconIndex, TargetNullValue=0}" />
 
@@ -566,13 +566,13 @@
 
                         <StackPanel Margin="10,0">
                             <StackPanel.Resources>
-                                <Style BasedOn="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" TargetType="mm:ToggleSwitch">
+                                <Style BasedOn="{StaticResource MahApps.Styles.ToggleSwitch.Win10}" TargetType="mm:ToggleSwitch">
                                     <Setter Property="ContentTemplate">
                                         <Setter.Value>
                                             <ItemContainerTemplate>
                                                 <!--<Border
                                                         Padding="3"
-                                                        BorderBrush="{DynamicResource GrayBrush6}"
+                                                        BorderBrush="{DynamicResource MahApps.Brushes.Gray6}"
                                                         BorderThickness="0"
                                                         CornerRadius="5">-->
                                                 <TextBlock Text="{Binding}" TextWrapping="Wrap" />

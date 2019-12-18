@@ -129,19 +129,22 @@ Application.Current.Resources.MergedDictionaries.Add((ResourceDictionary)Applica
             ////Application.Current.MainWindow?.RefreshUI();
             /////
             ///
-            var sss = ThemeManager.DetectAppStyle(Application.Current);
+            //var sss = ThemeManager.DetectTheme(Application.Current);
 
-            var theme = ThemeManager.GetAppTheme(name);
-            if (theme == null)
+            var theme = ThemeManager.GetTheme(name);
+            if (theme is null)
             {
-                ThemeManager.AddAppTheme(name, new Uri(path, UriKind.RelativeOrAbsolute));
+                ThemeManager.AddTheme(new Uri(path, UriKind.RelativeOrAbsolute));
+                //ThemeManager.AddAppTheme(name, new Uri(path, UriKind.RelativeOrAbsolute));
                 //ThemeManager.ChangeAppTheme(Application.Current, name);
-                theme = ThemeManager.GetAppTheme(name);
+                theme = ThemeManager.GetTheme(name);
             }
             //var MetroTheme = ThemeManager.GetAppTheme(metroThemeName);
 
             //if (MetroTheme != null) ThemeManager.ChangeAppStyle(Application.Current, sss.Item2, MetroTheme);
-            ThemeManager.ChangeAppStyle(Application.Current, sss.Item2, theme);
+            if (theme is null) return;
+            ThemeManager.ChangeTheme(Application.Current, theme);
+            //ThemeManager.ChangeAppStyle(Application.Current, sss.Item2, theme);
             //foreach (Window window in Application.Current.Windows)
             //{
             //    ThemeManager.ChangeAppStyle(window, sss.Item2, theme);

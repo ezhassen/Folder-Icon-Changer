@@ -14,7 +14,7 @@
 
     <Style
         x:Key="EzzFilterTextBoxBaseStyle"
-        BasedOn="{StaticResource MetroTextBox}"
+        BasedOn="{StaticResource MahApps.Styles.TextBox}"
         TargetType="{x:Type TextBox}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <!--  change SnapsToDevicePixels to True to view a better border and validation error  -->
@@ -95,7 +95,7 @@
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 Foreground="{TemplateBinding Foreground}"
-                                Style="{DynamicResource MahApps.Metro.Styles.MetroWatermarkTextBlock}"
+                                Style="{DynamicResource MahApps.Styles.TextBlock.Watermark}"
                                 Text="{TemplateBinding mm:TextBoxHelper.Watermark}"
                                 TextAlignment="{TemplateBinding mm:TextBoxHelper.WatermarkAlignment}"
                                 TextTrimming="{TemplateBinding mm:TextBoxHelper.WatermarkTrimming}"
@@ -105,7 +105,7 @@
                                 x:Name="PART_FloatingMessageContainer"
                                 Grid.Row="0"
                                 Grid.Column="0"
-                                Style="{DynamicResource FloatingMessageContainerStyle}">
+                                Style="{DynamicResource MahApps.Styles.ContentControl.FloatingMessageContainer}">
                                 <ContentControl.Height>
                                     <MultiBinding Converter="{mmConverters:MathMultiplyConverter}">
                                         <Binding
@@ -123,7 +123,7 @@
                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                     Foreground="{TemplateBinding Foreground}"
-                                    Style="{DynamicResource MetroAutoCollapsingTextBlock}"
+                                    Style="{DynamicResource MahApps.Styles.TextBlock.AutoCollapsing}"
                                     Text="{TemplateBinding mm:TextBoxHelper.Watermark}"
                                     TextAlignment="{TemplateBinding mm:TextBoxHelper.WatermarkAlignment}"
                                     TextTrimming="{TemplateBinding mm:TextBoxHelper.WatermarkTrimming}">
@@ -170,7 +170,7 @@
                                     Foreground="{TemplateBinding Foreground}"
                                     IsEnabled="{TemplateBinding ap:TextBoxHelper.FilterButtonIsEnabled}"
                                     IsTabStop="False"
-                                    Style="{DynamicResource ChromelessButtonStyle}"
+                                    Style="{DynamicResource MahApps.Styles.Button.Chromeless}"
                                     ToolTip="{TemplateBinding ap:TextBoxHelper.FilterButtonToolTip}"
                                     Visibility="{TemplateBinding ap:TextBoxHelper.FilterButtonVisibility}" />
 
@@ -188,7 +188,7 @@
                                     Foreground="{TemplateBinding Foreground}"
                                     IsEnabled="{TemplateBinding ap:TextBoxHelper.ClearButtonIsEnabled}"
                                     IsTabStop="False"
-                                    Style="{DynamicResource ChromelessButtonStyle}"
+                                    Style="{DynamicResource MahApps.Styles.Button.Chromeless}"
                                     Template="{TemplateBinding mm:TextBoxHelper.ButtonTemplate}"
                                     ToolTip="{TemplateBinding ap:TextBoxHelper.ClearButtonToolTip}"
                                     Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:TextBoxHelper.HasText), Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -197,8 +197,8 @@
                         </Grid>
                         <Border
                             x:Name="DisabledVisualElement"
-                            Background="{DynamicResource ControlsDisabledBrush}"
-                            BorderBrush="{DynamicResource ControlsDisabledBrush}"
+                            Background="{DynamicResource MahApps.Brushes.Controls.Disabled}"
+                            BorderBrush="{DynamicResource MahApps.Brushes.Controls.Disabled}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             IsHitTestVisible="False"
                             Opacity="0"
@@ -218,7 +218,7 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Content="M42.5,22A12.5,12.5 0 0,1 55,34.5A12.5,12.5 0 0,1 42.5,47C40.14,47 37.92,46.34 36,45.24L26.97,54.27C25.8,55.44 23.9,55.44 22.73,54.27C21.56,53.1 21.56,51.2 22.73,50.03L31.8,40.96C30.66,39.08 30,36.86 30,34.5A12.5,12.5 0 0,1 42.5,22M42.5,26A8.5,8.5 0 0,0 34,34.5A8.5,8.5 0 0,0 42.5,43A8.5,8.5 0 0,0 51,34.5A8.5,8.5 0 0,0 42.5,26Z"
-                                            Style="{DynamicResource PathIconContentControlStyle}" />
+                                            Style="{DynamicResource MahApps.Styles.ContentControl.PathIcon}" />
                                 </Setter.Value>
                             </Setter>-->
                             <!--  RequireFilterButtonToolTip  -->
@@ -236,7 +236,7 @@
                                         VerticalAlignment="Stretch"
                                         StretchDirection="Both">
                                         <!--  Visibility="{Binding Path=(ap:TextBoxHelper.IsFiltering), Mode=OneWay, Converter={conv:VisibilityWhenTrueConverter Value=Visible, Otherwise=Collapsed}}"  -->
-                                        <TextBlock Foreground="{DynamicResource AccentBaseColorBrush}" Style="{DynamicResource SpinningText}" />
+                                        <TextBlock Foreground="{DynamicResource MahApps.Brushes.AccentBase}" Style="{DynamicResource SpinningText}" />
                                     </Viewbox>
                                 </Setter.Value>
                             </Setter>
@@ -262,10 +262,10 @@
                                 <Condition Binding="{Binding Path=(mm:TextBoxHelper.HasText), RelativeSource={RelativeSource Self}}" Value="True" />
                             </MultiDataTrigger.Conditions>
                             <MultiDataTrigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource ShowFloatingMessageStoryboard}" />
+                                <BeginStoryboard Storyboard="{StaticResource MahApps.Storyboard.ShowFloatingMessage}" />
                             </MultiDataTrigger.EnterActions>
                             <MultiDataTrigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource HideFloatingMessageStoryboard}" />
+                                <BeginStoryboard Storyboard="{StaticResource MahApps.Storyboard.HideFloatingMessage}" />
                             </MultiDataTrigger.ExitActions>
                         </MultiDataTrigger>
 
@@ -293,25 +293,25 @@
                         </MultiTrigger>
                         <Trigger Property="IsFocused" Value="True">
                             <Setter TargetName="Base" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mm:ControlsHelper.FocusBorderBrush)}" />
-                            <Setter TargetName="PART_FloatingMessage" Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                            <Setter TargetName="PART_FloatingMessage" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
                             <Setter TargetName="PART_FloatingMessage" Property="Opacity" Value="1" />
                         </Trigger>
 
                         <Trigger SourceName="PART_ClearText" Property="IsMouseOver" Value="True">
-                            <Setter TargetName="PART_ClearText" Property="Background" Value="{DynamicResource GrayBrush8}" />
-                            <Setter TargetName="PART_ClearText" Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                            <Setter TargetName="PART_ClearText" Property="Background" Value="{DynamicResource MahApps.Brushes.Gray8}" />
+                            <Setter TargetName="PART_ClearText" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
                         </Trigger>
                         <Trigger SourceName="PART_ClearText" Property="IsPressed" Value="True">
-                            <Setter TargetName="PART_ClearText" Property="Background" Value="{DynamicResource BlackBrush}" />
-                            <Setter TargetName="PART_ClearText" Property="Foreground" Value="{DynamicResource WhiteBrush}" />
+                            <Setter TargetName="PART_ClearText" Property="Background" Value="{DynamicResource MahApps.Brushes.Black}" />
+                            <Setter TargetName="PART_ClearText" Property="Foreground" Value="{DynamicResource MahApps.Brushes.White}" />
                         </Trigger>
                         <Trigger SourceName="PART_FilterButton" Property="IsMouseOver" Value="True">
-                            <Setter TargetName="PART_FilterButton" Property="Background" Value="{DynamicResource GrayBrush8}" />
-                            <Setter TargetName="PART_FilterButton" Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                            <Setter TargetName="PART_FilterButton" Property="Background" Value="{DynamicResource MahApps.Brushes.Gray8}" />
+                            <Setter TargetName="PART_FilterButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
                         </Trigger>
                         <Trigger SourceName="PART_FilterButton" Property="IsPressed" Value="True">
-                            <Setter TargetName="PART_FilterButton" Property="Background" Value="{DynamicResource BlackBrush}" />
-                            <Setter TargetName="PART_FilterButton" Property="Foreground" Value="{DynamicResource WhiteBrush}" />
+                            <Setter TargetName="PART_FilterButton" Property="Background" Value="{DynamicResource MahApps.Brushes.Black}" />
+                            <Setter TargetName="PART_FilterButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.White}" />
                         </Trigger>
 
                         <MultiTrigger>
@@ -321,7 +321,7 @@
                             </MultiTrigger.Conditions>
                             <Setter TargetName="PART_WaitingForDataEffectAdornerDecorator" Property="Visibility" Value="Visible" />
                             <MultiTrigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource WaitingForDataStoryboard}" />
+                                <BeginStoryboard Storyboard="{StaticResource MahApps.Storyboard.WaitingForData}" />
                             </MultiTrigger.EnterActions>
                         </MultiTrigger>
                         <Trigger Property="mm:TextBoxHelper.IsWaitingForData" Value="False">
@@ -344,13 +344,13 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Content="M42.5,22A12.5,12.5 0 0,1 55,34.5A12.5,12.5 0 0,1 42.5,47C40.14,47 37.92,46.34 36,45.24L26.97,54.27C25.8,55.44 23.9,55.44 22.73,54.27C21.56,53.1 21.56,51.2 22.73,50.03L31.8,40.96C30.66,39.08 30,36.86 30,34.5A12.5,12.5 0 0,1 42.5,22M42.5,26A8.5,8.5 0 0,0 34,34.5A8.5,8.5 0 0,0 42.5,43A8.5,8.5 0 0,0 51,34.5A8.5,8.5 0 0,0 42.5,26Z"
-                    Style="{DynamicResource PathIconContentControlStyle}" />
+                    Style="{DynamicResource MahApps.Styles.ContentControl.PathIcon}" />
                 <!--</DataTemplate>-->
             </Setter.Value>
         </Setter>
         <!--<Setter Property="ap:TextBoxHelper.RequireFilterButtonToolTip" Value="{lex:BLoc Refresh, TargetNullValue=Refresh}" />-->
         <Setter Property="ap:TextBoxHelper.FilterButtonToolTip" Value="{lex:BLoc Filter, TargetNullValue=Filter}" />
-        <Setter Property="mm:TextBoxHelper.ButtonTemplate" Value="{DynamicResource ChromelessButtonTemplate}" />
+        <Setter Property="mm:TextBoxHelper.ButtonTemplate" Value="{DynamicResource MahApps.Templates.Button.Chromeless}" />
         <Setter Property="mm:TextBoxHelper.TextButton" Value="True" />
     </Style>
     <Style

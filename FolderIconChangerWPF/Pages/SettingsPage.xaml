@@ -21,13 +21,13 @@
     mc:Ignorable="d">
 
     <local:BasePage.Resources>
-        <Style BasedOn="{StaticResource MahApps.Metro.Styles.ToggleSwitch.Win10}" TargetType="mm:ToggleSwitch">
+        <Style BasedOn="{StaticResource MahApps.Styles.ToggleSwitch.Win10}" TargetType="mm:ToggleSwitch">
             <Setter Property="ContentTemplate">
                 <Setter.Value>
                     <ItemContainerTemplate>
                         <!--<Border
                                                         Padding="3"
-                                                        BorderBrush="{DynamicResource GrayBrush6}"
+                                                        BorderBrush="{DynamicResource MahApps.Brushes.Gray6}"
                                                         BorderThickness="0"
                                                         CornerRadius="5">-->
                         <TextBlock Text="{Binding}" TextWrapping="Wrap" />

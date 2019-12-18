@@ -9,7 +9,8 @@
     <!--#region  Windows-->
     
     <Style x:Key="WindowCommandsSeparator" TargetType="Separator">
-        <Setter Property="Foreground" Value="{DynamicResource SeperatorBrush}" />
+        <!--<Setter Property="Foreground" Value="{DynamicResource SeperatorBrush}" />-->
+        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray2}" />
         <Setter Property="Margin" Value="3" />
         <Setter Property="Height" Value="11" />
         <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
@@ -48,7 +49,7 @@
                         FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}"
                         FontFamily="{StaticResource FontAwesome}"
                         FontSize="12"
-                        Foreground="{DynamicResource GrayBrush2}"
+                        Foreground="{DynamicResource MahApps.Brushes.Gray2}"
                         TextAlignment="Center">
                         <Run Text="{lex:BLoc ByEzhassen}" /><Run Text=" (ezhassen)" />
                     </TextBlock>
@@ -79,7 +80,7 @@
             Margin="5,1,1,0"
             Padding="1"
             HorizontalAlignment="Left"
-            Background="{DynamicResource WindowBackgroundBrush}"
+            Background="{DynamicResource MahApps.Brushes.Window.Background}"
             BorderThickness="0"
             ItemsSource="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SupportedCultures}"
             SelectedItem="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SelectedCulture}"
@@ -109,7 +110,7 @@
                                 FontSize="{DynamicResource FontSizeSmall}"
                                 FontWeight="Bold"
                                 TextAlignment="Center">
-                                <TextBlock Visibility="{Binding DisplayName, Mode=OneWay, Converter={conv:VisibilityWhenStringConverter When=English, Value=Collapsed, Otherwise=Visible}}"><Run Foreground="{StaticResource WordBlueBrush}" Text="{Binding DisplayName, Mode=OneWay}" /></TextBlock>
+                                <TextBlock Visibility="{Binding DisplayName, Mode=OneWay, Converter={conv:VisibilityWhenStringConverter When=English, Value=Collapsed, Otherwise=Visible}}"><Run Foreground="{DynamicResource WordBlueBrush}" Text="{Binding DisplayName, Mode=OneWay}" /></TextBlock>
                                 <Run Foreground="{DynamicResource WordOrangeBrush}" Text="{}{" />
                                 <Run Foreground="{DynamicResource WordRedBrush}" Text="{Binding NativeName, Mode=OneWay}" />
                                 <Run Foreground="{DynamicResource WordOrangeBrush}" Text="}" />
@@ -129,7 +130,7 @@
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Stretch"
                 ArrowVisibility="Collapsed"
-                Background="{DynamicResource WindowBackgroundBrush}"
+                Background="{DynamicResource MahApps.Brushes.Window.Background}"
                 BorderThickness="0"
                 ItemsSource="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SupportedCultures}"
                 ToolTip="{Binding NativeName}">
@@ -165,7 +166,7 @@
                                         FontSize="{DynamicResource FontSizeSmall}"
                                         FontWeight="Bold"
                                         TextAlignment="Center">
-                                        <TextBlock Visibility="{Binding DisplayName, Mode=OneWay, Converter={conv:VisibilityWhenStringConverter When=English, Value=Collapsed, Otherwise=Visible}}"><Run Foreground="{StaticResource WordBlueBrush}" Text="{Binding DisplayName, Mode=OneWay}" /></TextBlock>
+                                        <TextBlock Visibility="{Binding DisplayName, Mode=OneWay, Converter={conv:VisibilityWhenStringConverter When=English, Value=Collapsed, Otherwise=Visible}}"><Run Foreground="{DynamicResource WordBlueBrush}" Text="{Binding DisplayName, Mode=OneWay}" /></TextBlock>
                                         <Run Foreground="{DynamicResource WordOrangeBrush}" Text="{}{" />
                                         <Run Foreground="{DynamicResource WordRedBrush}" Text="{Binding NativeName, Mode=OneWay}" />
                                         <Run Foreground="{DynamicResource WordOrangeBrush}" Text="}" />
@@ -258,9 +259,9 @@
             <!--  UnderLine  -->
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                    <GradientStop Offset="0.0" Color="{DynamicResource WhiteColor}" />
-                    <GradientStop Offset="0.5" Color="{DynamicResource BlackColor}" />
-                    <GradientStop Offset="1.0" Color="{DynamicResource WhiteColor}" />
+                    <GradientStop Offset="0.0" Color="{DynamicResource MahApps.Colors.White}" />
+                    <GradientStop Offset="0.5" Color="{DynamicResource MahApps.Colors.Black}" />
+                    <GradientStop Offset="1.0" Color="{DynamicResource MahApps.Colors.White}" />
                 </LinearGradientBrush>
             </Border.BorderBrush>
             <!--  Drop Shadow  -->

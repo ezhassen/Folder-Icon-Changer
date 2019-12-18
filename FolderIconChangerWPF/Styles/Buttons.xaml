@@ -53,7 +53,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Padding" Value="8" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
-        <Setter Property="Foreground" Value="{StaticResource GrayBrush1}" />
+        <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.Gray1}" />
 
         <Setter Property="LayoutTransform">
             <Setter.Value>
@@ -262,7 +262,7 @@
 
     <Style
         x:Key="CustomLightMetroWindowButtonStyleBase"
-        BasedOn="{StaticResource LightMetroWindowButtonStyle}"
+        BasedOn="{StaticResource MahApps.Styles.Button.MetroWindow.Light}"
         TargetType="{x:Type Button}">
         <!--<Setter Property="Foreground" Value="Chocolate" />-->
         <Setter Property="MaxHeight" Value="100" />
@@ -295,7 +295,7 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 SnapsToDevicePixels="True"
-                                Stroke="{DynamicResource GrayBrush1}"
+                                Stroke="{DynamicResource MahApps.Brushes.Gray1}"
                                 X1="0"
                                 X2="10"
                                 Y1="0"
@@ -304,7 +304,7 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 SnapsToDevicePixels="True"
-                                Stroke="{DynamicResource GrayBrush1}"
+                                Stroke="{DynamicResource MahApps.Brushes.Gray1}"
                                 X1="0"
                                 X2="10"
                                 Y1="10"
@@ -424,7 +424,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Data="M0,0L32,0 32,5.3 0,5.3z"
-                            Fill="{DynamicResource GrayBrush1}"
+                            Fill="{DynamicResource MahApps.Brushes.Gray1}"
                             RenderOptions.EdgeMode="Aliased"
                             SnapsToDevicePixels="True"
                             Stretch="Uniform" />
@@ -473,7 +473,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Data="M6,6L6,90 90,90 90,6 6,6z M0,0L96,0 96,96 0,96 0,0z"
-                            Fill="{DynamicResource GrayBrush1}"
+                            Fill="{DynamicResource MahApps.Brushes.Gray1}"
                             RenderOptions.EdgeMode="Aliased"
                             SnapsToDevicePixels="True"
                             Stretch="Uniform" />
@@ -510,7 +510,7 @@
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Data="F1M0,10L0,3 3,3 3,0 10,0 10,2 4,2 4,3 7,3 7,6 6,6 6,5 1,5 1,10z M1,10L7,10 7,7 10,7 10,2 9,2 9,6 6,6 6,9 1,9z"
-                                    Fill="{DynamicResource GrayBrush1}"
+                                    Fill="{DynamicResource MahApps.Brushes.Gray1}"
                                     RenderOptions.EdgeMode="Aliased"
                                     SnapsToDevicePixels="True"
                                     Stretch="Uniform" />
@@ -553,14 +553,14 @@
         x:Key="CustomLightMetroWindowButtonStyle"
         BasedOn="{StaticResource LightMetroWindowButtonStyle}"
         TargetType="{x:Type Button}">
-        <Setter Property="Foreground" Value="{DynamicResource GrayBrush1}" />
+        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray1}" />
     </Style>
 
     <Style
         x:Key="CustomDarkMetroWindowButtonStyle"
         BasedOn="{StaticResource DarkMetroWindowButtonStyle}"
         TargetType="{x:Type Button}">
-        <Setter Property="Foreground" Value="{DynamicResource GrayBrush1}" />
+        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray1}" />
     </Style>
 
     <Style BasedOn="{StaticResource {x:Type mmcontrols:WindowButtonCommands}}" TargetType="{x:Type mmcontrols:WindowButtonCommands}">
@@ -578,7 +578,7 @@
     <!--  light button style for min, max and close window buttons  -->
     <Style
         x:Key="CustomLightMetroWindowButtonStyle"
-        BasedOn="{StaticResource BaseMetroWindowButtonStyle}"
+        BasedOn="{StaticResource MahApps.Styles.Button.MetroWindow.Base}"
         TargetType="{x:Type Button}">
         <Setter Property="Foreground" Value="{DynamicResource WindowActionsForegroundBrush}" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -590,15 +590,15 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <!--<Setter Property="Background" Value="{DynamicResource WindowActionsBrush}" />-->
-                <Setter Property="Background" Value="{DynamicResource SemiTransparentGreyBrush}" />
+                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.SemiTransparentGray}" />
                 <Setter Property="Foreground" Value="{DynamicResource WindowActionsForegroundBrush}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{DynamicResource AccentColorBrush}" />
+                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
                 <Setter Property="Foreground" Value="White" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource IdealForegroundDisabledBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.IdealForegroundDisabled}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -610,15 +610,15 @@
         TargetType="{x:Type Button}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource SemiTransparentGreyBrush}" />
+                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.SemiTransparentGray}" />
                 <Setter Property="Foreground" Value="{DynamicResource WindowActionsForegroundBrush}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{DynamicResource AccentColorBrush}" />
+                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
                 <Setter Property="Foreground" Value="White" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource DarkIdealForegroundDisabledBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.DarkIdealForegroundDisabled}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -637,7 +637,7 @@
                 <Setter Property="Foreground" Value="White" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource IdealForegroundDisabledBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.IdealForegroundDisabled}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -656,7 +656,7 @@
                 <Setter Property="Foreground" Value="White" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource DarkIdealForegroundDisabledBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.DarkIdealForegroundDisabled}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -816,7 +816,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding ParentWindow.ShowTitleBar, RelativeSource={RelativeSource Self}}" Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource IdealForegroundColorBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.IdealForeground}" />
             </DataTrigger>
         </Style.Triggers>
     </Style>
@@ -846,7 +846,7 @@
         <!--<Setter Property="DarkCloseButtonStyle" Value="{DynamicResource WindowButton.Close.Dark.Win10}" />
         <Setter Property="LightCloseButtonStyle" Value="{DynamicResource WindowButton.Close.Light.Win10}" />
         <Setter Property="Template" Value="{StaticResource Templates.WindowButtonCommands.Win10}" />-->
-        <!--<Setter Property="Foreground" Value="{DynamicResource GrayBrush1}" />-->
+        <!--<Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray1}" />-->
         <!--<Setter Property="LightMinButtonStyle" Value="{StaticResource MinimizeCustomLightMetroWindowButtonStyle}" />
         <Setter Property="LightMaxButtonStyle" Value="{StaticResource MaximizeCustomLightMetroWindowButtonStyle}" />
         <Setter Property="LightCloseButtonStyle" Value="{StaticResource CloseCustomLightMetroWindowButtonStyle}" />
@@ -863,7 +863,7 @@
     <Style x:Key="RegularButton" TargetType="{x:Type Button}">
 
         <Setter Property="Background" Value="{StaticResource WordOrangeBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource GrayBrush10}" />
+        <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.Gray10}" />
 
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
@@ -994,7 +994,7 @@
     <Style x:Key="TextButton" TargetType="{x:Type Button}">
 
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource GrayBrush10}" />
+        <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.Gray10}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
         <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
@@ -1027,7 +1027,7 @@
                             <Setter Property="Foreground" Value="{StaticResource WordOrangeBrush}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="{StaticResource GrayBrush4}" />
+                            <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.Gray4}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <!--<Setter TargetName="border" Property="BorderBrush" Value="Transparent" />-->
@@ -1070,7 +1070,7 @@
         <Setter Property="Focusable" Value="False" />
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="TextBlock.FontWeight" Value="Bold" />
-        <Setter Property="Foreground" Value="{StaticResource AccentBaseColorBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.AccentBase}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -1090,7 +1090,7 @@
     <Style x:Key="LinkButton" TargetType="{x:Type Button}">
 
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="{StaticResource GrayBrush6}" />
+        <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.Gray6}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
         <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
@@ -1125,7 +1125,7 @@
                             <Setter Property="Foreground" Value="{StaticResource WordOrangeBrush}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Foreground" Value="{StaticResource GrayBrush5}" />
+                            <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.Gray5}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <!--<Setter TargetName="border" Property="BorderBrush" Value="Transparent" />-->

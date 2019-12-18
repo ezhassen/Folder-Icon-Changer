@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:FolderIconChangerWPF.Styles">
     
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Styles/Texts.xaml" />
+        <!--<ResourceDictionary Source="pack://application:,,,/Styles/Texts.xaml" />-->
         <ResourceDictionary Source="pack://application:,,,/Styles/Buttons.xaml" />
         <!--<ResourceDictionary Source="pack://application:,,,/Styles/Controls.ComboBox.xaml" />-->
         

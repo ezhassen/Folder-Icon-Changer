@@ -6,23 +6,23 @@
     xmlns:lex="http://wpflocalizeextension.codeplex.com"
     xmlns:mm="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mmConverters="clr-namespace:MahApps.Metro.Converters;assembly=MahApps.Metro"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
 
     <Style x:Key="BaseTextBlockDarkStyle" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
-        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-        <!--<Setter Property="Background" Value="{StaticResource GrayBrush10}" />-->
+        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}" />
+        <!--<Setter Property="Background" Value="{StaticResource MahApps.Brushes.Gray10}" />-->
     </Style>
     <Style x:Key="BaseTextBoxStyle" TargetType="{x:Type TextBox}">
-        <Setter Property="Background" Value="{DynamicResource GrayBrush8}" />
-        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray8}" />
+        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}" />
     </Style>
     <Style
         x:Key="HeaderText"
         BasedOn="{StaticResource BaseTextBlockStyle}"
         TargetType="{x:Type TextBlock}">
-        <Setter Property="Foreground" Value="{DynamicResource GrayBrush2}" />
+        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray2}" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="Margin" Value="0,6" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -31,15 +31,15 @@
         x:Key="TextBoxMedium"
         BasedOn="{StaticResource BaseTextBoxStyle}"
         TargetType="{x:Type TextBox}">
-        <Setter Property="BorderBrush" Value="{DynamicResource AccentBaseColorBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.AccentBase}" />
         <Setter Property="BorderThickness" Value="0,0,0,1" />
         <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
         <Setter Property="Margin" Value="0,5,0,5" />
         <Setter Property="Padding" Value="10" />
 
-        <!--<Setter Property="Background" Value="{StaticResource GrayBrush8}" />
-        <Setter Property="Foreground" Value="{StaticResource TextBrush}" />-->
+        <!--<Setter Property="Background" Value="{StaticResource MahApps.Brushes.Gray8}" />
+        <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.Text}" />-->
         <!--<Setter Property="IsEnabled" Value="{TemplateBinding ap:IsBusyProperty.Value, Converter={conv:BooleanToVisiblityConverter}}"/>-->
 
         <Setter Property="Template">
@@ -65,7 +65,7 @@
                             <Setter TargetName="border" Property="Opacity" Value="0.56" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource AccentColorBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Accent}" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True">
                             <Setter Property="Effect">
@@ -74,10 +74,10 @@
                                         BlurRadius="30"
                                         Direction="280"
                                         RenderingBias="Performance"
-                                        Color="{DynamicResource AccentColor}" />
+                                        Color="{DynamicResource MahApps.Colors.Accent}" />
                                 </Setter.Value>
                             </Setter>
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource AccentColorBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Accent}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -88,7 +88,7 @@
         x:Key="TextBoxWithHintLarge"
         BasedOn="{StaticResource BaseTextBoxStyle}"
         TargetType="{x:Type TextBox}">
-        <Setter Property="BorderBrush" Value="{DynamicResource AccentBaseColorBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.AccentBase}" />
         <Setter Property="BorderThickness" Value="0,0,0,1" />
         <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
 
@@ -125,7 +125,7 @@
                             HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                             VerticalAlignment="Center"
                             FontFamily="{StaticResource LatoThin}"
-                            Foreground="{DynamicResource GrayBrush5}"
+                            Foreground="{DynamicResource MahApps.Brushes.Gray5}"
                             IsHitTestVisible="False"
                             Text="{TemplateBinding Tag}">
                             <TextBlock.Style>
@@ -148,7 +148,7 @@
                             <Setter TargetName="border" Property="Opacity" Value="0.56" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource AccentColorBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Accent}" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True">
                             <Setter Property="Effect">
@@ -157,10 +157,10 @@
                                         BlurRadius="30"
                                         Direction="280"
                                         RenderingBias="Performance"
-                                        Color="{DynamicResource AccentColor}" />
+                                        Color="{DynamicResource MahApps.Colors.Accent}" />
                                 </Setter.Value>
                             </Setter>
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource AccentColorBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Accent}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -170,8 +170,8 @@
     </Style>
 
     <Style x:Key="PasswordBoxWithHintLarge" TargetType="{x:Type PasswordBox}">
-        <Setter Property="Background" Value="{DynamicResource GrayBrush8}" />
-        <Setter Property="BorderBrush" Value="{StaticResource AccentBaseColorBrush}" />
+        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray8}" />
+        <Setter Property="BorderBrush" Value="{StaticResource MahApps.Brushes.AccentBase}" />
         <Setter Property="BorderThickness" Value="0,0,0,1" />
         <Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
 
@@ -179,7 +179,7 @@
 
         <!--<Setter Property="Background" Value="{StaticResource ForegroundLightBrush}" />
         <Setter Property="Foreground" Value="{StaticResource ForegroundVeryDarkBrush}" />-->
-        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}" />
         <Setter Property="Margin" Value="0,5,0,5" />
         <Setter Property="Padding" Value="10" />
         <!--<Setter Property="IsEnabled" Value="{TemplateBinding ap:IsBusyProperty.Value, Converter={conv:BooleanToVisiblityConverter}}"/>-->
@@ -210,7 +210,7 @@
                             VerticalAlignment="Center"
                             FontFamily="{StaticResource LatoThin}"
                             FontSize="{TemplateBinding FontSize}"
-                            Foreground="{StaticResource GrayBrush5}"
+                            Foreground="{DynamicResource MahApps.Brushes.Gray5}"
                             IsHitTestVisible="False"
                             Text="{TemplateBinding Tag}"
                             Visibility="{TemplateBinding ap:HasTextProperty.Value, Converter={conv:VisibilityWhenFalseConverter}}" />
@@ -222,7 +222,7 @@
                             <Setter TargetName="border" Property="Opacity" Value="0.56" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource AccentColorBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Accent}" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True">
                             <Setter Property="Effect">
@@ -231,10 +231,10 @@
                                         BlurRadius="30"
                                         Direction="280"
                                         RenderingBias="Performance"
-                                        Color="{DynamicResource AccentColor}" />
+                                        Color="{DynamicResource MahApps.Colors.Accent}" />
                                 </Setter.Value>
                             </Setter>
-                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource AccentColorBrush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Accent}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -290,7 +290,7 @@
         <Setter Property="FontFamily" Value="{StaticResource FontAwesome}" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
-        <Setter Property="Foreground" Value="{DynamicResource AccentBaseColorBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.AccentBase}" />
     </Style>
     <Style
         x:Key="TextBlockTitle"
@@ -305,7 +305,7 @@
         -->
         <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
         <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="Foreground" Value="{DynamicResource AccentBaseColorBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.AccentBase}" />
     </Style>
     <Style
         x:Key="TextBlockSubTitle"
@@ -320,28 +320,28 @@
         -->
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
         <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="Foreground" Value="{DynamicResource GrayBrush5}" />
+        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray5}" />
         <Setter Property="TextWrapping" Value="WrapWithOverflow" />
     </Style>
 
     <!--#region Metro-->
     <Style
-        x:Key="MetroTextBoxCustom"
-        BasedOn="{StaticResource MetroTextBox}"
+        x:Key="MahApps.Styles.TextBoxCustom"
+        BasedOn="{StaticResource MahApps.Styles.TextBox}"
         TargetType="{x:Type TextBox}">
         <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
         <Setter Property="Padding" Value="10" />
     </Style>
     <Style
         x:Key="MetroButtonTextBoxCustomWithClear"
-        BasedOn="{StaticResource MetroButtonTextBox}"
+        BasedOn="{StaticResource MahApps.Styles.TextBox.Button}"
         TargetType="{x:Type TextBox}">
 
         <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
         <Setter Property="Margin" Value="0,5,0,5" />
         <!--<Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />-->
         <Setter Property="Padding" Value="10" />
-        <!--<Setter Property="BorderBrush" Value="{StaticResource GrayBrush1}" />-->
+        <!--<Setter Property="BorderBrush" Value="{StaticResource MahApps.Brushes.Gray1}" />-->
         <!--<Setter Property="BorderThickness" Value=".5" />-->
 
         <Setter Property="mm:TextBoxHelper.ClearTextButton" Value="True" />
@@ -353,11 +353,11 @@
                 <Setter Property="Opacity" Value="0.56" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderBrush" Value="{DynamicResource AccentColorBrush2}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Accent2}" />
             </Trigger>
             <Trigger Property="IsKeyboardFocused" Value="True">
                 <Setter Property="BorderThickness" Value="0,0,0,1" />
-                <Setter Property="BorderBrush" Value="{DynamicResource AccentBaseColorBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.AccentBase}" />
         -->
         <!--<Setter Property="Effect">
                     <Setter.Value>
@@ -365,7 +365,7 @@
                             BlurRadius="30"
                             Direction="280"
                             RenderingBias="Performance"
-                            Color="{DynamicResource AccentColor}" />
+                            Color="{DynamicResource MahApps.Colors.Accent}" />
                     </Setter.Value>
                 </Setter>-->
         <!--
@@ -374,8 +374,8 @@
     </Style>
     <!--<sys:String x:Key="SearchIcon">M42.5,22A12.5,12.5 0 0,1 55,34.5A12.5,12.5 0 0,1 42.5,47C40.14,47 37.92,46.34 36,45.24L26.97,54.27C25.8,55.44 23.9,55.44 22.73,54.27C21.56,53.1 21.56,51.2 22.73,50.03L31.8,40.96C30.66,39.08 30,36.86 30,34.5A12.5,12.5 0 0,1 42.5,22M42.5,26A8.5,8.5 0 0,0 34,34.5A8.5,8.5 0 0,0 42.5,43A8.5,8.5 0 0,0 51,34.5A8.5,8.5 0 0,0 42.5,26Z</sys:String>-->
     <Style
-        x:Key="EzzSearchMetroTextBox"
-        BasedOn="{StaticResource SearchMetroTextBox}"
+        x:Key="EzzSearchTextBox"
+        BasedOn="{StaticResource SearchMahApps.Styles.TextBox}"
         TargetType="{x:Type TextBox}">
         <!--<TextBox.InputBindings>
                     <KeyBinding
@@ -405,7 +405,7 @@
                             VerticalContentAlignment="Stretch"
                             Command="{Binding (ap:TextBoxHelper.FilterCommand), Mode=OneWay}"
                             IsEnabled="{Binding (ap:TextBoxHelper.FilterButtonIsEnabled)}"
-                            Style="{DynamicResource ChromelessButtonStyle}"
+                            Style="{DynamicResource MahApps.Styles.Button.Chromeless}"
                             ToolTip="{Binding (ap:TextBoxHelper.FilterButtonToolTip)}">
                             <Grid>
                                 <!--  Custom or default search button Content  -->
@@ -421,7 +421,7 @@
 
                                     <ContentControl
                                         Content="M42.5,22A12.5,12.5 0 0,1 55,34.5A12.5,12.5 0 0,1 42.5,47C40.14,47 37.92,46.34 36,45.24L26.97,54.27C25.8,55.44 23.9,55.44 22.73,54.27C21.56,53.1 21.56,51.2 22.73,50.03L31.8,40.96C30.66,39.08 30,36.86 30,34.5A12.5,12.5 0 0,1 42.5,22M42.5,26A8.5,8.5 0 0,0 34,34.5A8.5,8.5 0 0,0 42.5,43A8.5,8.5 0 0,0 51,34.5A8.5,8.5 0 0,0 42.5,26Z"
-                                        Style="{DynamicResource PathIconContentControlStyle}"
+                                        Style="{DynamicResource MahApps.Styles.ContentControl.PathIcon}"
                                         Visibility="{Binding Path=(ap:TextBoxHelper.FilterButtonContent), Converter={conv:VisibilityWhenNullConverter}}" />
                                     <!--  Visibility="{Binding Path=(ap:TextBoxHelper.IsFiltering), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBox}, Converter={conv:VisibilityWhenFalseConverter Value=Visible, Otherwise=Collapsed}}">  -->
                                     <!--  Content="{Binding Path=(ap:TextBoxHelper.FilterButtonContent), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBox}}"  -->
@@ -441,7 +441,7 @@
                                     StretchDirection="Both"
                                     Visibility="{Binding Path=(ap:TextBoxHelper.IsFiltering), Mode=OneWay, Converter={conv:VisibilityWhenTrueConverter Value=Visible, Otherwise=Collapsed}}">
 
-                                    <TextBlock Foreground="{DynamicResource AccentBaseColorBrush}" Style="{DynamicResource SpinningText}" />
+                                    <TextBlock Foreground="{DynamicResource MahApps.Brushes.AccentBase}" Style="{DynamicResource SpinningText}" />
                                 </Viewbox>
                                 <!--
                                     Style="{DynamicResource SpinningText}"
@@ -461,14 +461,14 @@
                             Command="{Binding (ap:TextBoxHelper.ClearFilterCommand)}"
                             Content="r"
                             IsEnabled="{Binding (ap:TextBoxHelper.ClearButtonIsEnabled)}"
-                            Style="{DynamicResource ChromelessButtonStyle}"
+                            Style="{DynamicResource MahApps.Styles.Button.Chromeless}"
                             ToolTip="{Binding (ap:TextBoxHelper.ClearButtonToolTip)}"
                             Visibility="{Binding Text, Converter={conv:VisibilityWhenStringConverter Value=Collapsed, Otherwise=Visible}}" />
                     </Grid>
 
                     <ControlTemplate.Triggers>
                         <!--<Trigger Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="PART_ButtonsGrid" Property="Background" Value="{DynamicResource WindowBackgroundBrush}" />
+                                            <Setter TargetName="PART_ButtonsGrid" Property="Background" Value="{DynamicResource MahApps.Brushes.Window.Background}" />
 
                                         </Trigger>-->
                         <DataTrigger Binding="{Binding (ap:TextBoxHelper.RequireFilterAction), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBox}}" Value="True">
@@ -487,27 +487,27 @@
                         </Trigger>
 
                         <!--<Trigger SourceName="PART_ClearButton" Property="IsMouseOver" Value="False">
-                                            <Setter TargetName="PART_ClearButton" Property="Background" Value="{DynamicResource WindowBackgroundBrush}" />
+                                            <Setter TargetName="PART_ClearButton" Property="Background" Value="{DynamicResource MahApps.Brushes.Window.Background}" />
                                         </Trigger>-->
                         <Trigger SourceName="PART_ClearButton" Property="IsMouseOver" Value="True">
-                            <Setter TargetName="PART_ClearButton" Property="Background" Value="{DynamicResource GrayBrush8}" />
-                            <Setter TargetName="PART_ClearButton" Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                            <Setter TargetName="PART_ClearButton" Property="Background" Value="{DynamicResource MahApps.Brushes.Gray8}" />
+                            <Setter TargetName="PART_ClearButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
                         </Trigger>
                         <Trigger SourceName="PART_ClearButton" Property="IsPressed" Value="True">
-                            <Setter TargetName="PART_ClearButton" Property="Background" Value="{DynamicResource BlackBrush}" />
-                            <Setter TargetName="PART_ClearButton" Property="Foreground" Value="{DynamicResource WhiteBrush}" />
+                            <Setter TargetName="PART_ClearButton" Property="Background" Value="{DynamicResource MahApps.Brushes.Black}" />
+                            <Setter TargetName="PART_ClearButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.White}" />
                         </Trigger>
 
                         <!--<Trigger SourceName="PART_SearchButton" Property="IsMouseOver" Value="False">
-                                            <Setter TargetName="PART_SearchButton" Property="Background" Value="{DynamicResource WindowBackgroundBrush}" />
+                                            <Setter TargetName="PART_SearchButton" Property="Background" Value="{DynamicResource MahApps.Brushes.Window.Background}" />
                                         </Trigger>-->
                         <Trigger SourceName="PART_SearchButton" Property="IsMouseOver" Value="True">
-                            <Setter TargetName="PART_SearchButton" Property="Background" Value="{DynamicResource GrayBrush8}" />
-                            <Setter TargetName="PART_SearchButton" Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                            <Setter TargetName="PART_SearchButton" Property="Background" Value="{DynamicResource MahApps.Brushes.Gray8}" />
+                            <Setter TargetName="PART_SearchButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
                         </Trigger>
                         <Trigger SourceName="PART_SearchButton" Property="IsPressed" Value="True">
-                            <Setter TargetName="PART_SearchButton" Property="Background" Value="{DynamicResource BlackBrush}" />
-                            <Setter TargetName="PART_SearchButton" Property="Foreground" Value="{DynamicResource WhiteBrush}" />
+                            <Setter TargetName="PART_SearchButton" Property="Background" Value="{DynamicResource MahApps.Brushes.Black}" />
+                            <Setter TargetName="PART_SearchButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.White}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

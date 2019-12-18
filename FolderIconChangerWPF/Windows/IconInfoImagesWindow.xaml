@@ -143,14 +143,14 @@
             <StatusBar.Resources>
                 <Style x:Key="SeparatorStyle" TargetType="Separator">
                     <!--<Setter Property="Foreground" Value="{DynamicResource WordRedBrush}" />-->
-                    <Setter Property="Background" Value="{DynamicResource GrayBrush5}" />
+                    <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray5}" />
                     <Setter Property="Effect">
                         <Setter.Value>
                             <DropShadowEffect
                                 BlurRadius="8"
                                 Direction="270"
                                 ShadowDepth="1"
-                                Color="{DynamicResource BlackColor}" />
+                                Color="{DynamicResource MahApps.Colors.Black}" />
                         </Setter.Value>
                     </Setter>
                     <Setter Property="Margin" Value="5,3" />

@@ -26,7 +26,7 @@
     <local:BasePage.Resources>
         <Style
             x:Key="InfoText"
-            BasedOn="{StaticResource MetroTextBox}"
+            BasedOn="{StaticResource MahApps.Styles.TextBox}"
             TargetType="TextBox">
             <Setter Property="IsReadOnly" Value="True" />
             <Setter Property="IsReadOnlyCaretVisible" Value="True" />
@@ -98,10 +98,10 @@
                         Padding="5,0" Margin="5,1"
                         HorizontalAlignment="Center"
                         Content="ezhassen@outlook.com"
-                        Foreground="{DynamicResource AccentBaseColorBrush}"
+                        Foreground="{DynamicResource MahApps.Brushes.AccentBase}"
                         Style="{StaticResource LinkButton}" />
                     <!--<TextBlock Padding="5,0" FontWeight="Bold">
-                        <Hyperlink Foreground="{DynamicResource AccentBaseColorBrush}" NavigateUri="ezhassen@outlook.com">
+                        <Hyperlink Foreground="{DynamicResource MahApps.Brushes.AccentBase}" NavigateUri="ezhassen@outlook.com">
                             <Run Text="ezhassen@outlook.com" />
                         </Hyperlink>
                     </TextBlock>-->
@@ -122,10 +122,10 @@
                         Command="{Binding OpenLinkCommand}"
                         CommandParameter="https://fb.com/ezhassen"
                         Content="https://fb.com/ezhassen"
-                        Foreground="{DynamicResource AccentBaseColorBrush}"
+                        Foreground="{DynamicResource MahApps.Brushes.AccentBase}"
                         Style="{StaticResource LinkButton}" />
                     <!--<TextBlock Padding="5,0" FontWeight="Bold">
-                        <Hyperlink Foreground="{DynamicResource AccentBaseColorBrush}" NavigateUri="https://fb.com/ezhassen">
+                        <Hyperlink Foreground="{DynamicResource MahApps.Brushes.AccentBase}" NavigateUri="https://fb.com/ezhassen">
                             <Run Text="https://fb.com/ezhassen" />
                         </Hyperlink>
                     </TextBlock>-->

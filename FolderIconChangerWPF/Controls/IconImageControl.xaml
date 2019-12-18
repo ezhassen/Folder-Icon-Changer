@@ -36,7 +36,7 @@
                 Grid.Row="1"
                 IsHitTestVisible="False"
                 Opacity="0.3">
-                <Border ap:AnimateFadeInProperty.Value="True" Background="{DynamicResource WhiteBrush}" />
+                <Border ap:AnimateFadeInProperty.Value="True" Background="{DynamicResource MahApps.Brushes.White}" />
             </Border>
         </Grid>
 
@@ -50,7 +50,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Stretch"
                 ap:AnimateFadeInProperty.Value="{Binding RelativeSource={RelativeSource Self}, Path=Visibility, Converter={conv:BoolWhenVisibilityConverter}}"
-                Background="{DynamicResource SemiTransparentGreyBrush}"
+                Background="{DynamicResource MahApps.Brushes.SemiTransparentGray}"
                 CornerRadius="5"
                 Visibility="Hidden">
 
@@ -65,9 +65,9 @@
                         BlurRadius="2"
                         Direction="275"
                         ShadowDepth="1"
-                        Color="{DynamicResource BlackColor}" />-->
+                        Color="{DynamicResource MahApps.Colors.Black}" />-->
 
-                    <Style BasedOn="{StaticResource MetroButton}" TargetType="Button">
+                    <Style BasedOn="{StaticResource MahApps.Styles.Button}" TargetType="Button">
                         <!--<Setter Property="Effect" Value="{StaticResource ButtonsDropShadowEffect}" />-->
                         <Setter Property="IsEnabled" Value="{Binding Path=IconInfo, Converter={conv:BoolWhenNullConverter Value=False, Otherwise=True}}" />
                         <Setter Property="Margin" Value="5" />
