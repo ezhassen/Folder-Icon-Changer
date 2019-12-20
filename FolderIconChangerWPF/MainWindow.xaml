@@ -92,7 +92,7 @@
 
                     <Style x:Key="NormalMenuItem" TargetType="MenuItem">
                         <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
-                        <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}" />
 
                         <Setter Property="HeaderTemplate">
                             <Setter.Value>
@@ -104,7 +104,7 @@
                                         VerticalAlignment="Center"
                                         Effect="{StaticResource ToggleButtonShadowEffect}"
                                         FontSize="{DynamicResource FontSizeLarge}"
-                                        Foreground="{DynamicResource TextBrush}"
+                                        Foreground="{DynamicResource MahApps.Brushes.Text}"
                                         Text="{Binding Header, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=MenuItem}}"
                                         TextTrimming="CharacterEllipsis"
                                         ToolTip="{Binding Text, RelativeSource={RelativeSource Mode=Self}}" />
@@ -196,7 +196,7 @@
                         <MenuItem
                             Command="{Binding AppExitCommand, Source={x:Static vm:ApplicationViewModel.Instance}}"
                             FontSize="{StaticResource FontSizeRegular}"
-                            Foreground="{DynamicResource TextBrush}"
+                            Foreground="{DynamicResource MahApps.Brushes.Text}"
                             Header="{lex:BLoc Exit, TargetNullValue={}Exit}"
                             ToolTip="{Binding Header, RelativeSource={RelativeSource Mode=Self}}">
 
