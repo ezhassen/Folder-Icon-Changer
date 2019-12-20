@@ -11,9 +11,35 @@ namespace FolderIconChangerWPF
 {
     public class ThemeInfo : IEqualityComparer<ThemeInfo>, IEquatable<ThemeInfo>
     {
-        public const string DefaultName = "AppLight";
-        public string Name { get; }
-        public string LocalizedDisplayName => LocalizationProvider.GetLocalizedString(Name, ()=> DisplayName);
+        public const string DefaultName = "Light.Blue";
+
+        private string name;
+        public string Name
+        {
+            get => name;
+            private set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    name = value;
+                }
+                else if (string.Equals("AppLight", value, StringComparison.OrdinalIgnoreCase))
+                {
+                    value = "Light.Blue";
+                }
+                else if (string.Equals("AppDark", value, StringComparison.OrdinalIgnoreCase))
+                {
+                    value = "Dark.Blue";
+                }
+                else if (string.Equals("AppDarkBlue", value, StringComparison.OrdinalIgnoreCase))
+                {
+                    value = "BlueDark.Amber";
+                }
+                name = value;
+            }
+        }
+
+        public string LocalizedDisplayName => LocalizationProvider.GetLocalizedString(Name, () => DisplayName);
         public string DisplayName { get; }
         public string RelativePath { get; }
         public string FullPath => $"pack://application:,,,/{nameof(FolderIconChangerWPF)};{RelativePath}";
@@ -65,9 +91,12 @@ namespace FolderIconChangerWPF
         public bool Equals(ThemeInfo other) => (other is null) ? false : this.Name.Equals(other.Name, StringComparison.OrdinalIgnoreCase);
 
         static ThemeInfo defaultTheme;
-        public static ThemeInfo Default {
-            get {
-                if (defaultTheme == null) defaultTheme = new ThemeInfo("AppLight", "App Light", "Themes/AppLight.xaml", "#FF000000", "#FFFFFFFF", "BaseLight");
+
+        public static ThemeInfo Default
+        {
+            get
+            {
+                if (defaultTheme == null) defaultTheme = new ThemeInfo("Light.Blue", "App Light", "Themes/AppLight.xaml", "#FF000000", "#FFFFFFFF", "BaseLight");
                 return defaultTheme;
             }
         }
@@ -102,14 +131,16 @@ Application.Current.Resources.MergedDictionaries.Add((ResourceDictionary)Applica
         //    }
         //}
         static ObservableCollection<ThemeInfo> themes;
-        public static ObservableCollection<ThemeInfo> Themes {
-            get {
+        public static ObservableCollection<ThemeInfo> Themes
+        {
+            get
+            {
                 if (themes == null)
                 {
                     themes = new ObservableCollection<ThemeInfo>();
                     themes.Add(ThemeInfo.Default);
-                    themes.Add(new ThemeInfo("AppDark", "App Dark", "Themes/AppDark.xaml", "#FFFFFFFF", "#FF2D2D30", "BaseDark"));
-                    themes.Add(new ThemeInfo("AppDarkBlue", "App Dark Blue", "Themes/AppDarkBlue.xaml", "#FFFFFFFF", "#FF025A9D", "BaseDark"));
+                    themes.Add(new ThemeInfo("Dark.Blue", "App Dark", "Themes/AppDark.xaml", "#FFFFFFFF", "#FF2D2D30", "BaseDark"));
+                    themes.Add(new ThemeInfo("BlueDark.Amber", "App Dark Blue", "Themes/AppDarkBlue.xaml", "#FFFFFFFF", "#FF025A9D", "BaseDark"));
                 }
                 return themes;
             }
@@ -121,6 +152,24 @@ Application.Current.Resources.MergedDictionaries.Add((ResourceDictionary)Applica
         }
         public static void ApplyTheme(string name, string path, string metroThemeName = "BaseLight")
         {
+            ThemeManager.ChangeTheme(Application.Current, new Theme(new Uri($"Themes/{name}.xaml", UriKind.RelativeOrAbsolute)));
+            //if (string.Equals(name, "Light.Blue", StringComparison.OrdinalIgnoreCase))
+            //{
+            //}
+            //else if (string.Equals(name, "", StringComparison.OrdinalIgnoreCase))
+            //{
+
+            //}
+            //else if (string.Equals(name, "", StringComparison.OrdinalIgnoreCase))
+            //{
+
+            //}
+            //else
+            //{
+            //    ThemeManager.ChangeTheme(Application.Current, name);
+            //}
+
+            //
             //var uriRD = new Uri(rePath, System.UriKind.Relative);
             ////var findOldTheme = Application.Current.Resources.MergedDictionaries.FirstOrDefault(rd => rd.Source.OriginalString.Contains("Themes"));
             ////if (findOldTheme != null) Application.Current.Resources.MergedDictionaries.Remove(findOldTheme);
@@ -131,19 +180,20 @@ Application.Current.Resources.MergedDictionaries.Add((ResourceDictionary)Applica
             ///
             //var sss = ThemeManager.DetectTheme(Application.Current);
 
-            var theme = ThemeManager.GetTheme(name);
-            if (theme is null)
-            {
-                ThemeManager.AddTheme(new Uri(path, UriKind.RelativeOrAbsolute));
-                //ThemeManager.AddAppTheme(name, new Uri(path, UriKind.RelativeOrAbsolute));
-                //ThemeManager.ChangeAppTheme(Application.Current, name);
-                theme = ThemeManager.GetTheme(name);
-            }
+            //var theme = ThemeManager.GetTheme(name);
+            //if (theme is null)
+            //{
+            //    ThemeManager.AddTheme(new Uri(path, UriKind.RelativeOrAbsolute));
+            //    //ThemeManager.AddAppTheme(name, new Uri(path, UriKind.RelativeOrAbsolute));
+            //    //ThemeManager.ChangeAppTheme(Application.Current, name);
+            //    theme = ThemeManager.GetTheme(name);
+            //}
             //var MetroTheme = ThemeManager.GetAppTheme(metroThemeName);
 
             //if (MetroTheme != null) ThemeManager.ChangeAppStyle(Application.Current, sss.Item2, MetroTheme);
-            if (theme is null) return;
-            ThemeManager.ChangeTheme(Application.Current, theme);
+            //if (theme is null) return;
+            //ThemeManager.ChangeTheme(Application.Current, theme);
+            //ThemeManager.ChangeTheme(Application.Current, "");
             //ThemeManager.ChangeAppStyle(Application.Current, sss.Item2, theme);
             //foreach (Window window in Application.Current.Windows)
             //{
