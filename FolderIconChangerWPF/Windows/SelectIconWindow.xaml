@@ -39,7 +39,7 @@
 
         <Style
             x:Key="ViewSizeItem"
-            BasedOn="{StaticResource MetroMenuItem}"
+            BasedOn="{StaticResource MahApps.Styles.MenuItem}"
             TargetType="MenuItem">
             <Setter Property="Command" Value="{Binding ChangeImageViewSizeCommand}" />
             <Setter Property="CommandParameter" Value="{Binding Tag, RelativeSource={RelativeSource Self}}" />
