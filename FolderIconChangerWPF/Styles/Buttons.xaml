@@ -54,7 +54,7 @@
         x:Key="CustomLightMetroWindowButtonStyle"
         BasedOn="{StaticResource MahApps.Styles.Button.MetroWindow.Base}"
         TargetType="{x:Type Button}">
-        <Setter Property="Foreground" Value="{DynamicResource WindowActionsForegroundBrush}" />
+        <Setter Property="Foreground" Value="#232323" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Focusable" Value="False" />
         <Setter Property="IsTabStop" Value="False" />
@@ -65,7 +65,7 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <!--<Setter Property="Background" Value="{DynamicResource WindowActionsBrush}" />-->
                 <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.SemiTransparentGray}" />
-                <Setter Property="Foreground" Value="{DynamicResource WindowActionsForegroundBrush}" />
+                <Setter Property="Foreground" Value="#232323" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
@@ -82,14 +82,15 @@
         x:Key="CustomDarkMetroWindowButtonStyle"
         BasedOn="{StaticResource CustomLightMetroWindowButtonStyle}"
         TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="#FFCCCCCC" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.SemiTransparentGray}" />
-                <Setter Property="Foreground" Value="{DynamicResource WindowActionsForegroundBrush}" />
+                <Setter Property="Foreground" Value="White" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
-                <Setter Property="Foreground" Value="White" />
+                <Setter Property="Foreground" Value="Black" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.DarkIdealForegroundDisabled}" />
@@ -141,11 +142,11 @@
         <Setter Property="VerticalAlignment" Value="Stretch" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
 
-        <Setter Property="DarkCloseButtonStyle" Value="{DynamicResource WindowButton.Close.Light.Win10}" />
+        <Setter Property="DarkCloseButtonStyle" Value="{DynamicResource WindowButton.Close.Dark.Win10}" />
         <Setter Property="DarkMaxButtonStyle" Value="{DynamicResource CustomDarkMetroWindowButtonStyle}" />
         <Setter Property="DarkMinButtonStyle" Value="{DynamicResource CustomDarkMetroWindowButtonStyle}" />
 
-        <Setter Property="LightCloseButtonStyle" Value="{DynamicResource WindowButton.Close.Dark.Win10}" />
+        <Setter Property="LightCloseButtonStyle" Value="{DynamicResource WindowButton.Close.Light.Win10}" />
         <Setter Property="LightMaxButtonStyle" Value="{DynamicResource CustomLightMetroWindowButtonStyle}" />
         <Setter Property="LightMinButtonStyle" Value="{DynamicResource CustomLightMetroWindowButtonStyle}" />
 
