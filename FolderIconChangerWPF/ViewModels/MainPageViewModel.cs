@@ -489,6 +489,12 @@ namespace FolderIconChangerWPF.ViewModels
             IsWorking = true;
             try
             {
+                //var dialog = new System.Windows.Forms.FolderBrowserDialog()
+                //{
+                //    ShowNewFolderButton = true,
+                //    RootFolder = Environment.SpecialFolder.Desktop,
+                //    SelectedPath = TargetFolder
+                //};
                 var dialog = new Win32.FolderBrowserDialog
                 {
                     ShowEditBox = true,
