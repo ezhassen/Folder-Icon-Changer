@@ -7,14 +7,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="60"
     d:DesignWidth="100"
-    BorderBrush="{DynamicResource ControlBorderBrush}"
+    BorderBrush="{DynamicResource MahApps.Brushes.Controls.Border}"
     BorderThickness="1"
     mc:Ignorable="d">
 
     <!--
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         BorderThickness="1"
-        BorderBrush="{DynamicResource ControlBorderBrush}"
+        BorderBrush="{DynamicResource MahApps.Brushes.Controls.Border}"
     -->
     <Grid>
         <Grid.ColumnDefinitions>

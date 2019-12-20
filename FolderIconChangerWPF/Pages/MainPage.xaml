@@ -43,7 +43,7 @@
                 ShadowDepth="1" />
 
             <Style TargetType="controls:IconImageControl">
-                <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Controls.Border}" />
                 <Setter Property="BorderThickness" Value="2" />
                 <Setter Property="Effect">
                     <Setter.Value>
@@ -90,10 +90,10 @@
                                     <Setter TargetName="Overlay" Value="{DynamicResource MahApps.Brushes.SemiTransparentGray}" Property="Background" />
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="true">
-                                    <Setter TargetName="Overlay" Value="{DynamicResource SemiTransparentWhiteBrush}" Property="Background" />
+                                    <Setter TargetName="Overlay" Value="{DynamicResource MahApps.Brushes.SemiTransparentWhite}" Property="Background" />
                                 </Trigger>
                                 <Trigger Property="IsKeyboardFocusWithin" Value="true">
-                                    <Setter TargetName="Border" Value="{DynamicResource ButtonMouseOverBorderBrush}" Property="BorderBrush" />
+                                    <Setter TargetName="Border" Value="{DynamicResource MahApps.Brushes.Button.MouseOverBorder}" Property="BorderBrush" />
                                     <Setter TargetName="Border" Property="BorderThickness" Value="2" />
                                 </Trigger>
                                 <Trigger Property="IsEnabled" Value="false">
@@ -149,7 +149,7 @@
                         </BeginStoryboard>
                     </EventTrigger>-->
                     <!--<Trigger Property="IsMouseOver" Value="true">
-                        <Setter Value="{DynamicResource SemiTransparentWhiteBrush}" Property="Background" />
+                        <Setter Value="{DynamicResource MahApps.Brushes.SemiTransparentWhite}" Property="Background" />
                     </Trigger>
                     <Trigger Property="IsPressed" Value="true">
                         <Setter TargetName="Background" Value="{DynamicResource MahApps.Brushes.SemiTransparentGray}" Property="Background" />
@@ -255,7 +255,7 @@
                     ap:TextBoxHelper.RequireFilterButtonToolTip="{lex:BLoc GetFolderIcon, TargetNullValue=Get Folder Icon}"
                     mm:TextBoxHelper.UseFloatingWatermark="True"
                     mm:TextBoxHelper.Watermark="{lex:BLoc TargetFolder, TargetNullValue=Target Folder}"
-                    IsReadOnly="{Binding IsWorking}"
+                    IsReadOnly="{Binding IsWorking, Mode=OneWay}"
                     ItemsSource="{Binding RecentFolders, Source={x:Static serv:SettingsService.Instance}}"
                     SelectedItem=""
                     Style="{StaticResource PathComboBox}"

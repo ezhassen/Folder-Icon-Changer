@@ -65,7 +65,7 @@
                 <Border
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    BorderBrush="{DynamicResource ControlBorderBrush}"
+                    BorderBrush="{DynamicResource MahApps.Brushes.Controls.Border}"
                     BorderThickness="2">
                     <Border.Effect>
                         <DropShadowEffect

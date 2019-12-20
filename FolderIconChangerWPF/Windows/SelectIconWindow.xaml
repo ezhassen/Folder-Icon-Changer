@@ -283,7 +283,7 @@
             Margin="5"
             ap:ControlHelper.MouseWheelCommand="{Binding ChangeImageViewSizeDeltaCommand}"
             ap:ControlHelper.MouseWheelCommandOnControlKey="True"
-            BorderBrush="{DynamicResource ControlBorderBrush}"
+            BorderBrush="{DynamicResource MahApps.Brushes.Controls.Border}"
             BorderThickness="1"
             ItemTemplate="{StaticResource ImageInfoTemplate}"
             ItemsSource="{Binding Icons}"
