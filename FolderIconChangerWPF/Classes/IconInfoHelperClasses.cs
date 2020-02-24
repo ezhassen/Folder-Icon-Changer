@@ -75,13 +75,21 @@ namespace FolderIconChangerWPF.IconInfoCore
                 //BitmapImage Res = null;
                 if (IIF.IconImageFormat == IconImageFormat.BMP)
                 {
-                    using (MemoryStream sMS = new MemoryStream())
+                    Icon TempIcon = IconInfo.IconImageInfo.BuildIcon(IIF.iEntry.Value, IIF.RawData);
+                    if (!(TempIcon is null))
                     {
-                        Icon TempIcon = IconInfo.IconImageInfo.BuildIcon(IIF.iEntry.Value, IIF.RawData);
-                        if (TempIcon != null)
-                        {
-                            return TempIcon.ToBitmap()?.ToSWBitmapImage();
-                        }
+                        //using (MemoryStream sMS = new MemoryStream())
+                        //{
+                        //    TempIcon.Save(sMS);
+                        //    var res = new BitmapImage();
+                        //    res.BeginInit();
+                        //    res.CacheOption = BitmapCacheOption.OnLoad;
+                        //    res.StreamSource = sMS;
+                        //    res.EndInit();
+                        //    res.Freeze();
+                        //    return res;
+                        return TempIcon.ToBitmap()?.ToSWBitmapImage();
+                        //}
                     }
                 }
                 else if (IIF.IconImageFormat == IconImageFormat.PNG)

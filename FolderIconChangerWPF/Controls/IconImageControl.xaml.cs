@@ -1,4 +1,5 @@
 ﻿using Ezz_Helper.Drawing.IconsManager;
+using FolderIconChangerWPF.Classes;
 using FolderIconChangerWPF.IconInfoCore;
 using FolderIconChangerWPF.ViewModels;
 using System;
@@ -7,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace FolderIconChangerWPF.Controls
 {
@@ -83,49 +85,46 @@ namespace FolderIconChangerWPF.Controls
             DependencyProperty.RegisterAttached("IconSizeW", typeof(int), typeof(IconImageControlBase), new PropertyMetadata(256));
 
         private static void OnIconInfoPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as IconImageControlBase)?.OnIconInfoChanged(e);
+
         private async void OnIconInfoChanged(DependencyPropertyChangedEventArgs e)
         {
             var newIconInfo = e.NewValue as IconInfo;
             IsLoading = true;
             //ImageSource = null;
-            try
+            SetValue(ImageSourceProperty, null);
+            //ImageSource = null;
+            if (SetImageOneTask is null) SetImageOneTask = new OneTask();
+            var iconSizeW = GetIconSizeW(this);
+            var onTask = SetImageOneTask;
+            await onTask.Run((cancel) =>
             {
-                if (newIconInfo is null)
+                return newIconInfo?.GetBestFitIcon(new System.Drawing.Size(iconSizeW, iconSizeW))?.BuildBitmapImage();
+            }, (taskRes) =>
+            {
+                if (taskRes.OperationWasSuccessful && !taskRes.IsCanceled)
                 {
-                    ImageSource = null;
+                    ImageSource = taskRes.Result;
                 }
                 else
                 {
-                    var iconSizeW = GetIconSizeW(this);
-                    //ImageSource = null;
-                    SetValue(ImageSourceProperty, null);
-
-                    ImageSource = await Task.Run(() =>
-                         {
-                             try
-                             {
-                                 return newIconInfo.GetBestFitIcon(new System.Drawing.Size(iconSizeW, iconSizeW))?.BuildBitmapImage();
-                             }
-                             catch (Exception)
-                             {
-                                 //throw;
-                                 return null;
-                             }
-
-                         });
+                    ImageSource = null;
                 }
-
-            }
-            catch (Exception)
-            {
-                //throw;
-                return;
-            }
-            finally
-            {
-                IsLoading = false;
-            }
+            });
+            IsLoading = false;
         }
+
+
+        public OneTask SetImageOneTask
+        {
+            get { return (OneTask)GetValue(SetImageOneTaskProperty); }
+            set { SetValue(SetImageOneTaskProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SetImageOneTask.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SetImageOneTaskProperty =
+            DependencyProperty.Register("SetImageOneTask", typeof(OneTask), typeof(IconImageControlBase), new PropertyMetadata(null));
+
+
 
         public ImageSource ImageSource
         {
