@@ -4,7 +4,7 @@
     xmlns:local="clr-namespace:FolderIconChangerWPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
-    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
     mc:Ignorable="options">
 
     <ResourceDictionary.MergedDictionaries>
