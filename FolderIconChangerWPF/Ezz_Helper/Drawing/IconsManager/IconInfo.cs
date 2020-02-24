@@ -862,6 +862,8 @@ namespace Ezz_Helper.Drawing.IconsManager
             {
                 ic_.Dispose();
             }
+            //_imageList.Clear();
+            _imageList = null;
             //
             //if (_images == null)  return;
             //foreach (Icon ic_ in this._images)
@@ -884,8 +886,8 @@ namespace Ezz_Helper.Drawing.IconsManager
         {
             private IconDirEntry? entry;
             public IconDirEntry? iEntry { get { return entry; } }
-            private byte[] _RawData;
-            public byte[] RawData { get { return _RawData; } }
+
+            public byte[] RawData { get; private set; }
             public int Index { get; set; }
 
             #region Constructors
@@ -1039,9 +1041,9 @@ namespace Ezz_Helper.Drawing.IconsManager
                 //
                 IconDirEntry entry_1 = Tools.ReadStructure<IconDirEntry>(IStream);
 
-                _RawData = new byte[entry_1.BytesInRes];
+                RawData = new byte[entry_1.BytesInRes];
                 IStream.Seek(entry_1.ImageOffset, SeekOrigin.Begin);
-                IStream.Read(_RawData, 0, entry_1.BytesInRes);
+                IStream.Read(RawData, 0, entry_1.BytesInRes);
                 entry = entry_1;
                 //
                 //To save some memory icon will be built one time when called.
@@ -1078,7 +1080,7 @@ namespace Ezz_Helper.Drawing.IconsManager
                     newRawData = ConvertImageFormatRawData(this, ChangeIconImageFormat);//ConverIconImageFormat();
                     newEntry.BytesInRes = newRawData.Length;
                 }
-                else { newRawData = _RawData; }
+                else { newRawData = RawData; }
 
                 //
                 //Write the IconDirEntry to the stream.
@@ -1153,7 +1155,7 @@ namespace Ezz_Helper.Drawing.IconsManager
             {
                 IconImageInfo newIIInf = new IconInfo.IconImageInfo();
                 //newIIInf.Icon_1 = Icon_1 == null ? null : (Icon)Icon_1.Clone();
-                newIIInf._RawData = _RawData;
+                newIIInf.RawData = RawData;
                 newIIInf.entry = entry;
                 newIIInf.Index = Index;
                 newIIInf._IconImageFormat = _IconImageFormat;
@@ -1186,9 +1188,9 @@ namespace Ezz_Helper.Drawing.IconsManager
             public void ConvertThisImageFormat(IconImageFormat NewIFormat)
             {
                 if (this.IconImageFormat == NewIFormat || NewIFormat == IconImageFormat.UNKNOWN) return;
-                this._RawData = ConvertImageFormatRawData(this, ChangeIconImageFormat);//ConverIconImageFormat();
+                this.RawData = ConvertImageFormatRawData(this, ChangeIconImageFormat);//ConverIconImageFormat();
                 IconDirEntry newEntry = entry.Value;
-                newEntry.BytesInRes = _RawData.Length;
+                newEntry.BytesInRes = RawData.Length;
                 this.ChangeIconImageFormat = IconImageFormat.UNKNOWN;
                 entry = newEntry;
             }
@@ -1443,7 +1445,7 @@ namespace Ezz_Helper.Drawing.IconsManager
                 if (newIconImageFormat == IconImageFormat.BMP)
                 {
                     Icon TempIcon;
-                    using (MemoryStream sMS = new MemoryStream(SourceIImI._RawData))
+                    using (MemoryStream sMS = new MemoryStream(SourceIImI.RawData))
                     {
                         Bitmap bmp = new Bitmap(sMS);
                         //TempIcon = IconFromBitmap(bmp, null, null, true, SourceIImI.entry.Value.BitCount == 32 ? 0 : Tools.GetColorsTypeName((byte)SourceIImI.entry.Value.BitCount));
@@ -1491,7 +1493,7 @@ namespace Ezz_Helper.Drawing.IconsManager
             ~IconImageInfo() { Dispose(); }
             public void Dispose()
             {
-                _RawData = null;
+                RawData = null;
                 entry = null;
                 //if (!_IconIsFromSource && Icon_1 != null) Icon_1.Dispose();
                 if (Image_1 != null) Image_1.Dispose();

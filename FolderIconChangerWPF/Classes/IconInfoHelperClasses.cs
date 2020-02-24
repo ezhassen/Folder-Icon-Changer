@@ -88,7 +88,10 @@ namespace FolderIconChangerWPF.IconInfoCore
                         //    res.EndInit();
                         //    res.Freeze();
                         //    return res;
-                        return TempIcon.ToBitmap()?.ToSWBitmapImage();
+                        var res = TempIcon.ToBitmap()?.ToSWBitmapImage();
+                        TempIcon.Dispose();
+                        return res;
+                        //return TempIcon.ToBitmap()?.ToSWBitmapImage();
                         //}
                     }
                 }

@@ -29,7 +29,7 @@
     TitleAlignment="Stretch"
     WindowButtonCommandsOverlayBehavior="Always"
     WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d">
+    mc:Ignorable="d" ap:WindowHelper.OnClosingCommand="{Binding OnClosingCommand}">
     <!--  DataContext="{Binding Source={x:Static vm:ApplicationViewModel.Instance}}"  -->
     <mm:MetroWindow.DataContext>
         <vm:SelectIconViewModel x:Name="ViewModel" />

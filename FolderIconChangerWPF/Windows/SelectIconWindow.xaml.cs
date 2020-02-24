@@ -12,6 +12,7 @@ namespace FolderIconChangerWPF.Windows
         {
             InitializeComponent();
             //
+            ViewModel.OnClosingCommand = new DelegateCommand(_ => ViewModel.Dispose());
             ViewModel.CloseCommand = new DelegateCommand(() => this.Close());
             ViewModel.OwnerWindow = this;
         }

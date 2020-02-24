@@ -14,7 +14,7 @@ using static FolderIconChangerWPF.LocalizationProvider;
 
 namespace FolderIconChangerWPF.ViewModels
 {
-    public class SelectIconViewModel : BaseViewModel
+    public class SelectIconViewModel : BaseViewModel, IDisposable
     {
         //static SelectIconViewModel _Instance;
 
@@ -213,15 +213,27 @@ namespace FolderIconChangerWPF.ViewModels
             {
                 DisposeAllIcons();
             }));
-        void DisposeAllIcons()
+        void DisposeAllIcons(bool notifyPropertyChanged = true)
         {
-            if (Icons is null) return;
-            foreach (var icon in Icons)
+            if (!(_Icons is null))
             {
-                icon.Dispose();
+                foreach (var icon in _Icons)
+                {
+                    icon.Dispose();
+                }
+                if (notifyPropertyChanged)
+                {
+                    Icons = null;
+                }
+                else
+                {
+                    _Icons = null;
+                }
             }
-            
-            Icons = null;
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
         }
 
         DelegateCommand _BrowseForFileCommand;
@@ -359,7 +371,7 @@ namespace FolderIconChangerWPF.ViewModels
                 isOK = true;
                 //
                 LoadIconsOneTaskHandler?.CancelRunningTasks();
-                DisposeAllIcons();
+                //DisposeAllIcons();
                 if (!(OwnerWindow is null)) OwnerWindow.DialogResult = true;
                 CloseCommand?.Execute(null);
             }));
@@ -489,5 +501,46 @@ namespace FolderIconChangerWPF.ViewModels
                 }
                 IsWorking = false;
             }));
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // dispose managed state (managed objects).
+                    DisposeAllIcons(false);
+                    SelectedIconInfo?.Dispose();
+                    //_Icons?.Clear();
+                }
+
+                //  free unmanaged resources (unmanaged objects) and override a finalizer below.
+                // set large fields to null.
+                _OwnerWindow = null;
+                _SelectedIconInfo = null;
+                _Icons = null;
+                disposedValue = true;
+            }
+        }
+
+        //  override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
+        // ~SelectIconViewModel()
+        // {
+        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+        //   Dispose(false);
+        // }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            //  uncomment the following line if the finalizer is overridden above.
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }
