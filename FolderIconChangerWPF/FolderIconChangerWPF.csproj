@@ -4,7 +4,8 @@
     <AssemblyTitle>Folder Icon Changer</AssemblyTitle>
     <AssemblyName>Folder Icon Changer</AssemblyName>
     <RootNamespace>FolderIconChangerWPF</RootNamespace>
-    <TargetFrameworks>net472;netcoreapp3.1</TargetFrameworks>
+    <!--netcoreapp3.1-->
+    <TargetFrameworks>net472;</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <!--<UseWindowsForms>true</UseWindowsForms>-->
     <!--<AutoGenerateBindingRedirects Condition="$(TargetFramework.StartsWith('net4')) Or $(TargetFramework.StartsWith('net3'))">true</AutoGenerateBindingRedirects>-->
@@ -129,11 +130,11 @@
     <!--<PackageReference Include="System.Net.Http" Version="4.3.4" />-->
     <!--<PackageReference Include="Microsoft.Windows.Shell" Version="3.0.1" />-->
     <!--<PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />-->
-    <PackageReference Include="WPFLocalizeExtensionEzzFork" Version="3.4.0-ezzfork0001" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3">
         <PrivateAssets>all</PrivateAssets>
         <ExcludeAssets>runtime</ExcludeAssets>
     </PackageReference>
+    <PackageReference Include="WPFLocalizeExtension" Version="3.4.0-alpha0053" />
     <PackageReference Include="XamlColorSchemeGenerator" Version="3.0.0.31">
         <PrivateAssets>all</PrivateAssets>
         <ExcludeAssets>runtime</ExcludeAssets>
