@@ -937,6 +937,24 @@ namespace FolderIconChangerWPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy Icon To The Folder.
+        /// </summary>
+        public static string ToggleCopyIconToFolder {
+            get {
+                return ResourceManager.GetString("ToggleCopyIconToFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide Icon.
+        /// </summary>
+        public static string ToggleHideIcon {
+            get {
+                return ResourceManager.GetString("ToggleHideIcon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stay On Top.
         /// </summary>
         public static string TopMost {

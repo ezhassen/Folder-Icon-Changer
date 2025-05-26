@@ -437,4 +437,10 @@
   <data name="SelectFolderTitle" xml:space="preserve">
     <value>تحديد مجلد</value>
   </data>
+  <data name="ToggleHideIcon" xml:space="preserve">
+    <value>إخفاء الايقونة</value>
+  </data>
+  <data name="ToggleCopyIconToFolder" xml:space="preserve">
+    <value>نسخ الأيقونة للمجلد</value>
+  </data>
 </root>

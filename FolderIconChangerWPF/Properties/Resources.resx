@@ -437,4 +437,10 @@ Continue?</value>
   <data name="SelectFolderTitle" xml:space="preserve">
     <value>Select Folder</value>
   </data>
+  <data name="ToggleHideIcon" xml:space="preserve">
+    <value>Hide Icon</value>
+  </data>
+  <data name="ToggleCopyIconToFolder" xml:space="preserve">
+    <value>Copy Icon To The Folder</value>
+  </data>
 </root>

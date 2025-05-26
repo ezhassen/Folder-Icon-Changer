@@ -555,138 +555,165 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
 
                     <controls:IconImageControl
+                        Grid.Row="0"
+                        Grid.RowSpan="1"
                         Grid.Column="0"
                         VerticalAlignment="Top"
                         FilePath="{Binding NewIconFullPath, Mode=OneWay}"
                         IconInfo="{Binding NewIconInfo}"
                         IsLoading="{Binding IsLoadingNewInfo}" />
 
-                    <Grid Grid.Column="1" Margin="5">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <!--  New Icon Options  -->
-                        <!--<GroupBox Header="Options">-->
 
-                        <StackPanel Margin="10,0">
-                            <StackPanel.Resources>
-                                <Style BasedOn="{StaticResource MahApps.Styles.ToggleSwitch}" TargetType="mm:ToggleSwitch">
-                                    <Setter Property="ContentTemplate">
-                                        <Setter.Value>
-                                            <ItemContainerTemplate>
-                                                <!--<Border
-                                                        Padding="3"
-                                                        BorderBrush="{DynamicResource MahApps.Brushes.Gray6}"
-                                                        BorderThickness="0"
-                                                        CornerRadius="5">-->
-                                                <TextBlock Text="{Binding}" TextWrapping="Wrap" />
-                                                <!--</Border>-->
-                                            </ItemContainerTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                                </Style>
-                            </StackPanel.Resources>
+                    <StackPanel
+                        Grid.Column="1"
+                        Margin="5"
+                        FlowDirection="{lex:BLoc FlowDirection,
+                                                 TargetNullValue=LeftToRight}"
+                        Orientation="Vertical">
 
-                            <!--  OnSwitchBrush="{DynamicResource EzzWordGreenBrush}"  -->
+                        <StackPanel.Resources>
+                            <Style BasedOn="{StaticResource MahApps.Styles.ToggleSwitch}" TargetType="mm:ToggleSwitch">
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <ItemContainerTemplate>
+                                            <!--<Border
+                        Padding="3"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Gray6}"
+                        BorderThickness="0"
+                        CornerRadius="5">-->
+                                            <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+                                            <!--</Border>-->
+                                        </ItemContainerTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
 
-                            <mm:ToggleSwitch
-                                Margin="0,5"
-                                ContentDirection="RightToLeft"
-                                IsOn="{Binding Source={x:Static serv:SettingsService.Instance}, Path=CopyIconToFolder}"
-                                OffContent="{lex:BLoc CopyIconToFolderOff,
-                                                      TargetNullValue={}New Icon wont be copied to the target folder}"
-                                OnContent="{lex:BLoc CopyIconToFolderOn,
-                                                     TargetNullValue={}New Icon will be copied to the target folder}"
-                                ToolTip="{lex:BLoc CopyIconToFolder,
-                                                   TargetNullValue={}Copy new icon to the target folder}">
-                                <!--<mm:ToggleSwitch.Resources>
-                                    <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOn" Color="{DynamicResource EzzWordGreenBrush}" />
-                                </mm:ToggleSwitch.Resources>-->
-                            </mm:ToggleSwitch>
+                            <Style BasedOn="{StaticResource MahApps.Styles.TextBlock}" TargetType="TextBlock">
+                                <Setter Property="MaxWidth" Value="280" />
+                                <Setter Property="TextWrapping" Value="Wrap" />
+                            </Style>
+                        </StackPanel.Resources>
 
-                            <!--  OnSwitchBrush="{DynamicResource EzzWordRedBrush}"  -->
-                            <mm:ToggleSwitch
-                                Height="Auto"
-                                Margin="0,5"
-                                VerticalAlignment="Stretch"
-                                ContentDirection="RightToLeft"
-                                IsOn="{Binding Source={x:Static serv:SettingsService.Instance}, Path=HideIcon}"
-                                OffContent="{lex:BLoc HideIconOff,
-                                                      TargetNullValue={}New Icon file wont be hidden If it exists in the target folder}"
-                                OnContent="{lex:BLoc HideIconOn,
-                                                     TargetNullValue={}New Icon file will be hidden}"
-                                ToolTip="{lex:BLoc HideIcon,
-                                                   TargetNullValue={}Hide the Icon file if it exists in the target folder}">
-                                <!--<mm:ToggleSwitch.Resources>
-                                    <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOn" Color="{DynamicResource EzzWordRedBrush}" />
-                                </mm:ToggleSwitch.Resources>-->
-                            </mm:ToggleSwitch>
+                        <mm:ToggleSwitch
+                            Margin="0,5"
+                            ContentDirection="RightToLeft"
+                            Header="{lex:BLoc ToggleCopyIconToFolder,
+                                              TargetNullValue={}Copy Icon To The Folder}"
+                            IsOn="{Binding Source={x:Static serv:SettingsService.Instance}, Path=CopyIconToFolder}"
+                            ToolTip="{lex:BLoc CopyIconToFolder,
+                                               TargetNullValue={}Copy new icon to the target folder}">
+                            <mm:ToggleSwitch.Resources>
+                                <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOn" Color="{StaticResource EzzWordGreen}" />
+                                <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOnPointerOver" Color="{StaticResource EzzWordGreen}" />
+                                <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOnPressed" Color="{StaticResource EzzWordGreen}" />
+                                <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.StrokeOn" Color="{StaticResource EzzWordGreen}" />
+                                <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.StrokeOnPressed" Color="{StaticResource EzzWordGreen}" />
+                                <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.StrokeOnPointerOver" Color="{StaticResource EzzWordGreen}" />
+                            </mm:ToggleSwitch.Resources>
+                            <mm:ToggleSwitch.OnContent>
+                                <TextBlock Text="{lex:BLoc CopyIconToFolderOn, TargetNullValue={}New Icon will be copied to the target folder}" />
+                            </mm:ToggleSwitch.OnContent>
+                            <mm:ToggleSwitch.OffContent>
+                                <TextBlock Text="{lex:BLoc CopyIconToFolderOff, TargetNullValue={}New Icon wont be copied to the target folder}" />
+                            </mm:ToggleSwitch.OffContent>
+                        </mm:ToggleSwitch>
 
-                        </StackPanel>
-                        <!--</GroupBox>-->
+                        <mm:ToggleSwitch
+                            Height="Auto"
+                            Margin="0,5"
+                            VerticalAlignment="Stretch"
+                            ContentDirection="RightToLeft"
+                            Header="{lex:BLoc ToggleHideIcon,
+                                              TargetNullValue={}Hide Icon}"
+                            IsOn="{Binding Source={x:Static serv:SettingsService.Instance}, Path=HideIcon}"
+                            ToolTip="{lex:BLoc HideIcon,
+                                               TargetNullValue={}Hide the Icon file if it exists in the target folder}">
 
-                        <!--  New Icon Apply Command  -->
-                        <!--  IsEnabled="{Binding NewIconInfo, Converter={conv:BoolWhenNullConverter}}"  -->
-                        <Button
-                            x:Name="ApplyButton"
-                            Grid.Row="1"
-                            Margin="0,10,10,10"
-                            HorizontalAlignment="Right"
-                            Background="{DynamicResource EzzWordGreenBrush}"
-                            Command="{Binding ApplyNewIconCommand}"
-                            Foreground="White"
-                            Style="{StaticResource MainCommandButtonStyle}">
-                            <Button.IsEnabled>
-                                <MultiBinding Converter="{conv:BoolWhenBoolConverter MultiWhenAny=False}">
+                            <mm:ToggleSwitch.Resources>
+                                <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOn" Color="{StaticResource EzzWordRed}" />
+                                <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOnPointerOver" Color="{StaticResource EzzWordRed}" />
+                                <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOnPressed" Color="{StaticResource EzzWordRed}" />
+                                <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.StrokeOn" Color="{StaticResource EzzWordRed}" />
+                                <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.StrokeOnPressed" Color="{StaticResource EzzWordRed}" />
+                                <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.StrokeOnPointerOver" Color="{StaticResource EzzWordRed}" />
+                            </mm:ToggleSwitch.Resources>
+                            <mm:ToggleSwitch.OnContent>
+                                <TextBlock Text="{lex:BLoc HideIconOn, TargetNullValue={}New Icon file will be hidden}" />
+                            </mm:ToggleSwitch.OnContent>
+                            <mm:ToggleSwitch.OffContent>
+                                <TextBlock Text="{lex:BLoc HideIconOff, TargetNullValue={}New Icon file wont be hidden If it exists in the target folder}" />
+                            </mm:ToggleSwitch.OffContent>
+                        </mm:ToggleSwitch>
 
-                                    <Binding Path="AllowToApply" />
-                                    <Binding Converter="{conv:BooleanInvertConverter}" Path="IsLoadingNewInfo" />
-                                    <Binding Converter="{conv:BoolWhenFolderExistsConverter}" Path="TargetFolder" />
-                                    <Binding Converter="{conv:BoolWhenNullConverter}" Path="NewIconInfo" />
-                                    <!--<Binding Path="GenerateBestFitCommand"/>-->
-                                </MultiBinding>
-                            </Button.IsEnabled>
 
-                            <Grid Focusable="False">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <!--<iconPacks:PackIconFontAwesome
-                                    Grid.Row="0"
-                                    Margin="0,3,0,0"
-                                    Padding="-5"
-                                    HorizontalAlignment="Center"
-                                    Effect="{StaticResource IconShadowEffect}"
-                                    Focusable="False"
-                                    Kind="CheckSolid" />-->
-                                <TextBlock
-                                    Grid.Row="0"
-                                    Margin="0,3,0,0"
-                                    HorizontalAlignment="Center"
-                                    Effect="{StaticResource IconShadowEffect}"
-                                    Focusable="False"
-                                    FontFamily="{StaticResource FontAwesome}"
-                                    FontSize="{StaticResource FontSizeLarge}"
-                                    Opacity="0.9"
-                                    Text="&#xf00C;" />
+                    </StackPanel>
 
-                                <TextBlock
-                                    Grid.Row="1"
-                                    Margin="0,3"
-                                    HorizontalAlignment="Center"
-                                    Effect="{StaticResource IconShadowEffect}"
-                                    Focusable="False"
-                                    FontSize="{StaticResource FontSizeLarge}"
-                                    Text="{lex:BLoc Apply,
-                                                    TargetNullValue=Apply}" />
-                            </Grid>
-                        </Button>
-                    </Grid>
+                    <!--  New Icon Apply Command  -->
+                    <!--  IsEnabled="{Binding NewIconInfo, Converter={conv:BoolWhenNullConverter}}"  -->
+                    <Button
+                        x:Name="ApplyButton"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,10,10,10"
+                        HorizontalAlignment="Right"
+                        Background="{DynamicResource EzzWordGreenBrush}"
+                        Command="{Binding ApplyNewIconCommand}"
+                        Foreground="White"
+                        Style="{StaticResource MainCommandButtonStyle}">
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{conv:BoolWhenBoolConverter MultiWhenAny=False}">
+
+                                <Binding Path="AllowToApply" />
+                                <Binding Converter="{conv:BooleanInvertConverter}" Path="IsLoadingNewInfo" />
+                                <Binding Converter="{conv:BoolWhenFolderExistsConverter}" Path="TargetFolder" />
+                                <Binding Converter="{conv:BoolWhenNullConverter}" Path="NewIconInfo" />
+                                <!--<Binding Path="GenerateBestFitCommand"/>-->
+                            </MultiBinding>
+                        </Button.IsEnabled>
+
+                        <Grid Focusable="False">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <!--<iconPacks:PackIconFontAwesome
+          Grid.Row="0"
+          Margin="0,3,0,0"
+          Padding="-5"
+          HorizontalAlignment="Center"
+          Effect="{StaticResource IconShadowEffect}"
+          Focusable="False"
+          Kind="CheckSolid" />-->
+                            <TextBlock
+                                Grid.Row="0"
+                                Margin="0,3,0,0"
+                                HorizontalAlignment="Center"
+                                Effect="{StaticResource IconShadowEffect}"
+                                Focusable="False"
+                                FontFamily="{StaticResource FontAwesome}"
+                                FontSize="{StaticResource FontSizeLarge}"
+                                Opacity="0.9"
+                                Text="&#xf00C;" />
+
+                            <TextBlock
+                                Grid.Row="1"
+                                Margin="0,3"
+                                HorizontalAlignment="Center"
+                                Effect="{StaticResource IconShadowEffect}"
+                                Focusable="False"
+                                FontSize="{StaticResource FontSizeLarge}"
+                                Text="{lex:BLoc Apply,
+                                                TargetNullValue=Apply}" />
+                        </Grid>
+                    </Button>
+
                 </Grid>
             </Grid>
         </GroupBox>
