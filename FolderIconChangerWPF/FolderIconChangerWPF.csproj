@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
 		<AssemblyTitle>Folder Icon Changer</AssemblyTitle>
@@ -125,9 +125,6 @@
 		<Resource Include="Images\Ezz14_Left.jpg" />
 	</ItemGroup>
 	<ItemGroup>
-		<Compile Update="Ezz_Helper\Files\INI.cs">
-			<SubType>Component</SubType>
-		</Compile>
 		<Compile Update="Properties\Resources.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>

@@ -395,7 +395,7 @@ namespace Ezz_Helper.Files.GetInfo
 				//Refresh
 				DirectoryInfo newDI = new DirectoryInfo(TargetFolder_);
 				newDI.Refresh();
-				OtherH.RefreshWindowsExplorers();
+				RefreshWindowsExplorers();
 			}
 			catch (Exception ex)
 			{
@@ -406,7 +406,32 @@ namespace Ezz_Helper.Files.GetInfo
 			}
 		}
 
-		public static Ezz_Helper.WinForms.IconsManager.SelectedIconInfo GetFolderIconInfo(string TargetFolder_)
+        public static void RefreshWindowsExplorers()
+        {
+            // based on http://stackoverflow.com/questions/2488727/refresh-windows-explorer-in-win7
+            Guid CLSID_ShellApplication = new Guid("13709620-C279-11CE-A49E-444553540000");
+            Type shellApplicationType = Type.GetTypeFromCLSID(CLSID_ShellApplication, true);
+
+            object shellApplication = Activator.CreateInstance(shellApplicationType);
+            object windows = shellApplicationType.InvokeMember("Windows", System.Reflection.BindingFlags.InvokeMethod, null, shellApplication, new object[] { });
+
+            Type windowsType = windows.GetType();
+            object count = windowsType.InvokeMember("Count", System.Reflection.BindingFlags.GetProperty, null, windows, null);
+            for (int i = 0; i < (int)count; i++)
+            {
+                object item = windowsType.InvokeMember("Item", System.Reflection.BindingFlags.InvokeMethod, null, windows, new object[] { i });
+                Type itemType = item.GetType();
+
+                // only refresh windows explorers
+                string itemName = (string)itemType.InvokeMember("Name", System.Reflection.BindingFlags.GetProperty, null, item, null);
+                if (itemName == "Windows Explorer")
+                {
+                    itemType.InvokeMember("Refresh", System.Reflection.BindingFlags.InvokeMethod, null, item, null);
+                }
+            }
+        }
+
+        public static Ezz_Helper.WinForms.IconsManager.SelectedIconInfo GetFolderIconInfo(string TargetFolder_)
 		{
 			string DesktoINIPath = Path.Combine(TargetFolder_, "Desktop.ini");
 			if (!File.Exists(DesktoINIPath)) return null;
@@ -530,19 +555,16 @@ namespace Ezz_Helper.Files.GetInfo
 					{
 						if (Path.IsPathRooted(EVValue) && Directory.Exists(EVValue))
 						{
-							if (Path.GetPathRoot(EVValue) != EVValue)
-							{
-								if (finalS.ToUpper().Contains(EVValue.ToUpper()))
-								{
-									string EVKey = (string)EV_.Key;
-									finalS = finalS.Replace(EVValue, string.Format("%{0}%", EVKey));
-									break;
-								}
-							}
-						}
+                            if (Path.GetPathRoot(EVValue) != EVValue && finalS.Contains(EVValue, StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                string EVKey = (string)EV_.Key;
+                                finalS = finalS.Replace(EVValue, string.Format("%{0}%", EVKey));
+                                break;
+                            }
+                        }
 					}
 				}
-				catch (Exception)
+				catch
 				{
 
 					//throw;
@@ -639,7 +661,7 @@ namespace Ezz_Helper.Files.GetInfo
 				//newL.Add("*")
 				newL.AddRange(Registry.ClassesRoot.GetSubKeyNames().Where(n => n.StartsWith(".")));
 			}
-			catch (Exception)
+			catch
 			{
 			}
 			return newL;
@@ -1016,15 +1038,15 @@ namespace Ezz_Helper.Files.GetInfo
 				}
 				return res;
 			}
-			/// <summary>
-			/// Checks in registry if the extension is associated with selected application path AndAlso progID
-			/// </summary>
-			/// <param name="extension">The extension to check for.</param>
-			/// <param name="applicationPath">Selected application path.</param>
-			/// <param name="progID">Selected progID.</param>
-			/// <returns>True if extension already associated with selected application path AndAlso progID, Otherwise false.</returns>
-			/// <remarks></remarks>
-			public static bool IsAssociatedWithApp(string extension, string ApplicationPath, string progID)
+            /// <summary>
+            /// Checks in registry if the extension is associated with selected application path AndAlso progID
+            /// </summary>
+            /// <param name="extension">The extension to check for.</param>
+            /// <param name="ApplicationPath">Selected application path.</param>
+            /// <param name="progID">Selected progID.</param>
+            /// <returns>True if extension already associated with selected application path AndAlso progID, Otherwise false.</returns>
+            /// <remarks></remarks>
+            public static bool IsAssociatedWithApp(string extension, string ApplicationPath, string progID)
 			{
 				bool res = false;
 				extension = CheckNReturnExt(extension);

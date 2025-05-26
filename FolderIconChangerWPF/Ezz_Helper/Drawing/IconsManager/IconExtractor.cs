@@ -446,18 +446,15 @@ namespace Ezz_Helper.Drawing.IconsManager
             if (iconIndex >= 0) return iconIndex;
             //iconIndex = -iconIndex;
             //var IntPI = new IntPtr(Math.Abs(iconIndex));
-            int Sourceindex = Math.Abs(iconIndex);
+            int sourceIndex = Math.Abs(iconIndex);
             int index = 0;
             foreach (ResourceName resourceName in this.IconResInfo_1.IconNames)
             {
-                if (resourceName.Id != null)
-                {
-                    if (resourceName.Id.ToInt32() == Sourceindex)//(resourceName.Id == IntPI)
+                    if (resourceName.Id.ToInt32() == sourceIndex)//(resourceName.Id == IntPI)
                     {
                         return index;
                         //break;
                     }
-                }
                 index++;
             }
             return -1;
@@ -513,7 +510,7 @@ namespace Ezz_Helper.Drawing.IconsManager
             }
         }
         /// <summary>
-        /// 
+        /// Extract Icon From File To File
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="iconIndex"></param>
@@ -629,7 +626,7 @@ namespace Ezz_Helper.Drawing.IconsManager
                     NewGsII.OK = true;
                 }
             }
-            catch (Exception)
+            catch
             {
             }
 
@@ -697,7 +694,7 @@ namespace Ezz_Helper.Drawing.IconsManager
             {
                 lCount = NativeMethods.ExtractIconEx(FilePath, -1, phiconSmall, phiconLarge, 0);   // Get count of icons 
             }
-            catch (Exception)
+            catch
             {
             }
             return lCount;
@@ -818,11 +815,6 @@ namespace Ezz_Helper.Drawing.IconsManager
             return GetAssociatedIcon(fileName, IconFlags.SmallIcon);
         }
 
-        /// <summary>
-        /// Merges a list of icons into one single icon.
-        /// </summary>
-        /// <param name="icons">The icons to be merged.</param>
-        /// <returns>System.Drawing.Icon that contains all the images of the givin icons.</returns>
         //public static Icon Merge(params Icon[] icons)
         //{
         //    List<IconInfo> list = new List<IconInfo>(icons.Length);

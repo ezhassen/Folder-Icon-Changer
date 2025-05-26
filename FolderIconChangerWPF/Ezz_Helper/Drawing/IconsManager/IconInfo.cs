@@ -360,8 +360,6 @@ namespace Ezz_Helper.Drawing.IconsManager
         /// Converts an System.Drawing.Bitmap() to new System.Drawing.Icon()
         /// </summary>
         /// <param name="SourceImage">The System.Drawing.Bitmap to convert (The size must be less than or equal 256x256)</param>
-        /// <param name="Mask">The [AND]Image (if nothing then it will create new one)</param>
-        /// <param name="transparentColor">The Transparent Color</param>
         /// <param name="DisposeSourceImage">Release all resources used by the SourceImage?</param>
         /// <param name="BitCount_">To Convet the PixelFormat.</param>
         /// <returns>New icon from SourceImage</returns>
@@ -1043,7 +1041,7 @@ namespace Ezz_Helper.Drawing.IconsManager
 
                 RawData = new byte[entry_1.BytesInRes];
                 IStream.Seek(entry_1.ImageOffset, SeekOrigin.Begin);
-                IStream.Read(RawData, 0, entry_1.BytesInRes);
+                IStream.ReadExactly(RawData, 0, entry_1.BytesInRes);
                 entry = entry_1;
                 //
                 //To save some memory icon will be built one time when called.
@@ -1296,7 +1294,6 @@ namespace Ezz_Helper.Drawing.IconsManager
             /// </summary>
             /// <param name="entry"></param>
             /// <param name="RawData_1"></param>
-            /// <param name="IsCompressedPNG_1"></param>
             /// <param name="setErrorIconOnError"></param>
             /// <returns></returns>
             public static Icon BuildIcon(IconDirEntry entry, byte[] RawData_1, bool setErrorIconOnError = false)

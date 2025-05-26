@@ -1376,8 +1376,6 @@ namespace Ezz_Helper.Files
         #region "Save"
 
         [Category("INI_Save")]
-        public event EventHandler Save_Aborted;
-        [Category("INI_Save")]
         public event ErrorEventHandler Save_Error;
         [Category("INI_Save")]
         public event EventHandler Save_Finish;
@@ -1583,13 +1581,10 @@ namespace Ezz_Helper.Files
         #region "Load"
 
         //<Category("INI_Load")>
-        public event EventHandler Load_Aborted;
-        //<Category("INI_Load")>
         public event ErrorEventHandler Load_Error;
         //<Category("INI_Load")>
         public event EventHandler Load_Finish;
         //<Category("INI_Load")>
-        public event CancelEventHandler Load_Start;
         //
         bool _Load_IsWorking = false;
         [Browsable(false)]
