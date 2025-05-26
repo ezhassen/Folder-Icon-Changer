@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Ezz_Helper.Files
 {
@@ -61,7 +62,7 @@ namespace Ezz_Helper.Files
             LoadByStream = true;
         }
         //private StreamWriter _myWriter;
-       
+
         //{
         //    _myWriter = myWriter;
         //}
@@ -111,8 +112,6 @@ namespace Ezz_Helper.Files
                     public static extern uint GetPrivateProfileSection(string lpAppName,
                                                                            IntPtr lpReturnedString, uint nSize, string lpFileName);
 
-                    ///''''''''''
-
                     /// <summary>
                     /// Replaces the keys and values for the specified section in an initialization file.
                     /// </summary>
@@ -155,8 +154,6 @@ namespace Ezz_Helper.Files
                     [DllImport("kernel32.dll", EntryPoint = "GetPrivateProfileSectionW", CharSet = CharSet.Unicode)]
                     public static extern uint GetPrivateProfileSection(string lpAppName,
                                                                            IntPtr lpReturnedString, uint nSize, string lpFileName);
-
-                    ///''''''''''
 
                     /// <summary>
                     /// Replaces the keys and values for the specified section in an initialization file.
@@ -304,7 +301,7 @@ namespace Ezz_Helper.Files
             private void CreateINIFile()
             {
                 File.WriteAllLines(Settings.FileFullPath, new string[] {
-				}, this.GetCurrentTextEncoding());
+                }, this.GetCurrentTextEncoding());
                 //Dim sw As StreamWriter = New StreamWriter(Settings.FileFullPath, False, Me.GetCurrentTextEncoding)
                 //sw.Close()
             }
@@ -362,7 +359,7 @@ namespace Ezz_Helper.Files
                             if ((filein.CanSeek))
                             {
                                 byte[] bom = new byte[5];
-                                filein.Read(bom, 0, 5);
+                                filein.ReadExactly(bom, 0, 5);
                                 //UTF-8: EF BB BF
                                 //UTF-16 big endian byte order: FE FF
                                 //UTF-16 little endian byte order: FF FE
@@ -396,15 +393,15 @@ namespace Ezz_Helper.Files
 
                                     //UTF-7 byte order : 2B 2F 76 38 2D
                                 }
-                                else if ((bom[0] == 0x2b) & (bom[1] == 0x2f) & (bom[2] == 0x76) & (bom[3] == 0x38) & (bom[4] == 0x2d))
-                                {
-                                    return System.Text.Encoding.UTF7;
+                                //else if ((bom[0] == 0x2b) & (bom[1] == 0x2f) & (bom[2] == 0x76) & (bom[3] == 0x38) & (bom[4] == 0x2d))
+                                //{
+                                //    return System.Text.Encoding.UTF7;
 
-                                    //else if (bom[0] = &H0) And (bom[1] = &H0) And (bom[2] = &HFE) And (bom[3] = &HFF) Then 'UTF-32 big endian byte order: 00 00 FE FF (ucs-4)
-                                    //Return System.Text.Encoding.
+                                //    //else if (bom[0] = &H0) And (bom[1] = &H0) And (bom[2] = &HFE) And (bom[3] = &HFF) Then 'UTF-32 big endian byte order: 00 00 FE FF (ucs-4)
+                                //    //Return System.Text.Encoding.
 
-                                    //enc = "Unicode"
-                                }
+                                //    //enc = "Unicode"
+                                //}
                                 else
                                 {
                                     //enc = "ASCII"
@@ -419,7 +416,7 @@ namespace Ezz_Helper.Files
                     }
                     return enc;
                 }
-                catch (Exception)
+                catch
                 {
                 }
 
@@ -483,7 +480,6 @@ namespace Ezz_Helper.Files
                 //MsgBox(SecNames.Count)
                 return SecNames;
                 //
-                ///''''''''''''''''''''''''''''''''''''''''''''
                 //Dim AllLines As String() = File.ReadAllLines(Settings.FileFullPath)
                 //For Each line As String In AllLines
                 //    Dim StatrI As Integer = 0
@@ -1388,106 +1384,54 @@ namespace Ezz_Helper.Files
         [Category("INI_Save")]
         public event CancelEventHandler Save_Start;
         //
-        bool _Save_IsWorkig = false;
+        bool _Save_IsWorking = false;
         [Browsable(false)]
-        public bool Save_IsWorkig { get { return _Save_IsWorkig; } }
+        public bool Save_IsWorking { get { return _Save_IsWorking; } }
         bool _Save_ErrorInLastOperation = false;
         [Browsable(false)]
         public bool Save_ErrorInLastOperation { get { return _Save_ErrorInLastOperation; } }
 
-        /// <summary>
-        /// To abort the thread if it's working.
-        /// </summary>
-        /// <param name="RaiseAbortEvent">true to RaiseAbortEvent; otherwise, false.</param>
-        /// <remarks></remarks>
-        public void Save_Abort(bool RaiseAbortEvent = false)
+        CancellationToken _save_CancellationToken;
+
+        public async Task SaveAsync(iniFile_API.INISettings INISettings,
+            Action BeforeThreadStart = null, Action OnThreadTaskStart = null,
+            Action OnThreadTaskFinish = null, Action OnFinish = null, CancellationToken cancellationToken = default)
         {
-            if (Save_IsWorkig == false)
-                return;
-            _Save_IsWorkig = false;
-            // ''Pause & Resume the thread :)
-            //Try
-            //    Save_ResetEvent_.Close()
-            //Catch ex As Exception
-            //End Try
-            try
-            {
-                if (Save_Thread != null)
-                {
-                    if (Save_Thread.IsAlive == true)
-                    {
-                        Save_Thread.Abort();
-                    }
-                }
-            }
-            catch (Exception)
-            {
-            }
-            // ''Pause & Resume the thread :)
-            //   _Save_IsPaused=False
-            if (RaiseAbortEvent)
-            {
-                if (Save_Aborted != null)
-                {
-                    Save_Aborted(this, EventArgs.Empty);
-                }
-                //    'RaiseEvent Save_Finish(Me, EventArgs.Empty)
-            }
-        }
-        //
-        System.Threading.SynchronizationContext Save_SynContext;
-        private Thread Save_Thread;
-        /// <summary>
-        /// Starts a new thread to do the "Save" operation.
-        /// </summary>
-        /// <param name="INISettings"></param>
-        /// <param name="BeforeThreadStart">Action to be called in Current SynchronizationContext before Thread.Start call.</param>
-        /// <param name="OnThreadTaskStart">Action to be called in thread SynchronizationContext (Thread task beginning).</param>
-        /// <param name="OnThreadTaskFinish">Action to be called in thread SynchronizationContext (Thread task end, Befor finish event raises).</param>
-        /// <param name="OnFinish">Action to be called in Current SynchronizationContext when Thread finished (Befor finish event raises).</param>
-        /// <remarks></remarks>
-        public void Save(iniFile_API.INISettings INISettings, Action BeforeThreadStart = null, Action OnThreadTaskStart = null, Action OnThreadTaskFinish = null, Action OnFinish = null)
-        {
+            //return Task.Run(() => Save(INISettings, BeforeThreadStart, OnThreadTaskStart, OnThreadTaskFinish, OnFinish));
             iniF = new iniFile_API(INISettings);
-            Save(BeforeThreadStart, OnThreadTaskStart, OnThreadTaskFinish, OnFinish);
+            await SaveAsync(BeforeThreadStart: BeforeThreadStart, OnThreadTaskStart: OnThreadTaskStart, OnThreadTaskFinish: OnThreadTaskFinish, OnFinish: OnFinish, cancellationToken: cancellationToken);
         }
 
-        /// <summary>
-        /// Starts a new thread to do the "Save" operation.
-        /// </summary>
-        /// <param name="BeforeThreadStart">Action to be called in Current SynchronizationContext before Thread.Start call.</param>
-        /// <param name="OnThreadTaskStart">Action to be called in thread SynchronizationContext (Thread task beginning).</param>
-        /// <param name="OnThreadTaskFinish">Action to be called in thread SynchronizationContext (Thread task end, Befor finish event raises).</param>
-        /// <param name="OnFinish">Action to be called in Current SynchronizationContext when Thread finished (Befor finish event raises).</param>
-        /// <remarks></remarks>
-        public void Save(Action BeforeThreadStart = null, Action OnThreadTaskStart = null, Action OnThreadTaskFinish = null, Action OnFinish = null)
+        public async Task SaveAsync(Action BeforeThreadStart = null, Action OnThreadTaskStart = null,
+            Action OnThreadTaskFinish = null, Action OnFinish = null, CancellationToken cancellationToken = default)
         {
-            _Save_IsWorkig = true;
-            //
-            if (Save_Start != null)
-            {
-                CancelEventArgs RSC = new CancelEventArgs();
-                Save_Start(this, RSC);
-                if (RSC.Cancel)
-                {
-                    _Save_IsWorkig = false;
-                    return;
-                }
-            }
+            _save_CancellationToken = cancellationToken;
+            _Save_IsWorking = true;
             //
             if (BeforeThreadStart != null)
                 BeforeThreadStart();
             Save_SynContext = SynchronizationContext.Current;
+            try
+            {
 
-            // ''Pause & Resume the thread :)
-            //Save_ResetEvent_ = New ManualResetEvent(False)
+                await Task.Run(() =>
+                {
+                    this.Save_TTask(OnThreadTaskStart: OnThreadTaskStart, OnThreadTaskFinish: OnThreadTaskFinish, OnFinish: OnFinish, cancellationToken: cancellationToken);
+                }, _save_CancellationToken);
+            }
+            finally
+            {
+                _Save_IsWorking = false;
+            }
 
-            Save_Thread = new Thread(() => Save_TTask(OnThreadTaskStart, OnThreadTaskFinish, OnFinish));
-            Save_Thread.IsBackground = true;
-            Save_Thread.Name = "Thread_Save";
-            Save_Thread.Start();
+
+            _save_CancellationToken = default;
         }
-        private void Save_TTask(Action OnThreadTaskStart = null, Action OnThreadTaskFinish = null, Action OnFinish = null)
+
+        //
+        System.Threading.SynchronizationContext Save_SynContext;
+
+        private void Save_TTask(Action OnThreadTaskStart = null, Action OnThreadTaskFinish = null, Action OnFinish = null, CancellationToken cancellationToken = default)
         {
             _Save_ErrorInLastOperation = false;
             //_Save_IsWorkig = True
@@ -1518,7 +1462,7 @@ namespace Ezz_Helper.Files
                     //    sn.Section.KeysList.Remove(sn.Key)
                     //Next
 
-                    iniSaveByStream();
+                    iniSaveByStream(cancellationToken);
                 }
                 else
                 {
@@ -1527,26 +1471,31 @@ namespace Ezz_Helper.Files
                     {
                         foreach (Section DS in listToClearSectionKeys)
                         {
+                            if (cancellationToken.IsCancellationRequested) break;
                             //DS.KeysList.Clear()
                             INIFile.DeleteSectionKeys(DS.SectionName);
                         }
                         foreach (Section DS in listToDeleteSection)
                         {
+                            if (cancellationToken.IsCancellationRequested) break;
                             //SectionsList_.Remove(DS)
                             INIFile.DeleteSection(DS.SectionName);
                         }
                         foreach (SectionKey sk in listToDeleteKey)
                         {
                             //sk.Section.KeysList.Remove(sk.Key)
+                            if (cancellationToken.IsCancellationRequested) break;
                             INIFile.DeleteKey(sk.Section.SectionName, sk.Key.KeyName);
                         }
                         foreach (KeyRename kr in listToKeyRename)
                         {
+                            if (cancellationToken.IsCancellationRequested) break;
                             INIFile.DeleteKey(kr.Section.SectionName, kr.oldName);
                             INIFile.WriteString(kr.Section.SectionName, kr.newName, kr.Key.Value, kr.Key.Comment);
                         }
                         foreach (SectionRename so in listToSectionRename)
                         {
+                            if (cancellationToken.IsCancellationRequested) break;
                             INIFile.DeleteSection(so.oldName);
                             //As it will be added next
                             //For Each k As Section.Key In so.Section.KeysList
@@ -1556,10 +1505,12 @@ namespace Ezz_Helper.Files
                         //
                         foreach (Section s in SectionsList)
                         {
+                            if (cancellationToken.IsCancellationRequested) break;
                             if (s.IsSection)
                             {
                                 foreach (Section.Key k in s.KeysList)
                                 {
+                                    if (cancellationToken.IsCancellationRequested) break;
                                     if (k.IsKey)
                                         INIFile.WriteString(s.SectionName, k.KeyName, k.Value, k.Comment);
                                 }
@@ -1568,7 +1519,7 @@ namespace Ezz_Helper.Files
                     }
                     else
                     {
-                        INIFile.Clear();
+                        if (!cancellationToken.IsCancellationRequested) INIFile.Clear();
                     }
 
                     INIFile.Flush();
@@ -1582,18 +1533,18 @@ namespace Ezz_Helper.Files
             catch (Exception ex)
             {
                 _Save_ErrorInLastOperation = true;
-                _Save_IsWorkig = false;
+                _Save_IsWorking = false;
                 Save_SynContext.Send((s) => OnSave_Error(new ErrorEventArgs(ex)), null);
             }
             finally
             {
-                _Save_IsWorkig = false;
+                _Save_IsWorking = false;
                 RestVers();
                 if (OnThreadTaskFinish != null) OnThreadTaskFinish();
                 Save_SynContext.Send((s) => OnSave_Finish(OnFinish), null);
             }
         }
-        public void OnSave_Start(CancelEventArgs e) { if (Save_Start != null)  Save_Start(this, e); }
+        public void OnSave_Start(CancelEventArgs e) { if (Save_Start != null) Save_Start(this, e); }
         public void OnSave_Finish(Action OnFinish = null)
         {
             if (OnFinish != null) OnFinish();
@@ -1602,7 +1553,7 @@ namespace Ezz_Helper.Files
         public void OnSave_Error(ErrorEventArgs ex) { if (Save_Error != null) { Save_Error(this, ex); } }
         //
 
-        private void iniSaveByStream()
+        private void iniSaveByStream(CancellationToken cancellationToken = default)
         {
             //INIFile.CheckFileExistsNCreate()
             string FPath = FileFullPath;
@@ -1616,6 +1567,11 @@ namespace Ezz_Helper.Files
             {
                 foreach (Section s in SectionsList)
                 {
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        sWriter.Flush();
+                        break;
+                    }
                     sWriter.WriteLine(s.ToiniFormat(iniF.Settings));
                 }
                 sWriter.Flush();
@@ -1635,11 +1591,11 @@ namespace Ezz_Helper.Files
         //<Category("INI_Load")>
         public event CancelEventHandler Load_Start;
         //
-        bool _Load_IsWorkig = false;
+        bool _Load_IsWorking = false;
         [Browsable(false)]
-        public bool Load_IsWorkig
+        public bool Load_IsWorking
         {
-            get { return _Load_IsWorkig; }
+            get { return _Load_IsWorking; }
         }
         bool _Load_ErrorInLastOperation = false;
         [Browsable(false)]
@@ -1647,135 +1603,41 @@ namespace Ezz_Helper.Files
         {
             get { return _Load_ErrorInLastOperation; }
         }
-        //
-        // ''Pause & Resume the thread :)
-        //Private Load_ResetEvent_ As ManualResetEvent
-        //'<Category("INI_Load - Pause & Resume")>
-        //Public Event Load_Paused As EventHandler
-        //'<Category("INI_Load - Pause & Resume")>
-        //Public Event Load_Resumed As EventHandler
-        //Dim _Load_IsPaused As Boolean = False
-        // ''' <summary>
-        // ''' Gets or sets the state of the operation. (Pause or Resume the thread)
-        // '''     ''' </summary>
-        // ''' <value></value>
-        // ''' <returns></returns>
-        // ''' <remarks></remarks>
-        //<Browsable(False)>
-        //Public Property Load_IsPaused As Boolean
-        //    Get
-        //        Return _Load_IsPaused
-        //    End Get
-        //    Set(ByVal value As Boolean)
-        //        If Me.Load_IsWorkig = False Then Exit Property
-        //        _Load_IsPaused = value
-        //        If value = True Then 'Pause
-        //            Load_ResetEvent_.Reset()
-        //            RaiseEvent Load_Paused(Me, EventArgs.Empty)
-        //        Else 'Resume
-        //            Load_ResetEvent_.Set()
-        //            RaiseEvent Load_Resumed(Me, EventArgs.Empty)
-        //        End If
-        //    End Set
-        //End Property
-        //
-        /// <summary>
-        /// To abort the thread if it's working.
-        /// </summary>
-        /// <param name="RaiseAbortEvent">true to RaiseAbortEvent; otherwise, false.</param>
-        /// <remarks></remarks>
-        public void Load_Abort(bool RaiseAbortEvent = false)
-        {
-            if (Load_IsWorkig == false)
-                return;
-            _Load_IsWorkig = false;
-            // ''Pause & Resume the thread :)
-            //Try
-            //    Load_ResetEvent_.Close()
-            //Catch ex As Exception
-            //End Try
-            try
-            {
-                if (Load_Thread != null)
-                {
-                    if (Load_Thread.IsAlive == true)
-                    {
-                        Load_Thread.Abort();
-                    }
-                }
-            }
-            catch (Exception)
-            {
-            }
-            // ''Pause & Resume the thread :)
-            //   _Load_IsPaused=False
-            if (RaiseAbortEvent)
-            {
-                if (Load_Aborted != null)
-                {
-                    Load_Aborted(this, EventArgs.Empty);
-                }
-                //    'RaiseEvent Load_Finish(Me, EventArgs.Empty)
-            }
-        }
+
         //
         System.Threading.SynchronizationContext Load_SynContext;
-        private Thread Load_Thread;
         bool DetectFileEncoding_ = false;
-        /// <summary>
-        /// Starts a new thread to do the "Load" operation.
-        /// </summary>
-        /// <param name="INISettings"></param>
-        /// <param name="BeforeThreadStart">Action to be called in Current SynchronizationContext before Thread.Start call.</param>
-        /// <param name="OnThreadTaskStart">Action to be called in thread SynchronizationContext (Thread task beginning).</param>
-        /// <param name="OnThreadTaskFinish">Action to be called in thread SynchronizationContext (Thread task end, Befor finish event raises).</param>
-        /// <param name="OnFinish">Action to be called in Current SynchronizationContext when Thread finished (Befor finish event raises).</param>
-        /// <remarks></remarks>
-        public void Load(iniFile_API.INISettings INISettings, Action BeforeThreadStart = null, Action OnThreadTaskStart = null, Action OnThreadTaskFinish = null, Action OnFinish = null)
+        CancellationToken _LoadCancellationToken;
+        public async Task LoadAsync(iniFile_API.INISettings INISettings, Action BeforeThreadStart = null, Action OnThreadTaskStart = null, Action OnThreadTaskFinish = null, Action OnFinish = null, bool detectFileEncoding = false, CancellationToken cancellationToken = default)
         {
-            //SectionsList_ = New List(Of Section)
-            //iniF = New File_API(INIFilePath, File_API.DetectFileEncoding(INIFilePath))
             iniF = new iniFile_API(INISettings);
-            Load(false, BeforeThreadStart, OnThreadTaskStart, OnThreadTaskFinish, OnFinish);
+            await LoadAsync(BeforeThreadStart: BeforeThreadStart, OnThreadTaskStart: OnThreadTaskStart, OnThreadTaskFinish: OnThreadTaskFinish, OnFinish: OnFinish, detectFileEncoding: detectFileEncoding, cancellationToken: cancellationToken);
         }
-        /// <summary>
-        /// Starts a new thread to do the "Load" operation.
-        /// </summary>
-        /// <param name="BeforeThreadStart">Action to be called in Current SynchronizationContext before Thread.Start call.</param>
-        /// <param name="OnThreadTaskStart">Action to be called in thread SynchronizationContext (Thread task beginning).</param>
-        /// <param name="OnThreadTaskFinish">Action to be called in thread SynchronizationContext (Thread task end, Befor finish event raises).</param>
-        /// <param name="OnFinish">Action to be called in Current SynchronizationContext when Thread finished (Befor finish event raises).</param>
-        /// <remarks></remarks>
-
-        public void Load(bool DetectFileEncoding = false, Action BeforeThreadStart = null, Action OnThreadTaskStart = null, Action OnThreadTaskFinish = null, Action OnFinish = null)
+        public async Task LoadAsync(Action BeforeThreadStart = null, Action OnThreadTaskStart = null, Action OnThreadTaskFinish = null, Action OnFinish = null, bool detectFileEncoding = false, CancellationToken cancellationToken = default)
         {
-            _Load_IsWorkig = true;
-            //
-            CancelEventArgs RSC = new CancelEventArgs();
-            if (Load_Start != null)
-            {
-                Load_Start(this, RSC);
-            }
-            if (RSC.Cancel)
-            {
-                _Load_IsWorkig = false;
-                return;
-            }
+            _Load_IsWorking = true;
+            _LoadCancellationToken = cancellationToken;
             //
             if (BeforeThreadStart != null)
                 BeforeThreadStart();
             Load_SynContext = SynchronizationContext.Current;
-
-            // ''Pause & Resume the thread :)
-            //Load_ResetEvent_ = New ManualResetEvent(False)
-            DetectFileEncoding_ = DetectFileEncoding;
-
-            Load_Thread = new Thread(() => Load_TTask(OnThreadTaskStart, OnThreadTaskFinish, OnFinish));
-            Load_Thread.IsBackground = true;
-            Load_Thread.Name = "Thread_Load";
-            Load_Thread.Start();
+            DetectFileEncoding_ = detectFileEncoding;
+            try
+            {
+                await Task.Run(() =>
+                {
+                    this.Load_TTask(OnThreadTaskStart: OnThreadTaskStart, OnThreadTaskFinish: OnThreadTaskFinish, OnFinish: OnFinish, cancellationToken: cancellationToken);
+                }, _LoadCancellationToken);
+            }
+            finally
+            {
+                _Load_IsWorking = false;
+                _LoadCancellationToken = default;
+            }
         }
-        private void Load_TTask(Action OnThreadTaskStart = null, Action OnThreadTaskFinish = null, Action OnFinish = null)
+
+
+        private void Load_TTask(Action OnThreadTaskStart = null, Action OnThreadTaskFinish = null, Action OnFinish = null, CancellationToken cancellationToken = default)
         {
             _Load_ErrorInLastOperation = false;
             //_Load_IsWorkig = True
@@ -1799,7 +1661,7 @@ namespace Ezz_Helper.Files
                     INIFile.Settings.TextEncoding = iniFile_API.Get__Encoding(INIFile.GetFileEncoding());
                 if (LoadByStream)
                 {
-                    iniLoadByStream();
+                    iniLoadByStream(cancellationToken);
                 }
                 else
                 {
@@ -1807,10 +1669,12 @@ namespace Ezz_Helper.Files
                     //MsgBox(AllSections.Count)
                     foreach (string s in AllSections)
                     {
+                        if (cancellationToken.IsCancellationRequested) break;
                         Section TS = new Section(true, s);
                         var Ks = INIFile.GetSectionKeysWithValues(s);
                         foreach (string k in Ks)
                         {
+                            if (cancellationToken.IsCancellationRequested) break;
                             //TS.KeysList.Add(New Section.Key(s, INIFile.GetKeyValue_FromString(k), INIFile.GetKeyComment_FromString(k)))
                             //TS.KeysList.Add(Section.Key.FrominiFormat(iniF, k))
                             TS.KeysList.Add(iniF.Get_Key_Value_Comment(k));
@@ -1826,12 +1690,12 @@ namespace Ezz_Helper.Files
             catch (Exception ex)
             {
                 _Load_ErrorInLastOperation = true;
-                _Load_IsWorkig = false;
+                _Load_IsWorking = false;
                 Load_SynContext.Send((s) => OnLoad_Error(new ErrorEventArgs(ex)), null);
             }
             finally
             {
-                _Load_IsWorkig = false;
+                _Load_IsWorking = false;
                 if (OnThreadTaskFinish != null)
                     OnThreadTaskFinish();
                 Load_SynContext.Send((s) => OnLoad_TFinish(OnFinish), null);
@@ -1855,7 +1719,7 @@ namespace Ezz_Helper.Files
         }
 
         //
-        private void iniLoadByStream()
+        private void iniLoadByStream(CancellationToken cancellationToken = default)
         {
             SectionsList_ = new List<Section>();
             Section tmpsection = null;
@@ -1867,6 +1731,7 @@ namespace Ezz_Helper.Files
             StreamReader oReader = new StreamReader(FPath);
             while (!oReader.EndOfStream)
             {
+                if (cancellationToken.IsCancellationRequested) break;
                 string line = oReader.ReadLine();
                 Match m = null;
                 m = regexsection.Match(line);
