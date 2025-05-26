@@ -14,13 +14,15 @@
     lex:LocalizeDictionary.OutputMissingKeys="True"
     lex:ResxLocalizationProvider.DefaultAssembly="Folder Icon Changer"
     lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+    Background="Transparent"
     MouseEnter="IconImageControlBase_MouseEnter"
     MouseLeave="IconImageControlBase_MouseLeave"
-    mc:Ignorable="d" Background="Transparent">
+    mc:Ignorable="d">
 
     <Grid DataContext="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:IconImageControlBase}}">
-        <Image Margin="5"
+        <Image
             x:Name="ImageControl"
+            Margin="5"
             Source="{Binding ImageSource}"
             Stretch="{Binding ImageStretch}"
             StretchDirection="{Binding ImageStretchDirection}" />

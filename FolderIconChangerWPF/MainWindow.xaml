@@ -11,7 +11,8 @@
     xmlns:mm="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:serv="clr-namespace:FolderIconChangerWPF.Services"
     xmlns:vm="clr-namespace:FolderIconChangerWPF.ViewModels"
-    Title="{lex:BLoc MainFormTitle, FallbackValue={}Folder Icon Changer}"
+    Title="{lex:BLoc MainFormTitle,
+                     FallbackValue={}Folder Icon Changer}"
     Width="520"
     MinWidth="520"
     MinHeight="480"
@@ -29,8 +30,8 @@
     ShowIconOnTitleBar="False"
     SizeToContent="Height"
     TitleAlignment="Stretch"
-    TitleTemplate="{StaticResource WindowTitleTemplateBig}" 
     TitleBarHeight="42"
+    TitleTemplate="{StaticResource WindowTitleTemplateBig}"
     WindowButtonCommandsOverlayBehavior="Always"
     WindowStartupLocation="CenterScreen"
     WindowTitleBrush="{DynamicResource MahApps.Brushes.Window.Background}"
@@ -49,7 +50,8 @@
                 Margin="8,10,5,8"
                 Cursor="Hand"
                 Foreground="{DynamicResource MahApps.Brushes.Gray1}"
-                ToolTip="{lex:BLoc MainWindowMenu, TargetNullValue=Menu}">
+                ToolTip="{lex:BLoc MainWindowMenu,
+                                   TargetNullValue=Menu}">
                 <ToggleButton.Effect>
                     <DropShadowEffect
                         BlurRadius="10"
@@ -131,7 +133,8 @@
                 <ap:ContextMenuHelper.ToggleButtonContextMenu>
                     <ContextMenu
                         MinWidth="160"
-                        FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}"
+                        FlowDirection="{lex:BLoc FlowDirection,
+                                                 TargetNullValue=LeftToRight}"
                         HorizontalOffset="-40"
                         Placement="Bottom"
                         RenderOptions.ClearTypeHint="Enabled"
@@ -143,7 +146,8 @@
                             x:Name="AppMenu_SettingsPageItem"
                             Command="{Binding GoToPageCommand, Source={x:Static vm:ApplicationViewModel.Instance}}"
                             CommandParameter="SettingsPage"
-                            Header="{lex:BLoc Settings, TargetNullValue={}Settings}"
+                            Header="{lex:BLoc Settings,
+                                              TargetNullValue={}Settings}"
                             Style="{StaticResource NormalMenuItem}"
                             Visibility="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}, Converter={conv:VisibilityWhenStringConverter When=SettingsPage, Value=Collapsed, Otherwise=Visible}}">
                             <MenuItem.Icon>
@@ -170,7 +174,8 @@
                             x:Name="AppMenu_AboutPage"
                             Command="{Binding GoToPageCommand, Source={x:Static vm:ApplicationViewModel.Instance}}"
                             CommandParameter="AboutPage"
-                            Header="{lex:BLoc About, TargetNullValue={}About}"
+                            Header="{lex:BLoc About,
+                                              TargetNullValue={}About}"
                             Style="{StaticResource NormalMenuItem}"
                             Visibility="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}, Converter={conv:VisibilityWhenStringConverter When=AboutPage, Value=Collapsed, Otherwise=Visible}}">
                             <MenuItem.Icon>
@@ -197,7 +202,8 @@
                             Command="{Binding AppExitCommand, Source={x:Static vm:ApplicationViewModel.Instance}}"
                             FontSize="{StaticResource FontSizeRegular}"
                             Foreground="{DynamicResource MahApps.Brushes.Text}"
-                            Header="{lex:BLoc Exit, TargetNullValue={}Exit}"
+                            Header="{lex:BLoc Exit,
+                                              TargetNullValue={}Exit}"
                             ToolTip="{Binding Header, RelativeSource={RelativeSource Mode=Self}}">
 
                             <MenuItem.Icon>
@@ -339,7 +345,8 @@
                 Background="{DynamicResource MahApps.Brushes.Window.Background}"
                 BorderThickness="0"
                 Cursor="Hand"
-                FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}"
+                FlowDirection="{lex:BLoc FlowDirection,
+                                         TargetNullValue=LeftToRight}"
                 ItemsSource="{Binding Source={x:Static serv:SettingsService.Instance}, Path=Themes}"
                 ToolTip="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SelectedTheme.LocalizedDisplayName}">
 
@@ -421,7 +428,8 @@
                 Cursor="Hand"
                 Foreground="{DynamicResource MahApps.Brushes.AccentBase}"
                 IsChecked="{Binding IsTopMost, Source={x:Static serv:SettingsService.Instance}, Mode=TwoWay}"
-                ToolTip="{lex:BLoc TopMost, TargetNullValue={}Stay On Top}">
+                ToolTip="{lex:BLoc TopMost,
+                                   TargetNullValue={}Stay On Top}">
                 <ToggleButton.Effect>
                     <DropShadowEffect
                         BlurRadius="10"
@@ -588,7 +596,7 @@
                 HorizontalAlignment="Left" />
         </StackPanel>-->
         <!--#endregion-->
-        
+
         <controls:PageHost
             Grid.Row="2"
             CurrentPage="{Binding CurrentPage, Source={x:Static vm:ApplicationViewModel.Instance}}"

@@ -27,7 +27,8 @@ namespace FolderIconChangerWPF
         {
 #if !DEBUG
             e.Handled = true;
-            if (e.Exception is TaskCanceledException) return;
+            if (e.Exception is System.Threading.Tasks.TaskCanceledException) return;
+            if (e.Exception is System.OperationCanceledException) return;
             MessageBox.Show(e.Exception.ToString());
 #endif
         }
