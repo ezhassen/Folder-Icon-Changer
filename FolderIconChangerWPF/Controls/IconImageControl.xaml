@@ -36,7 +36,7 @@
                 Grid.Row="1"
                 IsHitTestVisible="False"
                 Opacity="0.3">
-                <Border ap:AnimateFadeInProperty.Value="True" Background="{DynamicResource MahApps.Brushes.White}" />
+                <Border ap:AnimateFadeInProperty.Value="True" Background="{DynamicResource MahApps.Brushes.ThemeBackground}" />
             </Border>
         </Grid>
 
@@ -50,7 +50,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Stretch"
                 ap:AnimateFadeInProperty.Value="{Binding RelativeSource={RelativeSource Self}, Path=Visibility, Converter={conv:BoolWhenVisibilityConverter}}"
-                Background="{DynamicResource MahApps.Brushes.SemiTransparentGray}"
+                Background="{DynamicResource MahApps.Brushes.Gray.SemiTransparent}"
                 CornerRadius="5"
                 Visibility="Hidden">
 

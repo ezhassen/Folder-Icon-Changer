@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 namespace FolderIconChangerWPF
 {
@@ -26,9 +25,11 @@ namespace FolderIconChangerWPF
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
+#if !DEBUG
             e.Handled = true;
             if (e.Exception is TaskCanceledException) return;
             MessageBox.Show(e.Exception.ToString());
+#endif
         }
     }
 }

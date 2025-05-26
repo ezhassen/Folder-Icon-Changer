@@ -9,7 +9,7 @@
     xmlns:mmConverters="clr-namespace:MahApps.Metro.Converters;assembly=MahApps.Metro">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Shared.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.Shared.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style
@@ -302,16 +302,16 @@
                             <Setter TargetName="PART_ClearText" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
                         </Trigger>
                         <Trigger SourceName="PART_ClearText" Property="IsPressed" Value="True">
-                            <Setter TargetName="PART_ClearText" Property="Background" Value="{DynamicResource MahApps.Brushes.Black}" />
-                            <Setter TargetName="PART_ClearText" Property="Foreground" Value="{DynamicResource MahApps.Brushes.White}" />
+                            <Setter TargetName="PART_ClearText" Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                            <Setter TargetName="PART_ClearText" Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
                         </Trigger>
                         <Trigger SourceName="PART_FilterButton" Property="IsMouseOver" Value="True">
                             <Setter TargetName="PART_FilterButton" Property="Background" Value="{DynamicResource MahApps.Brushes.Gray8}" />
                             <Setter TargetName="PART_FilterButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
                         </Trigger>
                         <Trigger SourceName="PART_FilterButton" Property="IsPressed" Value="True">
-                            <Setter TargetName="PART_FilterButton" Property="Background" Value="{DynamicResource MahApps.Brushes.Black}" />
-                            <Setter TargetName="PART_FilterButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.White}" />
+                            <Setter TargetName="PART_FilterButton" Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                            <Setter TargetName="PART_FilterButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
                         </Trigger>
 
                         <MultiTrigger>

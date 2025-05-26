@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:FolderIconChangerWPF"
     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
-    StartupUri="MainWindow.xaml"
-    DispatcherUnhandledException="Application_DispatcherUnhandledException">
+    DispatcherUnhandledException="Application_DispatcherUnhandledException"
+    StartupUri="MainWindow.xaml">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -14,35 +14,18 @@
                 <!--  Order is important  -->
 
                 <!--#region MahApps.Metro-->
-                
-                <!-- Override MahApps Colors-->
-                <!--<ResourceDictionary Source="Styles/Colors.xaml" />-->
-                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />-->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro.IconPacks;component/Themes/IconPacks.xaml" />-->
+
+                <ResourceDictionary Source="pack://application:,,,/Themes/Light.BlueEzz.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />-->
-                <ResourceDictionary Source="pack://application:,,,/Themes/Light.Blue.xaml" />
-                <!--<ResourceDictionary Source="Themes/AppLight.xaml" />-->
 
-                <!--  accent resource  -->
-                <!--  change "Cobalt" to the accent color you want  -->
-                <!--  “Red”, “Green”, “Blue”, “Purple”, “Orange”, “Lime”, “Emerald”, “Teal”, “Cyan”, “Cobalt”, “Indigo”, “Violet”, “Pink”, “Magenta”, “Crimson”, “Amber”, “Yellow”, “Brown”, “Olive”, “Steel”, “Mauve”, “Taupe”, “Sienna”  -->
-                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />-->
-
-                <!--  theme resource  -->
-                <!--  change "BaseLight" to the theme you want  -->
-                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />-->
-                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />-->
-                <!--<ResourceDictionary Source="Themes/AppLight.xaml" />-->
-                
                 <!--#endregion-->
 
                 <!--<ResourceDictionary Source="Themes/AppLight.xaml" />-->
                 <!--<ResourceDictionary Source="Styles/Colors.xaml" />-->
                 <!--<ResourceDictionary Source="Styles/DefaultControls.xaml" />-->
-                <ResourceDictionary Source="Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/Fonts.xaml" />
                 <!--<ResourceDictionary Source="Styles/Texts.xaml" />
                 <ResourceDictionary Source="Styles/Buttons.xaml" />-->
                 <ResourceDictionary Source="pack://application:,,,/Styles/MetroControls.xaml" />
@@ -50,14 +33,14 @@
                 <!--<ResourceDictionary Source="Styles/Scroll.xaml" />-->
                 <!--<ResourceDictionary Source="Styles/Icons.xaml" />-->
                 <!--<ResourceDictionary Source="Styles/Animations.xaml" />-->
-                <ResourceDictionary Source="Styles/Templates.xaml" />
-                <ResourceDictionary Source="Styles/Shared.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/Templates.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Styles/Shared.xaml" />
                 <!--<ResourceDictionary Source="Styles/Controls.xaml" />-->
 
 
             </ResourceDictionary.MergedDictionaries>
 
-<!--Pages Names-->
+            <!--  Pages Names  -->
             <!--<sys:String x:Key="MainPage">MainPage</sys:String>-->
 
 

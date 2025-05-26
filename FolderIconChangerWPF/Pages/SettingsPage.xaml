@@ -21,7 +21,7 @@
     mc:Ignorable="d">
 
     <local:BasePage.Resources>
-        <Style BasedOn="{StaticResource MahApps.Styles.ToggleSwitch.Win10}" TargetType="mm:ToggleSwitch">
+        <Style BasedOn="{StaticResource MahApps.Styles.ToggleSwitch}" TargetType="mm:ToggleSwitch">
             <Setter Property="ContentTemplate">
                 <Setter.Value>
                     <ItemContainerTemplate>
@@ -50,25 +50,28 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Style="{StaticResource TextBlockTitle}"
-            Text="{lex:BLoc Settings, TargetNullValue=Settings}" />
+            Text="{lex:BLoc Settings,
+                            TargetNullValue=Settings}" />
         <!--  ShowCurrentFolderForIconFromImage  -->
         <StackPanel Grid.Row="1" HorizontalAlignment="Center">
 
             <mm:ToggleSwitch
                 Margin="0,10"
                 Content="{lex:BLoc ShowCurrentFolderForIconFromImage}"
-                IsChecked="{Binding ShowCurrentFolderForIconFromImage}" />
+                IsOn="{Binding ShowCurrentFolderForIconFromImage}" />
 
             <StackPanel Margin="0,10" HorizontalAlignment="Center">
                 <Button
                     Margin="0,10"
                     Command="{Binding ClearRecentFoldersCommand}"
-                    Content="{lex:BLoc bClearRecentFolders, TargetNullValue=Clear Recent Folders}"
+                    Content="{lex:BLoc bClearRecentFolders,
+                                       TargetNullValue=Clear Recent Folders}"
                     IsEnabled="{Binding AllowClearRecentFolders}" />
                 <Button
                     Margin="0,10"
                     Command="{Binding ClearRecentFilesCommand}"
-                    Content="{lex:BLoc bClearRecentFiles, TargetNullValue=Clear Recent Files}"
+                    Content="{lex:BLoc bClearRecentFiles,
+                                       TargetNullValue=Clear Recent Files}"
                     IsEnabled="{Binding AllowClearRecentFiles}" />
             </StackPanel>
         </StackPanel>

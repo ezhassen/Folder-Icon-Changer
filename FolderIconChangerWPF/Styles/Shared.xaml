@@ -7,4 +7,10 @@
     <s:String x:Key="MoneyFormat">0.#0;-0.#0;0</s:String>
     <s:String x:Key="No_Image_Available">pack://application:,,,/Images/No_Image_Available.png</s:String>
 
+    <x:Array x:Key="AppTitleColors" Type="Color">
+        <Color>#00c541</Color>
+        <Color>#ffa800</Color>
+        <Color>#ff4747</Color>
+    </x:Array>
+
 </ResourceDictionary>

@@ -206,19 +206,19 @@
                                     <!--<iconPacks:PackIconFontAwesome
                                                 Margin="{StaticResource MenuIconMargin}"
                                                 Effect="{StaticResource ButtonShadowEffect}"
-                                                Foreground="{DynamicResource WordRedBrush}"
+                                                Foreground="{DynamicResource EzzWordRedBrush}"
                                                 Kind="WindowCloseSolid" />-->
                                     <!--<iconPacks:PackIconMaterial
                                         Margin="{StaticResource MenuIconMargin}"
                                         Effect="{StaticResource ButtonShadowEffect}"
-                                        Foreground="{DynamicResource WordRedBrush}"
+                                        Foreground="{DynamicResource EzzWordRedBrush}"
                                         Kind="CloseBox" />-->
                                     <TextBlock
                                         Margin="{StaticResource MenuIconMargin}"
                                         Effect="{StaticResource ButtonShadowEffect}"
                                         FontFamily="{StaticResource FontAwesome}"
                                         FontSize="{StaticResource FontSizeLarge}"
-                                        Foreground="{DynamicResource WordRedBrush}"
+                                        Foreground="{DynamicResource EzzWordRedBrush}"
                                         Text="{StaticResource FontAwesomeTimesSquareSolid}" />
 
                                 </Viewbox>
@@ -307,13 +307,13 @@
                                             FontSize="{DynamicResource FontSizeSmall}"
                                             FontWeight="Bold"
                                             TextAlignment="Center">
-                                            <TextBlock Visibility="{Binding DisplayName, Mode=OneWay, Converter={conv:VisibilityWhenStringConverter When=English, Value=Collapsed, Otherwise=Visible}}"><Run Foreground="{StaticResource WordBlueBrush}" Text="{Binding DisplayName, Mode=OneWay}" /></TextBlock>
-                                            <Run Foreground="{DynamicResource WordOrangeBrush}" Text="{}{" />
+                                            <TextBlock Visibility="{Binding DisplayName, Mode=OneWay, Converter={conv:VisibilityWhenStringConverter When=English, Value=Collapsed, Otherwise=Visible}}"><Run Foreground="{StaticResource EzzWordBlueBrush}" Text="{Binding DisplayName, Mode=OneWay}" /></TextBlock>
+                                            <Run Foreground="{DynamicResource EzzWordOrangeBrush}" Text="{}{" />
                                             <Run
                                                 FontWeight="Bold"
-                                                Foreground="{DynamicResource WordRedBrush}"
+                                                Foreground="{DynamicResource EzzWordRedBrush}"
                                                 Text="{Binding NativeName, Mode=OneWay}" />
-                                            <Run Foreground="{DynamicResource WordOrangeBrush}" Text="}" />
+                                            <Run Foreground="{DynamicResource EzzWordOrangeBrush}" Text="}" />
                                         </TextBlock>
                                     </StackPanel>
                                 </ItemContainerTemplate>

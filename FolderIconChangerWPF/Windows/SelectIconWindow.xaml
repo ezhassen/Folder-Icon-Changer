@@ -103,7 +103,7 @@
                                 Grid.Row="1"
                                 IsHitTestVisible="False"
                                 Opacity="0.3">
-                                <Border ap:AnimateFadeInProperty.Value="True" Background="{DynamicResource MahApps.Brushes.White}" />
+                                <Border ap:AnimateFadeInProperty.Value="True" Background="{DynamicResource MahApps.Brushes.ThemeBackground}" />
                             </Border>
                         </Grid>
                     </Grid>
@@ -464,7 +464,7 @@
             </StatusBar.Effect>
             <StatusBar.Resources>
                 <Style x:Key="SeparatorStyle" TargetType="Separator">
-                    <!--<Setter Property="Foreground" Value="{DynamicResource WordRedBrush}" />-->
+                    <!--<Setter Property="Foreground" Value="{DynamicResource EzzWordRedBrush}" />-->
                     <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray5}" />
                     <Setter Property="Effect">
                         <Setter.Value>

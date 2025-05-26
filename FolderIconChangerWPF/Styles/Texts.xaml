@@ -213,7 +213,8 @@
                             Foreground="{DynamicResource MahApps.Brushes.Gray5}"
                             IsHitTestVisible="False"
                             Text="{TemplateBinding Tag}"
-                            Visibility="{TemplateBinding ap:HasTextProperty.Value, Converter={conv:VisibilityWhenFalseConverter}}" />
+                            Visibility="{TemplateBinding ap:HasTextProperty.Value,
+                                                         Converter={conv:VisibilityWhenFalseConverter}}" />
 
                     </Grid>
 
@@ -300,7 +301,7 @@
         <!--
             FontSize="{StaticResource FontSizeXXLarge}"
             FontFamily="{StaticResource LatoBold}"
-            Foreground="{StaticResource WordBlueBrush}"
+            Foreground="{StaticResource EzzWordBlueBrush}"
             FontWeight="Bold"
         -->
         <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
@@ -315,7 +316,7 @@
         <!--
             FontSize="{StaticResource FontSizeXXLarge}"
             FontFamily="{StaticResource LatoBold}"
-            Foreground="{StaticResource WordBlueBrush}"
+            Foreground="{StaticResource EzzWordBlueBrush}"
             FontWeight="Bold"
         -->
         <Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
@@ -494,8 +495,8 @@
                             <Setter TargetName="PART_ClearButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
                         </Trigger>
                         <Trigger SourceName="PART_ClearButton" Property="IsPressed" Value="True">
-                            <Setter TargetName="PART_ClearButton" Property="Background" Value="{DynamicResource MahApps.Brushes.Black}" />
-                            <Setter TargetName="PART_ClearButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.White}" />
+                            <Setter TargetName="PART_ClearButton" Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                            <Setter TargetName="PART_ClearButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
                         </Trigger>
 
                         <!--<Trigger SourceName="PART_SearchButton" Property="IsMouseOver" Value="False">
@@ -506,8 +507,8 @@
                             <Setter TargetName="PART_SearchButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
                         </Trigger>
                         <Trigger SourceName="PART_SearchButton" Property="IsPressed" Value="True">
-                            <Setter TargetName="PART_SearchButton" Property="Background" Value="{DynamicResource MahApps.Brushes.Black}" />
-                            <Setter TargetName="PART_SearchButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.White}" />
+                            <Setter TargetName="PART_SearchButton" Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                            <Setter TargetName="PART_SearchButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-    
+
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Styles/MetroControls.TextBox.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Styles/MetroControls.ComboBox.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
-    
+
+
 </ResourceDictionary>

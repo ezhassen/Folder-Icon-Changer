@@ -3,7 +3,6 @@ using Ezz_Helper.Drawing.IconsManager;
 using Ezz_Helper.WinForms.IconsManager;
 using FolderIconChangerWPF.Classes;
 using FolderIconChangerWPF.Helpers;
-using FolderIconChangerWPF.IconInfoCore;
 using Microsoft.Win32;
 using System;
 using System.Diagnostics;
@@ -489,26 +488,28 @@ namespace FolderIconChangerWPF.ViewModels
             IsWorking = true;
             try
             {
-                //var dialog = new System.Windows.Forms.FolderBrowserDialog()
+                //var dialog = new Win32.FolderBrowserDialog
                 //{
-                //    ShowNewFolderButton = true,
-                //    RootFolder = Environment.SpecialFolder.Desktop,
-                //    SelectedPath = TargetFolder
+                //    ShowEditBox = true,
+                //    BrowseShares = true,
+                //    RootType = Win32.RootType.SpecialFolder,
+                //    RootSpecialFolder = Environment.SpecialFolder.Desktop,
+                //    ShowStatusText = true,
+                //    BrowseFiles = false
                 //};
-                var dialog = new Win32.FolderBrowserDialog
-                {
-                    ShowEditBox = true,
-                    BrowseShares = true,
-                    RootType = Win32.RootType.SpecialFolder,
-                    RootSpecialFolder = Environment.SpecialFolder.Desktop,
-                    ShowStatusText = true,
-                    BrowseFiles = false
-                };
-                if (Directory.Exists(TargetFolder)) dialog.SelectedPath = TargetFolder;
+                //if (Directory.Exists(TargetFolder)) dialog.SelectedPath = TargetFolder;
+                // Configure open folder dialog box
+                Microsoft.Win32.OpenFolderDialog dialog = new();
+
+                dialog.Title = GetLocalizedString("SelectFolderTitle");
+                dialog.Multiselect = false;
+
+                if (Directory.Exists(TargetFolder)) dialog.FolderName = TargetFolder;
+
                 if (dialog.ShowDialog() == true)
                 {
                     IsWorking = false;
-                    TargetFolder = dialog.SelectedPath;
+                    TargetFolder = dialog.FolderName;
                     RefreshCurrentInfoCommand.Execute(null);
                 }
             }

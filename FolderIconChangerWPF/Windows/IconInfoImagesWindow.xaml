@@ -142,7 +142,7 @@
             </StatusBar.Effect>
             <StatusBar.Resources>
                 <Style x:Key="SeparatorStyle" TargetType="Separator">
-                    <!--<Setter Property="Foreground" Value="{DynamicResource WordRedBrush}" />-->
+                    <!--<Setter Property="Foreground" Value="{DynamicResource EzzWordRedBrush}" />-->
                     <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray5}" />
                     <Setter Property="Effect">
                         <Setter.Value>

@@ -242,16 +242,16 @@
                             <Setter TargetName="PART_ClearText" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
                         </Trigger>
                         <Trigger SourceName="PART_ClearText" Property="IsPressed" Value="True">
-                            <Setter TargetName="PART_ClearText" Property="Background" Value="{DynamicResource MahApps.Brushes.Black}" />
-                            <Setter TargetName="PART_ClearText" Property="Foreground" Value="{DynamicResource MahApps.Brushes.White}" />
+                            <Setter TargetName="PART_ClearText" Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                            <Setter TargetName="PART_ClearText" Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
                         </Trigger>
                         <Trigger SourceName="PART_FilterButton" Property="IsMouseOver" Value="True">
                             <Setter TargetName="PART_FilterButton" Property="Background" Value="{DynamicResource MahApps.Brushes.Gray8}" />
                             <Setter TargetName="PART_FilterButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
                         </Trigger>
                         <Trigger SourceName="PART_FilterButton" Property="IsPressed" Value="True">
-                            <Setter TargetName="PART_FilterButton" Property="Background" Value="{DynamicResource MahApps.Brushes.Black}" />
-                            <Setter TargetName="PART_FilterButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.White}" />
+                            <Setter TargetName="PART_FilterButton" Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                            <Setter TargetName="PART_FilterButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
                         </Trigger>-->
 
                         <MultiTrigger>
@@ -434,13 +434,13 @@
                         </DataTrigger>
 
                         <Trigger SourceName="PART_ClearText" Property="IsPressed" Value="True">
-                            <Setter TargetName="PART_ClearText" Property="Background" Value="{DynamicResource MahApps.Brushes.Black}" />
-                            <Setter TargetName="PART_ClearText" Property="Foreground" Value="{DynamicResource MahApps.Brushes.White}" />
+                            <Setter TargetName="PART_ClearText" Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                            <Setter TargetName="PART_ClearText" Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
                             <Setter TargetName="ToggleButtonRootGrid" Property="Background" Value="{DynamicResource MahApps.Brushes.Gray7}" />
                         </Trigger>
                         <Trigger SourceName="PART_FilterButton" Property="IsPressed" Value="True">
-                            <Setter TargetName="PART_FilterButton" Property="Background" Value="{DynamicResource MahApps.Brushes.Black}" />
-                            <Setter TargetName="PART_FilterButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.White}" />
+                            <Setter TargetName="PART_FilterButton" Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                            <Setter TargetName="PART_FilterButton" Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
                             <Setter TargetName="ToggleButtonRootGrid" Property="Background" Value="{DynamicResource MahApps.Brushes.Gray7}" />
                         </Trigger>
 
@@ -454,15 +454,16 @@
         x:Key="EzzFilterComboBoxBaseStyle"
         BasedOn="{StaticResource MahApps.Styles.ComboBox}"
         TargetType="{x:Type ComboBox}">
-        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <TextBlock HorizontalAlignment="Stretch" 
-                               Text="{TemplateBinding Content}" 
-                               ToolTip="{TemplateBinding Content}" 
-                               TextTrimming="CharacterEllipsis"
-                               MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}}"/>
+                    <TextBlock
+                        MaxWidth="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}}"
+                        HorizontalAlignment="Stretch"
+                        Text="{TemplateBinding Content}"
+                        TextTrimming="CharacterEllipsis"
+                        ToolTip="{TemplateBinding Content}" />
                 </DataTemplate>
             </Setter.Value>
         </Setter>
@@ -554,7 +555,8 @@
                                 BorderThickness="0"
                                 Foreground="{TemplateBinding Foreground}"
                                 IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                IsEnabled="{TemplateBinding ap:TextBoxHelper.IsFiltering, Converter={conv:BooleanInvertConverter}}"
+                                IsEnabled="{TemplateBinding ap:TextBoxHelper.IsFiltering,
+                                                            Converter={conv:BooleanInvertConverter}}"
                                 KeyboardNavigation.IsTabStop="False"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                 Style="{DynamicResource EzzFilterMetroComboBoxDropDownToggleButtonStyle}" />
@@ -708,7 +710,7 @@
                                     x:Name="PopupBorder"
                                     Height="Auto"
                                     HorizontalAlignment="Stretch"
-                                    Background="{DynamicResource MahApps.Brushes.White}"
+                                    Background="{DynamicResource MahApps.Brushes.ThemeBackground}"
                                     BorderBrush="{DynamicResource MahApps.Brushes.ComboBox.PopupBorder}"
                                     BorderThickness="{DynamicResource ComboBoxPopupBorderThemeThickness}"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">

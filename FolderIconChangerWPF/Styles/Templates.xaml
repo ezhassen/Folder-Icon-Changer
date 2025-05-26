@@ -7,19 +7,18 @@
     xmlns:serv="clr-namespace:FolderIconChangerWPF.Services">
 
     <!--#region  Windows-->
-    
-    <Style x:Key="WindowCommandsSeparator" TargetType="Separator">
-        <!--<Setter Property="Foreground" Value="{DynamicResource SeperatorBrush}" />-->
+
+    <!--<Style x:Key="WindowCommandsSeparator" TargetType="Separator">
         <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray2}" />
         <Setter Property="Margin" Value="3" />
         <Setter Property="Height" Value="11" />
         <Setter Property="RenderTransformOrigin" Value="0.5, 0.5" />
         <Setter Property="RenderTransform">
             <Setter.Value>
-                <RotateTransform Angle="90"/>
+                <RotateTransform Angle="90" />
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
 
     <!--  Title  -->
     <ItemContainerTemplate x:Key="WindowTitleTemplateBig">
@@ -37,16 +36,17 @@
                         FontFamily="{DynamicResource LatoBold}"
                         FontSize="{DynamicResource FontSizeLarge}">
 
-                        <Run Foreground="{DynamicResource WordOrangeBrush}" Text="{lex:BLoc SplitedTitle, Converter={conv:StringSplitConverter Index=0, Seperator=;}}" />
+                        <Run Foreground="{DynamicResource EzzWordOrangeBrush}" Text="{lex:BLoc SplitedTitle, Converter={conv:StringSplitConverter Index=0, Seperator=;}}" />
 
-                        <Run Foreground="{DynamicResource WordGreenBrush}" Text="{lex:BLoc SplitedTitle, Converter={conv:StringSplitConverter Index=1, Seperator=;}}" />
+                        <Run Foreground="{DynamicResource EzzWordGreenBrush}" Text="{lex:BLoc SplitedTitle, Converter={conv:StringSplitConverter Index=1, Seperator=;}}" />
 
-                        <Run Foreground="{DynamicResource WordRedBrush}" Text="{lex:BLoc SplitedTitle, Converter={conv:StringSplitConverter Index=2, Seperator=;}}" />
+                        <Run Foreground="{DynamicResource EzzWordRedBrush}" Text="{lex:BLoc SplitedTitle, Converter={conv:StringSplitConverter Index=2, Seperator=;}}" />
 
                     </TextBlock>
                     <TextBlock
                         Padding="0,0,0,3"
-                        FlowDirection="{lex:BLoc FlowDirection, TargetNullValue=LeftToRight}"
+                        FlowDirection="{lex:BLoc FlowDirection,
+                                                 TargetNullValue=LeftToRight}"
                         FontFamily="{StaticResource FontAwesome}"
                         FontSize="12"
                         Foreground="{DynamicResource MahApps.Brushes.Gray2}"
@@ -110,10 +110,10 @@
                                 FontSize="{DynamicResource FontSizeSmall}"
                                 FontWeight="Bold"
                                 TextAlignment="Center">
-                                <TextBlock Visibility="{Binding DisplayName, Mode=OneWay, Converter={conv:VisibilityWhenStringConverter When=English, Value=Collapsed, Otherwise=Visible}}"><Run Foreground="{DynamicResource WordBlueBrush}" Text="{Binding DisplayName, Mode=OneWay}" /></TextBlock>
-                                <Run Foreground="{DynamicResource WordOrangeBrush}" Text="{}{" />
-                                <Run Foreground="{DynamicResource WordRedBrush}" Text="{Binding NativeName, Mode=OneWay}" />
-                                <Run Foreground="{DynamicResource WordOrangeBrush}" Text="}" />
+                                <TextBlock Visibility="{Binding DisplayName, Mode=OneWay, Converter={conv:VisibilityWhenStringConverter When=English, Value=Collapsed, Otherwise=Visible}}"><Run Foreground="{DynamicResource EzzWordBlueBrush}" Text="{Binding DisplayName, Mode=OneWay}" /></TextBlock>
+                                <Run Foreground="{DynamicResource EzzWordOrangeBrush}" Text="{}{" />
+                                <Run Foreground="{DynamicResource EzzWordRedBrush}" Text="{Binding NativeName, Mode=OneWay}" />
+                                <Run Foreground="{DynamicResource EzzWordOrangeBrush}" Text="}" />
                             </TextBlock>
                         </StackPanel>
                     </Viewbox>
@@ -121,32 +121,32 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
     </ItemContainerTemplate>
-    
+
     <ItemContainerTemplate x:Key="LanguageSelectionTemplateDropDownButton">
         <mm:DropDownButton
-                Margin="5,1,1,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                HorizontalContentAlignment="Stretch"
-                VerticalContentAlignment="Stretch"
-                ArrowVisibility="Collapsed"
-                Background="{DynamicResource MahApps.Brushes.Window.Background}"
-                BorderThickness="0"
-                ItemsSource="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SupportedCultures}"
-                ToolTip="{Binding NativeName}">
+            Margin="5,1,1,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            ArrowVisibility="Collapsed"
+            Background="{DynamicResource MahApps.Brushes.Window.Background}"
+            BorderThickness="0"
+            ItemsSource="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SupportedCultures}"
+            ToolTip="{Binding NativeName}">
 
             <mm:DropDownButton.Icon>
                 <Image
-                        Width="45"
-                        Height="35"
-                        Source="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SelectedCulture, Converter={conv:CultureToImageConverter}}"
-                        Stretch="Uniform">
+                    Width="45"
+                    Height="35"
+                    Source="{Binding Source={x:Static serv:SettingsService.Instance}, Path=SelectedCulture, Converter={conv:CultureToImageConverter}}"
+                    Stretch="Uniform">
                     <Image.Effect>
                         <DropShadowEffect
-                                BlurRadius="8"
-                                Direction="290"
-                                Opacity="1"
-                                ShadowDepth="1" />
+                            BlurRadius="8"
+                            Direction="290"
+                            Opacity="1"
+                            ShadowDepth="1" />
                     </Image.Effect>
                 </Image>
             </mm:DropDownButton.Icon>
@@ -159,18 +159,18 @@
                         <Setter.Value>
                             <ItemContainerTemplate>
                                 <TextBlock
-                                        Grid.Column="1"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Center"
-                                        FontFamily="{DynamicResource LatoRegular}"
-                                        FontSize="{DynamicResource FontSizeSmall}"
-                                        FontWeight="Bold"
-                                        TextAlignment="Center">
-                                        <TextBlock Visibility="{Binding DisplayName, Mode=OneWay, Converter={conv:VisibilityWhenStringConverter When=English, Value=Collapsed, Otherwise=Visible}}"><Run Foreground="{DynamicResource WordBlueBrush}" Text="{Binding DisplayName, Mode=OneWay}" /></TextBlock>
-                                        <Run Foreground="{DynamicResource WordOrangeBrush}" Text="{}{" />
-                                        <Run Foreground="{DynamicResource WordRedBrush}" Text="{Binding NativeName, Mode=OneWay}" />
-                                        <Run Foreground="{DynamicResource WordOrangeBrush}" Text="}" />
-                                    </TextBlock>
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Center"
+                                    FontFamily="{DynamicResource LatoRegular}"
+                                    FontSize="{DynamicResource FontSizeSmall}"
+                                    FontWeight="Bold"
+                                    TextAlignment="Center">
+                                    <TextBlock Visibility="{Binding DisplayName, Mode=OneWay, Converter={conv:VisibilityWhenStringConverter When=English, Value=Collapsed, Otherwise=Visible}}"><Run Foreground="{DynamicResource EzzWordBlueBrush}" Text="{Binding DisplayName, Mode=OneWay}" /></TextBlock>
+                                    <Run Foreground="{DynamicResource EzzWordOrangeBrush}" Text="{}{" />
+                                    <Run Foreground="{DynamicResource EzzWordRedBrush}" Text="{Binding NativeName, Mode=OneWay}" />
+                                    <Run Foreground="{DynamicResource EzzWordOrangeBrush}" Text="}" />
+                                </TextBlock>
                             </ItemContainerTemplate>
                         </Setter.Value>
                     </Setter>
@@ -179,16 +179,16 @@
                     <Setter Property="Icon">
                         <Setter.Value>
                             <Image
-                                    Width="45"
-                                    Height="35"
-                                    Source="{Binding Converter={conv:CultureToImageConverter}}"
-                                    Stretch="Uniform">
+                                Width="45"
+                                Height="35"
+                                Source="{Binding Converter={conv:CultureToImageConverter}}"
+                                Stretch="Uniform">
                                 <Image.Effect>
                                     <DropShadowEffect
-                                            BlurRadius="8"
-                                            Direction="290"
-                                            Opacity="1"
-                                            ShadowDepth="1" />
+                                        BlurRadius="8"
+                                        Direction="290"
+                                        Opacity="1"
+                                        ShadowDepth="1" />
                                 </Image.Effect>
                             </Image>
                         </Setter.Value>
@@ -201,7 +201,7 @@
     </ItemContainerTemplate>
 
 
-        <!--  Theme Selection  -->
+    <!--  Theme Selection  -->
 
     <ItemContainerTemplate x:Key="ThemeSelectionTemplateComboBox">
         <ComboBox
@@ -238,10 +238,10 @@
                                             FontSize="{StaticResource FontSizeSmall}"
                                             FontWeight="Bold"
                                             TextAlignment="Center">
-                                            <TextBlock Visibility="{Binding DisplayName, Mode=OneWay, Converter={conv:VisibilityWhenStringConverter When=English, Value=Collapsed, Otherwise=Visible}}"><Run Foreground="{StaticResource WordBlueBrush}" Text="{Binding DisplayName, Mode=OneWay}" /></TextBlock>
-                                            <Run Foreground="{StaticResource WordOrangeBrush}" Text="{}{" />
-                                            <Run Foreground="{StaticResource WordRedBrush}" Text="{Binding NativeName, Mode=OneWay}" />
-                                            <Run Foreground="{StaticResource WordOrangeBrush}" Text="}" />
+                                            <TextBlock Visibility="{Binding DisplayName, Mode=OneWay, Converter={conv:VisibilityWhenStringConverter When=English, Value=Collapsed, Otherwise=Visible}}"><Run Foreground="{StaticResource EzzWordBlueBrush}" Text="{Binding DisplayName, Mode=OneWay}" /></TextBlock>
+                                            <Run Foreground="{StaticResource EzzWordOrangeBrush}" Text="{}{" />
+                                            <Run Foreground="{StaticResource EzzWordRedBrush}" Text="{Binding NativeName, Mode=OneWay}" />
+                                            <Run Foreground="{StaticResource EzzWordOrangeBrush}" Text="}" />
                                         </TextBlock>-->
                         </StackPanel>
                     </Viewbox>
@@ -253,20 +253,21 @@
     <!--#endregion Windows-->
 
     <ItemContainerTemplate x:Key="CenterShadowLine">
-        <Border
-            Height="6"
-            BorderThickness="0,0.2,0,0">
+        <Border Height="6" BorderThickness="0,0.2,0,0">
             <!--  UnderLine  -->
             <Border.BorderBrush>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                    <GradientStop Offset="0.0" Color="{DynamicResource MahApps.Colors.White}" />
-                    <GradientStop Offset="0.5" Color="{DynamicResource MahApps.Colors.Black}" />
-                    <GradientStop Offset="1.0" Color="{DynamicResource MahApps.Colors.White}" />
+                    <GradientStop Offset="0.0" Color="{DynamicResource MahApps.Colors.ThemeBackground}" />
+                    <GradientStop Offset="0.5" Color="{DynamicResource MahApps.Colors.ThemeForeground}" />
+                    <GradientStop Offset="1.0" Color="{DynamicResource MahApps.Colors.ThemeBackground}" />
                 </LinearGradientBrush>
             </Border.BorderBrush>
             <!--  Drop Shadow  -->
             <Border.Effect>
-                <DropShadowEffect BlurRadius="10" Direction="260" ShadowDepth="1" />
+                <DropShadowEffect
+                    BlurRadius="10"
+                    Direction="260"
+                    ShadowDepth="1" />
             </Border.Effect>
             <!--<Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -276,5 +277,5 @@
             </Border.Background>-->
         </Border>
     </ItemContainerTemplate>
-    
+
 </ResourceDictionary>

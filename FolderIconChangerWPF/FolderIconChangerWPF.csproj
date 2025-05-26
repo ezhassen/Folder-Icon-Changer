@@ -5,7 +5,8 @@
     <AssemblyName>Folder Icon Changer</AssemblyName>
     <RootNamespace>FolderIconChangerWPF</RootNamespace>
     <!--netcoreapp3.1-->
-    <TargetFrameworks>net472;</TargetFrameworks>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <!--<TargetFrameworks>net9.0-windows;net472</TargetFrameworks>-->
     <UseWPF>true</UseWPF>
     <!--<UseWindowsForms>true</UseWindowsForms>-->
     <!--<AutoGenerateBindingRedirects Condition="$(TargetFramework.StartsWith('net4')) Or $(TargetFramework.StartsWith('net3'))">true</AutoGenerateBindingRedirects>-->
@@ -14,9 +15,9 @@
     <Product>Folder Icon Changer</Product>
     <NeutralLanguage>en</NeutralLanguage>
     <Description>easy-to-use &amp; fast way to change folder's icon</Description>
-    <Copyright>Copyright ©  2019</Copyright>
-    <AssemblyVersion>3.5.0.0</AssemblyVersion>
-    <FileVersion>3.5.0.0</FileVersion>
+    <Copyright>Copyright ©  2019-2025</Copyright>
+    <AssemblyVersion>4.0.0.0</AssemblyVersion>
+    <FileVersion>4.0.0.0</FileVersion>
     <!--<GenerateAssemblyInfo>false</GenerateAssemblyInfo>-->
 
     <Company>ezhassen</Company>
@@ -40,32 +41,7 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Win32Resource />
   </PropertyGroup>
-  <PropertyGroup Label="MultilingualAppToolkit">
-    <MultilingualAppToolkitVersion>4.0</MultilingualAppToolkitVersion>
-    <MultilingualFallbackLanguage>en</MultilingualFallbackLanguage>
-    <TranslationReport Condition="'$(Configuration)' == 'Release'">true</TranslationReport>
-    <SuppressPseudoWarning Condition="'$(Configuration)' == 'Debug'">true</SuppressPseudoWarning>
-  </PropertyGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.ResxResources.targets" Label="MultilingualAppToolkit" Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\v$(MultilingualAppToolkitVersion)\Microsoft.Multilingual.ResxResources.targets')" />
-  <Target Name="MATPrerequisite" BeforeTargets="PrepareForBuild" Condition="!Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.ResxResources.targets')" Label="MultilingualAppToolkit">
-    <Warning Text="$(MSBuildProjectFile) is Multilingual build enabled, but the Multilingual App Toolkit is unavailable during the build. If building with Visual Studio, please check to ensure that toolkit is properly installed." />
-  </Target>
-  <ItemGroup>
-    <None Remove="Themes\GeneratorParameters.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Remove="Themes\Theme.Template.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Themes\GeneratorParameters.json" />
-    <EmbeddedResource Include="Themes\Theme.Template.xaml" />
-  </ItemGroup>
-  <!--<ItemGroup>
-    <Reference Include="System.Xaml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-  </ItemGroup>-->
+	
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -93,7 +69,7 @@
   </ItemGroup>
 
 
-  <ItemGroup Condition="$(TargetFramework.StartsWith('net4')) Or $(TargetFramework.StartsWith('net3'))">
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -111,34 +87,24 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
 
-  <!--References for .Net Core 3.1-->
-  <ItemGroup Condition="$(TargetFramework.StartsWith('netcore'))">
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.1.0" />
-    <PackageReference Include="Microsoft.DotNet.Analyzers.Compatibility" Version="0.2.12-alpha">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
+  <!--References for .Net Core-->
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))==False">
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="9.0.5 " />
   </ItemGroup>
 
   <!--PackageReference for all framworks-->  
   <ItemGroup>
-    <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0660" />
-    <PackageReference Include="MahApps.Metro.Resources" Version="0.6.1" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.10" />
+    <!--<PackageReference Include="MahApps.Metro.Resources" Version="0.6.1" />-->
     <!--<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />-->
     <!--<PackageReference Include="Microsoft.Windows.Compatibility" Version="3.1.0" />-->
     <!--<PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />-->
     <!--<PackageReference Include="System.Net.Http" Version="4.3.4" />-->
     <!--<PackageReference Include="Microsoft.Windows.Shell" Version="3.0.1" />-->
     <!--<PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />-->
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3">
-        <PrivateAssets>all</PrivateAssets>
-        <ExcludeAssets>runtime</ExcludeAssets>
-    </PackageReference>
-    <PackageReference Include="WPFLocalizeExtension" Version="3.4.0-alpha0053" />
-    <PackageReference Include="XamlColorSchemeGenerator" Version="3.0.0.31">
-        <PrivateAssets>all</PrivateAssets>
-        <ExcludeAssets>runtime</ExcludeAssets>
-    </PackageReference>
+	  <PackageReference Include="PortableJsonSettingsProvider" Version="0.2.2" />
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.10.0" />
   </ItemGroup>
   
   <ItemGroup>
@@ -159,24 +125,21 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Ezz_Helper\Other Helpers\" />
   </ItemGroup>
-  <!--<ItemGroup>
-    <EmbeddedResource Include="**\*.Template.xaml" />
-    <EmbeddedResource Include="**\GeneratorParameters.json" />
-  </ItemGroup>-->
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
 
-  <!--To Regenerate themes files uncomment-->
-  <Target Name="GenerateXamlFilesInner">
-    <PropertyGroup>
-      <XamlColorSchemeGeneratorVersion Condition="'%(PackageReference.Identity)' == 'XamlColorSchemeGenerator'">%(PackageReference.Version)</XamlColorSchemeGeneratorVersion>
-    </PropertyGroup>
-    <Exec Command="&quot;$(NuGetPackageRoot)\xamlcolorschemegenerator\$(XamlColorSchemeGeneratorVersion)\tools\XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)\Themes\GeneratorParameters.json&quot;" />
-  </Target>
-  <Target Name="GenerateXamlFiles" BeforeTargets="DispatchToInnerBuilds;BeforeBuild">
-    <MSBuild Projects="$(MSBuildProjectFile)" Targets="GenerateXamlFilesInner" Properties="TargetFramework=once" />
-  </Target>
   
 </Project>

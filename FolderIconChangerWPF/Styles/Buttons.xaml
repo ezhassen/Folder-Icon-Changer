@@ -63,8 +63,8 @@
         <Setter Property="Width" Value="34" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <!--<Setter Property="Background" Value="{DynamicResource WindowActionsBrush}" />-->
-                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.SemiTransparentGray}" />
+                <!--<Setter Property="Background" Value="{DynamicResource EzzWindowActionsBrush}" />-->
+                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray.SemiTransparent}" />
                 <Setter Property="Foreground" Value="#232323" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
@@ -85,7 +85,7 @@
         <Setter Property="Foreground" Value="#FFCCCCCC" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.SemiTransparentGray}" />
+                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Gray.SemiTransparent}" />
                 <Setter Property="Foreground" Value="White" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
@@ -93,7 +93,7 @@
                 <Setter Property="Foreground" Value="Black" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.DarkIdealForegroundDisabled}" />
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.IdealForegroundDisabled}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -104,11 +104,11 @@
         TargetType="{x:Type Button}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource WindowCloseHoverBrush}" />
+                <Setter Property="Background" Value="{DynamicResource EzzWindowCloseHoverBrush}" />
                 <Setter Property="Foreground" Value="White" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{DynamicResource WindowClosePressedBrush}" />
+                <Setter Property="Background" Value="{DynamicResource EzzWindowClosePressedBrush}" />
                 <Setter Property="Foreground" Value="Black" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
@@ -123,11 +123,11 @@
         TargetType="{x:Type Button}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource WindowCloseHoverBrush}" />
+                <Setter Property="Background" Value="{DynamicResource EzzWindowCloseHoverBrush}" />
                 <Setter Property="Foreground" Value="White" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{DynamicResource WindowClosePressedBrush}" />
+                <Setter Property="Background" Value="{DynamicResource EzzWindowClosePressedBrush}" />
                 <Setter Property="Foreground" Value="Black" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
@@ -155,13 +155,13 @@
         <Setter Property="Restore" Value="{lex:BLoc WindowRestoreToolTip, TargetNullValue=Restore}" />
         <Setter Property="Close" Value="{lex:BLoc WindowCloseToolTip, TargetNullValue=Close}" />
     </Style>
-   
+
     <!--#endregion  MetroWindow Commands-->
 
     <!--  Regular button  -->
     <Style x:Key="RegularButton" TargetType="{x:Type Button}">
 
-        <Setter Property="Background" Value="{StaticResource WordOrangeBrush}" />
+        <Setter Property="Background" Value="{StaticResource EzzWordOrangeBrush}" />
         <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.Gray10}" />
 
         <Setter Property="BorderThickness" Value="0" />
@@ -215,7 +215,7 @@
                                     <ColorAnimation
                                         Storyboard.TargetName="border"
                                         Storyboard.TargetProperty="Background.Color"
-                                        To="{StaticResource WordBlue}"
+                                        To="{StaticResource EzzWordBlue}"
                                         Duration="0:0:0.3" />
                                 </Storyboard>
                             </BeginStoryboard>
@@ -226,7 +226,7 @@
                                     <ColorAnimation
                                         Storyboard.TargetName="border"
                                         Storyboard.TargetProperty="Background.Color"
-                                        From="{StaticResource WordBlue}"
+                                        From="{StaticResource EzzWordBlue}"
                                         Duration="0:0:0.3" />
                                 </Storyboard>
                             </BeginStoryboard>
@@ -234,7 +234,7 @@
                         <!--<EventTrigger RoutedEvent="MouseDown">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <ColorAnimation From="{StaticResource WordDarkBlue}" To="{StaticResource WordBlue}" Duration="0:0:0.2" Storyboard.TargetName="border" Storyboard.TargetProperty="Background.Color" />
+                                    <ColorAnimation From="{StaticResource EzzWordDarkBlue}" To="{StaticResource EzzWordBlue}" Duration="0:0:0.2" Storyboard.TargetName="border" Storyboard.TargetProperty="Background.Color" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>-->
@@ -243,7 +243,7 @@
                                 <Storyboard>
                                     <ThicknessAnimation From="1,1,2,2" To="{TemplateBinding BorderThickness}" Duration="0:0:0.3" Storyboard.TargetName="border" Storyboard.TargetProperty="BorderThickness"/>
                         -->
-                        <!--<ColorAnimation From="{StaticResource WordDarkBlue}" To="{StaticResource WordBlue}" Duration="0:0:0.2" Storyboard.TargetName="border" Storyboard.TargetProperty="Background.Color" />-->
+                        <!--<ColorAnimation From="{StaticResource EzzWordDarkBlue}" To="{StaticResource EzzWordBlue}" Duration="0:0:0.2" Storyboard.TargetName="border" Storyboard.TargetProperty="Background.Color" />-->
                         <!--
                                 </Storyboard>
                             </BeginStoryboard>
@@ -323,7 +323,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="{StaticResource WordOrangeBrush}" />
+                            <Setter Property="Foreground" Value="{StaticResource EzzWordOrangeBrush}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.Gray4}" />
@@ -421,7 +421,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Foreground" Value="{StaticResource WordOrangeBrush}" />
+                            <Setter Property="Foreground" Value="{StaticResource EzzWordOrangeBrush}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground" Value="{StaticResource MahApps.Brushes.Gray5}" />
@@ -465,7 +465,7 @@
     <!--  Icon button  -->
     <Style x:Key="IconButton" TargetType="{x:Type Button}">
 
-        <Setter Property="Background" Value="{DynamicResource WordTransparentBlueBrush}" />
+        <Setter Property="Background" Value="{DynamicResource EzzWordTransparentBlueBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource ForegroundLightBrush}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
@@ -506,7 +506,7 @@
                                     <ColorAnimation
                                         Storyboard.TargetName="border"
                                         Storyboard.TargetProperty="Background.Color"
-                                        To="{StaticResource WordLightBlue}"
+                                        To="{StaticResource EzzWordLightBlue}"
                                         Duration="0:0:0.3" />
                                 </Storyboard>
                             </BeginStoryboard>
@@ -517,7 +517,7 @@
                                     <ColorAnimation
                                         Storyboard.TargetName="border"
                                         Storyboard.TargetProperty="Background.Color"
-                                        To="{DynamicResource WordTransparentBlue}"
+                                        To="{DynamicResource EzzWordTransparentBlue}"
                                         Duration="0:0:0.3" />
                                 </Storyboard>
                             </BeginStoryboard>
@@ -534,7 +534,7 @@
     <!--  Icon button  -->
     <Style x:Key="IconGrowButton" TargetType="{x:Type Button}">
 
-        <Setter Property="Background" Value="{StaticResource WordTransparentBlueBrush}" />
+        <Setter Property="Background" Value="{StaticResource EzzWordTransparentBlueBrush}" />
         <Setter Property="Foreground" Value="{StaticResource ForegroundLightBrush}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />

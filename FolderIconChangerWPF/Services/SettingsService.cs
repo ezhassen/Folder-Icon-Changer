@@ -1,15 +1,16 @@
-using System;
-using System.Linq;
-using System.Globalization;
-using WPFLocalizeExtension.Engine;
-using System.Collections.ObjectModel;
-using System.Windows;
-using System.ComponentModel;
+using Bluegrams.Application;
 using FolderIconChangerWPF.ViewModels;
-using System.IO;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Configuration;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
+using WPFLocalizeExtension.Engine;
 
 namespace FolderIconChangerWPF.Services
 {
@@ -78,6 +79,17 @@ namespace FolderIconChangerWPF.Services
 
         public void RefreshAllSettings(bool CheckToUpgradeSettings = true)
         {
+            PortableJsonSettingsProvider.SettingsFileName = "settings.json";
+            //PortableJsonSettingsProvider.SettingsDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            PortableJsonSettingsProvider.SettingsDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "FolderIconChanger");
+            //PortableJsonSettingsProvider.ApplyProvider(Properties.Settings.Default);
+            if (!Directory.Exists(PortableJsonSettingsProvider.SettingsDirectory))
+            {
+                Directory.CreateDirectory(PortableJsonSettingsProvider.SettingsDirectory);
+            }
+            PortableJsonSettingsProvider.ApplyProvider(this);
+            //PortableJsonSettingsProvider.ApplyProvider(FolderIconChangerWPF.Properties.Settings.Default);
+
             if (CheckToUpgradeSettings) this.CheckToUpgradeSettings();
             this.RefreshCurrentCulture();
             this.RefreshCurrentTheme();
@@ -287,7 +299,7 @@ namespace FolderIconChangerWPF.Services
 
 
 
-        [UserScopedSetting, SettingsSerializeAs(SettingsSerializeAs.Binary)]
+        [UserScopedSetting]
         public ObservableCollection<string> RecentFolders
         {
             get
@@ -342,7 +354,7 @@ namespace FolderIconChangerWPF.Services
             }
         }
 
-        [UserScopedSetting, SettingsSerializeAs(SettingsSerializeAs.Binary)]
+        [UserScopedSetting]
         public ObservableCollection<string> RecentFiles
         {
             get

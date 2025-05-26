@@ -1,11 +1,12 @@
+using ControlzEx.Theming;
+using FolderIconChangerWPF.ViewModels;
+using MahApps.Metro.Theming;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
-using FolderIconChangerWPF.ViewModels;
-using MahApps.Metro;
 
 namespace FolderIconChangerWPF
 {
@@ -25,15 +26,15 @@ namespace FolderIconChangerWPF
                 }
                 else if (string.Equals("AppLight", value, StringComparison.OrdinalIgnoreCase))
                 {
-                    value = "Light.Blue";
+                    value = "Light.BlueEzz";
                 }
                 else if (string.Equals("AppDark", value, StringComparison.OrdinalIgnoreCase))
                 {
-                    value = "Dark.Blue";
+                    value = "Dark.BlueEzz";
                 }
                 else if (string.Equals("AppDarkBlue", value, StringComparison.OrdinalIgnoreCase))
                 {
-                    value = "BlueDark.Amber";
+                    value = "Dark.AmberEzz";
                 }
                 name = value;
             }
@@ -42,7 +43,9 @@ namespace FolderIconChangerWPF
         public string LocalizedDisplayName => LocalizationProvider.GetLocalizedString(Name, () => DisplayName);
         public string DisplayName { get; }
         public string RelativePath { get; }
-        public string FullPath => $"pack://application:,,,/{nameof(FolderIconChangerWPF)};{RelativePath}";
+        //public string FullPath => $"pack://application:,,,/{nameof(FolderIconChangerWPF)};{RelativePath}";
+        //public string FullPath => $"pack://application:,,,/{nameof(FolderIconChangerWPF)};component/{RelativePath}";
+        public string FullPath => $"pack://application:,,,{RelativePath}";
 
         public string MetroThemeName { get; set; }
 
@@ -75,7 +78,7 @@ namespace FolderIconChangerWPF
             => _ApplyThemeCommand ?? (_ApplyThemeCommand = new DelegateCommand(ApplyTheme));
         public void ApplyTheme()
         {
-            ThemeHelper.ApplyTheme(Name, RelativePath, this.MetroThemeName);
+            ThemeHelper.ApplyTheme(Name);
             //ThemeHelper.ApplyTheme(Name, FullPath);
         }
 
@@ -96,7 +99,7 @@ namespace FolderIconChangerWPF
         {
             get
             {
-                if (defaultTheme == null) defaultTheme = new ThemeInfo("Light.Blue", "App Light", "Themes/AppLight.xaml", "#FF000000", "#FFFFFFFF", "BaseLight");
+                if (defaultTheme == null) defaultTheme = new ThemeInfo("Dark.AmberEzz", "App Dark Blue", "/Themes/Dark.AmberEzz.xaml", "#FFFFFFFF", "#FF025A9D", "BaseDark");
                 return defaultTheme;
             }
         }
@@ -139,20 +142,34 @@ Application.Current.Resources.MergedDictionaries.Add((ResourceDictionary)Applica
                 {
                     themes = new ObservableCollection<ThemeInfo>();
                     themes.Add(ThemeInfo.Default);
-                    themes.Add(new ThemeInfo("Dark.Blue", "App Dark", "Themes/AppDark.xaml", "#FFFFFFFF", "#FF2D2D30", "BaseDark"));
-                    themes.Add(new ThemeInfo("BlueDark.Amber", "App Dark Blue", "Themes/AppDarkBlue.xaml", "#FFFFFFFF", "#FF025A9D", "BaseDark"));
+                    themes.Add(new ThemeInfo("Light.BlueEzz", "App Light", "/Themes/Light.BlueEzz.xaml", "#FF000000", "#FFFFFFFF", "BaseLight"));
+                    themes.Add(new ThemeInfo("Dark.BlueEzz", "App Dark", "/Themes/Dark.BlueEzz.xaml", "#FFFFFFFF", "#FF2D2D30", "BaseDark"));
                 }
                 return themes;
             }
         }
 
-        public static void ApplyThemeByName(string themeName)
+        public static void ApplyTheme(string name)
         {
-            Themes.FirstOrDefault(t => t.Name.Equals(themeName, StringComparison.OrdinalIgnoreCase))?.ApplyTheme();
-        }
-        public static void ApplyTheme(string name, string path, string metroThemeName = "BaseLight")
-        {
-            ThemeManager.ChangeTheme(Application.Current, new Theme(new Uri($"Themes/{name}.xaml", UriKind.RelativeOrAbsolute)));
+            var theme = ControlzEx.Theming.ThemeManager.Current.GetTheme(name); // Ensure the theme is loaded
+            if (theme is null)
+            {
+                var themeInfo = Themes.FirstOrDefault(t => t.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+                theme = ThemeManager.Current.AddLibraryTheme(
+                 new LibraryTheme(
+               new Uri(themeInfo.FullPath),
+                      MahAppsLibraryThemeProvider.DefaultInstance
+               )
+           );
+            }
+            ControlzEx.Theming.ThemeManager.Current.ChangeTheme(Application.Current, theme);
+
+            //ControlzEx.Theming.ThemeManager.Current.ChangeTheme(Application.Current, name);
+
+            //ThemeManager.ChangeTheme(Application.Current, new Theme(new Uri($"Themes/{name}.xaml", UriKind.RelativeOrAbsolute)));
+
+
+
             //if (string.Equals(name, "Light.Blue", StringComparison.OrdinalIgnoreCase))
             //{
             //}
