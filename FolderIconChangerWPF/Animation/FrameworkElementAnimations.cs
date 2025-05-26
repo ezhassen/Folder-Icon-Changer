@@ -149,7 +149,6 @@ namespace FolderIconChangerWPF.Animation
         /// </summary>
         /// <param name="element">The element to animate</param>
         /// <param name="seconds">The time the animation will take</param>
-        /// <param name="firstLoad">Indicates if this is the first load</param>
         /// <returns></returns>
         public static async Task FadeOutAsync(this FrameworkElement element, float seconds = 0.3f, bool SetIsHitTestVisibleToFalse = false)
         {
