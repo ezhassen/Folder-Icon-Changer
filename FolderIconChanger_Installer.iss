@@ -38,8 +38,13 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "*.*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+; Source: "*.*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs ; for all files
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
+Source: {#MyAppExeName}; DestDir: "{app}"; Flags: ignoreversion
+Source: "*.config"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Folder Icon Changer.runtimeconfig.json"; DestDir: "{app}"; Flags: ignoreversion
+Source: "*.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "ar\Folder Icon Changer.resources.dll"; DestDir: "{app}\ar"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
