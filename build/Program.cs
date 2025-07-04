@@ -316,7 +316,8 @@ public sealed class ProjectBuildTask : FrostingTask<BuildContext> //AsyncFrostin
     // Tasks can be asynchronous
     public override void Run(BuildContext context)
     {
-        context.FullProjectPublish(@"\FolderIconChangerWPF\FolderIconChangerWPF.csproj", @"\FolderIconChanger_Installer.iss");
+        context.FullProjectPublish(@"\FolderIconChangerWPF\FolderIconChangerWPF.csproj",
+            installerRelativeFile_x86: @"\FolderIconChanger_Installer_x86.iss", installerRelativeFile_x64: "FolderIconChanger_Installer_x64.iss");
     }
 }
 
