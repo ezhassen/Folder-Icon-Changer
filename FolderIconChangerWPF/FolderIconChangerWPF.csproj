@@ -17,10 +17,10 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<Description>easy-to-use &amp; fast way to change folder's icon</Description>
 		<Copyright>Copyright ©  2019-2025</Copyright>
-		<AssemblyVersion>4.1.0.0</AssemblyVersion>
-		<FileVersion>4.1.0.0</FileVersion>
-		<Version>4.1.0.0</Version>
-		<ProductVersion>4.1.0.0</ProductVersion>
+		<Version>4.2.0.0</Version>
+		<AssemblyVersion>$(Version)</AssemblyVersion>
+		<FileVersion>$(Version)</FileVersion>
+		<ProductVersion>$(Version)</ProductVersion>
 		
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<GenerateAssemblyVersionAttribute>true</GenerateAssemblyVersionAttribute>

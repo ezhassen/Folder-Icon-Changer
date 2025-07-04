@@ -29,6 +29,8 @@ InternalCompressLevel=ultra64
 ;PrivilegesRequired=lowest
 ;PrivilegesRequiredOverridesAllowed=dialog
 WizardStyle=modern
+ArchitecturesAllowed=x86
+ArchitecturesInstallIn64BitMode=x86
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
