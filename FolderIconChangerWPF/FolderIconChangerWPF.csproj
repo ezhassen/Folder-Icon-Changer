@@ -97,7 +97,7 @@
 
 	<!--References for .Net Core-->
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net4'))==False">
-		<PackageReference Include="Microsoft.Windows.Compatibility" Version="9.0.5 " />
+		<PackageReference Include="Microsoft.Windows.Compatibility" Version="9.0.6" />
 	</ItemGroup>
 
 	<!--PackageReference for all framworks-->
