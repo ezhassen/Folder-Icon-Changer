@@ -6,7 +6,7 @@
 		<RootNamespace>FolderIconChangerWPF</RootNamespace>
 
 		<TargetFramework>net9.0-windows</TargetFramework>
-		<RuntimeIdentifiers>win-x86</RuntimeIdentifiers>
+		<RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
 		<!--<TargetFrameworks>net9.0-windows;net472</TargetFrameworks>-->
 		<UseWPF>true</UseWPF>
 		<!--<UseWindowsForms>true</UseWindowsForms>-->

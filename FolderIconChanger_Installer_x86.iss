@@ -1,6 +1,6 @@
 
 #define MyAppName "Folder Icon Changer"
-#define MyAppVersion GetVersionNumbersString('FolderIconChangerWPF\bin\Publish\Folder Icon Changer.exe')
+#define MyAppVersion GetVersionNumbersString('FolderIconChangerWPF\bin\Publish\win-x86\Folder Icon Changer.exe')
 #define MyAppPublisher "ezhassen"
 #define MyAppExeName "Folder Icon Changer.exe"
 
@@ -13,16 +13,16 @@ AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 VersionInfoVersion={#MyAppVersion}
 AppCopyright=Copyright (C) 2016-2025 ezhassen.
-AppVerName={#MyAppName} {#MyAppVersion}
+AppVerName={#MyAppName} {#MyAppVersion} x86
 AppPublisher={#MyAppPublisher}
 DefaultDirName={commonpf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
-OutputDir=..\..\..\Folder Icon Changer Setup
-OutputBaseFilename={#MyAppName} Setup {#MyAppVersion}
+OutputDir=..\..\..\..\Folder Icon Changer Setup
+OutputBaseFilename={#MyAppName} Setup {#MyAppVersion} x86
 Compression=lzma2/ultra64
 SolidCompression=yes
-SourceDir=FolderIconChangerWPF\bin\Publish
-SetupIconFile=..\..\..\Installer_Icon.ico
+SourceDir=FolderIconChangerWPF\bin\Publish\win-x86
+SetupIconFile=..\..\..\..\Installer_Icon.ico
 ShowLanguageDialog=auto
 InternalCompressLevel=ultra64
 ;MinVersion=10.0.10240

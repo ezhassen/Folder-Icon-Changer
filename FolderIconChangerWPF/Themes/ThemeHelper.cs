@@ -194,7 +194,7 @@ Application.Current.Resources.MergedDictionaries.Add((ResourceDictionary)Applica
             //Application.Current.MainWindow?.InvalidateVisual();
             ////Application.Current.MainWindow?.RefreshUI();
             /////
-            ///
+            //
             //var sss = ThemeManager.DetectTheme(Application.Current);
 
             //var theme = ThemeManager.GetTheme(name);

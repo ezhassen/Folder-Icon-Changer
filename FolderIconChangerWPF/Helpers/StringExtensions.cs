@@ -207,9 +207,6 @@ namespace FolderIconChangerWPF
         /// <summary>
         /// Evaluate expression that contains  +, -, *, /, %(modulus)
         /// </summary>
-        /// <param name="expression"></param>
-        /// <param name="DataTableMethod"></param>
-        /// <returns></returns>
         public static string EvaluateString(this string expression)//, bool DataTableMethod = false)
         {
             //return expression.Evaluate(DataTableMethod).ToString();
@@ -218,9 +215,6 @@ namespace FolderIconChangerWPF
         /// <summary>
         /// Evaluate expression that contains  +, -, *, /, %(modulus)
         /// </summary>
-        /// <param name="expression"></param>
-        /// <param name="DataTableMethod"></param>
-        /// <returns></returns>
         public static double Evaluate(this string expression)//, bool DataTableMethod = false)
         {
             //if (DataTableMethod)

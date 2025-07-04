@@ -73,7 +73,7 @@ namespace FolderIconChangerWPF.Controls
         /// Called when the <see cref="CurrentPage"/> value has changed
         /// </summary>
         /// <param name="d"></param>
-        /// <param name="e"></param>
+        /// <param name="value"></param>
         private static object CurrentPagePropertyChanged(DependencyObject d, object value)
         {
             if (!((d is PageHost pageHost))) return value;

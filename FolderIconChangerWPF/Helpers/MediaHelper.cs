@@ -154,9 +154,9 @@ namespace FolderIconChangerWPF
             {
                 return Convert.ToBase64String(imageIn.ToByteArray());
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                if (throwOnException) throw ex;
+                if (throwOnException) throw;
                 return null;
             }
         }
@@ -171,9 +171,9 @@ namespace FolderIconChangerWPF
                 bi.EndInit();
                 return bi;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                if (throwOnException) throw ex;
+                if (throwOnException) throw;
                 return null;
             }
         }

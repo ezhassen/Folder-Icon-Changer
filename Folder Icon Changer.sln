@@ -1,10 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36121.58 d17.14
+VisualStudioVersion = 17.14.36121.58
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F4CFAC33-7139-48D9-BCAD-2E83479930D9}"
 	ProjectSection(SolutionItems) = preProject
+		FolderIconChanger_Installer_x64.iss = FolderIconChanger_Installer_x64.iss
+		FolderIconChanger_Installer_x86.iss = FolderIconChanger_Installer_x86.iss
+		global.json = global.json
 		README.md = README.md
 	EndProjectSection
 EndProject

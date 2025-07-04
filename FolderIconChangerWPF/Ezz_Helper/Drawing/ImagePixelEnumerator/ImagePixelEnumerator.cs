@@ -2194,7 +2194,7 @@ namespace Ezz_Helper.Drawing.ImagePixelEnumerator
 
     #endregion
 
-    public class ColorModelHelper
+    public static class ColorModelHelper
     {
         #region | Constants |
 
@@ -2209,18 +2209,18 @@ namespace Ezz_Helper.Drawing.ImagePixelEnumerator
 
         private static readonly float[] XYZWhite = new[] { 95.05f, 100.00f, 108.90f };
 
-        private static readonly float[,] Rgb2Xyz = 
-        { 
+        private static readonly float[,] Rgb2Xyz =
+        {
             { 0.41239083F, 0.35758433F, 0.18048081F },
-	        { 0.21263903F, 0.71516865F, 0.072192319F },
-	        { 0.019330820F, 0.11919473F, 0.95053220F }
+            { 0.21263903F, 0.71516865F, 0.072192319F },
+            { 0.019330820F, 0.11919473F, 0.95053220F }
         };
 
-        private static readonly float[,] Xyz2Rgb = 
+        private static readonly float[,] Xyz2Rgb =
         {
-	        { 3.2409699F, -1.5373832F, -0.49861079F },
-	        { -0.96924376F, 1.8759676F, 0.041555084F },
-	        { 0.055630036F, -0.20397687F, 1.0569715F }
+            { 3.2409699F, -1.5373832F, -0.49861079F },
+            { -0.96924376F, 1.8759676F, 0.041555084F },
+            { 0.055630036F, -0.20397687F, 1.0569715F }
         };
 
         #endregion
@@ -3165,7 +3165,7 @@ namespace Ezz_Helper.Drawing.ImagePixelEnumerator
             TransformPerPixelBase(target, path, parallelTaskCount, passes);
         }
 
-        public void TransformPerPixel(PixelFormat targetFormat, List<Color> palette, out  Image targetImage, IList<Point> path = null, Int32 parallelTaskCount = 4, params TransformPixelFunction[] passes)
+        public void TransformPerPixel(PixelFormat targetFormat, List<Color> palette, out Image targetImage, IList<Point> path = null, Int32 parallelTaskCount = 4, params TransformPixelFunction[] passes)
         {
             // checks parameters
             Guard.CheckNull(targetFormat, "targetFormat");
@@ -3183,7 +3183,7 @@ namespace Ezz_Helper.Drawing.ImagePixelEnumerator
             }
         }
 
-        public void TransformPerPixelAdvanced(PixelFormat targetFormat, List<Color> palette, out  Image targetImage, IList<Point> path = null, Int32 parallelTaskCount = 4, params TransformPixelAdvancedFunction[] passes)
+        public void TransformPerPixelAdvanced(PixelFormat targetFormat, List<Color> palette, out Image targetImage, IList<Point> path = null, Int32 parallelTaskCount = 4, params TransformPixelAdvancedFunction[] passes)
         {
             // checks parameters
             Guard.CheckNull(targetFormat, "targetFormat");
@@ -3211,17 +3211,17 @@ namespace Ezz_Helper.Drawing.ImagePixelEnumerator
             source.TransformPerPixelAdvanced(target, path, parallelTaskCount, passes);
         }
 
-        public static void TransformImagePerPixel(ImageBuffer source, PixelFormat targetFormat, List<Color> palette, out  Image targetImage, IList<Point> path = null, Int32 parallelTaskCount = 4, params TransformPixelFunction[] passes)
+        public static void TransformImagePerPixel(ImageBuffer source, PixelFormat targetFormat, List<Color> palette, out Image targetImage, IList<Point> path = null, Int32 parallelTaskCount = 4, params TransformPixelFunction[] passes)
         {
             source.TransformPerPixel(targetFormat, palette, out targetImage, path, parallelTaskCount, passes);
         }
 
-        public static void TransformImagePerPixelAdvanced(ImageBuffer source, PixelFormat targetFormat, List<Color> palette, out  Image targetImage, IList<Point> path = null, Int32 parallelTaskCount = 4, params TransformPixelAdvancedFunction[] passes)
+        public static void TransformImagePerPixelAdvanced(ImageBuffer source, PixelFormat targetFormat, List<Color> palette, out Image targetImage, IList<Point> path = null, Int32 parallelTaskCount = 4, params TransformPixelAdvancedFunction[] passes)
         {
             source.TransformPerPixelAdvanced(targetFormat, palette, out targetImage, path, parallelTaskCount, passes);
         }
 
-        public static void TransformImagePerPixel(Image sourceImage, PixelFormat targetFormat, List<Color> palette, out  Image targetImage, IList<Point> path = null, Int32 parallelTaskCount = 4, params TransformPixelFunction[] passes)
+        public static void TransformImagePerPixel(Image sourceImage, PixelFormat targetFormat, List<Color> palette, out Image targetImage, IList<Point> path = null, Int32 parallelTaskCount = 4, params TransformPixelFunction[] passes)
         {
             // checks parameters
             Guard.CheckNull(sourceImage, "sourceImage");
@@ -3233,7 +3233,7 @@ namespace Ezz_Helper.Drawing.ImagePixelEnumerator
             }
         }
 
-        public static void TransformImagePerPixelAdvanced(Image sourceImage, PixelFormat targetFormat, List<Color> palette, out  Image targetImage, IList<Point> path = null, Int32 parallelTaskCount = 4, params TransformPixelAdvancedFunction[] passes)
+        public static void TransformImagePerPixelAdvanced(Image sourceImage, PixelFormat targetFormat, List<Color> palette, out Image targetImage, IList<Point> path = null, Int32 parallelTaskCount = 4, params TransformPixelAdvancedFunction[] passes)
         {
             // checks parameters
             Guard.CheckNull(sourceImage, "sourceImage");
@@ -4080,8 +4080,6 @@ namespace Ezz_Helper.Drawing.ImagePixelEnumerator
 
         #region | Update methods |
 
-        /// <param name="x">The X coordinate.</param>
-        /// <param name="y">The Y coordinate.</param>
         public void Update(Int32 x, Int32 y)
         {
             X = x;
@@ -4143,17 +4141,31 @@ namespace Ezz_Helper.Drawing.ImagePixelEnumerator
 
         #endregion
     }
-    public class QuantizationHelper
+    public static class QuantizationHelper
     {
         private const int Alpha = 255 << 24;
-        private static readonly Color BackgroundColor;
-        private static readonly Double[] Factors;
+        private static readonly Color BackgroundColor = SystemColors.Control;
+        private static Double[] factors;
 
-        static QuantizationHelper()
+        public static double[] Factors
         {
-            BackgroundColor = SystemColors.Control;
-            Factors = PrecalculateFactors();
+            get {
+
+                if (factors is null || !factors.Any())
+                {
+                    factors = PrecalculateFactors();
+                }
+
+                return factors;
+
+            }
         }
+
+        //static QuantizationHelper()
+        //{
+        //    BackgroundColor = SystemColors.Control;
+        //    factors = PrecalculateFactors();
+        //}
 
         /// <summary>
         /// Precalculates the alpha-fix values for all the possible alpha values (0-255).
@@ -4193,9 +4205,9 @@ namespace Ezz_Helper.Drawing.ImagePixelEnumerator
                 // performs a alpha blending (second color is BackgroundColor, by default a Control color)
                 Double colorFactor = Factors[color.A];
                 Double backgroundFactor = Factors[255 - color.A];
-                Int32 red = (Int32)(color.R * colorFactor + BackgroundColor.R * backgroundFactor);
-                Int32 green = (Int32)(color.G * colorFactor + BackgroundColor.G * backgroundFactor);
-                Int32 blue = (Int32)(color.B * colorFactor + BackgroundColor.B * backgroundFactor);
+                Int32 red = (Int32)(color.R * colorFactor + (BackgroundColor.R * backgroundFactor));
+                Int32 green = (Int32)(color.G * colorFactor + (BackgroundColor.G * backgroundFactor));
+                Int32 blue = (Int32)(color.B * colorFactor + (BackgroundColor.B * backgroundFactor));
                 argb = red << 16 | green << 8 | blue;
                 Color.FromArgb(red, green, blue);
                 result = Color.FromArgb(Alpha | argb);

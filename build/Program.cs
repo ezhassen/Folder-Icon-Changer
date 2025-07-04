@@ -161,7 +161,7 @@ public static class Helper
     {
         var installerConfFile = context.GetFullPathFromWorkingDirectory(installerRelativeFile);
         context.Log.Information($"Building Installer : {installerConfFile}");
-       
+
         //build
         var buildInstallerCommand = $"\"{installerConfFile}\"";
         context.Log.Information($"buildInstallerCommand is : {buildInstallerCommand}");
@@ -175,16 +175,27 @@ public static class Helper
     }
 
 
-    public static void FullProjectPublish(this BuildContext context, string projectRelativeFile_csproj, string? installerRelativeFile = null)
+    public static void FullProjectPublish(this BuildContext context, string projectRelativeFile_csproj,
+        string? installerRelativeFile_x86 = null, string? installerRelativeFile_x64 = null)
     {
         var projectFile = context.GetFullPathFromWorkingDirectory(projectRelativeFile_csproj);
         var projectDir = System.IO.Path.GetDirectoryName(projectFile);
         var projectPublishDir = PathCombineExInte(projectDir!, @"\bin\Publish\");
-
-        if (!string.IsNullOrEmpty(installerRelativeFile) && context.InstallerOnly)
+        if (context.InstallerOnly)
         {
-            //BuildTheInstaller
-            context.BuildTheInstaller(installerRelativeFile);
+            if (!string.IsNullOrEmpty(installerRelativeFile_x86))
+            {
+                //BuildTheInstaller
+                context.BuildTheInstaller(installerRelativeFile_x86);
+                //return;
+            }
+            if (!string.IsNullOrEmpty(installerRelativeFile_x64))
+            {
+                //BuildTheInstaller
+                context.BuildTheInstaller(installerRelativeFile_x64);
+                //return;
+            }
+
             return;
         }
 
@@ -207,27 +218,43 @@ public static class Helper
         //Restore
         context.NuGetRestoreProject(projectFile);
 
-
         //Publish
-        context.DotNetPublish(projectFile, new DotNetPublishSettings()
+        void DotNetPublishMethod(bool runtimeIsX86)
         {
-            NoRestore = true,//set to false--> Workaround weird error !!
-            Configuration = "Release",
-            OutputDirectory = projectPublishDir,//@$"{context.Environment.WorkingDirectory}\El Forsan\bin\Publish\",
-            Runtime = "win-x86",
-            Framework = "net9.0-windows",
-            SelfContained = context.SelfContained,
-            PublishReadyToRun = false,
-            PublishSingleFile = false,
-            PublishTrimmed = context.Trimmed
-        });
-
-        if (!string.IsNullOrEmpty(installerRelativeFile) && !context.BuildOnly)
-        {
-            //BuildTheInstaller
-            //context.BuildTheInstaller(@"\ElForsan_ProductsPricesList_Installer.iss");
-            context.BuildTheInstaller(installerRelativeFile);
+            var runtime = runtimeIsX86 ? "win-x86" : "win-x64";
+            context.DotNetPublish(projectFile, new DotNetPublishSettings()
+            {
+                NoRestore = true,//set to false--> Workaround weird error !!
+                Configuration = "Release",
+                OutputDirectory = System.IO.Path.Combine(projectPublishDir, runtime),//@$"{context.Environment.WorkingDirectory}\El Forsan\bin\Publish\",
+                Runtime = runtime,
+                Framework = "net9.0-windows",
+                SelfContained = context.SelfContained,
+                PublishReadyToRun = false,
+                PublishSingleFile = false,
+                PublishTrimmed = context.Trimmed
+            });
         }
+
+        DotNetPublishMethod(true);
+        DotNetPublishMethod(false);
+
+        if (!context.BuildOnly)
+        {
+            if (!string.IsNullOrEmpty(installerRelativeFile_x86))
+            {
+                //BuildTheInstaller
+                context.BuildTheInstaller(installerRelativeFile_x86);
+                //return;
+            }
+            if (!string.IsNullOrEmpty(installerRelativeFile_x64))
+            {
+                //BuildTheInstaller
+                context.BuildTheInstaller(installerRelativeFile_x64);
+                //return;
+            }
+        }
+
     }
 }
 

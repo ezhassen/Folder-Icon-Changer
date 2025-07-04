@@ -1019,7 +1019,7 @@ namespace Ezz_Helper.Drawing.IconsManager      //TODO : add LibraryFormats check
         {
             int size = Marshal.SizeOf(typeof(T));
             byte[] buffer = new byte[size];
-            inputStream.Read(buffer, 0, size);
+            inputStream.ReadExactly(buffer, 0, size);
             //
             IntPtr ptr = Marshal.AllocHGlobal(size);
             Marshal.Copy(buffer, 0, ptr, size);

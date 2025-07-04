@@ -94,9 +94,6 @@ namespace Ezz_Helper.Drawing.IconsManager
         /// <summary>
         /// To add a new icon to the source icon.
         /// </summary>
-        /// <param name="Icon_1"></param>
-        /// <param name="CheckToAdd"></param>
-        /// <returns></returns>
         public void Add(IconInfo.IconImageInfo IconImageInfo_1)
         {
             Add(new IconInfo.IconImageInfo[] { IconImageInfo_1 });
@@ -104,8 +101,6 @@ namespace Ezz_Helper.Drawing.IconsManager
         /// <summary>
         /// To add new icons to the source icon.
         /// </summary>
-        /// <param name="Icon_1"></param>
-        /// <param name="CheckToAdd"></param>
         /// <returns></returns>
         public void Add(params IconInfo.IconImageInfo[] images_1)
         {
