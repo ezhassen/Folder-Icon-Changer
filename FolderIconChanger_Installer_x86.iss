@@ -12,7 +12,7 @@ AppId={{4D6EBAB1-4959-48F2-A382-BB09167AD104}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 VersionInfoVersion={#MyAppVersion}
-AppCopyright=Copyright (C) 2016-2025 ezhassen.
+AppCopyright=Copyright (C) 2016-2026 ezhassen.
 AppVerName={#MyAppName} {#MyAppVersion} x86
 AppPublisher={#MyAppPublisher}
 DefaultDirName={commonpf}\{#MyAppName}
@@ -28,7 +28,7 @@ InternalCompressLevel=ultra64
 ;MinVersion=10.0.10240
 ;PrivilegesRequired=lowest
 ;PrivilegesRequiredOverridesAllowed=dialog
-WizardStyle=modern
+WizardStyle=modern dynamic
 ArchitecturesAllowed=x86
 ArchitecturesInstallIn64BitMode=x86
 
@@ -40,13 +40,14 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
+Source: "*.*"; Excludes: "*.pdb,*.xml,*.log, createdump.exe"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs;
 ; Source: "*.*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs ; for all files
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: {#MyAppExeName}; DestDir: "{app}"; Flags: ignoreversion
-Source: "*.config"; DestDir: "{app}"; Flags: ignoreversion
-Source: "Folder Icon Changer.runtimeconfig.json"; DestDir: "{app}"; Flags: ignoreversion
-Source: "*.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "ar\Folder Icon Changer.resources.dll"; DestDir: "{app}\ar"; Flags: ignoreversion
+; Source: {#MyAppExeName}; DestDir: "{app}"; Flags: ignoreversion
+; Source: "*.config"; DestDir: "{app}"; Flags: ignoreversion
+; Source: "Folder Icon Changer.runtimeconfig.json"; DestDir: "{app}"; Flags: ignoreversion
+; Source: "*.dll"; DestDir: "{app}"; Flags: ignoreversion
+; Source: "ar\Folder Icon Changer.resources.dll"; DestDir: "{app}\ar"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"

@@ -2,15 +2,16 @@
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<RunWorkingDirectory>$(MSBuildProjectDirectory)</RunWorkingDirectory>
 		<StartupObject>Program</StartupObject>
+		<Platforms>AnyCPU;x86;x64</Platforms>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Cake.Frosting" Version="5.0.0" />
+	  <PackageReference Include="Cake.Frosting" Version="6.2.0" />
 	</ItemGroup>
 
 </Project>

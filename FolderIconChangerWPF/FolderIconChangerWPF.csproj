@@ -5,7 +5,7 @@
 		<AssemblyName>Folder Icon Changer</AssemblyName>
 		<RootNamespace>FolderIconChangerWPF</RootNamespace>
 
-		<TargetFramework>net9.0-windows</TargetFramework>
+		<TargetFramework>net10.0-windows</TargetFramework>
 		<RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
 		<!--<TargetFrameworks>net9.0-windows;net472</TargetFrameworks>-->
 		<UseWPF>true</UseWPF>
@@ -16,8 +16,8 @@
 		<Product>Folder Icon Changer</Product>
 		<NeutralLanguage>en</NeutralLanguage>
 		<Description>easy-to-use &amp; fast way to change folder's icon</Description>
-		<Copyright>Copyright ©  2019-2025</Copyright>
-		<Version>4.2.0.0</Version>
+		<Copyright>Copyright ©  2019-2026</Copyright>
+		<Version>4.2.1.0</Version>
 		<AssemblyVersion>$(Version)</AssemblyVersion>
 		<FileVersion>$(Version)</FileVersion>
 		<ProductVersion>$(Version)</ProductVersion>
@@ -29,6 +29,8 @@
 		<!--<GenerateAssemblyInfo>false</GenerateAssemblyInfo>-->
 
 		<Company>ezhassen</Company>
+
+		<Platforms>AnyCPU;x86;x64</Platforms>
 		<!--Workaround for Error	MSB4216	Could not run the "GenerateResource" -->
 		<!--<GenerateResourceMSBuildArchitecture>CurrentArchitecture</GenerateResourceMSBuildArchitecture>-->
 	</PropertyGroup>
@@ -37,9 +39,27 @@
 		<DebugType>full</DebugType>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+	  <DebugType>full</DebugType>
+	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+	  <DebugType>full</DebugType>
+	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		<DebugType>pdbonly</DebugType>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+	  <DebugType>pdbonly</DebugType>
+	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+	  <DebugType>pdbonly</DebugType>
+	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 	<PropertyGroup>
 		<StartupObject>FolderIconChangerWPF.App</StartupObject>
@@ -82,12 +102,12 @@
 
 	<!--References for .Net Core-->
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net4'))==False">
-		<PackageReference Include="Microsoft.Windows.Compatibility" Version="9.0.6" />
+		<PackageReference Include="Microsoft.Windows.Compatibility" Version="10.0.9" />
 	</ItemGroup>
 
 	<!--PackageReference for all framworks-->
 	<ItemGroup>
-		<PackageReference Include="MahApps.Metro" Version="2.4.10" />
+		<PackageReference Include="MahApps.Metro" Version="2.4.11" />
 		<!--<PackageReference Include="MahApps.Metro.Resources" Version="0.6.1" />-->
 		<!--<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />-->
 		<!--<PackageReference Include="Microsoft.Windows.Compatibility" Version="3.1.0" />-->
@@ -96,7 +116,7 @@
 		<!--<PackageReference Include="Microsoft.Windows.Shell" Version="3.0.1" />-->
 		<!--<PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />-->
 		<PackageReference Include="PortableJsonSettingsProvider" Version="0.2.2" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<!--<PackageReference Include="WPFLocalizeExtension" Version="3.10.0" />-->
 		<PackageReference Include="WPFLocalizeExtensionEzzFork" Version="3.10.1" />
 	</ItemGroup>

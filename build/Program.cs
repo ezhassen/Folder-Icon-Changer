@@ -1,17 +1,14 @@
-﻿using Cake.Core;
-using Cake.Core.Diagnostics;
-using Cake.Frosting;
 using Cake.Common;
 using Cake.Common.IO;
-using Cake.Common.Tools.NuGet;
 using Cake.Common.Tools.DotNet;
 using Cake.Common.Tools.DotNet.Publish;
-using Cake.Common.Tools.DotNet.Build;
 using Cake.Common.Tools.DotNet.Restore;
+using Cake.Core;
+using Cake.Core.Diagnostics;
 using Cake.Core.IO;
-using System.Text;
-using System;
+using Cake.Frosting;
 using System.Net.NetworkInformation;
+using System.Text;
 
 //custom args
 //--InstallerOnly
@@ -74,6 +71,7 @@ public static class Helper
         }
         return strBuilder.ToString();
     }
+
     public static string PathCombineEx(this Cake.Core.IO.Path path, params string[] strs)
     {
         return PathCombineExInte(GetFullPathPathFixDirectorySeparatorChar(path), strs);
@@ -83,7 +81,9 @@ public static class Helper
     {
         return PathCombineExInte("", strs);
     }
+
     public static string PathFixDirectorySeparatorChar(string str) => str.Replace('/', System.IO.Path.DirectorySeparatorChar).Replace('\\', System.IO.Path.DirectorySeparatorChar);
+
     public static string GetFullPathFromWorkingDirectory(this BuildContext context, string pathToCombine)
     {
         //var dicInfo = new DirectoryInfo(context.Environment.WorkingDirectory.FullPath);
@@ -96,6 +96,7 @@ public static class Helper
         //return res.FullPath;
         return res;
     }
+
     public static bool ThereIsInternet()
     {
         try
@@ -110,8 +111,8 @@ public static class Helper
         {
             return false;
         }
-
     }
+
     public static void NuGetRestoreProject(this BuildContext context, string root)
     {
         if (context.Offline || !ThereIsInternet())
@@ -132,6 +133,7 @@ public static class Helper
             });
         }
     }
+
     public static void NuGetRestoreProject(this BuildContext context)
     {
         if (context.Offline)
@@ -143,7 +145,6 @@ public static class Helper
         }
         else
         {
-
             context.DotNetRestore(new DotNetRestoreSettings()
             {
                 ConfigFile = context.NugetConfigFile// ?? @"C:\Nuget\NuGet.custom.config"
@@ -157,6 +158,7 @@ public static class Helper
         var installerConfFile = context.GetFullPathFromWorkingDirectory(@"\ElForsan_Installer.iss");
         BuildTheInstaller(context, installerConfFile);
     }
+
     public static void BuildTheInstaller(this BuildContext context, string installerRelativeFile)
     {
         var installerConfFile = context.GetFullPathFromWorkingDirectory(installerRelativeFile);
@@ -173,7 +175,6 @@ public static class Helper
             context.Log.Information("Exit code: {0}", process.GetExitCode());
         }
     }
-
 
     public static void FullProjectPublish(this BuildContext context, string projectRelativeFile_csproj,
         string? installerRelativeFile_x86 = null, string? installerRelativeFile_x64 = null)
@@ -209,7 +210,7 @@ public static class Helper
         {
             Configuration = "Release",
             //Runtime = "win-x86",
-            //Framework = "net9.0-windows",
+            //Framework = "net10.0-windows",
         });
 
         context.Log.Information($"Cleaning Dir Publish : {projectPublishDir}");
@@ -228,7 +229,7 @@ public static class Helper
                 Configuration = "Release",
                 OutputDirectory = System.IO.Path.Combine(projectPublishDir, runtime),//@$"{context.Environment.WorkingDirectory}\El Forsan\bin\Publish\",
                 Runtime = runtime,
-                Framework = "net9.0-windows",
+                Framework = "net10.0-windows",
                 SelfContained = context.SelfContained,
                 PublishReadyToRun = false,
                 PublishSingleFile = false,
@@ -254,13 +255,11 @@ public static class Helper
                 //return;
             }
         }
-
     }
 }
 
 public class BuildContext : FrostingContext
 {
-
     public const string OfflineNugetPackageCache = "C:\\NugetPackageCache\\";
 
     //public bool Delay { get; set; }
@@ -274,6 +273,7 @@ public class BuildContext : FrostingContext
     /// Just Build no Publish. won't run installer build too.
     /// </summary>
     public bool BuildOnly { get; }
+
     public string NugetConfigFile { get; }
     public bool Offline { get; set; }
 
@@ -303,7 +303,6 @@ public class BuildContext : FrostingContext
 }
 
 [TaskName("ProjectBuild")]
-//[IsDependentOn(typeof(CleanTask))]
 public sealed class ProjectBuildTask : FrostingTask<BuildContext> //AsyncFrostingTask<BuildContext>
 {
     public override bool ShouldRun(BuildContext context)
@@ -321,10 +320,8 @@ public sealed class ProjectBuildTask : FrostingTask<BuildContext> //AsyncFrostin
     }
 }
 
-
 [TaskName("Default")]
 [IsDependentOn(typeof(ProjectBuildTask))]
 public class DefaultTask : FrostingTask
 {
-
 }
