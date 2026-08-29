@@ -8,6 +8,7 @@
   <!-- <img src="https://img.shields.io/badge/Status-In%20Development-blue.svg" alt="Status" /> -->
   <img src="https://img.shields.io/badge/.NET-10.0%20Desktop%20Runtime-512BD4" alt=".NET 10" />
   <img src="https://img.shields.io/badge/Platform-Windows%20x64%20%7C%20x86-blue" alt="Platform" />
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License: Apache 2.0" /></a>
 </p>
 
 <p align="center">Easy-to-use & fast way to change folder icons in Windows.</p>

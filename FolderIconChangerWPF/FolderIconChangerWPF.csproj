@@ -21,7 +21,8 @@
 		<AssemblyVersion>$(Version)</AssemblyVersion>
 		<FileVersion>$(Version)</FileVersion>
 		<ProductVersion>$(Version)</ProductVersion>
-
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<GenerateAssemblyVersionAttribute>true</GenerateAssemblyVersionAttribute>
 		<GenerateAssemblyFileVersionAttribute>true</GenerateAssemblyFileVersionAttribute>
