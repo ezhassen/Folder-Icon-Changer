@@ -17,19 +17,19 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<Description>easy-to-use &amp; fast way to change folder's icon</Description>
 		<Copyright>Copyright ©  2019-2026</Copyright>
-		<Version>4.2.1.0</Version>
+		<Version>4.2.3.0</Version>
 		<AssemblyVersion>$(Version)</AssemblyVersion>
 		<FileVersion>$(Version)</FileVersion>
 		<ProductVersion>$(Version)</ProductVersion>
-		
+
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<GenerateAssemblyVersionAttribute>true</GenerateAssemblyVersionAttribute>
 		<GenerateAssemblyFileVersionAttribute>true</GenerateAssemblyFileVersionAttribute>
 		<GenerateAssemblyInformationalVersionAttribute>true</GenerateAssemblyInformationalVersionAttribute>
 		<!--<GenerateAssemblyInfo>false</GenerateAssemblyInfo>-->
 
-		<Company>ezhassen</Company>
-
+		<Company>Ezz Hassan</Company>
+		<Authors>Ezz Hassan</Authors>
 		<Platforms>AnyCPU;x86;x64</Platforms>
 		<!--Workaround for Error	MSB4216	Could not run the "GenerateResource" -->
 		<!--<GenerateResourceMSBuildArchitecture>CurrentArchitecture</GenerateResourceMSBuildArchitecture>-->
@@ -41,25 +41,25 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-	  <DebugType>full</DebugType>
-	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<DebugType>full</DebugType>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
-	  <DebugType>full</DebugType>
-	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<DebugType>full</DebugType>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
 		<DebugType>pdbonly</DebugType>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-	  <DebugType>pdbonly</DebugType>
-	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<DebugType>pdbonly</DebugType>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
-	  <DebugType>pdbonly</DebugType>
-	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<DebugType>pdbonly</DebugType>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 	<PropertyGroup>
 		<StartupObject>FolderIconChangerWPF.App</StartupObject>
