@@ -17,7 +17,7 @@
 		<NeutralLanguage>en</NeutralLanguage>
 		<Description>easy-to-use &amp; fast way to change folder's icon</Description>
 		<Copyright>Copyright ©  2019-2026</Copyright>
-		<Version>4.2.3.0</Version>
+		<Version>4.2.4.0</Version>
 		<AssemblyVersion>$(Version)</AssemblyVersion>
 		<FileVersion>$(Version)</FileVersion>
 		<ProductVersion>$(Version)</ProductVersion>
