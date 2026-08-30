@@ -29,8 +29,13 @@ namespace FolderIconChangerWPF
             e.Handled = true;
             if (e.Exception is System.Threading.Tasks.TaskCanceledException) return;
             if (e.Exception is System.OperationCanceledException) return;
-            MessageBox.Show(e.Exception.ToString());
+            Helpers.ModernMessageBox.Show(e.Exception.ToString(), GetLocalizedStringSafe("Error") ?? "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 #endif
+        }
+
+        static string GetLocalizedStringSafe(string key)
+        {
+            try { return LocalizationProvider.GetLocalizedString(key); } catch { return null; }
         }
     }
 }

@@ -138,7 +138,7 @@ namespace FolderIconChangerWPF.ViewModels
             }
             else if (taskResult.Exception != null)
             {
-                MessageBox.Show(taskResult.Exception.ToString());
+                ModernMessageBox.Show(taskResult.Exception.ToString(), GetLocalizedString("Error") ?? "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             IsWorking = false;
@@ -263,7 +263,7 @@ namespace FolderIconChangerWPF.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString());
+                    ModernMessageBox.Show(ex.ToString(), GetLocalizedString("Error") ?? "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     //throw;
                 }
                 finally

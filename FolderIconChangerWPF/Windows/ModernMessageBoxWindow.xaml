@@ -1,0 +1,99 @@
+<mm:MetroWindow
+    x:Class="FolderIconChangerWPF.Windows.ModernMessageBoxWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mm="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    Title="{Binding DialogTitle, RelativeSource={RelativeSource Self}}"
+    Width="460"
+    MinWidth="380"
+    MaxWidth="640"
+    SizeToContent="Height"
+    MaxHeight="520"
+    WindowStartupLocation="CenterOwner"
+    ShowInTaskbar="False"
+    ShowIconOnTitleBar="False"
+    ShowMaxRestoreButton="False"
+    ShowMinButton="False"
+    ResizeMode="NoResize"
+    GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+    BorderThickness="1"
+    BorderBrush="{DynamicResource MahApps.Brushes.Accent}"
+    Background="{DynamicResource MahApps.Brushes.Window.Background}"
+    Foreground="{DynamicResource MahApps.Brushes.Text}"
+    TitleCharacterCasing="Normal"
+    WindowTitleBrush="{DynamicResource MahApps.Brushes.Window.Background}"
+    NonActiveWindowTitleBrush="{DynamicResource MahApps.Brushes.Window.Background}"
+    mc:Ignorable="d"
+    Loaded="MetroWindow_Loaded"
+    PreviewKeyDown="MetroWindow_PreviewKeyDown">
+    <mm:MetroWindow.Resources>
+        <Style x:Key="ModernDialogPrimaryButton" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button.Square.Accent}">
+            <Setter Property="MinWidth" Value="90"/>
+            <Setter Property="MinHeight" Value="32"/>
+            <Setter Property="Padding" Value="16,4"/>
+            <Setter Property="Margin" Value="6,0,0,0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="mm:ControlsHelper.ContentCharacterCasing" Value="Normal"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style x:Key="ModernDialogSecondaryButton" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button.Square}">
+            <Setter Property="MinWidth" Value="90"/>
+            <Setter Property="MinHeight" Value="32"/>
+            <Setter Property="Padding" Value="16,4"/>
+            <Setter Property="Margin" Value="6,0,0,0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Controls.Border}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </mm:MetroWindow.Resources>
+
+    <Border CornerRadius="6" Background="{DynamicResource MahApps.Brushes.Window.Background}">
+        <Grid Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Message area -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Icon -->
+                <Border x:Name="IconBorder" Grid.Column="0" Width="42" Height="42" CornerRadius="21"
+                        VerticalAlignment="Top" Margin="0,2,16,0"
+                        Visibility="Collapsed">
+                    <TextBlock x:Name="IconText" HorizontalAlignment="Center" VerticalAlignment="Center"
+                               FontFamily="{StaticResource FontAwesome}" FontSize="20" Foreground="White"/>
+                </Border>
+
+                <!-- Scrollable selectable message -->
+                <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                              MaxHeight="340" Focusable="False">
+                    <TextBox x:Name="MessageTextBox"
+                             TextWrapping="Wrap"
+                             IsReadOnly="True"
+                             BorderThickness="0"
+                             Background="Transparent"
+                             Foreground="{DynamicResource MahApps.Brushes.Text}"
+                             FontSize="13.5"
+                             Padding="0"
+                             IsReadOnlyCaretVisible="False"
+                             Cursor="Arrow"
+                             Focusable="False"
+                             VerticalAlignment="Center"/>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- Buttons -->
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,22,0,0" x:Name="ButtonPanel">
+                <!-- Buttons injected in code-behind -->
+            </StackPanel>
+        </Grid>
+    </Border>
+</mm:MetroWindow>

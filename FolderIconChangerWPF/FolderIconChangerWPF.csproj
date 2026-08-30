@@ -70,6 +70,14 @@
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 		<Win32Resource />
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="Resources\github_dark.png" />
+	  <None Remove="Resources\github_light.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Resource Include="Resources\github_dark.png" />
+	  <Resource Include="Resources\github_light.png" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<EmbeddedResource Update="Properties\Resources.resx">

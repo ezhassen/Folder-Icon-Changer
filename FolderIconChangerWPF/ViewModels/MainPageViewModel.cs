@@ -361,8 +361,7 @@ namespace FolderIconChangerWPF.ViewModels
 
             if (tRes.Item4 != null)
             {
-                //TODO: Handle Exception
-                MessageBox.Show(OwnerWindow, tRes.Item4.ToString());
+                ModernMessageBox.Show(OwnerWindow, tRes.Item4.ToString(), GetLocalizedString("Error") ?? "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
@@ -414,7 +413,7 @@ namespace FolderIconChangerWPF.ViewModels
         {
             if (IsWorking || CurrentIconInfo is null) return;
             var msgGenBestFit = GetLocalizedString("msgGenBestFit");
-            if (MessageBox.Show(OwnerWindow, msgGenBestFit, GetLocalizedString("MainFormTitle"), MessageBoxButton.YesNo, MessageBoxImage.Information) != MessageBoxResult.Yes) return;
+            if (ModernMessageBox.Show(OwnerWindow, msgGenBestFit, GetLocalizedString("MainFormTitle"), MessageBoxButton.YesNo, MessageBoxImage.Information) != MessageBoxResult.Yes) return;
             await RefreshCurrentInfo();
             //IsWorking = true;
             StatusMsg = GetLocalizedString("Working");
@@ -445,8 +444,7 @@ namespace FolderIconChangerWPF.ViewModels
             }
             else if (taskRes.Exception != null)
             {
-                //TODO: Handle Exception msg
-                MessageBox.Show(OwnerWindow, taskRes.Exception.ToString());
+                ModernMessageBox.Show(OwnerWindow, taskRes.Exception.ToString(), GetLocalizedString("Error") ?? "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -455,7 +453,7 @@ namespace FolderIconChangerWPF.ViewModels
             if (IsWorking) return;
             if (Directory.Exists(TargetFolder))
             {
-                if (MessageBox.Show(OwnerWindow, GetLocalizedString("ResetToDefaultIconMsg"), GetLocalizedString("MainFormTitle"), MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes) return;
+                if (ModernMessageBox.Show(OwnerWindow, GetLocalizedString("ResetToDefaultIconMsg"), GetLocalizedString("MainFormTitle"), MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes) return;
                 IsWorking = true;
                 var TaskRes = await TaskResult.RunAsync(() =>
                 {
@@ -469,7 +467,7 @@ namespace FolderIconChangerWPF.ViewModels
                 }
                 else if (TaskRes.Exception != null)
                 {
-                    MessageBox.Show(OwnerWindow, TaskRes.Exception.Message);
+                    ModernMessageBox.Show(OwnerWindow, TaskRes.Exception.Message, GetLocalizedString("Error") ?? "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -916,7 +914,7 @@ namespace FolderIconChangerWPF.ViewModels
             if (!File.Exists(SourceImageFile))
             {
                 IsGeneratingFromImage = false;
-                MessageBox.Show(OwnerWindow, GetLocalizedString("FileNotExists"));
+                ModernMessageBox.Show(OwnerWindow, GetLocalizedString("FileNotExists"), GetLocalizedString("Error") ?? "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             IsGeneratingFromImage = true;
@@ -955,7 +953,7 @@ namespace FolderIconChangerWPF.ViewModels
                 }
                 else if (tRes.Exception != null)
                 {
-                    MessageBox.Show(OwnerWindow, tRes.Exception.Message);
+                    ModernMessageBox.Show(OwnerWindow, tRes.Exception.Message, GetLocalizedString("Error") ?? "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             IsGeneratingFromImage = false;
@@ -984,7 +982,7 @@ namespace FolderIconChangerWPF.ViewModels
             }
             else if (TaskRes.Exception != null)
             {
-                MessageBox.Show(OwnerWindow, TaskRes.Exception.Message);
+                ModernMessageBox.Show(OwnerWindow, TaskRes.Exception.Message, GetLocalizedString("Error") ?? "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

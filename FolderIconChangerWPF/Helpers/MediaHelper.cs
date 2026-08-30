@@ -164,11 +164,16 @@ namespace FolderIconChangerWPF
         {
             try
             {
+                var bytes = Convert.FromBase64String(base64);
                 var bi = new BitmapImage();
-
-                bi.BeginInit();
-                bi.StreamSource = new MemoryStream(Convert.FromBase64String(base64));
-                bi.EndInit();
+                using (var ms = new MemoryStream(bytes))
+                {
+                    bi.BeginInit();
+                    bi.CacheOption = BitmapCacheOption.OnLoad;
+                    bi.StreamSource = ms;
+                    bi.EndInit();
+                    bi.Freeze();
+                }
                 return bi;
             }
             catch (Exception)

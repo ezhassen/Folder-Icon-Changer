@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace FolderIconChangerWPF.ViewModels
@@ -84,14 +85,14 @@ namespace FolderIconChangerWPF.ViewModels
                     _IsWorking = value;
                     OnPropertyChanged(); //uses CallerMemberName
                 }
-                if (value)
+                void SetCursor()
                 {
-                    Mouse.OverrideCursor = Cursors.Wait;
+                    if (value) System.Windows.Input.Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+                    else System.Windows.Input.Mouse.OverrideCursor = null;
                 }
-                else
-                {
-                    Mouse.OverrideCursor = null;
-                }
+                var disp = Application.Current?.Dispatcher;
+                if (disp != null && !disp.CheckAccess()) disp.Invoke(SetCursor);
+                else SetCursor();
             }
         }
 

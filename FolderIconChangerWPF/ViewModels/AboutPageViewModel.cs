@@ -1,16 +1,34 @@
-﻿using System.Diagnostics;
+using FolderIconChangerWPF.Services;
+using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Reflection;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace FolderIconChangerWPF.ViewModels
 {
     public class AboutPageViewModel : BaseViewModel
     {
+        public AboutPageViewModel()
+        {
+            SettingsService.Instance.PropertyChanged += Instance_PropertyChanged;
+        }
+
+        private void Instance_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(SettingsService.SelectedTheme))
+            {
+                OnPropertyChanged(nameof(GitHubIcon));
+            }
+        }
+
         public string AppName { get; set; }
         public string DevName
         {
             get
             {
-                var LocName = LocalizationProvider.GetLocalizedString("DevName", defaultValue: () => "Ezz Hasan");
+                var LocName = LocalizationProvider.GetLocalizedString("DevName", defaultValue: () => "Ezz Hassan");
                 //var res = $"{LocName} (ezhassen)";
 
                 return $"{LocName} (ezhassen)";
@@ -67,5 +85,7 @@ namespace FolderIconChangerWPF.ViewModels
                 //process.
                 process.Start();
             }));
+
+        public Uri GitHubIcon => new Uri($"pack://application:,,,/Resources/github_{(SettingsService.Instance.SelectedThemeIsDark ? "dark" : "light")}.png");
     }
 }

@@ -200,7 +200,7 @@ namespace FolderIconChangerWPF.ViewModels
             }
             else if (taskResult.Exception != null)
             {
-                MessageBox.Show(taskResult.Exception.Message);
+                ModernMessageBox.Show(taskResult.Exception.Message, GetLocalizedString("Error") ?? "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             //Reset props code here
             ResetPropsMethod();
@@ -230,10 +230,6 @@ namespace FolderIconChangerWPF.ViewModels
                     _Icons = null;
                 }
             }
-
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            GC.Collect();
         }
 
         DelegateCommand _BrowseForFileCommand;
@@ -496,7 +492,7 @@ namespace FolderIconChangerWPF.ViewModels
                     IsWorking = false;
                     if (TRes.Exception != null)
                     {
-                        MessageBox.Show(OwnerWindow, TRes.Exception.ToString());
+                        ModernMessageBox.Show(OwnerWindow, TRes.Exception.ToString(), GetLocalizedString("Error") ?? "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 IsWorking = false;

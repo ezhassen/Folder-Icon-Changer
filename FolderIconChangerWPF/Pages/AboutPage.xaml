@@ -1,4 +1,4 @@
-﻿<local:BasePage
+<local:BasePage
     x:Class="FolderIconChangerWPF.Pages.AboutPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -47,7 +47,8 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Style="{StaticResource TextBlockTitle}"
-            Text="{lex:BLoc About, TargetNullValue=About}" />
+            Text="{lex:BLoc About,
+                            TargetNullValue=About}" />
 
         <Grid Grid.Row="1" Margin="10">
             <Grid.ColumnDefinitions>
@@ -94,17 +95,6 @@
                             Direction="270"
                             ShadowDepth="5" />
                     </Viewbox.Effect>
-                    <Button
-                        Padding="5,0" Margin="5,1"
-                        HorizontalAlignment="Center"
-                        Content="ezhassen@outlook.com"
-                        Foreground="{DynamicResource MahApps.Brushes.AccentBase}"
-                        Style="{StaticResource LinkButton}" />
-                    <!--<TextBlock Padding="5,0" FontWeight="Bold">
-                        <Hyperlink Foreground="{DynamicResource MahApps.Brushes.AccentBase}" NavigateUri="ezhassen@outlook.com">
-                            <Run Text="ezhassen@outlook.com" />
-                        </Hyperlink>
-                    </TextBlock>-->
                 </Viewbox>
                 <Viewbox
                     Grid.Row="2"
@@ -116,19 +106,23 @@
                             Direction="270"
                             ShadowDepth="5" />
                     </Viewbox.Effect>
-                    <Button
-                        Padding="5,0" Margin="5,1"
-                        HorizontalAlignment="Center"
-                        Command="{Binding OpenLinkCommand}"
-                        CommandParameter="https://fb.com/ezhassen"
-                        Content="https://fb.com/ezhassen"
-                        Foreground="{DynamicResource MahApps.Brushes.AccentBase}"
-                        Style="{StaticResource LinkButton}" />
-                    <!--<TextBlock Padding="5,0" FontWeight="Bold">
-                        <Hyperlink Foreground="{DynamicResource MahApps.Brushes.AccentBase}" NavigateUri="https://fb.com/ezhassen">
-                            <Run Text="https://fb.com/ezhassen" />
-                        </Hyperlink>
-                    </TextBlock>-->
+                    <StackPanel Orientation="Horizontal">
+                        <Image
+                            Width="32"
+                            Height="32"
+                            Margin="0,0,0,4"
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            Source="{Binding GitHubIcon}" />
+                        <Button
+                            Margin="5,1"
+                            Padding="5,0"
+                            HorizontalAlignment="Center"
+                            Command="{Binding OpenLinkCommand}"
+                            CommandParameter="https://github.com/ezhassen/Folder-Icon-Changer/"
+                            Content="Github"
+                            Foreground="{DynamicResource MahApps.Brushes.AccentBase}"
+                            Style="{StaticResource LinkButton}" />
+                    </StackPanel>
                 </Viewbox>
 
 
@@ -151,27 +145,32 @@
                 <!--  Name  -->
                 <TextBox
                     Grid.Row="0"
-                    mm:TextBoxHelper.Watermark="{lex:BLoc tAppName, TargetNullValue=App Name}"
+                    mm:TextBoxHelper.Watermark="{lex:BLoc tAppName,
+                                                          TargetNullValue=App Name}"
                     Style="{StaticResource InfoText}"
-                    Text="{lex:BLoc MainFormTitle, TargetNullValue=Folder Icon Changer}" />
+                    Text="{lex:BLoc MainFormTitle,
+                                    TargetNullValue=Folder Icon Changer}" />
 
                 <!--  Version  -->
                 <TextBox
                     Grid.Row="1"
-                    mm:TextBoxHelper.Watermark="{lex:BLoc Version, TargetNullValue=Version}"
+                    mm:TextBoxHelper.Watermark="{lex:BLoc Version,
+                                                          TargetNullValue=Version}"
                     Style="{StaticResource InfoText}"
                     Text="{Binding AssemblyVersion, FallbackValue=0.0.0.0, Mode=OneWay}" />
 
                 <!--  CopyRight  -->
                 <TextBox
                     Grid.Row="2"
-                    mm:TextBoxHelper.Watermark="{lex:BLoc tCopyright, TargetNullValue=Copyright}"
+                    mm:TextBoxHelper.Watermark="{lex:BLoc tCopyright,
+                                                          TargetNullValue=Copyright}"
                     Style="{StaticResource InfoText}"
                     Text="{Binding AssemblyCopyright, FallbackValue=Copyright, Mode=OneWay}" />
                 <!--  Dev Name  -->
                 <TextBox
                     Grid.Row="3"
-                    mm:TextBoxHelper.Watermark="{lex:BLoc tDevName, TargetNullValue=Dev Name}"
+                    mm:TextBoxHelper.Watermark="{lex:BLoc tDevName,
+                                                          TargetNullValue=Dev Name}"
                     Style="{StaticResource InfoText}"
                     Text="{Binding DevName, FallbackValue=Ezz Hasan, Mode=OneWay}" />
 
@@ -180,9 +179,11 @@
                     Grid.Row="4"
                     MaxHeight="200"
                     HorizontalContentAlignment="Stretch"
-                    mm:TextBoxHelper.Watermark="{lex:BLoc tDescription, TargetNullValue=Description}"
+                    mm:TextBoxHelper.Watermark="{lex:BLoc tDescription,
+                                                          TargetNullValue=Description}"
                     Style="{StaticResource InfoText}"
-                    Text="{lex:BLoc AppDescription, TargetNullValue=...}"
+                    Text="{lex:BLoc AppDescription,
+                                    TargetNullValue=...}"
                     TextWrapping="Wrap" />
             </Grid>
 

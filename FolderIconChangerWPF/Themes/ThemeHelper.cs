@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media;
 
@@ -82,6 +83,10 @@ namespace FolderIconChangerWPF
             //ThemeHelper.ApplyTheme(Name, FullPath);
         }
 
+        public bool IsDarkTheme()
+        {
+            return this.MetroThemeName?.Contains("dark", StringComparison.OrdinalIgnoreCase) ?? false;
+        }
         public bool Equals(ThemeInfo x, ThemeInfo y)
         {
             if (x is null && y is null) return true;
@@ -148,7 +153,6 @@ Application.Current.Resources.MergedDictionaries.Add((ResourceDictionary)Applica
                 return themes;
             }
         }
-
         public static void ApplyTheme(string name)
         {
             var theme = ControlzEx.Theming.ThemeManager.Current.GetTheme(name); // Ensure the theme is loaded

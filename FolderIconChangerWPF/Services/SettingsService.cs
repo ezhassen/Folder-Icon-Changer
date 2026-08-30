@@ -97,7 +97,7 @@ namespace FolderIconChangerWPF.Services
         }
         public void RefreshOtherSettings()
         {
-            //this.IsTopMost = IsTopMost;
+            SyncTopMostToWindow();
             AllowClearRecentFiles = this.RecentFiles?.Count > 0;
             AllowClearRecentFolders = this.RecentFolders?.Count > 0;
         }
@@ -212,6 +212,7 @@ namespace FolderIconChangerWPF.Services
                 this.Save();
             }
         }
+        public bool SelectedThemeIsDark => SelectedTheme.IsDarkTheme();
         DelegateCommand _ChangeSelectedThemeCommand;
         public DelegateCommand ChangeSelectedThemeCommand
             => _ChangeSelectedThemeCommand ?? (_ChangeSelectedThemeCommand = new DelegateCommand((cul) =>
@@ -232,26 +233,22 @@ namespace FolderIconChangerWPF.Services
         [UserScopedSetting, DefaultSettingValue("False")]
         public bool IsTopMost
         {
-            get
-            {
-                //return (bool)this["IsTopMost"];
-                var val = (bool)this["IsTopMost"];
-                var mainW = Application.Current.MainWindow;
-                if (mainW != null && val != mainW.Topmost) mainW.Topmost = val;
-                return val;
-            }
+            get => (bool)this["IsTopMost"];
             set
             {
-                if (IsTopMost != value)
-                {
-                    this["IsTopMost"] = value;
-                    //this.Save();
-                    OnPropertyChanged(); //uses CallerMemberName
-                }
-                //
-                var mainW = Application.Current.MainWindow;
+                var current = (bool)this["IsTopMost"];
+                if (current == value) return;
+                this["IsTopMost"] = value;
+                OnPropertyChanged();
+                var mainW = Application.Current?.MainWindow;
                 if (mainW != null && value != mainW.Topmost) mainW.Topmost = value;
             }
+        }
+        void SyncTopMostToWindow()
+        {
+            var val = (bool)this["IsTopMost"];
+            var mainW = Application.Current?.MainWindow;
+            if (mainW != null && val != mainW.Topmost) mainW.Topmost = val;
         }
 
 
@@ -337,23 +334,29 @@ namespace FolderIconChangerWPF.Services
             protected set { _DefaultRecentFiles = value; }
         }
 
+        static readonly StringComparer RecentFilesComparer = StringComparer.OrdinalIgnoreCase;
+        List<string> _recentFilesWithDefaultsCache;
         public ICollection<string> RecentFilesWithDefaults
         {
             get
             {
+                if (_recentFilesWithDefaultsCache != null) return _recentFilesWithDefaultsCache;
                 if (this.RecentFiles is null || this.RecentFiles.Count == 0) return this.DefaultRecentFiles;
-                //var res = this.DefaultRecentFiles;
-                //var count = RecentFiles.Count == 0 ? 0 : (RecentFiles.Count - 1);
-                //var arr = new string[count];
-                //RecentFiles.CopyTo(res, 0);
                 var rece = RecentFiles.ToList();
-
-                rece.AddRange(this.DefaultRecentFiles.Where(r => !rece.Contains(r, new StringIEqualityComparer(StringComparison.OrdinalIgnoreCase))));
+                var set = new HashSet<string>(rece, RecentFilesComparer);
+                foreach (var d in this.DefaultRecentFiles)
+                    if (set.Add(d)) rece.Add(d);
+                _recentFilesWithDefaultsCache = rece;
                 return rece;
-                //return res;
             }
         }
+        void InvalidateRecentFilesWithDefaultsCache()
+        {
+            _recentFilesWithDefaultsCache = null;
+            OnPropertyChanged(nameof(RecentFilesWithDefaults));
+        }
 
+        ObservableCollection<string> _recentFilesBacking;
         [UserScopedSetting]
         public ObservableCollection<string> RecentFiles
         {
@@ -364,20 +367,29 @@ namespace FolderIconChangerWPF.Services
                     this["RecentFiles"] = new ObservableCollection<string>();
                     this.Save();
                 }
-                return this["RecentFiles"] as ObservableCollection<string>;
+                var coll = this["RecentFiles"] as ObservableCollection<string>;
+                if (_recentFilesBacking != coll)
+                {
+                    if (_recentFilesBacking != null) _recentFilesBacking.CollectionChanged -= RecentFiles_CollectionChanged;
+                    _recentFilesBacking = coll;
+                    if (_recentFilesBacking != null) _recentFilesBacking.CollectionChanged += RecentFiles_CollectionChanged;
+                    InvalidateRecentFilesWithDefaultsCache();
+                }
+                return coll;
             }
             set
             {
-                //if (_RecentFolders != value)
-                //{
+                if (_recentFilesBacking != null) _recentFilesBacking.CollectionChanged -= RecentFiles_CollectionChanged;
                 this["RecentFiles"] = value;
+                _recentFilesBacking = value;
+                if (_recentFilesBacking != null) _recentFilesBacking.CollectionChanged += RecentFiles_CollectionChanged;
                 this.Save();
                 OnPropertyChanged(); //uses CallerMemberName
-                OnPropertyChanged(nameof(RecentFilesWithDefaults));
-                //}
+                InvalidateRecentFilesWithDefaultsCache();
                 AllowClearRecentFiles = value?.Count > 0;
             }
         }
+        void RecentFiles_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => InvalidateRecentFilesWithDefaultsCache();
 
         public void AddRecentFolder(string path) => this.RecentFolders = AddRecent(RecentFolders, path);
         public void AddRecentFile(string path) => this.RecentFiles = AddRecent(RecentFiles, path);
@@ -397,17 +409,11 @@ namespace FolderIconChangerWPF.Services
             var stringIndex = StringIndex(res, recent);
             if (stringIndex >= 0)
             {
-                //To Move to top of the list
-                //res.Insert(0, recent);
-                //res.RemoveAt(stringIndex + 1);
-                //TODO: Fix TargetFolder Empty Issue When Moving to top of the recent list
-
                 if (stringIndex > 0)
                 {
-                    var newRes = new ObservableCollection<string>(res);
-                    newRes.Move(stringIndex, 0);
-                    return newRes;
+                    res.Move(stringIndex, 0);
                 }
+                return res;
             }
             else
             {

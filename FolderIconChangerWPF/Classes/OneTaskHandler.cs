@@ -65,13 +65,16 @@ namespace FolderIconChangerWPF.Classes
 
         public void CancelRunningTasks()
         {
+            List<CancellationTokenSource> toCancel;
             lock (this.RunningTasksCTS)
             {
-                foreach (var item in this.RunningTasksCTS)
-                {
-                    item.Cancel(this.ThrowOnCancel);
-                }
+                toCancel = this.RunningTasksCTS.ToList();
                 this.RunningTasksCTS.Clear();
+            }
+            foreach (var item in toCancel)
+            {
+                try { item.Cancel(this.ThrowOnCancel); } catch { }
+                item.Dispose();
             }
         }
 
@@ -95,10 +98,21 @@ namespace FolderIconChangerWPF.Classes
         /// <returns></returns>
         public bool AfterTask(CancellationTokenSource cancellationTokenSource)
         {
+            bool removed;
             lock (this.RunningTasksCTS)
             {
-                return this.RunningTasksCTS.Remove(cancellationTokenSource);
+                removed = this.RunningTasksCTS.Remove(cancellationTokenSource);
             }
+            // Do not dispose here — caller may still check IsCancellationRequested.
+            // Dispose is handled on next CancelRunningTasks or explicit Dispose.
+            return removed;
+        }
+
+        public void DisposeFinishedTask(CancellationTokenSource cts)
+        {
+            if (cts == null) return;
+            lock (this.RunningTasksCTS) this.RunningTasksCTS.Remove(cts);
+            cts.Dispose();
         }
 
         public bool ContainsAnyTask

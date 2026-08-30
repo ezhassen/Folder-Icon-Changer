@@ -49,7 +49,8 @@ namespace Ezz_Helper.Drawing.IconsManager
         }
 
         private List<IconImageInfo> _imageList;
-        public ReadOnlyCollection<IconImageInfo> ImageList { get { return _imageList.AsReadOnly(); } }
+        ReadOnlyCollection<IconImageInfo> _imageListReadOnly;
+        public ReadOnlyCollection<IconImageInfo> ImageList => _imageListReadOnly ??= _imageList.AsReadOnly();
         public IconImageInfo this[int ImageIndex]
         {
             get
@@ -274,21 +275,13 @@ namespace Ezz_Helper.Drawing.IconsManager
         /// <returns>The icon index.</returns>
         public int GetBestFitIconIndex()
         {
-            int iconIndex = 0;
             if (this._resourceRawData == null)
                 return 0;
-            IntPtr resBits = Marshal.AllocHGlobal(this._resourceRawData.Length);
-            try
+            unsafe
             {
-                Marshal.Copy(this._resourceRawData, 0, resBits, this._resourceRawData.Length);
-                iconIndex = Win32.LookupIconIdFromDirectory(resBits, true);
+                fixed (byte* p = this._resourceRawData)
+                    return Win32.LookupIconIdFromDirectory((IntPtr)p, true);
             }
-            finally
-            {
-                Marshal.FreeHGlobal(resBits);
-            }
-
-            return iconIndex;
         }
         /// <summary>
         /// Gets the index of the icon that best fits the current display device.
@@ -307,26 +300,14 @@ namespace Ezz_Helper.Drawing.IconsManager
         /// <returns>The icon index.</returns>
         public int GetBestFitIconIndex(Size desiredSize, bool isMonochrome)
         {
-            int iconIndex = 0;
             if (this._resourceRawData == null)
                 return 0;
-            LookupIconIdFromDirectoryExFlags flags = LookupIconIdFromDirectoryExFlags.LR_DEFAULTCOLOR;
-            if (isMonochrome)
+            LookupIconIdFromDirectoryExFlags flags = isMonochrome ? LookupIconIdFromDirectoryExFlags.LR_MONOCHROME : LookupIconIdFromDirectoryExFlags.LR_DEFAULTCOLOR;
+            unsafe
             {
-                flags = LookupIconIdFromDirectoryExFlags.LR_MONOCHROME;
+                fixed (byte* p = this._resourceRawData)
+                    return Win32.LookupIconIdFromDirectoryEx((IntPtr)p, true, desiredSize.Width, desiredSize.Height, flags);
             }
-            IntPtr resBits = Marshal.AllocHGlobal(this._resourceRawData.Length);
-            Marshal.Copy(this._resourceRawData, 0, resBits, this._resourceRawData.Length);
-            try
-            {
-                iconIndex = Win32.LookupIconIdFromDirectoryEx(resBits, true, desiredSize.Width, desiredSize.Height, flags);
-            }
-            finally
-            {
-                Marshal.FreeHGlobal(resBits);
-            }
-
-            return iconIndex;
         }
         #endregion " Public Methods"
 
@@ -675,6 +656,7 @@ namespace Ezz_Helper.Drawing.IconsManager
         private void RestLists()
         {
             this._imageList = new List<IconImageInfo>();
+            this._imageListReadOnly = null;
         }
 
         /// <summary>
@@ -860,8 +842,8 @@ namespace Ezz_Helper.Drawing.IconsManager
             {
                 ic_.Dispose();
             }
-            //_imageList.Clear();
             _imageList = null;
+            _imageListReadOnly = null;
             //
             //if (_images == null)  return;
             //foreach (Icon ic_ in this._images)
